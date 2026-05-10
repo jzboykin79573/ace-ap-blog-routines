@@ -17,8 +17,8 @@ Parse for:
 - `--topics "<topic1>, <topic2>"` — Zach is overriding curation. Pass to topic-curator unchanged.
 - `--single` — produce 1 post instead of 2.
 - `--dry-run` — only run topic-curator, do not draft. Pass through to topic-curator.
-- `--remote-proposal` — REMOTE ROUTINE MODE. Run topic-curator only, persist its proposal to `Blogs/_queue/pending-approval.md`, push to `main`, email the proposal via Gmail MCP, then exit. No interactive approval gate. See `## Remote modes` section.
-- `--remote-draft` — REMOTE ROUTINE MODE. Skip Step 1 entirely. Read topics from `Blogs/_queue/pending-approval.md`, run Steps 2–4, commit drafts + previews to `daily-YYYY-MM-DD` branch, and open a PR with the DAY READY summary as the body. See `## Remote modes` section.
+- `--remote-proposal` — REMOTE ROUTINE MODE. Run topic-curator only, then create an Asana task in My Tasks with the proposal block as the task description, then exit. No interactive approval gate. See `## Remote modes` section.
+- `--remote-draft` — REMOTE ROUTINE MODE. Skip Step 1 entirely. Read topics from the latest incomplete Asana task titled `ACE blog topics — *`, run Steps 2–4, commit drafts + previews to `daily-YYYY-MM-DD` branch, open a PR with the DAY READY summary as the body, then mark the Asana task complete. See `## Remote modes` section.
 
 ## Pipeline
 
@@ -108,55 +108,65 @@ If any draft hit `AUDIT_RETRY_EXHAUSTED`, replace its line with:
 
 ## Remote modes (overrides Pipeline)
 
-These two modes split `/blog-day` across two scheduled remote routines so the approval gate can survive a stateless run. The proposal routine emails Zach; he approves by tapping "Run now" on the drafter routine.
+These two modes split `/blog-day` across two scheduled remote routines so the approval gate can survive a stateless run. The proposal routine creates an Asana task with the proposals; Zach reviews on his phone and approves by tapping "Run now" on the drafter routine. The Asana task description is the **source of truth** for topics — Zach can edit it before approving, and the drafter reads the task, not git.
+
+Both modes require the **Asana** MCP connector to be attached to the routine. The relevant Asana tools (names may vary by SDK version, follow the actual tool list available at runtime):
+- `mcp__asana__get_me` — to find Zach's Asana user GID for assignment
+- `mcp__asana__create_tasks` — to create the proposal task
+- `mcp__asana__search_tasks` — to find the latest pending proposal task
+- `mcp__asana__get_task` — to read the task description (which holds the topic block)
+- `mcp__asana__update_tasks` — to mark the task complete after drafting
+- `mcp__asana__add_comment` — for status updates on the task
 
 ### `--remote-proposal` (Routine 1)
 
 1. Invoke `topic-curator` exactly as in Step 1 (forward `--note`, `--case-study`, `--topics`, `--single` if present). Reject `--dry-run` in this mode — emit `REMOTE_PROPOSAL_INVALID_FLAG: --dry-run` and exit if combined.
-2. After the curator returns its TOPIC PROPOSALS block, write that block verbatim to `Blogs/_queue/pending-approval.md`, replacing the file's contents.
-3. Stage, commit, and push:
-   ```
-   git add Blogs/_queue/pending-approval.md
-   git commit -m "topics: pending approval $(date +%Y-%m-%d)"
-   git push origin main
-   ```
-4. Send an email via Gmail MCP:
-   - **To:** james@aceapcalculus.com
-   - **Subject:** `ACE blog topics — YYYY-MM-DD`
-   - **Body:** the curator's TOPIC PROPOSALS block, followed by:
+2. Take the curator's TOPIC PROPOSALS block as a string. Strip the trailing `Reply "go"...` instruction line — that's an interactive-mode artifact and shouldn't appear in the Asana task.
+3. Get Zach's Asana user GID via `mcp__asana__get_me` (used for assignee).
+4. Create an Asana task via `mcp__asana__create_tasks`:
+   - **name:** `ACE blog topics — YYYY-MM-DD`
+   - **assignee:** Zach's GID
+   - **notes** (description): the trimmed TOPIC PROPOSALS block, followed by a blank line, then this footer verbatim:
      ```
      ---
-     To approve as-is, tap "Run now" on the ace-blog-daily-drafter routine.
-     To edit topics first, edit Blogs/_queue/pending-approval.md on main and push, then tap "Run now."
-     ```
-5. Exit. Do NOT proceed to Steps 2–5.
+     APPROVAL INSTRUCTIONS
 
-If the Gmail MCP send fails, still commit pending-approval.md (so the drafter routine can run if Zach sees the failure) but emit `REMOTE_PROPOSAL_EMAIL_FAILED: <error>` as a fatal error so the routine surfaces a failure.
+     To approve as-is: open the Claude Code app or claude.ai/code/routines and tap "Run now" on the ace-blog-daily-drafter routine.
+
+     To edit topics first: edit this task's description above (replace TOPIC fields, keep block format intact), save, then tap "Run now" on the drafter routine. The drafter reads the latest description.
+
+     The drafter will mark this task Complete and add a comment with the PR link when drafts are ready.
+     ```
+   - Do NOT specify a project (leave it as a private My Tasks task) unless the runtime tool requires one. If `create_tasks` requires a workspace_gid, fetch it from `get_me` (workspaces array, take the first).
+5. Capture the new task's GID. Echo it in the routine's output for audit (`REMOTE_PROPOSAL_TASK_GID: <gid>`).
+6. Exit. Do NOT touch `pending-approval.md`, do NOT push to git.
+
+If `mcp__asana__create_tasks` fails (network, auth, etc.), emit `REMOTE_PROPOSAL_ASANA_FAILED: <error>` as a fatal error so the routine surfaces a failure. Do NOT fall back to email — Asana is the only handoff in this mode.
 
 ### `--remote-draft` (Routine 2)
 
 1. Skip Step 1 entirely. Do not invoke topic-curator.
-2. `git pull origin main` to ensure the latest pending-approval.md (Zach may have edited it).
-3. Read `Blogs/_queue/pending-approval.md`. Parse the TOPIC PROPOSALS block as if it had come from the curator.
-   - If the file is missing: emit `REMOTE_DRAFT_NO_TOPICS: pending-approval.md not found` and exit.
-   - If the file has not changed since the last `daily-*` PR was opened: emit `REMOTE_DRAFT_STALE_TOPICS: same topics already drafted in PR #<num>` and exit.
-4. Run Step 2 (enrich) using the topics from the file.
-5. Run Step 3 (parallel drafting) — same `DRAFTER_INPUT_ERROR` handling as the interactive flow.
-6. Run Step 4 (mechanical audit) — same retry logic.
-7. After all drafts pass mechanical audit (or hit `AUDIT_RETRY_EXHAUSTED`), instead of emitting the Step 5 summary text:
+2. `git pull origin main` to ensure the working copy matches main (the drafter writes new files; the topic source is Asana, not git).
+3. Find the latest pending proposal task via `mcp__asana__search_tasks`:
+   - Filter: assignee = me, completed = false, name starts with `ACE blog topics — `, sort by created_at desc, limit 1.
+   - If zero results: emit `REMOTE_DRAFT_NO_PENDING_TOPICS: no incomplete Asana task matching 'ACE blog topics — *' found` and exit cleanly.
+4. Fetch the full task via `mcp__asana__get_task`. Parse the `notes` field:
+   - Strip the `--- APPROVAL INSTRUCTIONS ...` footer.
+   - The remaining text is the TOPIC PROPOSALS block. Parse it with the same logic the orchestrator uses to handle Zach's interactive edits in Step 1.
+   - If parsing fails: add a comment to the task via `mcp__asana__add_comment` saying "Drafter could not parse the topic block. Check formatting and tap Run Now again." then exit with `REMOTE_DRAFT_PARSE_FAILED`.
+5. Run Step 2 (enrich) using the topics from the parsed task description.
+6. Run Step 3 (parallel drafting) — same `DRAFTER_INPUT_ERROR` handling as the interactive flow.
+7. Run Step 4 (mechanical audit) — same retry logic.
+8. After all drafts pass mechanical audit (or hit `AUDIT_RETRY_EXHAUSTED`), commit drafts and open a PR. **Use the GitHub Integration MCP (or `gh` if available in the runtime) to open the PR; do NOT use a personal access token.**
    ```
    DATE=$(date +%Y-%m-%d)
    git checkout -b daily-$DATE
    git add Blogs/drafts/post-*.md Blogs/previews/post-*.html
    git commit -m "drafts: daily $DATE"
    git push -u origin daily-$DATE
-   gh pr create \
-     --title "Daily drafts — $DATE" \
-     --body "<DAY READY summary block — see format below>" \
-     --base main \
-     --head daily-$DATE
    ```
-8. PR body uses the DAY READY summary from Step 5 with the workflow lines replaced by:
+   Then open the PR. Title: `Daily drafts — YYYY-MM-DD`. Base: `main`. Head: `daily-YYYY-MM-DD`. Body: see format in step 9.
+9. PR body uses the DAY READY summary from Step 5 with the workflow lines replaced by:
    ```
    Workflow per post (from your phone):
    1. Open the .html preview in the GitHub app to skim — Publishing Guide is at the top.
@@ -170,13 +180,18 @@ If the Gmail MCP send fails, still commit pending-approval.md (so the drafter ro
    - Follow the Publishing Guide to paste into WordPress, schedule (don't hard-publish).
    - After both posts are scheduled, run /blog-archive ... locally to move files to published/.
    ```
-9. Exit.
+10. After the PR is created, mark the Asana task complete via `mcp__asana__update_tasks` (set `completed: true`) and add a comment via `mcp__asana__add_comment`:
+    ```
+    Drafted in PR #<N>: <PR URL>
+    ```
+11. Exit.
 
 ### Hard rules for remote modes
-- Never run `--remote-proposal` and `--remote-draft` concurrently — they touch the same `pending-approval.md`.
+- Never run `--remote-proposal` and `--remote-draft` concurrently — though they touch different surfaces (Asana create vs Asana read), the drafter assumes there's exactly one pending proposal task.
 - Never push directly to `main` from `--remote-draft`. Always go via PR.
-- If `pending-approval.md` is missing in `--remote-draft`, do not invent topics. Exit with `REMOTE_DRAFT_NO_TOPICS`.
-- The Gmail MCP send is a hard requirement of `--remote-proposal` — if it fails, the routine surfaces a fatal error.
+- If no pending Asana task is found in `--remote-draft`, do not invent topics or fall back to git. Exit cleanly with `REMOTE_DRAFT_NO_PENDING_TOPICS`.
+- The Asana MCP calls in both modes are hard requirements — if they fail, the routine surfaces a fatal error.
+- Do NOT modify `Blogs/_queue/pending-approval.md` in either remote mode. That path was an earlier design and is no longer used; the source of truth is the Asana task.
 
 ## Hard rules
 
