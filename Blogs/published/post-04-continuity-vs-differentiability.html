@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PREVIEW - Continuity vs. Differentiability AP Exam (2026)</title>
+
+<!--
+=======================================================================
+  PREVIEW FILE - ACE AP CALCULUS BLOG
+  Post 04: Continuity vs. Differentiability AP Exam (2026 Guide)
+=======================================================================
+  This file has three jobs:
+  1. Let you preview the post in your browser before publishing
+  2. Show you a publishing guide at the top of the page
+  3. Mark exactly what to copy into each part of WordPress
+=======================================================================
+-->
+
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<script>MathJax = { tex: { inlineMath: [['$','$']], displayMath: [['$$','$$']], processEscapes: true } };</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+<script src="https://www.desmos.com/api/v1.7/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0fda6"></script>
+
+<style>
+:root{
+  --navy:#0f1e3c;--blue:#1a3a6b;--accent:#e8a020;--accent-light:#fef3dc;
+  --green:#1a7a4a;--green-light:#eaf7f0;--red:#c0392b;--red-light:#fdf2f1;
+  --purple:#7c3aed;--purple-light:#f3f0ff;
+  --gray:#f5f6f8;--border:#dde1e8;--text:#1a1a2e;--muted:#6b7280;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:#eef0f4;color:var(--text);font-size:14px;line-height:1.8}
+.pub-guide{background:#1a1a2e;font-family:'JetBrains Mono',monospace}
+.pub-guide summary{padding:14px 20px;cursor:pointer;color:var(--accent);font-size:13px;font-weight:700;letter-spacing:.5px;list-style:none;display:flex;align-items:center;gap:10px}
+.pub-guide summary::before{content:"▶";font-size:10px;transition:transform .2s}
+.pub-guide[open] summary::before{transform:rotate(90deg)}
+.pub-guide-body{padding:0 20px 20px}
+.pub-step{margin-bottom:24px}
+.pub-step-ttl{color:var(--accent);font-size:12px;font-weight:700;margin-bottom:6px;letter-spacing:.5px}
+.pub-step p{color:rgba(255,255,255,.75);font-size:12px;margin-bottom:8px;font-family:'Inter',sans-serif;line-height:1.6}
+.pub-step textarea{width:100%;background:#0d0d1a;color:#a8d8a8;border:1px solid #333;border-radius:6px;padding:12px;font-size:11px;font-family:'JetBrains Mono',monospace;line-height:1.6;resize:vertical;min-height:80px}
+.pub-step code{background:#0d0d1a;color:var(--accent);padding:2px 6px;border-radius:3px;font-size:11px}
+.pub-divider{border:none;border-top:1px solid #2a2a4a;margin:20px 0}
+.chrome{background:#2d2d2d;padding:8px 14px;display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:100}
+.dots{display:flex;gap:6px}.dot{width:11px;height:11px;border-radius:50%}
+.dot.r{background:#ff5f57}.dot.y{background:#febc2e}.dot.g{background:#28c840}
+.url{flex:1;background:#3d3d3d;border-radius:5px;padding:4px 10px;color:#aaa;font-size:11px;font-family:'JetBrains Mono',monospace}
+.badge{background:var(--accent);color:var(--navy);font-size:10px;font-weight:700;padding:3px 8px;border-radius:4px}
+.page{max-width:780px;margin:0 auto;background:#fff;min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,.12)}
+.hero{background:linear-gradient(135deg,var(--navy),var(--blue));padding:40px 40px 32px;color:#fff}
+.tag{display:inline-block;background:var(--accent);color:var(--navy);font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;padding:3px 9px;border-radius:3px;margin-bottom:14px}
+.hero h1{font-family:'Merriweather',serif;font-size:22px;line-height:1.4;margin-bottom:14px}
+.meta{display:flex;gap:10px;flex-wrap:wrap}
+.pill{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.88);font-size:11px;padding:4px 10px;border-radius:20px}
+</style>
+</head>
+<body>
+
+<!-- ===================================================================
+     PUBLISHING GUIDE - visible in your browser, preview only
+     This panel does NOT get pasted into WordPress.
+     =================================================================== -->
+<details class="pub-guide" open>
+  <summary>PUBLISHING GUIDE - 4 steps to post this to WordPress</summary>
+  <div class="pub-guide-body">
+
+    <div class="pub-step">
+      <div class="pub-step-ttl">STEP 1 - ONE TIME ONLY: Add MathJax + Desmos to functions.php</div>
+      <p>Do this once. After that, skip to Step 2 for every future post.<br>
+         Go to: WordPress Admin > Appearance > Theme File Editor > functions.php<br>
+         Scroll to the bottom and paste the code below.</p>
+      <textarea readonly rows="10">
+// -- ACE AP CALCULUS: MathJax + Desmos -----------------------------
+// Paste this at the bottom of functions.php - one time only.
+
+add_action('wp_head', function() {
+    echo '<script>MathJax = { tex: { inlineMath: [["$","$"]], displayMath: [["$$","$$"]] } };</script>';
+    echo '<script src="https://www.desmos.com/api/v1.7/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0fda6"></script>';
+}, 1);
+
+add_action('wp_enqueue_scripts', function() {
+    wp_enqueue_script('mathjax', 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js', [], null, false);
+});
+// ------------------------------------------------------------------</textarea>
+    </div>
+
+    <hr class="pub-divider">
+
+    <div class="pub-step">
+      <div class="pub-step-ttl">STEP 2 - WordPress title field</div>
+      <p>In the WordPress editor, click the title field at the top and paste this exactly:</p>
+      <textarea readonly rows="2">Continuity vs. Differentiability in AP Calculus 2026: The Unit 2 Distinction That Costs Easy MCQ Points</textarea>
+    </div>
+
+    <hr class="pub-divider">
+
+    <div class="pub-step">
+      <div class="pub-step-ttl">STEP 3 - WordPress Custom HTML block (the post content)</div>
+      <p>In the WordPress editor content area:<br>
+         1. Click the <code>+</code> button > search <code>Custom HTML</code> > add that block<br>
+         2. Open this file in VS Code or any text editor<br>
+         3. Find the comment that says: <code>▼▼▼ START: PASTE THIS INTO WORDPRESS CUSTOM HTML BLOCK ▼▼▼</code><br>
+         4. Select everything from that line down to: <code>▲▲▲ END: WORDPRESS CUSTOM HTML BLOCK ▲▲▲</code><br>
+         5. Paste into the Custom HTML block in WordPress<br><br>
+         That section contains the fonts link, all the CSS, all the post content, and the Desmos graph script.</p>
+    </div>
+
+    <hr class="pub-divider">
+
+    <div class="pub-step">
+      <div class="pub-step-ttl">STEP 4 - SEO fields (in the WordPress sidebar)</div>
+      <p>If you use Yoast or Rank Math, fill these in the sidebar before publishing:</p>
+      <textarea readonly rows="5">
+SEO Title:        Continuity vs. Differentiability AP Exam (2026 Guide)
+Meta Description: Master continuity vs differentiability AP exam questions. Learn the 4 failure modes (discontinuity, corner, cusp, vertical tangent), worked MCQ examples, and the implication arrow that costs students easy points.
+Slug:             continuity-vs-differentiability-ap-exam
+Focus Keyword:    continuity vs differentiability AP exam</textarea>
+    </div>
+
+  </div>
+</details>
+<!-- END PUBLISHING GUIDE -->
+
+
+<!-- ===================================================================
+     PREVIEW ONLY: browser chrome bar
+     Do NOT paste this into WordPress.
+     =================================================================== -->
+<div class="chrome">
+  <div class="dots">
+    <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
+  </div>
+  <div class="url">enginearu.com/ap-calculus-prep/continuity-vs-differentiability-ap-exam/</div>
+  <div class="badge">PREVIEW</div>
+</div>
+<!-- END PREVIEW CHROME -->
+
+
+<!-- ===================================================================
+     PREVIEW ONLY: hero header
+     WordPress uses the title field (Step 2) instead of this.
+     Do NOT paste this into WordPress.
+     =================================================================== -->
+<div class="page">
+<div class="hero">
+  <div class="tag">AP Calculus AB · BC · Unit 2</div>
+  <h1>Continuity vs. Differentiability in AP Calculus 2026<br>(The Unit 2 Distinction That Costs Easy MCQ Points)</h1>
+  <div class="meta">
+    <span class="pill">⏱ 13 min read</span>
+    <span class="pill">✓ 500+ EngiNearU students</span>
+    <span class="pill">3 → 5 score improvement</span>
+  </div>
+</div>
+<!-- END PREVIEW HERO -->
+
+
+<!-- ===================================================================
+     ▼▼▼ START: PASTE THIS INTO WORDPRESS CUSTOM HTML BLOCK ▼▼▼
+     ===================================================================
+     Select from this line all the way down to the matching END marker.
+     Paste the entire selection into one Custom HTML block in WordPress.
+     =================================================================== -->
+
+<!-- Google Fonts - loads the typefaces used in the post styling -->
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<!-- Post CSS - all visual styles for the content below -->
+<style>
+.ace-post{
+  --navy:#0f1e3c;--blue:#1a3a6b;--accent:#e8a020;--accent-light:#fef3dc;
+  --green:#1a7a4a;--green-light:#eaf7f0;--red:#c0392b;--red-light:#fdf2f1;
+  --purple:#7c3aed;--purple-light:#f3f0ff;
+  --gray:#f5f6f8;--border:#dde1e8;--text:#1a1a2e;--muted:#6b7280;
+  font-family:'Inter',sans-serif;font-size:14px;line-height:1.8;color:var(--text);
+  padding:32px 0;
+}
+.ace-post .toc{background:var(--gray);border-left:4px solid var(--navy);border-radius:0 8px 8px 0;padding:18px 20px;margin-bottom:36px}
+.ace-post .toc-ttl{font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.ace-post .toc ol{padding-left:18px}.ace-post .toc li{margin-bottom:6px}
+.ace-post .toc a{color:var(--blue);text-decoration:none;font-size:13px;font-weight:500}
+.ace-post .sec{margin-bottom:40px}
+.ace-post h2{font-family:'Merriweather',serif;font-size:18px;font-weight:700;color:var(--navy);margin-bottom:14px;padding-bottom:8px;border-bottom:2px solid var(--border)}
+.ace-post h3{font-size:14px;font-weight:700;color:var(--blue);margin:18px 0 8px}
+.ace-post p{margin-bottom:13px;font-size:14px}
+.ace-post .math-block{background:var(--gray);border-radius:8px;padding:16px 20px;margin:14px 0;text-align:center;overflow-x:auto;font-size:15px}
+.ace-post .compare{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);border-radius:10px;overflow:hidden;margin:18px 0}
+.ace-post .compare-side{padding:18px 20px;background:#fff}
+.ace-post .compare-side.left{background:var(--gray)}
+.ace-post .compare-lbl{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px}
+.ace-post .compare-lbl.aroc{color:var(--muted)}
+.ace-post .compare-lbl.iroc{color:var(--blue)}
+.ace-post .compare-val{font-size:18px;font-weight:800;color:var(--navy);margin-bottom:4px}
+.ace-post .compare-sub{font-size:12px;color:var(--muted);line-height:1.5}
+.ace-post .compare-badge{display:inline-block;margin-top:8px;font-size:10px;font-weight:700;padding:3px 8px;border-radius:4px}
+.ace-post .compare-badge.aroc{background:var(--gray);color:var(--muted);border:1px solid var(--border)}
+.ace-post .compare-badge.iroc{background:var(--blue);color:#fff}
+.ace-post .def-card{border-radius:8px;overflow:hidden;border:1px solid var(--border);margin-bottom:14px}
+.ace-post .def-hd{background:var(--navy);color:#fff;padding:9px 14px;font-size:12px;font-weight:700;display:flex;align-items:center;gap:8px}
+.ace-post .num{background:var(--accent);color:var(--navy);width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;flex-shrink:0}
+.ace-post .def-bd{padding:14px 16px;background:#fff}
+.ace-post .def-bd p{font-size:13px;margin-bottom:8px}
+.ace-post .def-bd p:last-child{margin-bottom:0}
+.ace-post .def-tag{display:inline-block;font-size:10px;font-weight:700;padding:2px 7px;border-radius:3px;margin-top:4px;background:var(--green-light);color:var(--green)}
+.ace-post .cheat{background:var(--accent-light);border:1px solid var(--accent);border-radius:8px;padding:14px 16px;margin:16px 0}
+.ace-post .cheat-ttl{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#8a5a00;margin-bottom:8px}
+.ace-post .cheat-list{padding-left:0;list-style:none}
+.ace-post .cheat-list li{font-size:13px;padding:4px 0;display:flex;align-items:flex-start;gap:8px;color:#5a3c00}
+.ace-post .cheat-list li::before{content:"→";color:var(--accent);font-weight:700;flex-shrink:0;margin-top:2px}
+.ace-post .note{background:var(--purple-light);border-left:3px solid var(--purple);border-radius:0 6px 6px 0;padding:10px 14px;margin:14px 0;font-size:12px;color:#4c1d95}
+.ace-post .step{display:flex;gap:14px;margin-bottom:18px;align-items:flex-start}
+.ace-post .snum{background:var(--navy);color:#fff;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;margin-top:2px}
+.ace-post .scontent{flex:1}
+.ace-post .slbl{font-weight:700;font-size:13px;color:var(--navy);margin-bottom:5px}
+.ace-post .scontent p{font-size:13px;margin-bottom:6px}
+.ace-post .rubric{background:var(--green-light);border-left:4px solid var(--green);border-radius:0 8px 8px 0;padding:14px 18px;margin:16px 0}
+.ace-post .rubric-ttl{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--green);margin-bottom:8px}
+.ace-post .rubric ul{padding-left:18px}.ace-post .rubric li{font-size:13px;margin-bottom:5px;color:#1a4a32}
+.ace-post .mcq-check{background:#eef2ff;border-left:4px solid #4f46e5;border-radius:0 8px 8px 0;padding:14px 18px;margin:16px 0}
+.ace-post .mcq-ttl{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#4f46e5;margin-bottom:8px}
+.ace-post .mcq-check ul{padding-left:18px}.ace-post .mcq-check li{font-size:13px;margin-bottom:5px;color:#312e81}
+.ace-post .cta{background:linear-gradient(135deg,var(--navy),var(--blue));border-radius:12px;padding:24px 26px;margin:28px 0;color:#fff}
+.ace-post .cta h3{color:#fff;margin:0 0 8px;font-size:15px;font-family:'Merriweather',serif}
+.ace-post .cta p{color:rgba(255,255,255,.85);font-size:13px;margin-bottom:14px}
+.ace-post .btn{display:inline-block;background:var(--accent);color:var(--navy);font-weight:700;font-size:13px;padding:10px 20px;border-radius:6px;text-decoration:none}
+.ace-post .sub{font-size:11px;color:rgba(255,255,255,.6);margin-top:10px;font-style:italic}
+.ace-post .sea{background:var(--accent-light);border:2px solid var(--accent);border-radius:12px;padding:22px 26px;margin:20px 0}
+.ace-post .sea h3{color:var(--navy);font-size:14px;margin-bottom:8px;font-weight:700}
+.ace-post .sea p{font-size:13px;color:#5a4500;margin-bottom:12px}
+.ace-post .btn-w{display:inline-block;background:var(--navy);color:#fff;font-weight:700;font-size:13px;padding:10px 20px;border-radius:6px;text-decoration:none}
+.ace-post .mk{border-left:4px solid var(--red);border-radius:0 8px 8px 0;padding:14px 18px;background:var(--red-light);margin-bottom:16px}
+.ace-post .mk-n{font-weight:700;color:var(--red);font-size:13px;margin-bottom:5px}
+.ace-post .mk-w{font-size:12px;color:#7a2020;margin-bottom:6px;font-style:italic}
+.ace-post .mk-f{font-size:13px;color:var(--text)}
+.ace-post .prob{background:var(--gray);border-radius:8px;padding:16px 18px;margin-bottom:14px;border:1px solid var(--border)}
+.ace-post .plbl{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.ace-post .prob p{font-size:13px;margin-bottom:8px}
+.ace-post .answers{background:var(--navy);border-radius:8px;padding:18px 20px;margin-top:20px}
+.ace-post .ans-ttl{color:var(--accent);font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:12px}
+.ace-post .ans-item{font-size:13px;color:rgba(255,255,255,.9);margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid rgba(255,255,255,.1)}
+.ace-post .ans-item:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
+.ace-post .faq-item{border-bottom:1px solid var(--border);padding:16px 0}
+.ace-post .faq-q{font-weight:700;color:var(--navy);font-size:13px;margin-bottom:8px}
+.ace-post .faq-a{font-size:13px;line-height:1.7}
+.ace-post .faq-a a{color:var(--blue);text-decoration:underline}
+.ace-post .qr{background:var(--navy);color:#fff;border-radius:10px;padding:24px 26px;margin:20px 0}
+.ace-post .qr-ttl{color:var(--accent);font-size:12px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:16px}
+.ace-post .qrf{background:rgba(255,255,255,.07);border-radius:6px;padding:12px 16px;margin-bottom:10px;text-align:center}
+.ace-post .qrf-lbl{font-size:11px;color:rgba(255,255,255,.5);margin-bottom:6px}
+.ace-post .qrb{margin-top:14px;list-style:none;padding-left:0}
+.ace-post .qrb li{font-size:12px;color:rgba(255,255,255,.85);margin-bottom:6px;padding-left:20px;position:relative}
+.ace-post .qrb li::before{content:"✓";color:#4ade80;position:absolute;left:0;font-weight:700}
+.ace-post .qrb .nv{color:#fca5a5!important}.ace-post .qrb .nv::before{content:"✗"!important;color:#fca5a5!important}
+.ace-post .related-link{display:block;padding:12px 14px;background:var(--gray);border-radius:6px;border:1px solid var(--border);margin-bottom:8px;font-size:13px;color:var(--blue);font-weight:500;text-decoration:none}
+.ace-post .related-link.placeholder{color:var(--muted);font-style:italic}
+.ace-post .desmos-wrap{border-radius:10px;overflow:hidden;margin:18px 0;border:1px solid var(--border)}
+.ace-post .desmos-label{background:var(--navy);color:#fff;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:8px 14px;display:flex;align-items:center;gap:6px}
+.ace-post .desmos-dot{width:8px;height:8px;border-radius:50%;background:var(--accent)}
+.ace-post .body-list{padding-left:20px;margin-bottom:12px;font-size:13px}
+.ace-post .body-list li{margin-bottom:5px}
+.ace-post hr{border:none;border-top:1px solid var(--border);margin:28px 0}
+</style>
+
+<!-- Post content - all sections of the blog post -->
+<div class="ace-post">
+
+  <!-- Table of contents -->
+  <div class="toc">
+    <div class="toc-ttl">Jump To What You Need</div>
+    <ol>
+      <li><a href="#mistake">The Mistake I See Every Spring</a></li>
+      <li><a href="#what-it-means">What Continuity vs. Differentiability Actually Means</a></li>
+      <li><a href="#framework">The Decision Framework - Is This Function Differentiable Here?</a></li>
+      <li><a href="#example-1">Worked Example 1 - Corner at a Piecewise Function (Foundational)</a></li>
+      <li><a href="#mid-cta">Grab the Free Guide</a></li>
+      <li><a href="#example-2">Worked Example 2 - The MCQ Type That Shows Up Every Year</a></li>
+      <li><a href="#mistakes">The 3 Mistakes That Cost My Students Points</a></li>
+      <li><a href="#practice">Practice Problems</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="#quick-reference">Save This For Exam Day</a></li>
+      <li><a href="#related">Related Posts</a></li>
+    </ol>
+  </div>
+
+  <!-- Section 1: The Mistake -->
+  <div class="sec" id="mistake">
+    <h2>The Mistake I See Every Spring</h2>
+
+    <p>Here is the mistake I see come up in my sessions more than any other on this topic. A student looks at $f(x) = |x|$ and tells me the function is not differentiable. That is wrong. $f(x) = |x|$ is differentiable everywhere except at $x = 0$. The non-differentiability lives at one specific point, not along the whole function. The corner at zero does not affect the arms of the V-shape at all. They are perfectly smooth. The derivative only breaks at the exact spot where the slope flips from $-1$ to $+1$. Students hear "corners are not differentiable" and apply that label to the entire function. The AP exam always asks about a specific point. Non-differentiability is a point-level property, not a function-level one. That distinction is what costs points.</p>
+
+    <p>Every spring I watch students who can compute a derivative in their sleep miss 3 to 4 multiple choice points because they cannot tell me whether a corner is differentiable. And the AP exam puts that exact question on every form. The continuity vs differentiability AP exam question is not a hard one. It is a recognition question. And it is one of the most missed easy points in Unit 2.</p>
+    <p>Here is what the question looks like. The exam shows you a graph or a piecewise function. There is a corner, or a cusp, or a vertical tangent. They ask: is the function continuous at $x = a$? Is it differentiable at $x = a$? Pick the correct combination.</p>
+    <p>Most of my students freeze. Not because the math is hard. Because nobody made them say the rule out loud. The rule is short. Differentiability implies continuity. Continuity does not imply differentiability. That is the entire foundation of this question type.</p>
+    <p>In my opinion, this is the second most forgotten distinction in Unit 2, right behind the 3 limit definitions of the derivative. And the cost is exactly the same: 3 to 4 multiple choice points per exam, every spring, gone. If your student can take a derivative but cannot tell you whether $f(x) = |x|$ is differentiable at zero, they are leaving points on the table that should be automatic.</p>
+    <p>Here is the part that frustrates me most as a coach. The students who miss this question are not weak students. They are usually the ones who can crank through chain rule, quotient rule, and implicit differentiation without breaking a sweat. They are the kids who get the hard stuff right. And then they walk into a Unit 2 MCQ on differentiability at a corner and pick the wrong letter because nobody made them slow down on the recognition step. The mechanics are easy. The recognition is what they skipped.</p>
+    <p>I have watched students lose the same 4 points on the May exam 3 years in a row on the same question type. Different graphs, different functions, same trap. The exam writers know this is a weak spot and they keep testing it. If you are going to give back any easy points on the AP exam, do not let it be on a question that comes down to one rule and 4 categories.</p>
+    <p>This post fixes that. By the end you will know the 4 ways differentiability can fail at a point, you will recognize each one in under 30 seconds on a graph, and you will stop missing the easy MCQ points that come with this topic. I am also going to show you exactly how the AP exam phrases this question, because the wording is consistent year over year, and once you see the pattern you stop second-guessing.</p>
+  </div>
+
+  <!-- Section 2: What it actually means -->
+  <div class="sec" id="what-it-means">
+    <h2>What Continuity vs. Differentiability Actually Means</h2>
+    <p>Textbooks open this section with a definition. I think that is exactly the wrong way to teach it. Here is what I do with my students instead.</p>
+    <p>Picture a road. Continuity is whether you can drive the road without lifting off into the air. No holes, no jumps, no missing pieces. The road is one connected stretch of pavement. That is all continuity is.</p>
+    <p>Differentiability is a stricter requirement. It asks: can you drive the road smoothly? No corners that snap your steering wheel. No cliffs that send you straight up. The road has to be connected and smooth. Pavement plus no sharp turns.</p>
+    <p>That is why differentiability implies continuity. If the road is smooth, it is automatically connected. You cannot have a smooth road with a hole in it. But the reverse is not true. A road can be perfectly connected and still have a sharp corner that throws your car. <strong>Continuous, not differentiable.</strong></p>
+
+    <!-- Implication arrow comparison card -->
+    <div class="compare">
+      <div class="compare-side left">
+        <div class="compare-lbl aroc">Differentiable ⇒ Continuous</div>
+        <div class="compare-val">Always true</div>
+        <div class="compare-sub">A smooth function is automatically connected. No exceptions.</div>
+        <span class="compare-badge iroc">Memorize this direction</span>
+      </div>
+      <div class="compare-side">
+        <div class="compare-lbl iroc">Continuous ⇒ Differentiable</div>
+        <div class="compare-val" style="color:var(--red)">FALSE</div>
+        <div class="compare-sub">A connected function can still have corners, cusps, or vertical tangents.</div>
+        <span class="compare-badge aroc">The exam tests this trap</span>
+      </div>
+    </div>
+
+    <p>You would think a continuous function would always be differentiable. It is not. That is the entire trick the AP exam runs on this topic.</p>
+    <p>Now the formal definitions, because you do need them.</p>
+    <p>A function $f(x)$ is <strong>continuous at $x = a$</strong> when three things hold: $f(a)$ exists, $\lim_{x \to a} f(x)$ exists, and those two values are equal. That is the 3-part continuity test from your textbook. Real numbers, no holes, limit matches the function value.</p>
+    <p>A function $f(x)$ is <strong>differentiable at $x = a$</strong> when the limit definition of the derivative exists at that point:</p>
+    <div class="math-block">$$f'(a) = \lim_{h \to 0} \frac{f(a + h) - f(a)}{h}$$</div>
+    <p>Existence here means the limit returns one finite real number. Not infinity. Not undefined. Not "depends which side you came from." One number.</p>
+    <p>The relationship is directional and tested directly on the AP exam every year. Differentiable implies continuous. Continuous does NOT imply differentiable. Memorize that arrow direction. The exam writes MCQ traps based on students who reverse it.</p>
+    <p>One more thing on the formal definition. The phrase "the derivative exists" is not casual. It has a specific mathematical meaning that comes straight from the limit definition. The two-sided limit of $\frac{f(a+h) - f(a)}{h}$ as $h$ approaches zero must exist as a single finite real number. Same number from the left, same number from the right, no infinity, no oscillation. If you took the limit definition seriously in Unit 1, this section is just an application of what you already know. The continuity rules ap calc students need are the same 3-part test from limits, but applied to the derivative. The differentiability ap calculus rules are stricter because they ask the limit of a quotient to exist, not just the limit of the function.</p>
+    <p>Here is the move I want my students to internalize. Before you compute anything, ask which side of the implication you are on. If the question gives you a function and asks "is it differentiable here," you are checking the stronger condition. If the question gives you a function and asks "is it continuous here," you are checking the weaker condition. The stronger condition implies the weaker. The weaker does not imply the stronger. Reading the question this way takes half a second and it stops the most common mistake before it starts.</p>
+  </div>
+
+  <!-- Section 3: Framework -->
+  <div class="sec" id="framework">
+    <h2>The Decision Framework - Is This Function Differentiable Here?</h2>
+    <p>When the AP exam asks you whether a function is differentiable at $x = a$, you are running a 4-question check. Run them in this order. Do not skip.</p>
+
+    <div class="def-card">
+      <div class="def-hd"><div class="num">1</div>Is $f(x)$ continuous at $x = a$?</div>
+      <div class="def-bd">
+        <p>Run the 3-part continuity test. Does $f(a)$ exist? Does the limit exist? Do they match? If any of those fails, the function is not continuous, which means it cannot be differentiable. Stop here. Pick the "neither continuous nor differentiable" answer.</p>
+        <span class="def-tag">If continuity fails: stop, function is not differentiable</span>
+      </div>
+    </div>
+
+    <div class="def-card">
+      <div class="def-hd"><div class="num">2</div>Is there a corner at $x = a$?</div>
+      <div class="def-bd">
+        <p>A corner shows up where the left-hand and right-hand slopes are different finite numbers. Think $f(x) = |x|$ at zero. The slope coming in from the left is $-1$. The slope going out to the right is $+1$. Both finite. Both real. They do not match. That is a corner. The function is continuous there but not differentiable.</p>
+        <span class="def-tag">Different finite slopes on each side = corner</span>
+      </div>
+    </div>
+
+    <div class="def-card">
+      <div class="def-hd"><div class="num">3</div>Is there a cusp at $x = a$?</div>
+      <div class="def-bd">
+        <p>A cusp is the dramatic version of a corner. The slope on one side heads to $+\infty$ and the slope on the other side heads to $-\infty$. Think $f(x) = x^{2/3}$ at zero. The function passes through, but the slopes do not agree because they are both unbounded in opposite directions. Continuous, not differentiable.</p>
+        <span class="def-tag">Slopes head to opposite infinities = cusp</span>
+      </div>
+    </div>
+
+    <div class="def-card">
+      <div class="def-hd"><div class="num">4</div>Is there a vertical tangent at $x = a$?</div>
+      <div class="def-bd">
+        <p>A vertical tangent shows up where both one-sided slopes head to the same infinity. Think $f(x) = \sqrt[3]{x}$ at zero. The function is continuous and the tangent line exists, but it is vertical. A vertical line has undefined slope. The derivative does not return a real number, so the function is not differentiable there.</p>
+        <span class="def-tag">Slopes head to same infinity = vertical tangent</span>
+      </div>
+    </div>
+
+    <p>If all 4 checks pass, the function is differentiable at that point. The derivative exists and equals one specific real number that matches both the average rate of change and the instantaneous rate of change as $h$ shrinks to zero. The AROC and IROC line up. That is what a smooth point looks like.</p>
+    <p>Here is the recap. Differentiability fails when continuity fails, or when there is a corner, a cusp, or a vertical tangent. Four failure modes. Memorize all 4 and you will never miss this MCQ type again.</p>
+    <p>Coaching note on the order. I tell my students to run continuity first because it is the cheapest check. The 3-part test takes 20 seconds and it kills the question dead if it fails. Most of my students want to jump straight to derivatives because that is the skill they practiced. That is exactly backwards. The cheap check goes first. The expensive check goes second. If you spend 2 minutes computing one-sided derivatives on a function that fails continuity, you wasted 2 minutes you needed elsewhere on the exam.</p>
+    <p>The corner cusp vertical tangent ap calculus distinction is the second-most-tested piece of this topic. The exam writers love to put a cusp on the answer choices next to a vertical tangent because they look almost identical on a graph. The only way to tell them apart with certainty is the sign of the one-sided slopes. Same sign on both sides means same infinity, which means vertical tangent. Opposite signs means opposite infinities, which means cusp. If the algebra is what tells you, then the algebra is what you trust on the exam. Not your eyes.</p>
+
+    <div class="cheat">
+      <div class="cheat-ttl">My quick cheat for telling them apart on the AP exam</div>
+      <ul class="cheat-list">
+        <li>Discontinuity (limit fails) &nbsp;=&nbsp; <strong>not continuous, not differentiable</strong></li>
+        <li>Different finite slopes &nbsp;=&nbsp; <strong>corner (continuous, not differentiable)</strong></li>
+        <li>Slopes head to opposite infinities &nbsp;=&nbsp; <strong>cusp (continuous, not differentiable)</strong></li>
+        <li>Slopes head to same infinity &nbsp;=&nbsp; <strong>vertical tangent (continuous, not differentiable)</strong></li>
+      </ul>
+    </div>
+
+    <!-- Live Desmos graph showing all 3 continuous-but-not-differentiable cases -->
+    <div class="desmos-wrap">
+      <div class="desmos-label">
+        <div class="desmos-dot"></div>
+        Live Graph - corner (|x|), cusp (x^2/3), vertical tangent (cube root x)
+      </div>
+      <div id="desmos-failures" style="width:100%;height:340px;"></div>
+    </div>
+
+    <div class="note">All 3 functions above are continuous at the origin. None are differentiable at the origin. The shape of the graph at $x = 0$ is what tells you which failure mode you are looking at.</div>
+  </div>
+
+  <!-- Section 4: Worked Example 1 -->
+  <div class="sec" id="example-1">
+    <h2>Worked Example 1 - Corner at a Piecewise Function (Foundational)</h2>
+    <div class="prob">
+      <div class="plbl">Problem</div>
+      <p>Let $f(x) = \begin{cases} x^2 & \text{if } x \leq 1 \\ 2x - 1 & \text{if } x > 1 \end{cases}$. Determine whether $f(x)$ is continuous at $x = 1$ and whether $f(x)$ is differentiable at $x = 1$.</p>
+    </div>
+    <div class="step"><div class="snum">1</div><div class="scontent">
+      <div class="slbl">Check continuity at $x = 1$</div>
+      <p>Run the 3-part test.</p>
+      <p>$f(1)$ exists from the top piece: $f(1) = 1^2 = 1$.</p>
+      <p>Left-hand limit: $\lim_{x \to 1^-} x^2 = 1$.</p>
+      <p>Right-hand limit: $\lim_{x \to 1^+} (2x - 1) = 2(1) - 1 = 1$.</p>
+      <p>All three values agree. $f(x)$ is continuous at $x = 1$.</p>
+    </div></div>
+    <div class="step"><div class="snum">2</div><div class="scontent">
+      <div class="slbl">Check the left-hand derivative at $x = 1$</div>
+      <div class="math-block">$$\lim_{x \to 1^-} \frac{d}{dx}[x^2] = 2x \bigg|_{x=1} = 2$$</div>
+      <p>The slope coming in from the left is $2$.</p>
+    </div></div>
+    <div class="step"><div class="snum">3</div><div class="scontent">
+      <div class="slbl">Check the right-hand derivative at $x = 1$</div>
+      <div class="math-block">$$\lim_{x \to 1^+} \frac{d}{dx}[2x - 1] = 2$$</div>
+      <p>The slope going out to the right is $2$.</p>
+    </div></div>
+    <div class="step"><div class="snum">4</div><div class="scontent">
+      <div class="slbl">Compare the one-sided derivatives</div>
+      <p>Both one-sided slopes equal $2$. They match. The function is differentiable at $x = 1$ and $f'(1) = 2$.</p>
+      <div class="math-block">$$\boxed{f(x) \text{ is continuous and differentiable at } x = 1}$$</div>
+    </div></div>
+
+    <div class="rubric">
+      <div class="rubric-ttl">Here is exactly how the AP exam scores this type of problem</div>
+      <ul>
+        <li>State the 3-part continuity test results explicitly. Skipping the verification costs the continuity point.</li>
+        <li>Compute the left-hand derivative using the correct piece of the function.</li>
+        <li>Compute the right-hand derivative using the correct piece of the function.</li>
+        <li>Compare the two slopes and state the conclusion in a complete sentence.</li>
+        <li>If the slopes match, give the value of $f'(1)$. If they do not, state the function is continuous but not differentiable.</li>
+      </ul>
+    </div>
+
+    <p>This problem worked out clean. The slopes matched. The next example shows the version where they do not match, which is what the AP exam loves to test.</p>
+    <p>A note on what could have gone wrong here. If the right-hand piece had been $3x - 2$ instead of $2x - 1$, the function would still be continuous at $x = 1$ because $f(1) = 1$ from both sides. But the right-hand derivative would be $3$, not $2$. The slopes would not match. The function would be continuous but not differentiable. Same continuity result, completely different differentiability result. That is the whole game with piecewise functions on the AP exam. The continuity check and the derivative check are independent. Passing one does not guarantee passing the other. Run both.</p>
+    <p>I tell my students this is the moment you write the implication arrow on your scratch paper if you have not already. Differentiable implies continuous. The opposite is what the exam tests. If your function passes continuity and fails the derivative match, the answer is "continuous but not differentiable." If it fails continuity, you do not even need the derivative check. The arrow tells you which direction to read the result.</p>
+  </div>
+
+  <!-- Mid CTA -->
+  <div id="mid-cta">
+    <div class="cta">
+      <h3>Grab the Free "Before AP Calculus" Guide</h3>
+      <p>Not sure what your student needs locked in before Unit 2 actually clicks? I put together a free guide that walks through exactly what concepts need to be solid before differentiability starts making sense. Zero fluff. Download it free below.</p>
+      <a class="btn" href="https://www.aceapcalculus.com/before-apcalc" target="_blank">Get the Free Guide →</a>
+      <div class="sub">Parents: this is a great starting point to see where your student stands before the school year gets moving.</div>
+    </div>
+  </div>
+
+  <!-- Section 5: Worked Example 2 - MCQ Recognition -->
+  <div class="sec" id="example-2">
+    <h2>Worked Example 2 - The MCQ Type That Shows Up Every Year</h2>
+    <p>This is the problem type I just warned you about. The AP exam hands you a piecewise function or a graph and asks you to identify which of the 4 failure modes is happening. If you know the framework, this takes under 60 seconds. If you do not, you will burn 3 minutes second-guessing and probably pick the wrong combination.</p>
+    <div class="prob">
+      <div class="plbl">Problem</div>
+      <p>For each function below, classify the behavior at the given point as: (A) continuous and differentiable, (B) continuous but not differentiable, or (C) neither continuous nor differentiable. If the answer is (B), identify the failure mode (corner, cusp, or vertical tangent).</p>
+    </div>
+
+    <h3>Part (a): $f(x) = |x - 3|$ at $x = 3$</h3>
+    <p>Continuity check: $f(3) = 0$, $\lim_{x \to 3} |x - 3| = 0$. Continuous.</p>
+    <p>Left-hand derivative: $\lim_{x \to 3^-} \frac{d}{dx}[-(x-3)] = -1$.</p>
+    <p>Right-hand derivative: $\lim_{x \to 3^+} \frac{d}{dx}[(x-3)] = +1$.</p>
+    <p>The slopes are different finite numbers. That is the signature of a corner.</p>
+    <div class="math-block">$$\boxed{(B) \text{ continuous but not differentiable - corner}}$$</div>
+
+    <h3>Part (b): $f(x) = x^{2/3}$ at $x = 0$</h3>
+    <p>Continuity check: $f(0) = 0$ and $\lim_{x \to 0} x^{2/3} = 0$. Continuous.</p>
+    <p>Derivative: $f'(x) = \frac{2}{3} x^{-1/3} = \frac{2}{3 \sqrt[3]{x}}$.</p>
+    <p>As $x \to 0^-$, the cube root of a negative number is negative, so $f'(x) \to -\infty$.<br>
+    As $x \to 0^+$, the cube root of a positive number is positive, so $f'(x) \to +\infty$.</p>
+    <p>The slopes head to opposite infinities. That is the signature of a cusp.</p>
+    <div class="math-block">$$\boxed{(B) \text{ continuous but not differentiable - cusp}}$$</div>
+
+    <h3>Part (c): $f(x) = \sqrt[3]{x}$ at $x = 0$</h3>
+    <p>Continuity check: $f(0) = 0$ and $\lim_{x \to 0} \sqrt[3]{x} = 0$. Continuous.</p>
+    <p>Derivative: $f'(x) = \frac{1}{3} x^{-2/3} = \frac{1}{3 x^{2/3}}$.</p>
+    <p>As $x \to 0$ from either side, $x^{2/3}$ heads to $0^+$, so $f'(x) \to +\infty$ on both sides.</p>
+    <p>Both slopes head to the same infinity. That is the signature of a vertical tangent.</p>
+    <div class="math-block">$$\boxed{(B) \text{ continuous but not differentiable - vertical tangent}}$$</div>
+
+    <h3>Part (d): Piecewise jump function at $x = 0$</h3>
+    <div class="math-block">$$f(x) = \begin{cases} x + 2 & \text{if } x < 0 \\ x^2 & \text{if } x \geq 0 \end{cases}$$</div>
+    <p>Left-hand limit: $\lim_{x \to 0^-} (x + 2) = 2$.<br>
+    Right-hand limit: $\lim_{x \to 0^+} x^2 = 0$.</p>
+    <p>The two-sided limit does not exist because the one-sided limits disagree. The function is not continuous at $x = 0$. Continuity fails, so differentiability fails automatically.</p>
+    <div class="math-block">$$\boxed{(C) \text{ neither continuous nor differentiable - jump discontinuity}}$$</div>
+
+    <div class="mcq-check">
+      <div class="mcq-ttl">Here is exactly what the AP exam is checking on this problem type</div>
+      <ul>
+        <li>Run the 3-part continuity test before anything else. If continuity fails, differentiability fails automatically.</li>
+        <li>For continuous functions, compute both one-sided derivatives. Compare the slopes.</li>
+        <li>Match the slope behavior to the correct failure mode: different finite slopes equals corner, opposite infinities equals cusp, same infinity equals vertical tangent.</li>
+        <li>State the answer in the format the question asks for. If the question wants A/B/C, give the letter. If it wants the failure mode, name it specifically.</li>
+        <li>Do not assume "it looks smooth on the graph" means differentiable. The exam tests cusps that are easy to miss visually.</li>
+      </ul>
+    </div>
+    <p>A coaching point on Part (b) and Part (c) above. Most students cannot tell $x^{2/3}$ from $\sqrt[3]{x}$ at a glance because both curves go vertical at zero. They both have fractional exponents. They both pass through the origin. The difference is in the second derivative behavior on each side, which shows up directly in the sign of $f'(x)$ as you approach zero. Cusp curves bend back on themselves. Vertical tangent curves just go straight up. Once you compute the derivative and read the sign, the algebra cuts through the visual ambiguity in 30 seconds.</p>
+    <p>A coaching point on Part (d). The students who miss this part usually compute the derivative of each piece, find that $f'(0)$ from the left is $1$ and $f'(0)$ from the right is $0$, and conclude "continuous but not differentiable" because the slopes do not match. That is wrong because the function is not continuous in the first place. The 3-part continuity test fails at $x = 0$ because the left-hand limit and right-hand limit disagree. If continuity fails, there is no point computing derivatives. The answer is (C), neither. If you skip the continuity check on a piecewise function with a jump, you will get this letter wrong every time. That is exactly the trap the exam sets.</p>
+  </div>
+
+  <!-- Section 6: Mistakes -->
+  <div class="sec" id="mistakes">
+    <h2>The 3 Mistakes That Cost My Students Points</h2>
+
+    <div class="mk">
+      <div class="mk-n">Mistake 1: Reversing the implication arrow</div>
+      <div class="mk-w">Why it happens: My students hear "differentiability and continuity are connected" and assume the connection runs both ways. It does not. Differentiability implies continuity. The reverse is false. I get why this slips. The phrase "connected" sounds bidirectional, and most students do not pause on the directionality of the theorem.</div>
+      <div class="mk-f"><strong>How to fix it:</strong> When you see this question on the exam, write the arrow on your scratch paper before you answer. Differentiable $\Rightarrow$ Continuous. Not the other way. That single arrow is worth 1 to 2 multiple choice points per exam.</div>
+      <div class="mk-f">A related scope error lives in this same category. Students learn that corners, cusps, and vertical tangents are not differentiable, and then overgeneralize. They look at $f(x) = |x|$ and write "this function is not differentiable." That is imprecise and costs FRQ justification points. The correct statement is "this function is not differentiable at $x = 0$." The function is differentiable at every other point. Non-differentiability is a point-level property. The exam always names a specific $x$-value. Match that precision in your answer or the grader has no choice but to mark you wrong.</div>
+    </div>
+    <div class="mk">
+      <div class="mk-n">Mistake 2: Confusing a cusp with a vertical tangent</div>
+      <div class="mk-w">Why it happens: Both look like the function is going vertical at the point. My students see $x^{2/3}$ and $\sqrt[3]{x}$ and think they are the same case. They are not. The difference is whether the slopes on the two sides head the same direction or opposite directions.</div>
+      <div class="mk-f"><strong>How to fix it:</strong> Compute the derivative and check the sign of the limit on each side. Same infinity on both sides equals vertical tangent. Opposite infinities equals cusp. If you cannot tell from the graph, the algebra is the tiebreaker. Missing this distinction is a 1-point hit on free response and a guaranteed wrong MCQ choice.</div>
+    </div>
+    <div class="mk">
+      <div class="mk-n">Mistake 3: Skipping the continuity check before the derivative check</div>
+      <div class="mk-w">Why it happens: My students jump straight to computing one-sided derivatives because that is the harder skill, so they assume it is the one being tested. They forget that if continuity fails, differentiability fails automatically and you never need the derivatives.</div>
+      <div class="mk-f"><strong>How to fix it:</strong> Always run the 3-part continuity test first. It takes 20 seconds. If it fails, you are done. You saved yourself 2 minutes of derivative computation and you got the question right. Skipping this step is how students get the wrong letter on a question they actually understood.</div>
+    </div>
+  </div>
+
+  <!-- Section 7: Practice -->
+  <div class="sec" id="practice">
+    <h2>Practice Problems</h2>
+    <p>Try these on your own before checking the answers. If you get stuck, go back to the framework section and run the 4-step check in order.</p>
+    <div class="prob">
+      <div class="plbl">Problem 1 - Single-Step Recognition</div>
+      <p>Is $f(x) = |x + 5|$ differentiable at $x = -5$? If not, name the failure mode.</p>
+    </div>
+    <div class="prob">
+      <div class="plbl">Problem 2 - Multi-Step</div>
+      <p>Let $f(x) = \begin{cases} 3x + 1 & \text{if } x \leq 2 \\ x^2 + 3 & \text{if } x > 2 \end{cases}$.</p>
+      <p>(a) Is $f(x)$ continuous at $x = 2$?</p>
+      <p>(b) If yes, is $f(x)$ differentiable at $x = 2$?</p>
+      <p>(c) State your conclusion in a complete sentence.</p>
+    </div>
+    <div class="prob">
+      <div class="plbl">Problem 3 - Conceptual (Write Out Your Reasoning)</div>
+      <p>Given the function $f(x) = x^{4/3}$ at $x = 0$:</p>
+      <p>(a) Is $f(x)$ continuous at $x = 0$?</p>
+      <p>(b) Is $f(x)$ differentiable at $x = 0$? Justify by computing the relevant one-sided limits of $f'(x)$.</p>
+      <p>(c) Explain why this function does NOT have a cusp or vertical tangent at $x = 0$.</p>
+      <p><em>Full-credit justification for Part (c): "Although $f(x) = x^{4/3}$ involves a fractional exponent like the cusp and vertical tangent examples, the derivative $f'(x) = \frac{4}{3} x^{1/3}$ approaches $0$ as $x \to 0$ from either side. The one-sided slopes agree at a finite value of $0$, so the function is differentiable at $x = 0$ with $f'(0) = 0$. There is no cusp or vertical tangent because neither one-sided slope heads to infinity."</em></p>
+    </div>
+    <div class="answers">
+      <div class="ans-ttl">Answers</div>
+      <div class="ans-item">
+        <strong style="color:var(--accent)">Problem 1:</strong> &nbsp;Not differentiable. Continuous but with a corner. Left slope $= -1$, right slope $= +1$.
+      </div>
+      <div class="ans-item">
+        <strong style="color:var(--accent)">Problem 2:</strong><br>
+        <span style="font-size:12px;line-height:1.8">
+          (a) Yes. $f(2) = 3(2) + 1 = 7$, $\lim_{x \to 2^-} (3x+1) = 7$, $\lim_{x \to 2^+} (x^2+3) = 7$. All three match.<br>
+          (b) Left derivative at $x = 2$: $3$. Right derivative at $x = 2$: $2x \big|_{x=2} = 4$. The slopes do not match.<br>
+          (c) $f(x)$ is continuous at $x = 2$ but not differentiable. The function has a corner at $x = 2$.
+        </span>
+      </div>
+      <div class="ans-item">
+        <strong style="color:var(--accent)">Problem 3:</strong><br>
+        <span style="font-size:12px;line-height:1.8">
+          (a) Yes. $f(0) = 0$ and $\lim_{x \to 0} x^{4/3} = 0$.<br>
+          (b) $f'(x) = \frac{4}{3} x^{1/3}$. As $x \to 0$ from either side, $f'(x) \to 0$. Both one-sided slopes equal $0$, so $f(x)$ is differentiable at $x = 0$ with $f'(0) = 0$.<br>
+          (c) See full-credit justification above.
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 8: FAQ -->
+  <div class="sec" id="faq">
+    <h2>FAQ</h2>
+    <div class="faq-item">
+      <div class="faq-q">What is the relationship between continuity and differentiability AP exam questions test?</div>
+      <div class="faq-a">Differentiability implies continuity. Continuity does not imply differentiability. That arrow runs one direction only. Every continuity vs differentiability AP exam question is built on a student getting that arrow wrong or missing one of the 4 failure modes (discontinuity, corner, cusp, vertical tangent). When you see the question, write the arrow on your scratch paper first. That one move is worth automatic MCQ points.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">When is a function differentiable at a point?</div>
+      <div class="faq-a">A function is differentiable at $x = a$ when 4 things are true. The function is continuous at $x = a$. There is no corner (the one-sided slopes match as finite numbers). There is no cusp (the one-sided slopes do not head to opposite infinities). There is no vertical tangent (the one-sided slopes do not head to the same infinity). If all 4 hold, $f'(a)$ exists as a single finite real number. If you can recite those 4 conditions out loud without notes, you are ready for this MCQ type. The <a href="https://apcentral.collegeboard.org/courses/ap-calculus-ab/course" target="_blank">College Board AP Calculus course description</a> lists this connection explicitly in Unit 2.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Can a function be continuous but not differentiable?</div>
+      <div class="faq-a">Yes. The classic example is $f(x) = |x|$ at $x = 0$. The function is continuous everywhere. The graph passes through the origin without lifting. But the slope coming in from the left is $-1$ and the slope going out to the right is $+1$. The two-sided derivative does not exist at zero. Continuous but not differentiable. This is exactly the case the AP exam tests every year, and missing it costs students 1 to 2 multiple choice points per exam. For more on the math, see the <a href="https://www.khanacademy.org/math/ap-calculus-ab/ab-differentiation-1-new/ab-2-4/v/differentiability-at-a-point-graphical" target="_blank">Khan Academy lesson on differentiability at a point</a>.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">What is the difference between a corner, a cusp, and a vertical tangent?</div>
+      <div class="faq-a">All three are continuous-but-not-differentiable cases, but they show up differently in the algebra. A corner has different finite slopes on each side, like $|x|$ at zero. A cusp has slopes heading to opposite infinities, like $x^{2/3}$ at zero. A vertical tangent has slopes heading to the same infinity on both sides, like $\sqrt[3]{x}$ at zero. The AP exam tests all 3 and the only way to tell them apart is to compute the derivative and check the limits. If you can identify which case you are looking at in under 30 seconds, you have this topic locked.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">How does the AP exam phrase ap calc unit 2 continuity questions?</div>
+      <div class="faq-a">The standard wording is "at $x = a$, the function $f$ is" followed by 4 or 5 multiple choice options that pair continuity and differentiability outcomes. Common options are "continuous and differentiable," "continuous but not differentiable," "differentiable but not continuous" (always wrong, the implication arrow rules it out), and "neither continuous nor differentiable." The exam writers love including the impossible option because students who do not know the implication arrow direction will sometimes pick it. If you see "differentiable but not continuous" on an MCQ answer list, cross it off immediately. It cannot happen by theorem. That is one option eliminated before you do any work, which is a 25 percent boost to your odds on a 4-option question.</div>
+    </div>
+  </div>
+
+  <!-- Section 9: Quick Reference -->
+  <div class="sec" id="quick-reference">
+    <h2>Save This For Exam Day</h2>
+    <div class="qr">
+      <div class="qr-ttl">The Implication Arrow + The 4 Failure Modes</div>
+      <div class="qrf">
+        <div class="qrf-lbl">Memorize the direction</div>
+        Differentiable $\Rightarrow$ Continuous &nbsp;&nbsp;|&nbsp;&nbsp; Continuous $\not\Rightarrow$ Differentiable
+      </div>
+      <div class="qrf">
+        <div class="qrf-lbl">Failure Mode 1 - Discontinuity</div>
+        $f(a)$ undefined, or $\lim_{x \to a} f(x)$ DNE, or they disagree
+      </div>
+      <div class="qrf">
+        <div class="qrf-lbl">Failure Mode 2 - Corner (example: $|x|$ at $0$)</div>
+        Left and right slopes are different finite numbers
+      </div>
+      <div class="qrf">
+        <div class="qrf-lbl">Failure Mode 3 - Cusp (example: $x^{2/3}$ at $0$)</div>
+        Slopes head to $+\infty$ and $-\infty$ on opposite sides
+      </div>
+      <div class="qrf">
+        <div class="qrf-lbl">Failure Mode 4 - Vertical Tangent (example: $\sqrt[3]{x}$ at $0$)</div>
+        Both slopes head to the same infinity
+      </div>
+      <ul class="qrb">
+        <li>Run the 3-part continuity test first - takes 20 seconds</li>
+        <li>If continuous, compute both one-sided derivatives</li>
+        <li>"Looks smooth" is not a proof - the algebra is</li>
+        <li class="nv">Reverse the implication arrow and assume continuity guarantees differentiability</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Section 10: Related Posts -->
+  <div class="sec" id="related">
+    <h2>Related Posts</h2>
+    <p>You're almost at derivative rules. Here's the rest of Unit 1:</p>
+    <div style="margin-top:14px;">
+      <div style="font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:8px;">Read next — take derivatives with the four rules:</div>
+      <a href="https://enginearu.com/ap-calculus-prep/unit-2-differentiation-basics/derivative-rules-ap-calculus/" class="ext-link" target="_blank" rel="noopener">Derivative Rules in AP Calculus 2026 (Power, Product, Quotient, Chain)</a>
+      <p style="font-size:12px;color:var(--muted);font-style:italic;margin-top:6px;">Why: Now that you can identify whether a function is differentiable, learn the shortcuts that actually let you take derivatives.</p>
+      <div style="margin-top:18px;">
+        <div style="font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:8px;">Read first — the limit techniques:</div>
+        <a href="https://enginearu.com/ap-calculus-prep/unit-1-limits/hard-limits-ap-calculus-rationalizing-complex-fractions/" class="ext-link" target="_blank" rel="noopener">Limits Part 2 — Techniques (Rationalizing, Complex Fractions, and More)</a>
+        <p style="font-size:12px;color:var(--muted);font-style:italic;margin-top:6px;">Why: The algebra moves here are the foundation for understanding differentiability.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- End CTA -->
+  <div id="end-cta">
+    <div class="cta">
+      <h3>Get the Free Guide - Then Come Back Ready</h3>
+      <p>Continuity and differentiability is a foundation topic. Every Unit 3, 4, and 5 problem assumes you can tell whether a function is differentiable before you do anything else with it. Lock this in now, because if this is shaky, everything after it gets harder than it needs to be.</p>
+      <p>I put together a free guide at EngiNearU that walks your student through exactly what needs to be solid before Unit 2 clicks. It is free. It takes about 10 minutes to read. And it will show you exactly where the gaps are before they show up on a test or quiz.</p>
+      <a class="btn" href="https://www.aceapcalculus.com/before-apcalc" target="_blank">Download the Free Guide →</a>
+      <div class="sub">Parents: this is a great resource to send your student right now if they are in the middle of the course and feeling lost.</div>
+    </div>
+    <div class="sea">
+      <h3>Summer Program - July &amp; August 2026</h3>
+      <p>If you want your student to walk into AP Calculus next year already ahead of the class, my summer program runs in July and August. Small groups. Real FRQ practice. Structured plan. Proven results. Spots fill fast.</p>
+      <a class="btn-w" href="https://www.aceapcalculus.com/summer-diagnostic-page" target="_blank">See Summer Program Details →</a>
+    </div>
+  </div>
+
+</div>
+<!-- End post content div -->
+
+<!-- Desmos graph initialization - runs after the page loads -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var elt = document.getElementById('desmos-failures');
+  if (!elt || typeof Desmos === 'undefined') return;
+  var calc = Desmos.GraphingCalculator(elt, {
+    expressions: false, settingsMenu: false, zoomButtons: false,
+    lockViewport: true, border: false
+  });
+  calc.setMathBounds({ left: -3, right: 3, bottom: -2, top: 3 });
+  // Corner: |x|
+  calc.setExpression({ id: 'corner',  latex: 'y=\\left|x\\right|',     color: '#1a3a6b', lineWidth: 2.5 });
+  // Cusp: x^(2/3)
+  calc.setExpression({ id: 'cusp',    latex: 'y=x^{\\frac{2}{3}}',     color: '#e8a020', lineWidth: 2.5 });
+  // Vertical tangent: cube root of x
+  calc.setExpression({ id: 'vt',      latex: 'y=\\sqrt[3]{x}',          color: '#c0392b', lineWidth: 2.5 });
+  // Origin point label
+  calc.setExpression({ id: 'origin',  latex: '(0,0)',                  color: '#0f1e3c', pointSize: 9,
+                       showLabel: true, label: 'All 3 are continuous, none are differentiable',
+                       labelSize: Desmos.LabelSizes.MEDIUM });
+});
+</script>
+
+<!-- ===================================================================
+     ▲▲▲ END: WORDPRESS CUSTOM HTML BLOCK ▲▲▲
+     Stop selecting here. Do not paste anything below this line.
+     =================================================================== -->
+
+
+</div><!-- /page - preview wrapper, not part of WordPress paste -->
+
+</body>
+</html>

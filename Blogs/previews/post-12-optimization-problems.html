@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PREVIEW: Optimization Problems in AP Calculus (2026 FRQ Guide)</title>
+
+<!--
+=======================================================================
+  PREVIEW FILE: ACE AP CALCULUS BLOG
+  Post 12: Optimization Problems in AP Calculus
+=======================================================================
+  This file has three jobs:
+  1. Let you preview the post in your browser before publishing
+  2. Show you a publishing guide at the top of the page
+  3. Mark exactly what to copy into each part of WordPress
+
+  HOW TO USE THIS FILE
+  ─────────────────────
+  Open it in your browser → read the publishing guide at the top
+  Open it in VS Code → the comment markers show you what goes where
+
+  WHAT GETS PASTED INTO WORDPRESS
+  ─────────────────────────────────
+  STEP 1 (one time only) → functions.php  (see guide below)
+  STEP 2 → WordPress title field          (see guide below)
+  STEP 3 → One Custom HTML block          (marked in the body below)
+  STEP 4 → SEO fields (Yoast / Rank Math) (see guide below)
+=======================================================================
+-->
+
+<!-- PREVIEW-ONLY: Fonts, MathJax, Desmos load here for local preview.
+     WordPress gets MathJax + Desmos from functions.php (Step 1 below).
+     Do NOT paste any of this <head> section into WordPress. -->
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Nunito+Sans:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<script>MathJax = { tex: { inlineMath: [['$','$']], displayMath: [['$$','$$']], processEscapes: true } };</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+<script src="https://www.desmos.com/api/v1.7/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0fda6"></script>
+
+<!-- PREVIEW-ONLY CSS -->
+<style>
+:root{
+  --navy:#1a3a6b;--gold:#e8a020;--gold-light:#fef3dc;
+  --green:#1a7a4a;--green-light:#eaf7f0;--red:#c0392b;--red-light:#fdf2f1;
+  --purple:#7c3aed;--purple-light:#f3f0ff;
+  --gray:#f5f6f8;--border:#dde1e8;--text:#1a1a2e;--muted:#6b7280;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Nunito Sans',sans-serif;background:#eef0f4;color:var(--text);font-size:14px;line-height:1.8}
+.pub-guide{background:#1a1a2e;font-family:'JetBrains Mono',monospace}
+.pub-guide summary{padding:14px 20px;cursor:pointer;color:var(--gold);font-size:13px;font-weight:700;letter-spacing:.5px;list-style:none;display:flex;align-items:center;gap:10px}
+.pub-guide summary::before{content:"▶";font-size:10px;transition:transform .2s}
+.pub-guide[open] summary::before{transform:rotate(90deg)}
+.pub-guide-body{padding:0 20px 20px}
+.pub-step{margin-bottom:24px}
+.pub-step-ttl{color:var(--gold);font-size:12px;font-weight:700;margin-bottom:6px;letter-spacing:.5px}
+.pub-step p{color:rgba(255,255,255,.75);font-size:12px;margin-bottom:8px;font-family:'Nunito Sans',sans-serif;line-height:1.6}
+.pub-step textarea{width:100%;background:#0d0d1a;color:#a8d8a8;border:1px solid #333;border-radius:6px;padding:12px;font-size:11px;font-family:'JetBrains Mono',monospace;line-height:1.6;resize:vertical;min-height:80px}
+.pub-step code{background:#0d0d1a;color:var(--gold);padding:2px 6px;border-radius:3px;font-size:11px}
+.pub-divider{border:none;border-top:1px solid #2a2a4a;margin:20px 0}
+.chrome{background:#2d2d2d;padding:8px 14px;display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:100}
+.dots{display:flex;gap:6px}.dot{width:11px;height:11px;border-radius:50%}
+.dot.r{background:#ff5f57}.dot.y{background:#febc2e}.dot.g{background:#28c840}
+.url{flex:1;background:#3d3d3d;border-radius:5px;padding:4px 10px;color:#aaa;font-size:11px;font-family:'JetBrains Mono',monospace}
+.badge{background:var(--gold);color:var(--navy);font-size:10px;font-weight:700;padding:3px 8px;border-radius:4px}
+.page{max-width:780px;margin:0 auto;background:#fff;min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,.12)}
+.hero{background:linear-gradient(135deg,#0f1e3c,var(--navy));padding:40px 40px 32px;color:#fff}
+.tag{display:inline-block;background:var(--gold);color:var(--navy);font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;padding:3px 9px;border-radius:3px;margin-bottom:14px}
+.hero h1{font-family:'Montserrat',sans-serif;font-size:22px;line-height:1.4;margin-bottom:14px}
+.meta{display:flex;gap:10px;flex-wrap:wrap}
+.pill{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.88);font-size:11px;padding:4px 10px;border-radius:20px}
+</style>
+</head>
+<body>
+
+<!-- ===================================================================
+     PUBLISHING GUIDE: visible in your browser, preview only
+     This panel does NOT get pasted into WordPress.
+     =================================================================== -->
+<details class="pub-guide" open>
+  <summary>PUBLISHING GUIDE: 4 steps to post this to WordPress</summary>
+  <div class="pub-guide-body">
+
+    <div class="pub-step">
+      <div class="pub-step-ttl">STEP 1: ONE TIME ONLY: Add MathJax + Desmos to functions.php</div>
+      <p>Skip this if already done for a previous post. Otherwise:<br>
+         Go to: WordPress Admin → Appearance → Theme File Editor → functions.php<br>
+         Scroll to the bottom and paste the code below.</p>
+      <textarea readonly rows="10">
+// ── ACE AP CALCULUS: MathJax + Desmos ─────────────────────────────
+// Paste this at the bottom of functions.php. One time only.
+
+add_action('wp_head', function() {
+    echo '<script>MathJax = { tex: { inlineMath: [["$","$"]], displayMath: [["$$","$$"]] } };</script>';
+    echo '<script src="https://www.desmos.com/api/v1.7/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0fda6"></script>';
+}, 1);
+
+add_action('wp_enqueue_scripts', function() {
+    wp_enqueue_script('mathjax', 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js', [], null, false);
+});
+// ──────────────────────────────────────────────────────────────────</textarea>
+    </div>
+
+    <hr class="pub-divider">
+
+    <div class="pub-step">
+      <div class="pub-step-ttl">STEP 2: WordPress title field</div>
+      <p>In the WordPress editor, click the title field at the top and paste this exactly:</p>
+      <textarea readonly rows="2">Optimization Problems in AP Calculus: The FRQ Setup Most Students Skip</textarea>
+    </div>
+
+    <hr class="pub-divider">
+
+    <div class="pub-step">
+      <div class="pub-step-ttl">STEP 3: WordPress Custom HTML block (the post content)</div>
+      <p>In the WordPress editor content area:<br>
+         1. Click the <code>+</code> button → search <code>Custom HTML</code> → add that block<br>
+         2. Open this file in VS Code or any text editor<br>
+         3. Find the comment: <code>▼▼▼ START: PASTE THIS INTO WORDPRESS CUSTOM HTML BLOCK ▼▼▼</code><br>
+         4. Select everything from that line down to: <code>▲▲▲ END: WORDPRESS CUSTOM HTML BLOCK ▲▲▲</code><br>
+         5. Paste into the Custom HTML block in WordPress</p>
+    </div>
+
+    <hr class="pub-divider">
+
+    <div class="pub-step">
+      <div class="pub-step-ttl">STEP 4: SEO fields (Yoast or Rank Math sidebar)</div>
+      <textarea readonly rows="5">
+SEO Title:        Optimization Problems in AP Calculus (2026 FRQ Guide)
+Meta Description: Learn the 8-step optimization framework for AP Calculus FRQs. Box problems, fencing, cylinders. Full worked examples with scoring rubric. Built for exam day.
+Slug:             optimization-ap-calculus-problems
+Focus Keyword:    optimization AP Calculus</textarea>
+    </div>
+
+  </div>
+</details>
+<!-- END PUBLISHING GUIDE -->
+
+
+<!-- ===================================================================
+     PREVIEW ONLY: browser chrome bar
+     =================================================================== -->
+<div class="chrome">
+  <div class="dots">
+    <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
+  </div>
+  <div class="url">enginearu.com/ap-calculus-prep/optimization-ap-calculus-problems/</div>
+  <div class="badge">PREVIEW</div>
+</div>
+<!-- END PREVIEW CHROME -->
+
+
+<!-- ===================================================================
+     PREVIEW ONLY: hero header
+     WordPress uses the title field (Step 2) instead of this.
+     =================================================================== -->
+<div class="page">
+<div class="hero">
+  <div class="tag">AP Calculus AB · Unit 5 · FRQ</div>
+  <h1>Optimization Problems in AP Calculus<br>The FRQ Setup Most Students Skip</h1>
+  <div class="meta">
+    <span class="pill">⏱ 15 min read</span>
+    <span class="pill">✓ 500+ EngiNearU students</span>
+    <span class="pill">Unit 5 · 15–18% of exam score</span>
+  </div>
+</div>
+<!-- END PREVIEW HERO -->
+
+
+<!-- ===================================================================
+     ▼▼▼ START: PASTE THIS INTO WORDPRESS CUSTOM HTML BLOCK ▼▼▼
+     ===================================================================
+     Select from this line all the way down to the matching END marker.
+     Paste the entire selection into one Custom HTML block in WordPress.
+     =================================================================== -->
+
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Nunito+Sans:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+
+<!-- Post CSS -->
+<style>
+.ace-post{
+  --navy:#1a3a6b;--gold:#e8a020;--gold-light:#fef3dc;
+  --green:#1a7a4a;--green-light:#eaf7f0;--red:#c0392b;--red-light:#fdf2f1;
+  --purple:#7c3aed;--purple-light:#f3f0ff;
+  --gray:#f5f6f8;--border:#dde1e8;--text:#1a1a2e;--muted:#6b7280;
+  font-family:'Nunito Sans',sans-serif;font-size:14px;line-height:1.8;color:var(--text);
+  padding:32px 40px;max-width:780px;
+}
+.ace-post .toc{background:var(--gray);border-left:4px solid var(--navy);border-radius:0 8px 8px 0;padding:18px 20px;margin-bottom:36px}
+.ace-post .toc-ttl{font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.ace-post .toc ol{padding-left:18px}.ace-post .toc li{margin-bottom:6px}
+.ace-post .toc a{color:var(--navy);text-decoration:none;font-size:13px;font-weight:600}
+.ace-post .sec{margin-bottom:44px}
+.ace-post h2{font-family:'Montserrat',sans-serif;font-size:18px;font-weight:800;color:var(--navy);margin-bottom:14px;padding-bottom:8px;border-bottom:2px solid var(--border)}
+.ace-post h3{font-size:14px;font-weight:700;color:var(--navy);margin:18px 0 8px}
+.ace-post p{margin-bottom:13px;font-size:14px}
+.ace-post strong{color:var(--navy)}
+.ace-post em{color:var(--muted)}
+.ace-post .math-block{background:var(--gray);border-radius:8px;padding:16px 20px;margin:14px 0;text-align:center;overflow-x:auto;font-size:15px}
+.ace-post .step-list{counter-reset:steps;padding:0;list-style:none;margin:16px 0}
+.ace-post .step-list li{counter-increment:steps;display:flex;gap:14px;margin-bottom:16px;align-items:flex-start}
+.ace-post .step-list li::before{content:counter(steps);background:var(--navy);color:#fff;width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;flex-shrink:0;margin-top:2px;font-family:'Montserrat',sans-serif}
+.ace-post .step-list .step-body{flex:1}
+.ace-post .step-list .step-ttl{font-weight:700;font-size:13px;color:var(--navy);margin-bottom:4px}
+.ace-post .step-list p{font-size:13px;margin-bottom:0}
+.ace-post .example-box{background:var(--gray);border-radius:10px;padding:20px 22px;margin:18px 0;border:1px solid var(--border)}
+.ace-post .example-lbl{font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.ace-post .example-box h3{color:var(--navy);font-size:13px;margin:14px 0 6px}
+.ace-post .example-box p{font-size:13px;margin-bottom:8px}
+.ace-post .rubric{background:var(--green-light);border-left:4px solid var(--green);border-radius:0 8px 8px 0;padding:14px 18px;margin:16px 0}
+.ace-post .rubric-ttl{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--green);margin-bottom:8px}
+.ace-post .rubric ul{padding-left:18px}.ace-post .rubric li{font-size:13px;margin-bottom:5px;color:#1a4a32}
+.ace-post .frq-box{background:#eef2ff;border-left:4px solid #4f46e5;border-radius:0 8px 8px 0;padding:14px 18px;margin:16px 0}
+.ace-post .frq-ttl{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#4f46e5;margin-bottom:8px}
+.ace-post .frq-box p{font-size:13px;margin-bottom:6px;color:#312e81}
+.ace-post .frq-box ul{padding-left:18px}.ace-post .frq-box li{font-size:13px;margin-bottom:5px;color:#312e81}
+.ace-post .note{background:var(--gold-light);border-left:3px solid var(--gold);border-radius:0 6px 6px 0;padding:10px 14px;margin:14px 0;font-size:12px;color:#8a5a00}
+.ace-post table{width:100%;border-collapse:collapse;margin:14px 0;font-size:13px}
+.ace-post th{background:var(--navy);color:#fff;padding:8px 12px;text-align:left;font-size:11px;font-weight:700;letter-spacing:.5px}
+.ace-post td{padding:8px 12px;border-bottom:1px solid var(--border)}
+.ace-post tr:last-child td{border-bottom:none}
+.ace-post tr:nth-child(even) td{background:var(--gray)}
+.ace-post .cta{background:linear-gradient(135deg,#0f1e3c,var(--navy));border-radius:12px;padding:24px 26px;margin:28px 0;color:#fff}
+.ace-post .cta h3{color:#fff;margin:0 0 8px;font-size:15px;font-family:'Montserrat',sans-serif}
+.ace-post .cta p{color:rgba(255,255,255,.85);font-size:13px;margin-bottom:14px}
+.ace-post .btn{display:inline-block;background:var(--gold);color:var(--navy);font-weight:700;font-size:13px;padding:10px 20px;border-radius:6px;text-decoration:none;font-family:'Montserrat',sans-serif}
+.ace-post .sub{font-size:11px;color:rgba(255,255,255,.6);margin-top:10px;font-style:italic}
+.ace-post .sea{background:var(--gold-light);border:2px solid var(--gold);border-radius:12px;padding:22px 26px;margin:20px 0}
+.ace-post .sea h3{color:var(--navy);font-size:14px;margin-bottom:8px;font-weight:700;font-family:'Montserrat',sans-serif}
+.ace-post .sea p{font-size:13px;color:#5a4500;margin-bottom:12px}
+.ace-post .btn-w{display:inline-block;background:var(--navy);color:#fff;font-weight:700;font-size:13px;padding:10px 20px;border-radius:6px;text-decoration:none}
+.ace-post .mk{border-left:4px solid var(--red);border-radius:0 8px 8px 0;padding:14px 18px;background:var(--red-light);margin-bottom:16px}
+.ace-post .mk-n{font-weight:700;color:var(--red);font-size:13px;margin-bottom:5px;font-family:'Montserrat',sans-serif}
+.ace-post .mk-w{font-size:12px;color:#7a2020;margin-bottom:6px;font-style:italic}
+.ace-post .mk-f{font-size:13px;color:var(--text)}
+.ace-post .prob{background:var(--gray);border-radius:8px;padding:16px 18px;margin-bottom:14px;border:1px solid var(--border)}
+.ace-post .plbl{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.ace-post .prob p{font-size:13px;margin-bottom:8px}
+.ace-post .answers{background:var(--navy);border-radius:8px;padding:18px 20px;margin-top:20px}
+.ace-post .ans-ttl{color:var(--gold);font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:12px;font-family:'Montserrat',sans-serif}
+.ace-post .ans-item{font-size:13px;color:rgba(255,255,255,.9);margin-bottom:12px;padding-bottom:12px;border-bottom:1px solid rgba(255,255,255,.1)}
+.ace-post .ans-item:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
+.ace-post .faq-item{border-bottom:1px solid var(--border);padding:16px 0}
+.ace-post .faq-q{font-weight:700;color:var(--navy);font-size:13px;margin-bottom:8px;font-family:'Montserrat',sans-serif}
+.ace-post .faq-a{font-size:13px;line-height:1.7}
+.ace-post .qr{background:var(--navy);color:#fff;border-radius:10px;padding:24px 26px;margin:20px 0}
+.ace-post .qr-ttl{color:var(--gold);font-size:12px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:16px;font-family:'Montserrat',sans-serif}
+.ace-post .qrf{background:rgba(255,255,255,.07);border-radius:6px;padding:12px 16px;margin-bottom:10px}
+.ace-post .qrf-lbl{font-size:11px;color:rgba(255,255,255,.5);margin-bottom:6px}
+.ace-post .qrb{margin-top:14px;list-style:none;padding-left:0}
+.ace-post .qrb li{font-size:12px;color:rgba(255,255,255,.85);margin-bottom:7px;padding-left:22px;position:relative}
+.ace-post .qrb li::before{content:"→";color:var(--gold);position:absolute;left:0;font-weight:700}
+.ace-post .related-link{display:block;padding:12px 14px;background:var(--gray);border-radius:6px;border:1px solid var(--border);margin-bottom:8px;font-size:13px;color:var(--navy);text-decoration:none;font-weight:600}
+.ace-post .related-link:hover{background:#eef0f8}
+.ace-post .related-sub{font-size:12px;color:var(--muted);font-weight:400;font-style:italic;margin-top:2px}
+.ace-post .desmos-wrap{border-radius:10px;overflow:hidden;margin:18px 0;border:1px solid var(--border)}
+.ace-post .desmos-label{background:var(--navy);color:#fff;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:8px 14px;display:flex;align-items:center;gap:6px;font-family:'Montserrat',sans-serif}
+.ace-post .desmos-dot{width:8px;height:8px;border-radius:50%;background:var(--gold)}
+.ace-post hr{border:none;border-top:1px solid var(--border);margin:28px 0}
+.ace-post .aroc-iroc{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);border-radius:10px;overflow:hidden;margin:18px 0}
+.ace-post .aroc-side{padding:16px 18px;background:#fff}
+.ace-post .aroc-side.left{background:var(--gray)}
+.ace-post .aroc-lbl{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;font-family:'Montserrat',sans-serif}
+.ace-post .aroc-lbl.aroc{color:var(--muted)}
+.ace-post .aroc-lbl.iroc{color:var(--navy)}
+.ace-post .aroc-val{font-size:16px;font-weight:800;color:var(--navy);margin-bottom:4px;font-family:'Montserrat',sans-serif}
+.ace-post .aroc-sub{font-size:12px;color:var(--muted);line-height:1.5}
+.ace-post .aroc-badge{display:inline-block;margin-top:8px;font-size:10px;font-weight:700;padding:3px 8px;border-radius:4px}
+.ace-post .aroc-badge.aroc{background:var(--gray);color:var(--muted);border:1px solid var(--border)}
+.ace-post .aroc-badge.iroc{background:var(--navy);color:#fff}
+.ace-post .screenshot-liner{background:var(--navy);border-radius:8px;padding:14px 18px;margin:20px 0;display:flex;align-items:center;gap:12px}
+.ace-post .screenshot-liner .icon{font-size:20px;flex-shrink:0}
+.ace-post .screenshot-liner p{font-size:14px;font-weight:700;color:#fff;margin:0;font-family:'Montserrat',sans-serif}
+</style>
+
+<!-- Post content -->
+<div class="ace-post">
+
+  <!-- Table of Contents -->
+  <div class="toc">
+    <div class="toc-ttl">Jump To What You Need</div>
+    <ol>
+      <li><a href="#setup-freeze">The Setup Freeze</a></li>
+      <li><a href="#what-it-means">What Optimization Actually Means</a></li>
+      <li><a href="#framework">The 8-Step Optimization Framework</a></li>
+      <li><a href="#example-1">Worked Example 1: The Box Problem (Foundational)</a></li>
+      <li><a href="#mid-cta">Check Your Score Before the Exam</a></li>
+      <li><a href="#example-2">Worked Example 2: Full FRQ-Level Problem</a></li>
+      <li><a href="#mistakes">The 3 Mistakes That Cost My Students Points</a></li>
+      <li><a href="#practice">Practice Problems</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="#quick-reference">Save This For Exam Day</a></li>
+      <li><a href="#related">Related Posts</a></li>
+    </ol>
+  </div>
+
+  <!-- Section 1: The Setup Freeze -->
+  <div class="sec" id="setup-freeze">
+    <h2>The Setup Freeze</h2>
+    <!-- HOOK TYPE: name-the-feeling -->
+    <p>There is a specific moment in every optimization AP Calculus problem where students who know derivatives cold suddenly go quiet. It happens before the derivative. Before the algebra. It happens in the first 90 seconds, when the exam hands you a word problem and there is no equation written out yet. You are staring at a scenario about a box, or a fence, or a can, and your brain is asking one question on repeat: "What do I even write first?"</p>
+
+    <p>I call it the Setup Freeze. And it is not a calculus problem. It is a translation problem.</p>
+
+    <!-- NEEDS UNIQUE ANGLE: add Zach story here -->
+
+    <p>Every student I have ever worked with can take a derivative. That is not the issue. The AP FRQ optimization section is where scores separate because the exam hands you a context, not an equation. You have to build the equation yourself before any derivative happens. Most AP prep resources skip directly to the derivative step. That gap is exactly what this post closes.</p>
+
+    <p>This post covers <strong>AP Calculus optimization problems</strong> from the first word of a setup through the final answer with correct justification. If you have been scoring fine on derivative rules but losing points on applied FRQs, this is why. And if the AP exam is coming up soon, Unit 5 accounts for 15 to 18 percent of your score. That is not a section you can afford to treat as a bonus.</p>
+  </div>
+
+  <!-- Section 2: What Optimization Actually Means -->
+  <div class="sec" id="what-it-means">
+    <h2>What Optimization Actually Means</h2>
+
+    <p>Most students hear "optimization" and think: take a derivative and set it equal to zero. That part is right. But it is the last third of the process, not the whole thing.</p>
+
+    <p>Here is the analogy I use with every student I tutor. Imagine you are packing a car for a road trip. You have a fixed trunk space and you want to fit as many bags as possible without going over. You cannot just start shoving bags in. You need to know the trunk dimensions first (constraint), figure out what you are maximizing (objective), and then figure out what you can actually control (variable). The derivative only comes in when you are ready to find the best possible arrangement.</p>
+
+    <p>That is optimization. There is always something to <strong>maximize or minimize calculus</strong> is tracking (the objective), always something fixed that limits your options (the constraint), and always a variable you control.</p>
+
+    <p>In AP Calculus, those three pieces show up in every <strong>derivative application problem</strong>. The formal definition: optimization is the process of finding the absolute maximum or absolute minimum value of a function on a given domain.</p>
+
+    <p>The word "absolute" matters here. You are not looking for a local high point somewhere in the middle. You want the actual best value across the entire domain. A local max is just higher than its immediate neighbors. An absolute max is the highest point on the whole domain. On an AP FRQ, the exam asks you to justify which one you found. Your justification is what earns the point, not the number itself.</p>
+  </div>
+
+  <!-- Section 3: The 8-Step Framework -->
+  <div class="sec" id="framework">
+    <h2>The 8-Step Optimization Framework</h2>
+
+    <p>This is the process I walk every student through before they touch a single derivative. Write it down. The <strong>calculus optimization steps</strong> below map onto every problem type you will see on the AP exam.</p>
+
+    <ul class="step-list">
+      <li>
+        <div class="step-body">
+          <div class="step-ttl">Identify what to maximize or minimize.</div>
+          <p>Read the problem and underline the quantity that needs to be as large or as small as possible. Volume, area, cost, distance, profit. Write it at the top of your work in words before writing any variable.</p>
+        </div>
+      </li>
+      <li>
+        <div class="step-body">
+          <div class="step-ttl">Name your variables.</div>
+          <p>Pick letters and define them. "Let $x$ be the width in centimeters. Let $h$ be the height in centimeters." If you skip this, your work cannot earn justification points even when your math is right.</p>
+        </div>
+      </li>
+      <li>
+        <div class="step-body">
+          <div class="step-ttl">Write the primary equation (the objective function).</div>
+          <p>Express what you are optimizing in terms of your variables. You need a formula before you can do anything with it.</p>
+        </div>
+      </li>
+      <li>
+        <div class="step-body">
+          <div class="step-ttl">Write the constraint equation. Do not skip this.</div>
+          <p>Every optimization problem has a constraint: total fencing is 240 meters, surface area is 300 square centimeters, total cost must stay under a budget. Write it as an equation. No constraint means no way to reduce to one variable.</p>
+        </div>
+      </li>
+      <li>
+        <div class="step-body">
+          <div class="step-ttl">Reduce to one variable using the constraint.</div>
+          <p>Solve the constraint for one variable and substitute into the objective function. After this step, your objective function has only one variable.</p>
+        </div>
+      </li>
+      <li>
+        <div class="step-body">
+          <div class="step-ttl">Find critical points on the AP exam by setting the derivative equal to zero.</div>
+          <p>Take the derivative and set it equal to zero. Solve for your variable. This is where the <strong>instantaneous rate of change</strong> equals zero. The AROC (average rate of change) of your objective function across an interval gives a rough picture of behavior. The derivative (the <strong>instantaneous rate of change</strong>) pinpoints exactly where the maximum or minimum occurs. Finding where $f'(x) = 0$ means asking: where does the rate of change hit exactly zero? That is a Unit 2 concept living inside a Unit 5 problem.</p>
+        </div>
+      </li>
+      <li>
+        <div class="step-body">
+          <div class="step-ttl">Classify using the First or Second Derivative Test.</div>
+          <p>Finding a critical point is not enough. Confirm whether it is a maximum, minimum, or neither. The <strong>second derivative test optimization</strong> rule: if $f''(c) &lt; 0$, you have a local max. If $f''(c) &gt; 0$, you have a local min.</p>
+        </div>
+      </li>
+      <li>
+        <div class="step-body">
+          <div class="step-ttl">Check endpoints if the domain is a closed interval.</div>
+          <p>If the problem specifies a closed interval, use the <strong>closed interval method calculus</strong> requires: evaluate the objective function at both endpoints AND at your critical point. The largest value is the absolute max. The smallest is the absolute min. Do not skip endpoints.</p>
+        </div>
+      </li>
+    </ul>
+
+    <!-- AROC vs IROC comparison card -->
+    <div class="aroc-iroc">
+      <div class="aroc-side left">
+        <div class="aroc-lbl aroc">Average Rate of Change (AROC)</div>
+        <div class="aroc-val">$\frac{\Delta f}{\Delta x}$</div>
+        <div class="aroc-sub">Tells you how fast the objective changes over an interval. Not where the max/min is.</div>
+        <span class="aroc-badge aroc">Interval: not what locates extrema</span>
+      </div>
+      <div class="aroc-side">
+        <div class="aroc-lbl iroc">Instantaneous Rate of Change (IROC)</div>
+        <div class="aroc-val">$f'(x) = 0$</div>
+        <div class="aroc-sub">This is what the derivative gives you at a single point. Setting it to zero is how you find the max/min.</div>
+        <span class="aroc-badge iroc">This is what finds the optimum</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 4: Worked Example 1 -->
+  <div class="sec" id="example-1">
+    <h2>Worked Example 1: The Box Problem (Foundational)</h2>
+
+    <p>This is the most common optimization problem type in AP Calculus AB. Expect a version of it on the FRQ or in related derivative application problems.</p>
+
+    <div class="example-box">
+      <div class="example-lbl">Problem Setup</div>
+      <p><strong>A rectangular piece of cardboard is 12 cm by 12 cm. Equal squares of side length $x$ are cut from each corner. The sides are folded up to form an open box. Find the value of $x$ that maximizes the volume of the box.</strong></p>
+    </div>
+
+    <h3>Step 1: Objective</h3>
+    <p>Maximize volume $V$.</p>
+
+    <h3>Step 2: Variables</h3>
+    <p>Let $x$ = side length of each cut corner, in cm. Domain: $0 &lt; x &lt; 6$ (corners cannot exceed half the sheet dimension).</p>
+
+    <h3>Step 3: Objective Function</h3>
+    <p>After cutting and folding: height = $x$, length = $12 - 2x$, width = $12 - 2x$.</p>
+
+    <div class="math-block">$$V(x) = x(12 - 2x)^2$$</div>
+
+    <h3>Step 4: Constraint</h3>
+    <p>The domain constraint $0 &lt; x &lt; 6$ is already embedded. No separate constraint equation is needed here since the problem was originally set up in one variable.</p>
+
+    <h3>Steps 5–6: Reduce and Differentiate</h3>
+    <p>Expand $V(x)$:</p>
+
+    <div class="math-block">$$V(x) = x(144 - 48x + 4x^2) = 144x - 48x^2 + 4x^3$$</div>
+
+    <div class="math-block">$$V'(x) = 144 - 96x + 12x^2$$</div>
+
+    <p>Set $V'(x) = 0$ and divide by 12:</p>
+
+    <div class="math-block">$$x^2 - 8x + 12 = 0 \implies (x-2)(x-6) = 0$$</div>
+
+    <p>Critical points: $x = 2$ and $x = 6$. Since $x = 6$ is the endpoint (gives zero volume), the only interior critical point is $x = 2$.</p>
+
+    <h3>Step 7: Second Derivative Test</h3>
+
+    <div class="math-block">$$V''(x) = -96 + 24x \implies V''(2) = -96 + 48 = -48$$</div>
+
+    <p>Since $V''(2) = -48 &lt; 0$, the function is concave down at $x = 2$. This is a local maximum.</p>
+
+    <h3>Step 8: Check Endpoints</h3>
+    <table>
+      <thead><tr><th>$x$</th><th>$V(x)$</th><th>Note</th></tr></thead>
+      <tbody>
+        <tr><td>0</td><td>0</td><td>No box</td></tr>
+        <tr><td>2</td><td>$2(8)^2 = 128$ cm³</td><td>Critical point</td></tr>
+        <tr><td>6</td><td>0</td><td>No box</td></tr>
+      </tbody>
+    </table>
+
+    <p>The absolute maximum volume is <strong>128 cm³</strong> when $x = 2$ cm.</p>
+
+    <!-- Desmos Graph -->
+    <div class="desmos-wrap">
+      <div class="desmos-label">
+        <div class="desmos-dot"></div>
+        Live Graph: V(x) = x(12 − 2x)² with maximum labeled at x = 2
+      </div>
+      <div id="desmos-box" style="width:100%;height:320px;"></div>
+    </div>
+
+    <div class="rubric">
+      <div class="rubric-ttl">Here is exactly how the AP exam scores this type of problem</div>
+      <ul>
+        <li>Correct objective function with all dimensions written out: 1 point</li>
+        <li>Correct derivative with algebra shown: 1 point</li>
+        <li>Correct critical point(s) identified: 1 point</li>
+        <li>Classification justified (second derivative test OR sign chart, not just stated): 1 point</li>
+        <li>Correct answer with units: 1 point</li>
+        <li>Endpoint check included (or domain stated as open with justification): 1 point</li>
+      </ul>
+    </div>
+
+    <p>The justification step is where students leave points on the table. Writing "$x = 2$ is a maximum" without showing the second derivative test or a sign chart earns zero on the classification point. The AP grader needs to see the reasoning.</p>
+  </div>
+
+  <!-- Mid-Post CTA -->
+  <div id="mid-cta">
+    <div class="cta">
+      <h3>Check Your Score Before the Exam</h3>
+      <p>Not sure how close you are to a 4 or 5? The free pre-assessment takes about 10 minutes and shows exactly where your score stands right now.</p>
+      <a href="https://aceapcalculus.com/summer-diagnostic-page" class="btn">Take the Free Pre-Assessment</a>
+      <p class="sub">Parents: this is the fastest way to know if your student needs targeted support before the AP exam or summer prep.</p>
+    </div>
+  </div>
+
+  <!-- Section 5: Worked Example 2 -->
+  <div class="sec" id="example-2">
+    <h2>Worked Example 2: Full FRQ-Level Problem</h2>
+
+    <p>This is the kind of <strong>AP FRQ optimization</strong> problem that shows up as a full free-response question, with multiple parts requiring setup, calculus, and written justification.</p>
+
+    <div class="example-box">
+      <div class="example-lbl">FRQ-Level Problem</div>
+      <p><strong>A farmer has 240 meters of fencing to build a rectangular enclosure. One side of the enclosure is a barn wall, so it does not need fencing. Find the dimensions that maximize the enclosed area.</strong></p>
+    </div>
+
+    <div class="frq-box">
+      <div class="frq-ttl">Here is exactly how the AP exam scores this type of problem</div>
+      <ul>
+        <li>Correct objective function: 1 point</li>
+        <li>Correct constraint equation written and used: 1 point</li>
+        <li>Derivative of single-variable function: 1 point</li>
+        <li>Correct critical point: 1 point</li>
+        <li>Written justification (reasoning, not just computed): 1 point</li>
+        <li>Correct final dimensions with units: 1 point</li>
+      </ul>
+    </div>
+
+    <h3>Setup</h3>
+    <p>Let $x$ = width (two sides of fencing), $y$ = length (one side, parallel to the barn wall).</p>
+
+    <h3>Objective Function</h3>
+    <div class="math-block">$$A = xy$$</div>
+
+    <h3>Constraint Equation</h3>
+    <div class="math-block">$$2x + y = 240$$</div>
+
+    <h3>Reduce to One Variable</h3>
+    <p>Solve the constraint for $y$:</p>
+    <div class="math-block">$$y = 240 - 2x$$</div>
+    <p>Substitute into the area function:</p>
+    <div class="math-block">$$A(x) = x(240 - 2x) = 240x - 2x^2$$</div>
+
+    <p>Domain: $0 &lt; x &lt; 120$ (both $x$ and $y$ must be positive).</p>
+
+    <h3>Find the Critical Point</h3>
+    <div class="math-block">$$A'(x) = 240 - 4x = 0 \implies x = 60$$</div>
+
+    <h3>Justify Using the Second Derivative Test</h3>
+    <div class="math-block">$$A''(x) = -4 \implies A''(60) = -4 &lt; 0$$</div>
+    <p>Concave down at $x = 60$: local maximum. Only critical point on $(0, 120)$, so this is the absolute maximum.</p>
+
+    <h3>First Derivative Sign Chart (Alternative Justification)</h3>
+    <table>
+      <thead><tr><th>Interval</th><th>$A'(x)$</th><th>Behavior of $A$</th></tr></thead>
+      <tbody>
+        <tr><td>$(0, 60)$</td><td>positive</td><td>increasing</td></tr>
+        <tr><td>$(60, 120)$</td><td>negative</td><td>decreasing</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Answer</h3>
+    <div class="math-block">$$x = 60 \text{ m}, \quad y = 240 - 120 = 120 \text{ m}$$</div>
+    <div class="math-block">$$A_{\max} = 60 \times 120 = \boxed{7200 \text{ m}^2}$$</div>
+
+    <div class="note">
+      <strong>FRQ Communication Layer:</strong> The AP rubric requires a written justification sentence, not just numbers. Here is what full-credit looks like: "Since $A'(x) = 240 - 4x$ changes from positive to negative at $x = 60$, by the First Derivative Test, $A(x)$ has a local maximum at $x = 60$. Because $x = 60$ is the only critical point in the interval $(0, 120)$, this local maximum is also the absolute maximum." Write that sentence. Do not just circle the answer.
+    </div>
+  </div>
+
+  <!-- Section 6: The 3 Mistakes -->
+  <div class="sec" id="mistakes">
+    <h2>The 3 Mistakes That Cost My Students Points</h2>
+
+    <!-- NEEDS UNIQUE ANGLE: add Zach story here -->
+
+    <div class="mk">
+      <div class="mk-n">Mistake 1: Skipping the Constraint Equation</div>
+      <div class="mk-w">Why it happens: Students see the objective function and go straight to the derivative. The problem states a total, and students treat it as background information instead of a mathematical equation they need to write down.</div>
+      <div class="mk-f">Without the constraint, you cannot reduce to one variable. You end up with a derivative that has two unknowns and no way to solve it. This alone can cost 2 to 3 points on a 6-point FRQ. I have watched students who set up the objective correctly lose half the problem's points because they never wrote a single constraint equation.</div>
+    </div>
+
+    <div class="mk">
+      <div class="mk-n">Mistake 2: Not Checking Endpoints on Closed Interval Problems</div>
+      <div class="mk-w">Why it happens: Students find a critical point, classify it, and stop. The closed interval method says you must also evaluate at both endpoints.</div>
+      <div class="mk-f">The absolute maximum or minimum might be at an endpoint, not at the critical point. That is a fully wrong answer with mostly correct algebra. On <strong>derivative application problems</strong> with a closed interval, this mistake appears in roughly one out of three student FRQ attempts I review.</div>
+    </div>
+
+    <div class="mk">
+      <div class="mk-n">Mistake 3: Justifying with Words Alone, or Math Alone</div>
+      <div class="mk-w">Why it happens: Students either write "this is a max because the second derivative is negative" without showing the computation, or show $V''(2) = -48$ with no sentence explaining what that means.</div>
+      <div class="mk-f">The AP rubric expects both. The computation and a sentence connecting it to the conclusion. Writing "since $f''(c) &lt; 0$, $f$ has a local maximum at $c$" is what earns the point. Just showing the number does not. This costs exactly 1 point per problem and adds up across the full exam.</div>
+    </div>
+
+    <div class="screenshot-liner">
+      <div class="icon">📲</div>
+      <!-- SCREENSHOT-ABLE ONE-LINER -->
+      <p>Set up your constraint equation before you touch the derivative, or you are already losing points.</p>
+      <!-- END ONE-LINER -->
+    </div>
+  </div>
+
+  <!-- Section 7: Practice Problems -->
+  <div class="sec" id="practice">
+    <h2>Practice Problems</h2>
+
+    <p>Try these on your own before checking the answers. If you get stuck, go back to the 8-step framework and identify exactly where your setup breaks down. That is usually the constraint step.</p>
+
+    <div class="prob">
+      <div class="plbl">Problem 1: Fencing with Divider</div>
+      <p>A rancher has 400 feet of fencing to enclose a rectangular area, then divide it in half with a fence parallel to one side. Find the dimensions of the full enclosure that maximize the total area.</p>
+    </div>
+
+    <div class="prob">
+      <div class="plbl">Problem 2: Cylinder Cost</div>
+      <p>A cylindrical can is to hold $250\pi$ cubic centimeters. The top and bottom material costs twice as much per square centimeter as the side material. Find the radius that minimizes total material cost.</p>
+    </div>
+
+    <div class="prob">
+      <div class="plbl">Problem 3: AP Exam Style (Closed Interval)</div>
+      <p>A particle moves along the x-axis with position $x(t) = 2t^3 - 9t^2 + 12t$ for $0 \le t \le 4$.</p>
+      <p>(a) Find all critical points on $[0, 4]$.</p>
+      <p>(b) Find the absolute maximum and minimum positions using the closed interval method.</p>
+      <p>(c) Justify your answer in one complete sentence referencing the Candidates Test.</p>
+    </div>
+
+    <div class="answers">
+      <div class="ans-ttl">Answers</div>
+      <div class="ans-item">
+        <strong>Problem 1:</strong> Three sides of fencing: $3x + 2y = 400$. Area: $A = xy$. Solving: $x = \frac{200}{3} \approx 66.7$ ft, $y = 100$ ft. Max area $\approx 6{,}667$ ft².
+      </div>
+      <div class="ans-item">
+        <strong>Problem 2:</strong> Cost function: $C(r) = 4\pi r^2 + \frac{500\pi}{r}$. Setting $C'(r) = 0$ gives $r = \sqrt[3]{62.5} \approx 3.97$ cm.
+      </div>
+      <div class="ans-item">
+        <strong>Problem 3:</strong> (a) Critical points at $t = 1$ and $t = 2$. (b) Values: $x(0) = 0$, $x(1) = 5$, $x(2) = 4$, $x(4) = 32$. Absolute max = 32 at $t = 4$; absolute min = 0 at $t = 0$. (c) "By the Candidates Test, comparing $x(0) = 0$, $x(1) = 5$, $x(2) = 4$, $x(4) = 32$ shows the absolute maximum is 32 at $t = 4$ and the absolute minimum is 0 at $t = 0$."
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 8: FAQ -->
+  <div class="sec" id="faq">
+    <h2>FAQ</h2>
+
+    <div class="faq-item">
+      <div class="faq-q">Do I have to use the second derivative test, or can I use a sign chart instead?</div>
+      <div class="faq-a">
+        <p>Either works for full credit on the AP exam. The <strong>second derivative test optimization</strong> is faster when $f''(c)$ is easy to evaluate. The first derivative sign chart is more reliable when the second derivative is complex or when you are on a closed interval and need to compare endpoint values. I personally prefer sign charts for <strong>AP Calculus optimization problems</strong> because they also show the behavior of the function around the critical point, which makes your written justification easier to write.</p>
+        <p>What you cannot do is state a conclusion without showing either test. The AP grader needs to see the evidence.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">What is the difference between a local max and an absolute max? Does the AP exam test both?</div>
+      <div class="faq-a">
+        <p>Yes, and it tests them separately. A local maximum is a point where the function is larger than all nearby points. An absolute maximum is the largest value the function takes on the entire domain. An absolute max might not be at a critical point at all. It might be at an endpoint.</p>
+        <p>The <strong>closed interval method calculus</strong> requires compares all candidates: every critical point plus both endpoints. If the AP exam asks for the absolute maximum and you only check critical points, you may get the wrong answer. I see this mistake in a majority of my students' first practice FRQ attempts.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">What if the second derivative test is inconclusive?</div>
+      <div class="faq-a">
+        <p>Go to the first derivative sign chart. If $f''(c) = 0$, the test says nothing useful. Check whether $f'$ changes sign at $c$. Positive to negative means local max. Negative to positive means local min. No sign change means an inflection point, not an extremum.</p>
+        <p>This shows up occasionally on the AP exam, and students who only know the second derivative test get stuck. Learn both. The sign chart never fails you.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">Can optimization appear in the MCQ section, or is it always FRQ?</div>
+      <div class="faq-a">
+        <p>Both. The MCQ version typically gives you a pre-built function and asks which $x$ value maximizes or minimizes it, or asks you to identify the sign of the derivative at a specific point. The FRQ version requires the full setup from a word problem. For MCQ, derivative application problems are manageable once you recognize the form. For FRQ, the setup is what decides your score.</p>
+        <p>This post focuses on the FRQ because that is where points are actually lost. The MCQ version is mostly a critical points identification question in disguise.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 9: Quick Reference -->
+  <div class="sec" id="quick-reference">
+    <div class="qr">
+      <div class="qr-ttl">Save This For Exam Day</div>
+
+      <div class="qrf">
+        <div class="qrf-lbl">8-Step Optimization Checklist</div>
+        <ul class="qrb">
+          <li>Identify what to maximize or minimize</li>
+          <li>Name and define variables with units</li>
+          <li>Write the objective function</li>
+          <li>Write the constraint equation (do not skip this)</li>
+          <li>Reduce to one variable using the constraint</li>
+          <li>Take the derivative, set equal to zero, solve for critical points</li>
+          <li>Classify using Second Derivative Test or First Derivative Sign Chart</li>
+          <li>Check endpoints if domain is a closed interval</li>
+        </ul>
+      </div>
+
+      <div class="qrf">
+        <div class="qrf-lbl">Second Derivative Test</div>
+        <ul class="qrb">
+          <li>$f''(c) &lt; 0$ at critical point $c$: local maximum</li>
+          <li>$f''(c) &gt; 0$ at critical point $c$: local minimum</li>
+          <li>$f''(c) = 0$: inconclusive. Use sign chart instead.</li>
+        </ul>
+      </div>
+
+      <div class="qrf">
+        <div class="qrf-lbl">Full-Credit Justification Template</div>
+        <ul class="qrb">
+          <li>"Since $f'(c) = 0$ and $f'$ changes from positive to negative at $x = c$, by the First Derivative Test, $f$ has a local maximum at $x = c$. Since this is the only critical point on the interval, this is also the absolute maximum."</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 10: Related Posts -->
+  <div class="sec" id="related">
+    <h2>Related Posts</h2>
+
+    <a class="related-link" href="https://enginearu.com/ap-calculus-prep/what-is-a-derivative-ap-calculus/">
+      What Is a Derivative in AP Calculus?
+      <div class="related-sub">The conceptual foundation. If "setting the derivative equal to zero" is fuzzy, start here.</div>
+    </a>
+
+    <a class="related-link" href="https://enginearu.com/ap-calculus-prep/what-are-limits-ap-calculus/">
+      What Are Limits in AP Calculus?
+      <div class="related-sub">Limits make the derivative definition work. The AROC to IROC transition is directly relevant to why $f'(x) = 0$ locates extrema.</div>
+    </a>
+
+    <a class="related-link" href="/post-06-related-rates">
+      Related Rates in AP Calculus
+      <div class="related-sub">The setup process for related rates runs parallel to optimization. Both require writing a constraint equation before the derivative. If that step feels shaky, start here.</div>
+    </a>
+
+    <a class="related-link" href="/post-05-derivative-rules">
+      Derivative Rules in AP Calculus: Power Rule, Product Rule, Chain Rule
+      <div class="related-sub">You need all three for the differentiation step in optimization problems.</div>
+    </a>
+
+    <a class="related-link" href="/post-07-mean-value-theorem">
+      Mean Value Theorem in AP Calculus
+      <div class="related-sub">The MVT guarantees critical points exist. Optimization relies on that guarantee in your FRQ justification.</div>
+    </a>
+  </div>
+
+  <!-- End CTA + Seasonal CTAs -->
+  <div id="end-cta">
+    <div class="cta">
+      <h3>Get Ahead This Summer</h3>
+      <p>Optimization is the kind of topic that finally clicks when you work through 3 or 4 problems in a row with someone watching your setup. Reading about it gets you most of the way there. A focused session locks it in.</p>
+      <p>If the AP exam is coming up, take the free pre-assessment first. Ten minutes. It shows exactly which Unit 5 skills are solid and which ones are costing you points right now.</p>
+      <a href="https://aceapcalculus.com/summer-diagnostic-page" class="btn">Take the Free Pre-Assessment</a>
+      <p class="sub">Parents: this is the fastest way to see where your student stands before deciding on additional support.</p>
+    </div>
+
+    <div class="sea">
+      <h3>Summer Program: July and August 2026</h3>
+      <p>If you want your student to walk into next year's AP Calculus exam with optimization already locked in, my summer program covers every Unit 5 skill including a full FRQ simulation. Small groups. Real exam problems. Structured from day one.</p>
+      <a href="#" class="btn-w">See Summer Program Details</a>
+      <p style="font-size:12px;color:#5a4500;margin-top:10px;font-style:italic;">Spots fill in June. If you are reading this in May, now is the right time.</p>
+    </div>
+  </div>
+
+  <hr>
+  <p style="font-size:11px;color:var(--muted);text-align:center;padding-bottom:20px;">© 2026 EngiNearU LLC · <a href="https://enginearu.com" style="color:var(--navy)">enginearu.com</a></p>
+
+</div>
+<!-- END POST CONTENT -->
+
+<!-- Desmos graph script -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  if (typeof Desmos === 'undefined') return;
+  var elt = document.getElementById('desmos-box');
+  if (!elt) return;
+  var calc = Desmos.GraphingCalculator(elt, {
+    expressions: false,
+    settingsMenu: false,
+    zoomButtons: false,
+    lockViewport: true,
+    border: false
+  });
+  calc.setMathBounds({ left: -0.5, right: 6.5, bottom: -10, top: 140 });
+  calc.setExpression({
+    id: 'vbox',
+    latex: 'V(x) = x(12-2x)^2 \\{0 \\le x \\le 6\\}',
+    color: '#1a3a6b',
+    lineWidth: 2.5
+  });
+  calc.setExpression({
+    id: 'maxpt',
+    latex: '(2, 128)',
+    color: '#e8a020',
+    pointSize: 10,
+    pointStyle: Desmos.Styles.POINT
+  });
+  calc.setExpression({
+    id: 'maxlabel',
+    latex: '(2, 128)',
+    label: 'Max Volume = 128 cm³ at x = 2',
+    showLabel: true,
+    color: '#e8a020',
+    labelSize: Desmos.LabelSizes.MEDIUM
+  });
+  calc.setExpression({
+    id: 'xaxis-label-0',
+    latex: '(0, 0)',
+    label: 'x = 0',
+    showLabel: true,
+    color: '#6b7280',
+    labelSize: Desmos.LabelSizes.SMALL
+  });
+  calc.setExpression({
+    id: 'xaxis-label-6',
+    latex: '(6, 0)',
+    label: 'x = 6',
+    showLabel: true,
+    color: '#6b7280',
+    labelSize: Desmos.LabelSizes.SMALL
+  });
+});
+</script>
+
+<!-- FAQPage schema for SEO -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Do I have to use the second derivative test, or can I use a sign chart instead?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Either works for full credit on the AP exam. The second derivative test is faster when f''(c) is easy to evaluate. The first derivative sign chart is more reliable on closed intervals or when the second derivative is complex. You cannot state a conclusion without showing either test — the AP grader needs to see the evidence."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the difference between a local max and an absolute max? Does the AP exam test both?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, and it tests them separately. A local maximum is larger than all nearby points. An absolute maximum is the largest value on the entire domain and might be at an endpoint, not a critical point. The closed interval method compares all candidates: every critical point plus both endpoints."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What if the second derivative test is inconclusive?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Go to the first derivative sign chart. If f''(c) = 0, the test says nothing useful. Check whether f' changes sign at c. Positive to negative means local max. Negative to positive means local min. No sign change means an inflection point, not an extremum. The sign chart never fails you."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can optimization appear in the MCQ section, or is it always FRQ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Both. The MCQ version typically gives you a pre-built function and asks which x value maximizes or minimizes it. The FRQ version requires the full setup from a word problem. For FRQ, the setup — writing the objective function and constraint — is what decides your score."
+      }
+    }
+  ]
+}
+</script>
+
+<!-- ===================================================================
+     ▲▲▲ END: WORDPRESS CUSTOM HTML BLOCK ▲▲▲
+     =================================================================== -->
+
+</div><!-- .page -->
+
+</body>
+</html>

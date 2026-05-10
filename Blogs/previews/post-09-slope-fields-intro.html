@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PREVIEW: Slope Fields and Differential Equations - ACE AP Calculus</title>
+
+<!--
+=======================================================================
+  PREVIEW FILE: ACE AP CALCULUS BLOG
+  Post 09: Slope Fields and Differential Equations
+=======================================================================
+  This file has three jobs:
+  1. Let you preview the post in your browser before publishing
+  2. Show you a publishing guide at the top of the page
+  3. Mark exactly what to copy into each part of WordPress
+
+  HOW TO USE THIS FILE
+  ─────────────────────
+  Open it in your browser → read the publishing guide at the top
+  Open it in VS Code → the comment markers show you what goes where
+
+  WHAT GETS PASTED INTO WORDPRESS
+  ─────────────────────────────────
+  STEP 1 (one time only) → functions.php  (see guide below)
+  STEP 2 → WordPress title field          (see guide below)
+  STEP 3 → One Custom HTML block          (marked in the body below)
+  STEP 4 → SEO fields in the sidebar      (see guide below)
+=======================================================================
+-->
+
+<!-- PREVIEW-ONLY: Fonts, MathJax, Desmos load here for local preview.
+     WordPress gets MathJax + Desmos from functions.php (Step 1 below).
+     Do NOT paste any of this <head> section into WordPress. -->
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<script>MathJax = { tex: { inlineMath: [['$','$']], displayMath: [['$$','$$']], processEscapes: true } };</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+<script src="https://www.desmos.com/api/v1.7/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0fda6"></script>
+
+<!-- PREVIEW-ONLY CSS -->
+<style>
+:root{
+  --navy:#0f1e3c;--blue:#1a3a6b;--accent:#e8a020;--accent-light:#fef3dc;
+  --green:#1a7a4a;--green-light:#eaf7f0;--red:#c0392b;--red-light:#fdf2f1;
+  --purple:#7c3aed;--purple-light:#f3f0ff;
+  --gray:#f5f6f8;--border:#dde1e8;--text:#1a1a2e;--muted:#6b7280;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:#eef0f4;color:var(--text);font-size:14px;line-height:1.8}
+.pub-guide{background:#1a1a2e;font-family:'JetBrains Mono',monospace}
+.pub-guide summary{padding:14px 20px;cursor:pointer;color:var(--accent);font-size:13px;font-weight:700;letter-spacing:.5px;list-style:none;display:flex;align-items:center;gap:10px}
+.pub-guide summary::before{content:"▶";font-size:10px;transition:transform .2s}
+.pub-guide[open] summary::before{transform:rotate(90deg)}
+.pub-guide-body{padding:0 20px 20px}
+.pub-step{margin-bottom:24px}
+.pub-step-ttl{color:var(--accent);font-size:12px;font-weight:700;margin-bottom:6px;letter-spacing:.5px}
+.pub-step p{color:rgba(255,255,255,.75);font-size:12px;margin-bottom:8px;font-family:'Inter',sans-serif;line-height:1.6}
+.pub-step textarea{width:100%;background:#0d0d1a;color:#a8d8a8;border:1px solid #333;border-radius:6px;padding:12px;font-size:11px;font-family:'JetBrains Mono',monospace;line-height:1.6;resize:vertical;min-height:80px}
+.pub-step code{background:#0d0d1a;color:var(--accent);padding:2px 6px;border-radius:3px;font-size:11px}
+.pub-divider{border:none;border-top:1px solid #2a2a4a;margin:20px 0}
+.chrome{background:#2d2d2d;padding:8px 14px;display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:100}
+.dots{display:flex;gap:6px}.dot{width:11px;height:11px;border-radius:50%}
+.dot.r{background:#ff5f57}.dot.y{background:#febc2e}.dot.g{background:#28c840}
+.url{flex:1;background:#3d3d3d;border-radius:5px;padding:4px 10px;color:#aaa;font-size:11px;font-family:'JetBrains Mono',monospace}
+.badge{background:var(--accent);color:var(--navy);font-size:10px;font-weight:700;padding:3px 8px;border-radius:4px}
+.page{max-width:780px;margin:0 auto;background:#fff;min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,.12)}
+.hero{background:linear-gradient(135deg,var(--navy),var(--blue));padding:40px 40px 32px;color:#fff}
+.tag{display:inline-block;background:var(--accent);color:var(--navy);font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;padding:3px 9px;border-radius:3px;margin-bottom:14px}
+.hero h1{font-family:'Merriweather',serif;font-size:22px;line-height:1.4;margin-bottom:14px}
+.meta{display:flex;gap:10px;flex-wrap:wrap}
+.pill{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.88);font-size:11px;padding:4px 10px;border-radius:20px}
+</style>
+</head>
+<body>
+
+<!-- ===================================================================
+     PUBLISHING GUIDE: visible in your browser, preview only
+     This panel does NOT get pasted into WordPress.
+     =================================================================== -->
+<details class="pub-guide" open>
+  <summary>PUBLISHING GUIDE: Post 09: Slope Fields. 4 steps to publish</summary>
+  <div class="pub-guide-body">
+
+    <div class="pub-step" style="background:#2a0a0a;border-left:4px solid #e8a020;padding:12px 16px;border-radius:0 6px 6px 0;margin-bottom:16px">
+      <div class="pub-step-ttl" style="color:#e8a020">⚠ IF THIS POST LOOKS BROKEN ON WORDPRESS (no table styling, graphs missing)</div>
+      <p style="color:#ffd080">WordPress reformats pasted HTML and can break the CSS and graph scripts. The fix is already applied in this file — re-paste Step 3 into WordPress to fix it. DO NOT reformat or add line breaks to the &lt;style&gt; block or the &lt;script&gt; graph blocks when pasting — they must stay on single lines.</p>
+    </div>
+
+    <div class="pub-step">
+      <div class="pub-step-ttl">STEP 1: ONE TIME ONLY: Add MathJax + Desmos to functions.php</div>
+      <p>Do this once. After that, skip to Step 2 for every future post.<br>
+         Go to: WordPress Admin → Appearance → Theme File Editor → functions.php<br>
+         Scroll to the bottom and paste the code below.</p>
+      <textarea readonly rows="10">
+// ── ACE AP CALCULUS: MathJax + Desmos ─────────────────────────────
+// Paste this at the bottom of functions.php. One time only.
+
+add_action('wp_head', function() {
+    echo '<script>MathJax = { tex: { inlineMath: [["$","$"]], displayMath: [["$$","$$"]] } };</script>';
+    echo '<script src="https://www.desmos.com/api/v1.7/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0fda6"></script>';
+}, 1);
+
+add_action('wp_enqueue_scripts', function() {
+    wp_enqueue_script('mathjax', 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js', [], null, false);
+});
+// ──────────────────────────────────────────────────────────────────</textarea>
+    </div>
+
+    <hr class="pub-divider">
+
+    <div class="pub-step">
+      <div class="pub-step-ttl">STEP 2: WordPress title field</div>
+      <p>In the WordPress editor, click the title field at the top and paste this exactly:</p>
+      <textarea readonly rows="2">Slope Fields and Differential Equations: Reading the Picture Before You Solve the Equation</textarea>
+    </div>
+
+    <hr class="pub-divider">
+
+    <div class="pub-step">
+      <div class="pub-step-ttl">STEP 3: WordPress Custom HTML block (the post content)</div>
+      <p>In the WordPress editor content area:<br>
+         1. Click the <code>+</code> button → search <code>Custom HTML</code> → add that block<br>
+         2. Open this file in VS Code or any text editor<br>
+         3. Find the comment that says: <code>▼▼▼ START: PASTE THIS INTO WORDPRESS CUSTOM HTML BLOCK ▼▼▼</code><br>
+         4. Select everything from that line down to: <code>▲▲▲ END: WORDPRESS CUSTOM HTML BLOCK ▲▲▲</code><br>
+         5. Paste into the Custom HTML block in WordPress<br><br>
+         <strong style="color:#e8a020">CRITICAL: The CSS block and the two graph script blocks are on single lines. Do NOT press Enter or reformat them in the WordPress editor — this will break tables and graphs.</strong></p>
+    </div>
+
+    <hr class="pub-divider">
+
+    <div class="pub-step">
+      <div class="pub-step-ttl">STEP 4: SEO fields (in the WordPress sidebar)</div>
+      <p>If you use Yoast or Rank Math, fill these in the sidebar before publishing:</p>
+      <textarea readonly rows="5">
+SEO Title:       Slope Fields AP Calculus: The 4-Point FRQ Method (2026)
+Meta Description: Learn to draw and read slope fields on the AP Calculus AB FRQ. Zach's 4-point method, worked examples with AP rubrics, and the 3 most costly student mistakes.
+Slug:            slope-fields-ap-calculus
+Focus Keyword:   slope fields ap calculus</textarea>
+    </div>
+
+  </div>
+</details>
+<!-- END PUBLISHING GUIDE -->
+
+
+<!-- ===================================================================
+     PREVIEW ONLY: browser chrome bar
+     Do NOT paste this into WordPress.
+     =================================================================== -->
+<div class="chrome">
+  <div class="dots">
+    <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
+  </div>
+  <div class="url">enginearu.com/ap-calculus-prep/slope-fields-ap-calculus/</div>
+  <div class="badge">PREVIEW</div>
+</div>
+<!-- END PREVIEW CHROME -->
+
+
+<!-- ===================================================================
+     PREVIEW ONLY: hero header
+     WordPress uses the title field (Step 2) instead of this.
+     Do NOT paste this into WordPress.
+     =================================================================== -->
+<div class="page">
+<div class="hero">
+  <div class="tag">AP Calculus AB · Unit 7: Differential Equations</div>
+  <h1>Slope Fields and Differential Equations<br>Reading the Picture Before You Solve the Equation</h1>
+  <div class="meta">
+    <span class="pill">&#9201; 14 min read</span>
+    <span class="pill">&#10003; 500+ EngiNearU students</span>
+    <span class="pill">FRQ: Unit 7</span>
+  </div>
+</div>
+<!-- END PREVIEW HERO -->
+
+
+<!-- ===================================================================
+     ▼▼▼ START: PASTE THIS INTO WORDPRESS CUSTOM HTML BLOCK ▼▼▼
+     ===================================================================
+     Select from this line all the way down to the matching END marker.
+     Paste the entire selection into one Custom HTML block in WordPress.
+     =================================================================== -->
+
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<!-- Post CSS -->
+<style>.ace-post{--navy:#0f1e3c;--blue:#1a3a6b;--accent:#e8a020;--accent-light:#fef3dc;--green:#1a7a4a;--green-light:#eaf7f0;--red:#c0392b;--red-light:#fdf2f1;--purple:#7c3aed;--purple-light:#f3f0ff;--gray:#f5f6f8;--border:#dde1e8;--text:#1a1a2e;--muted:#6b7280;font-family:'Inter',sans-serif;font-size:14px;line-height:1.8;color:var(--text);padding:32px 0;}.ace-post .toc{background:var(--gray);border-left:4px solid var(--navy);border-radius:0 8px 8px 0;padding:18px 20px;margin-bottom:36px}.ace-post .toc-ttl{font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);margin-bottom:10px}.ace-post .toc ol{padding-left:18px}.ace-post .toc li{margin-bottom:6px}.ace-post .toc a{color:var(--blue);text-decoration:none;font-size:13px;font-weight:500}.ace-post .sec{margin-bottom:40px}.ace-post h2{font-family:'Merriweather',serif;font-size:18px;font-weight:700;color:var(--navy);margin-bottom:14px;padding-bottom:8px;border-bottom:2px solid var(--border)}.ace-post h3{font-size:14px;font-weight:700;color:var(--blue);margin:18px 0 8px}.ace-post p{margin-bottom:13px;font-size:14px}.ace-post .math-block{background:var(--gray);border-radius:8px;padding:16px 20px;margin:14px 0;text-align:center;overflow-x:auto;font-size:15px}.ace-post .slope-table{width:100%;border-collapse:collapse;margin:14px 0;font-size:13px}.ace-post .slope-table th{background:var(--navy);color:#fff;padding:8px 12px;text-align:left;font-size:11px;font-weight:700;letter-spacing:.5px}.ace-post .slope-table td{padding:8px 12px;border-bottom:1px solid var(--border)}.ace-post .slope-table tr:nth-child(even) td{background:var(--gray)}.ace-post .slope-table .h-row td{background:var(--accent-light)!important;font-weight:600}.ace-post .four-pts{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:16px 0}.ace-post .pt-card{background:var(--gray);border:1px solid var(--border);border-radius:8px;padding:12px 14px}.ace-post .pt-label{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:4px}.ace-post .pt-coord{font-size:16px;font-weight:800;color:var(--navy);margin-bottom:2px}.ace-post .pt-why{font-size:11px;color:var(--muted);line-height:1.5}.ace-post .step{display:flex;gap:14px;margin-bottom:18px;align-items:flex-start}.ace-post .snum{background:var(--navy);color:#fff;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;margin-top:2px}.ace-post .scontent{flex:1}.ace-post .slbl{font-weight:700;font-size:13px;color:var(--navy);margin-bottom:5px}.ace-post .scontent p{font-size:13px;margin-bottom:6px}.ace-post .rubric{background:var(--green-light);border-left:4px solid var(--green);border-radius:0 8px 8px 0;padding:14px 18px;margin:16px 0}.ace-post .rubric-ttl{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--green);margin-bottom:8px}.ace-post .rubric ul{padding-left:18px}.ace-post .rubric li{font-size:13px;margin-bottom:5px;color:#1a4a32}.ace-post .frq-check{background:#eef7f0;border-left:4px solid var(--green);border-radius:0 8px 8px 0;padding:14px 18px;margin:16px 0}.ace-post .frq-ttl{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--green);margin-bottom:8px}.ace-post .frq-check ul{padding-left:18px}.ace-post .frq-check li{font-size:13px;margin-bottom:5px;color:#1a4a32}.ace-post .cta{background:linear-gradient(135deg,var(--navy),var(--blue));border-radius:12px;padding:24px 26px;margin:28px 0;color:#fff}.ace-post .cta h3{color:#fff;margin:0 0 8px;font-size:15px;font-family:'Merriweather',serif}.ace-post .cta p{color:rgba(255,255,255,.85);font-size:13px;margin-bottom:14px}.ace-post .btn{display:inline-block;background:var(--accent);color:var(--navy);font-weight:700;font-size:13px;padding:10px 20px;border-radius:6px;text-decoration:none}.ace-post .sub{font-size:11px;color:rgba(255,255,255,.6);margin-top:10px;font-style:italic}.ace-post .sea{background:var(--accent-light);border:2px solid var(--accent);border-radius:12px;padding:22px 26px;margin:20px 0}.ace-post .sea h3{color:var(--navy);font-size:14px;margin-bottom:8px;font-weight:700}.ace-post .sea p{font-size:13px;color:#5a4500;margin-bottom:12px}.ace-post .btn-w{display:inline-block;background:var(--navy);color:#fff;font-weight:700;font-size:13px;padding:10px 20px;border-radius:6px;text-decoration:none}.ace-post .mk{border-left:4px solid var(--red);border-radius:0 8px 8px 0;padding:14px 18px;background:var(--red-light);margin-bottom:16px}.ace-post .mk-n{font-weight:700;color:var(--red);font-size:13px;margin-bottom:5px}.ace-post .mk-w{font-size:12px;color:#7a2020;margin-bottom:6px;font-style:italic}.ace-post .mk-f{font-size:13px;color:var(--text)}.ace-post .mk-c{font-size:12px;color:#7a2020;margin-top:6px;padding-top:6px;border-top:1px solid rgba(192,57,43,.2)}.ace-post .prob{background:var(--gray);border-radius:8px;padding:16px 18px;margin-bottom:14px;border:1px solid var(--border)}.ace-post .plbl{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:8px}.ace-post .prob p{font-size:13px;margin-bottom:8px}.ace-post .answers{background:var(--navy);border-radius:8px;padding:18px 20px;margin-top:20px}.ace-post .ans-ttl{color:var(--accent);font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:12px}.ace-post .ans-item{font-size:13px;color:rgba(255,255,255,.9);margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid rgba(255,255,255,.1)}.ace-post .ans-item:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}.ace-post .faq-item{border-bottom:1px solid var(--border);padding:16px 0}.ace-post .faq-q{font-weight:700;color:var(--navy);font-size:13px;margin-bottom:8px}.ace-post .faq-a{font-size:13px;line-height:1.7}.ace-post .faq-close{font-size:12px;color:var(--blue);font-style:italic;margin-top:6px;border-top:1px solid var(--border);padding-top:6px}.ace-post .qr{background:var(--navy);color:#fff;border-radius:10px;padding:24px 26px;margin:20px 0}.ace-post .qr-ttl{color:var(--accent);font-size:12px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:16px}.ace-post .qrf{background:rgba(255,255,255,.07);border-radius:6px;padding:12px 16px;margin-bottom:10px;text-align:center}.ace-post .qr-row{margin-bottom:14px}.ace-post .qr-row-ttl{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:8px}.ace-post .qrb{margin-top:6px;list-style:none;padding-left:0}.ace-post .qrb li{font-size:12px;color:rgba(255,255,255,.85);margin-bottom:6px;padding-left:20px;position:relative}.ace-post .qrb li::before{content:"→";color:var(--accent);position:absolute;left:0;font-weight:700}.ace-post .note{background:var(--purple-light);border-left:3px solid var(--purple);border-radius:0 6px 6px 0;padding:10px 14px;margin:14px 0;font-size:12px;color:#4c1d95}.ace-post .one-liner{background:var(--accent-light);border:2px solid var(--accent);border-radius:8px;padding:14px 18px;margin:20px 0;text-align:center}.ace-post .one-liner p{font-size:15px;font-weight:700;color:var(--navy);margin:0;font-style:italic}.ace-post .desmos-wrap{border-radius:10px;overflow:hidden;margin:18px 0;border:1px solid var(--border)}.ace-post .desmos-label{background:var(--navy);color:#fff;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:8px 14px;display:flex;align-items:center;gap:6px}.ace-post .desmos-dot{width:8px;height:8px;border-radius:50%;background:var(--accent)}.ace-post .body-list{padding-left:20px;margin-bottom:12px;font-size:13px}.ace-post .body-list li{margin-bottom:5px}.ace-post .eq-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:16px 0}.ace-post .eq-card{background:var(--gray);border:1px solid var(--border);border-radius:8px;padding:14px 16px}.ace-post .eq-card .eq-label{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:6px}.ace-post .eq-card .eq-pattern{font-size:12px;color:var(--blue);font-style:italic;margin-top:6px}.ace-post hr{border:none;border-top:1px solid var(--border);margin:28px 0}.ace-post .related-link{display:block;padding:12px 14px;background:var(--gray);border-radius:6px;border:1px solid var(--border);margin-bottom:8px;font-size:13px;color:var(--muted)}</style>
+
+<div class="ace-post">
+
+<!-- TABLE OF CONTENTS -->
+<div class="sec">
+  <div class="toc">
+    <div class="toc-ttl">Jump To What You Need</div>
+    <ol>
+      <li><a href="#skip">The FRQ You Cannot Afford to Skip</a></li>
+      <li><a href="#what-it-is">What a Slope Field Actually Is</a></li>
+      <li><a href="#framework">The Four-Point Method: Zach's Framework</a></li>
+      <li><a href="#example-1">Worked Example 1: Drawing a Slope Field by Hand</a></li>
+      <li><a href="#mid-cta">Grab the Free Guide</a></li>
+      <li><a href="#example-2">Worked Example 2: Matching a Slope Field to Its Equation</a></li>
+      <li><a href="#mistakes">The 3 Mistakes That Cost My Students Points</a></li>
+      <li><a href="#practice">Practice Problems</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="#quick-reference">Save This For Exam Day</a></li>
+      <li><a href="#related">Related Posts</a></li>
+    </ol>
+  </div>
+</div>
+
+<!-- INTRO -->
+<div class="sec" id="skip">
+  <h2>The FRQ You Cannot Afford to Skip</h2>
+
+  <!-- HOOK TYPE: counterintuitive-stat -->
+  <p>The slope field FRQ appears on roughly 1 in 3 AP Calculus AB free response sections, and it is the single FRQ where students who never look at the picture lose 5 to 6 points trying to brute-force the algebra.</p>
+
+  <p>That number should stop you. Five to six points is the difference between an AP score of 3 and an AP score of 4 for a lot of students. And here is the uncomfortable part: those students usually know enough calculus to get credit. They just skip the graph, go straight to the equation, and miss the points that were sitting right there in the picture.</p>
+
+  <p>There is a specific kind of paralysis that hits on the slope field FRQ. The equation looks solvable. The student starts solving it. Then they realize the question was never asking them to solve it. It was asking them to draw it, match it, or identify a solution from the visual. I call this the Algebra Trap. The problem is not that slope fields are hard. The problem is that students treat them like an algebra problem when they are actually a reading problem.</p>
+
+  <p>The fix is simpler than you think. You do not need to solve the differential equation to read a slope field. You just need to test a few points. In my classes, I teach every student to start with the same 4 points: $(0,0)$, $(1,0)$, $(-1,0)$, and $(1,1)$. Those 4 points almost always reveal the directional trends you need to either match a slope field to its differential equation or identify a particular solution on the graph. Build that into a repeatable process and the FRQ becomes mechanical.</p>
+
+  <p>That is what this post is about.</p>
+</div>
+
+<!-- WHAT A SLOPE FIELD ACTUALLY IS -->
+<div class="sec" id="what-it-is">
+  <h2>What a Slope Field Actually Is</h2>
+
+  <p>Textbooks introduce slope fields as "graphical representations of differential equations." That is technically true and completely unhelpful for understanding what you are looking at.</p>
+
+  <p>Here is how I explain it to every new student.</p>
+
+  <p>A differential equation gives you a rule. Something like $\dfrac{dy}{dx} = x - y$ says: at any point $(x, y)$ in the plane, the slope of the solution curve passing through that point equals $x - y$. The differential equation does not give you the solution itself. It gives you the slope at every location.</p>
+
+  <p>A slope field is what you get when you go to a grid of points and draw a small line segment at each one, with the slope the equation tells you. That is it. No solving. No integration. Just: plug in the coordinates, compute $\dfrac{dy}{dx}$, draw a short tick mark at that angle.</p>
+
+  <p>The result looks like a field of grass blowing in different directions. Hence the name.</p>
+
+  <p>Now here is the thing most students miss. The slope field and the differential equation are the same object, just in two different forms. The equation is the algebraic form. The slope field is the visual form. If you can read one, you can read the other. And reading the visual form is much faster than solving the algebra, especially on a timed exam.</p>
+
+  <p>This distinction shows up on the AP exam across two common question types. First: you are given the slope field and asked to match it to its differential equation. Second: you are given the slope field and asked to draw or identify a particular solution. In both cases, solving the differential equation is slower and riskier than reading the field directly. The IROC (instantaneous rate of change) at each grid point is handed to you in the picture. You just have to learn how to look.</p>
+
+  <p>The AROC (average rate of change) tells you the big-picture trend over an interval. The slope field gives you something more precise: the exact slope, the exact IROC, at every single point. That is the distinction the AP exam tests directly in ap calc unit 7 differential equations, and it is the reason slope fields belong here in Unit 7 alongside separable differential equations.</p>
+</div>
+
+<!-- THE FOUR-POINT METHOD -->
+<div class="sec" id="framework">
+  <h2>The Four-Point Method: Zach's Framework</h2>
+
+  <p>Every year I see students stall on slope field problems because they do not know where to start. They look at a differential equation, look at a grid, and blank. Here is the process that ends that.</p>
+
+  <div class="step">
+    <div class="snum">1</div>
+    <div class="scontent">
+      <div class="slbl">Pick your 4 test points</div>
+      <p>Always start with the same 4 points. These 4 are not magic. They are strategically chosen to reveal the behavior of almost any differential equation quickly.</p>
+      <div class="four-pts">
+        <div class="pt-card">
+          <div class="pt-label">Point 1</div>
+          <div class="pt-coord">$(0, 0)$</div>
+          <div class="pt-why">Behavior at the origin</div>
+        </div>
+        <div class="pt-card">
+          <div class="pt-label">Point 2</div>
+          <div class="pt-coord">$(1, 0)$</div>
+          <div class="pt-why">Slope when $y = 0$, positive $x$</div>
+        </div>
+        <div class="pt-card">
+          <div class="pt-label">Point 3</div>
+          <div class="pt-coord">$(-1, 0)$</div>
+          <div class="pt-why">Slope when $y = 0$, negative $x$</div>
+        </div>
+        <div class="pt-card">
+          <div class="pt-label">Point 4</div>
+          <div class="pt-coord">$(1, 1)$</div>
+          <div class="pt-why">Q1 behavior away from axes</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="snum">2</div>
+    <div class="scontent">
+      <div class="slbl">Plug each point into $\frac{dy}{dx}$</div>
+      <p>For each point, substitute $x$ and $y$ into the right side of the differential equation and compute the numerical slope. For $\dfrac{dy}{dx} = x - y$:</p>
+      <table class="slope-table">
+        <thead><tr><th>Point</th><th>$x - y$</th><th>Slope</th><th>Direction</th></tr></thead>
+        <tbody>
+          <tr class="h-row"><td>$(0,0)$</td><td>$0 - 0 = 0$</td><td>0</td><td>Horizontal</td></tr>
+          <tr><td>$(1,0)$</td><td>$1 - 0 = 1$</td><td>1</td><td>Up-right, 45°</td></tr>
+          <tr><td>$(-1,0)$</td><td>$-1 - 0 = -1$</td><td>-1</td><td>Down-right, 45°</td></tr>
+          <tr class="h-row"><td>$(1,1)$</td><td>$1 - 1 = 0$</td><td>0</td><td>Horizontal again</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="snum">3</div>
+    <div class="scontent">
+      <div class="slbl">Draw the tick marks</div>
+      <p>A slope of 0 means horizontal. A slope of 1 means it rises one unit for every unit it runs. A slope of $-2$ means it falls steeply to the right. Direction is what matters, not exact precision.</p>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="snum">4</div>
+    <div class="scontent">
+      <div class="slbl">Add more points as needed</div>
+      <p>On the AP exam, you typically need 6 to 10 tick marks. After your initial 4 points, add more along the axes and in each quadrant as the problem requires.</p>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="snum">5</div>
+    <div class="scontent">
+      <div class="slbl">Look for patterns before drawing solutions</div>
+      <p>Before sketching a solution curve, scan for two things. First, equilibrium lines where $\dfrac{dy}{dx} = 0$ everywhere on a horizontal row. Second, whether the tick marks funnel solutions toward or away from that line. Stable equilibrium funnels inward. Unstable pushes outward.</p>
+    </div>
+  </div>
+
+  <!-- SCREENSHOT-ABLE ONE-LINER -->
+  <div class="one-liner">
+    <p>"To read a slope field, just plug the coordinates into $\dfrac{dy}{dx}$ and draw a tick mark at that angle. That is the whole skill."</p>
+  </div>
+  <!-- END ONE-LINER -->
+</div>
+
+<!-- WORKED EXAMPLE 1 -->
+<div class="sec" id="example-1">
+  <h2>Worked Example 1: Drawing a Slope Field by Hand</h2>
+
+  <p>Here is a complete slope field problem the same way the AP exam would present it.</p>
+
+  <div class="prob">
+    <div class="plbl">Problem</div>
+    <p>Consider the differential equation $\dfrac{dy}{dx} = y - x$.</p>
+    <p><strong>(a)</strong> On the grid below, draw a slope field at the twelve indicated points: $(-1,-1)$, $(-1,0)$, $(-1,1)$, $(0,-1)$, $(0,0)$, $(0,1)$, $(1,-1)$, $(1,0)$, $(1,1)$, $(2,-1)$, $(2,0)$, $(2,1)$.</p>
+    <p><strong>(b)</strong> Sketch a particular solution that passes through $(0,1)$.</p>
+  </div>
+
+  <h3>Part (a): Compute slopes at each point</h3>
+
+  <p>Plug each $(x, y)$ pair into $\dfrac{dy}{dx} = y - x$:</p>
+
+  <table class="slope-table">
+    <thead><tr><th>Point</th><th>$y - x$</th><th>Slope</th><th>Direction</th></tr></thead>
+    <tbody>
+      <tr><td>$(-1,-1)$</td><td>$-1-(-1) = 0$</td><td>0</td><td>Horizontal</td></tr>
+      <tr><td>$(-1, 0)$</td><td>$0-(-1) = 1$</td><td>1</td><td>Up-right, 45°</td></tr>
+      <tr><td>$(-1, 1)$</td><td>$1-(-1) = 2$</td><td>2</td><td>Steep up-right</td></tr>
+      <tr><td>$(0,-1)$</td><td>$-1-0 = -1$</td><td>-1</td><td>Down-right, 45°</td></tr>
+      <tr class="h-row"><td>$(0, 0)$</td><td>$0-0 = 0$</td><td>0</td><td>Horizontal</td></tr>
+      <tr><td>$(0, 1)$</td><td>$1-0 = 1$</td><td>1</td><td>Up-right, 45°</td></tr>
+      <tr><td>$(1,-1)$</td><td>$-1-1 = -2$</td><td>-2</td><td>Steep down-right</td></tr>
+      <tr><td>$(1, 0)$</td><td>$0-1 = -1$</td><td>-1</td><td>Down-right, 45°</td></tr>
+      <tr class="h-row"><td>$(1, 1)$</td><td>$1-1 = 0$</td><td>0</td><td>Horizontal</td></tr>
+      <tr><td>$(2,-1)$</td><td>$-1-2 = -3$</td><td>-3</td><td>Very steep down-right</td></tr>
+      <tr><td>$(2, 0)$</td><td>$0-2 = -2$</td><td>-2</td><td>Steep down-right</td></tr>
+      <tr><td>$(2, 1)$</td><td>$1-2 = -1$</td><td>-1</td><td>Down-right, 45°</td></tr>
+    </tbody>
+  </table>
+
+  <p>The segments along the line $y = x$ are all horizontal. That is the equilibrium line for this equation.</p>
+
+  <h3>Part (b): Particular solution through $(0, 1)$</h3>
+
+  <p>Start at $(0,1)$. At this point, the slope is 1. Follow the tick marks: the curve rises to the right of $(0,1)$ and falls to the left. Keep it smooth. Do not cross any tick mark at a contradictory angle.</p>
+
+  <!-- LIVE DESMOS: slope field for dy/dx = y - x with particular solution through (0,1) -->
+  <div class="desmos-wrap">
+    <div class="desmos-label">
+      <div class="desmos-dot"></div>
+      Slope Field: $\dfrac{dy}{dx} = y - x$ with particular solution through $(0,1)$
+    </div>
+    <div id="desmos-ex1" style="width:100%;height:340px;"></div>
+  </div>
+<script>window.addEventListener('load',function(){var elt=document.getElementById('desmos-ex1');if(!elt||typeof Desmos==='undefined')return;var elt = document.getElementById('desmos-ex1');var calc = Desmos.GraphingCalculator(elt, {expressions: false, settingsMenu: false, zoomButtons: false, lockViewport: true,border: false});calc.setMathBounds({ left: -2.5, right: 3, bottom: -3.5, top: 4 });var pts = [[-1,-1],[-1,0],[-1,1],[0,-1],[0,0],[0,1],[1,-1],[1,0],[1,1],[2,-1],[2,0],[2,1]];pts.forEach(function(p, i) {var x0 = p[0], y0 = p[1];var m = y0 - x0;var len = 0.22;var dx = len / Math.sqrt(1 + m*m);var dy = m * dx;calc.setExpression({id: 'tick'+i,latex: '\\left('+x0+'+t\\cdot'+(dx.toFixed(4))+','+y0+'+t\\cdot'+(dy.toFixed(4))+'\\right)',parametricDomain: {min: -1, max: 1},color: '#1a3a6b',lineWidth: 2});});calc.setExpression({ id: 'soln', latex: 'y=x+1', color: '#e8a020', lineWidth: 2.5 });calc.setExpression({id: 'pt', latex: '(0,1)', color: '#e8a020', pointSize: 10,label: 'start here (0,1)', showLabel: true});calc.setExpression({ id: 'eq', latex: 'y=x', color: '#7c3aed', lineWidth: 1.5, lineStyle: Desmos.Styles.DASHED });});</script>
+
+  <p class="note">Note: The purple dashed line is the equilibrium $y = x$ where all tick marks are horizontal. The gold curve is the particular solution $y = x + 1$ through $(0,1)$.</p>
+
+  <div class="rubric">
+    <div class="rubric-ttl">Here is exactly how the AP exam scores this type of problem.</div>
+    <ul>
+      <li><strong>Part (a), 1 point:</strong> At least 6 of the 12 segments drawn with correct slope direction. Direction matters, not precise angle.</li>
+      <li><strong>Part (a), 1 point:</strong> All 12 segments consistent with the differential equation. Graders check that horizontal segments appear where slope = 0 (the $y = x$ diagonal).</li>
+      <li><strong>Part (b), 1 point:</strong> Solution curve is smooth, passes through $(0,1)$, and follows the tick marks without contradicting them.</li>
+      <li><strong>Part (b), 1 point:</strong> Curve behavior is correct for the region. Rises to the right of the starting point, consistent with $\frac{dy}{dx} = 1$ at $(0,1)$.</li>
+    </ul>
+    <p style="font-size:12px;color:#1a4a32;margin-top:8px;margin-bottom:0;">That is 4 points available on this FRQ portion. Students who read the picture earn all 4. Students who start with algebra often earn 0 or 1.</p>
+  </div>
+</div>
+
+<!-- MID-POST CTA -->
+<div class="sec" id="mid-cta">
+  <div class="cta">
+    <h3>Not Sure Where You Stand on Unit 7?</h3>
+    <p>I put together a free guide that walks through exactly what needs to be locked in before FRQ topics like slope fields and differential equations start clicking. Zero fluff.</p>
+    <a class="btn" href="https://www.aceapcalculus.com/before-apcalc">Get the Free Guide</a>
+    <p class="sub">Parents: this is a strong resource to send your student right now if the AP exam is coming up and Unit 7 still feels shaky.</p>
+  </div>
+</div>
+
+<!-- WORKED EXAMPLE 2 -->
+<div class="sec" id="example-2">
+  <h2>Worked Example 2: Matching a Slope Field to Its Equation (MCQ Recognition)</h2>
+
+  <p>Here is exactly what the AP exam is checking on this problem type.</p>
+
+  <p>The matching problem is the most common slope field question. You are shown 4 slope fields and asked to match each to one of 4 differential equations. The AP exam almost never asks you to solve anything. It asks you to read. The 4-point method cuts your time on this from 5 minutes to under 90 seconds.</p>
+
+  <div class="prob">
+    <div class="plbl">Problem</div>
+    <p>Match each slope field to the correct differential equation:</p>
+    <ul style="padding-left:20px;margin:8px 0;font-size:13px;">
+      <li>(I) $\dfrac{dy}{dx} = x$</li>
+      <li>(II) $\dfrac{dy}{dx} = y$</li>
+      <li>(III) $\dfrac{dy}{dx} = x + y$</li>
+      <li>(IV) $\dfrac{dy}{dx} = x - y$</li>
+    </ul>
+  </div>
+
+  <h3>Apply the 4-point method to each equation</h3>
+
+  <div class="eq-grid">
+    <div class="eq-card">
+      <div class="eq-label">Equation (I): $dy/dx = x$</div>
+      <table class="slope-table" style="margin:6px 0">
+        <thead><tr><th>Point</th><th>Slope</th></tr></thead>
+        <tbody>
+          <tr><td>$(0,0)$</td><td>0</td></tr>
+          <tr><td>$(1,0)$</td><td>1</td></tr>
+          <tr><td>$(-1,0)$</td><td>-1</td></tr>
+          <tr><td>$(1,1)$</td><td>1</td></tr>
+        </tbody>
+      </table>
+      <div class="eq-pattern">Slope depends only on $x$. Vertical columns are identical.</div>
+    </div>
+    <div class="eq-card">
+      <div class="eq-label">Equation (II): $dy/dx = y$</div>
+      <table class="slope-table" style="margin:6px 0">
+        <thead><tr><th>Point</th><th>Slope</th></tr></thead>
+        <tbody>
+          <tr><td>$(0,0)$</td><td>0</td></tr>
+          <tr><td>$(1,0)$</td><td>0</td></tr>
+          <tr><td>$(-1,0)$</td><td>0</td></tr>
+          <tr><td>$(1,1)$</td><td>1</td></tr>
+        </tbody>
+      </table>
+      <div class="eq-pattern">Slope depends only on $y$. Horizontal rows are identical. $y = 0$ is equilibrium.</div>
+    </div>
+    <div class="eq-card">
+      <div class="eq-label">Equation (III): $dy/dx = x + y$</div>
+      <table class="slope-table" style="margin:6px 0">
+        <thead><tr><th>Point</th><th>Slope</th></tr></thead>
+        <tbody>
+          <tr><td>$(0,0)$</td><td>0</td></tr>
+          <tr><td>$(1,0)$</td><td>1</td></tr>
+          <tr><td>$(-1,0)$</td><td>-1</td></tr>
+          <tr><td>$(1,1)$</td><td>2</td></tr>
+        </tbody>
+      </table>
+      <div class="eq-pattern">Equilibrium line: $y = -x$. Slopes get steeper away from that diagonal.</div>
+    </div>
+    <div class="eq-card">
+      <div class="eq-label">Equation (IV): $dy/dx = x - y$</div>
+      <table class="slope-table" style="margin:6px 0">
+        <thead><tr><th>Point</th><th>Slope</th></tr></thead>
+        <tbody>
+          <tr><td>$(0,0)$</td><td>0</td></tr>
+          <tr><td>$(1,0)$</td><td>1</td></tr>
+          <tr><td>$(-1,0)$</td><td>-1</td></tr>
+          <tr class="h-row"><td>$(1,1)$</td><td>0</td></tr>
+        </tbody>
+      </table>
+      <div class="eq-pattern">Equilibrium line: $y = x$. Field funnels toward that diagonal (stable).</div>
+    </div>
+  </div>
+
+  <!-- Live Desmos: four slope fields side by side -->
+  <div class="desmos-wrap">
+    <div class="desmos-label">
+      <div class="desmos-dot"></div>
+      Slope Field (IV): $\dfrac{dy}{dx} = x - y$. Stable equilibrium at $y = x$
+    </div>
+    <div id="desmos-ex2" style="width:100%;height:300px;"></div>
+  </div>
+<script>window.addEventListener('load',function(){var elt=document.getElementById('desmos-ex2');if(!elt||typeof Desmos==='undefined')return;var elt = document.getElementById('desmos-ex2');var calc = Desmos.GraphingCalculator(elt, {expressions: false, settingsMenu: false, zoomButtons: false, lockViewport: true,border: false});calc.setMathBounds({ left: -2.5, right: 2.5, bottom: -2.5, top: 2.5 });var gridPts = [];for (var xi = -2; xi <= 2; xi++) {for (var yi = -2; yi <= 2; yi++) {gridPts.push([xi, yi]);}}gridPts.forEach(function(p, i) {var x0 = p[0], y0 = p[1];var m = x0 - y0;var len = 0.20;var dx = len / Math.sqrt(1 + m*m);var dy = m * dx;calc.setExpression({id: 'tick2_'+i,latex: '\\left('+x0+'+t\\cdot'+(dx.toFixed(4))+','+y0+'+t\\cdot'+(dy.toFixed(4))+'\\right)',parametricDomain: {min: -1, max: 1},color: '#1a3a6b',lineWidth: 1.8});});calc.setExpression({ id: 'eq2', latex: 'y=x', color: '#e8a020', lineWidth: 2.5 });calc.setExpression({ id: 'eqlbl', latex: '(1.5,1.5)', label: 'equilibrium y=x', showLabel: true, color: '#e8a020' });});</script>
+
+  <div class="frq-check">
+    <div class="frq-ttl">AP Rubric: Matching Problems</div>
+    <ul>
+      <li>1 point per correct match. No partial credit per equation.</li>
+      <li>Look for equilibrium lines and column/row patterns first. These eliminate 2 to 3 options immediately.</li>
+      <li>You do not need to test every grid point. 4 test points per equation is enough to confirm each match.</li>
+    </ul>
+  </div>
+
+  <div class="note">
+    <strong>FRQ communication rule:</strong> On any free response matching problem, write the slope values you computed and state the pattern. "At $(1,0)$, $\dfrac{dy}{dx} = 0$ for equation II, and at $(-1,0)$, $\dfrac{dy}{dx} = 0$ as well. The slope depends only on $y$, matching slope field A where all tick marks in the same horizontal row are parallel." That last sentence is what earns the justification point. See the <a href="https://apcentral.collegeboard.org/media/pdf/ap-calculus-ab-course-and-exam-description.pdf" target="_blank">AP Calculus AB Course and Exam Description</a> for how justification is weighted in Unit 7 FRQs.
+  </div>
+</div>
+
+<!-- THE 3 MISTAKES -->
+<div class="sec" id="mistakes">
+  <h2>The 3 Mistakes That Cost My Students Points</h2>
+
+  <div class="mk">
+    <div class="mk-n">Mistake 1: Solving the differential equation before reading the field</div>
+    <div class="mk-w">Why it happens: My students see a differential equation and their instinct is to integrate it. That is what they practiced in Unit 7 for separable differential equations. The slope field FRQ triggers that instinct and they spend 4 minutes on algebra when the question wanted 90 seconds of reading. I understand it. The equation is right there.</div>
+    <div class="mk-f"><strong>Fix:</strong> Read the question before writing anything. If the question shows a picture or says "slope field," look at the field first. Compute 4 slopes, check the patterns, answer from the picture. Reserve algebra for problems that explicitly ask for a general or particular solution.</div>
+    <div class="mk-c">Consequence: Students who solve first typically earn 1 to 2 out of 5 points. Students who read first earn 4 to 5.</div>
+  </div>
+
+  <div class="mk">
+    <div class="mk-n">Mistake 2: Drawing tick marks pointing in the wrong direction</div>
+    <div class="mk-w">Why it happens: A slope of $-1$ means the segment falls as $x$ increases. Students sometimes draw the mark as a rising line because they are thinking about the absolute value of the slope, not the sign. It looks like a subtle mistake. AP graders catch it.</div>
+    <div class="mk-f"><strong>Fix:</strong> After computing the slope, ask one question: does this number make the line go up-right or down-right? Positive slope = up-right. Negative slope = down-right. Zero slope = horizontal. That check takes 2 seconds and prevents the most common deduction on part (a).</div>
+    <div class="mk-c">Consequence: A slope field with consistent sign errors can cost 2 of the 3 available points on the drawing portion.</div>
+  </div>
+
+  <div class="mk">
+    <div class="mk-n">Mistake 3: Sketching solution curves that cross tick marks at the wrong angle</div>
+    <div class="mk-w">Why it happens: Students draw the solution curve smooth and curving through the field, but the curve goes against the direction of the tick marks in one region. It usually happens because they are focused on making the curve look pretty rather than following the field precisely.</div>
+    <div class="mk-f"><strong>Fix:</strong> Before drawing, trace the path with your pencil without pressing down. Follow the tick marks like a road. If your pencil naturally flows with the marks, press down and draw it. If your pencil wants to fight the marks, re-check your starting point. See <a href="https://www.khanacademy.org/math/ap-calculus-ab/ab-differential-equations-new/ab-7-3/v/creating-slope-field" target="_blank">Khan Academy's slope field walkthrough</a> for a visual on how solution curves should follow the field.</div>
+    <div class="mk-c">Consequence: A solution curve that contradicts the tick marks earns zero on the sketching portion even if the starting point is correct.</div>
+  </div>
+</div>
+
+<!-- PRACTICE PROBLEMS -->
+<div class="sec" id="practice">
+  <h2>Practice Problems</h2>
+
+  <p>Try these on your own before checking the answers. If you get stuck, go back to the four-point method and test $(0,0)$, $(1,0)$, $(-1,0)$, and $(1,1)$ before reading the rest of the field.</p>
+
+  <div class="prob">
+    <div class="plbl">Problem 1: Compute and draw</div>
+    <p>For $\dfrac{dy}{dx} = 2x$, compute the slope at each of these 6 points and state the direction (up-right, down-right, or horizontal):</p>
+    <p>$(0,0)$, $(1,0)$, $(-1,0)$, $(0,1)$, $(1,1)$, $(-1,1)$</p>
+  </div>
+
+  <div class="prob">
+    <div class="plbl">Problem 2: Identify the equation</div>
+    <p>A slope field shows horizontal tick marks along the entire $y$-axis (where $x = 0$), and the marks get steeper as $|x|$ increases. In Q1, marks angle upward. In Q2, marks angle downward.</p>
+    <p>Which differential equation matches this field?<br>
+    (A) $\dfrac{dy}{dx} = y$&nbsp;&nbsp; (B) $\dfrac{dy}{dx} = x^2$&nbsp;&nbsp; (C) $\dfrac{dy}{dx} = x$&nbsp;&nbsp; (D) $\dfrac{dy}{dx} = xy$</p>
+  </div>
+
+  <div class="prob">
+    <div class="plbl">Problem 3: Equilibrium solution</div>
+    <p>For the differential equation $\dfrac{dy}{dx} = 3 - y$:</p>
+    <p><strong>(a)</strong> Find all values of $y$ where $\dfrac{dy}{dx} = 0$.</p>
+    <p><strong>(b)</strong> Describe what happens to solution curves that start above $y = 3$ and below $y = 3$.</p>
+    <p><strong>(c)</strong> Is $y = 3$ a stable or unstable equilibrium? Justify.</p>
+  </div>
+
+  <div class="answers">
+    <div class="ans-ttl">Answers</div>
+    <div class="ans-item">
+      <strong>Problem 1:</strong><br>
+      $(0,0)$: slope = 0, horizontal<br>
+      $(1,0)$: slope = 2, steep up-right<br>
+      $(-1,0)$: slope = -2, steep down-right<br>
+      $(0,1)$: slope = 0, horizontal<br>
+      $(1,1)$: slope = 2, steep up-right<br>
+      $(-1,1)$: slope = -2, steep down-right<br>
+      <em>Note: vertical columns identical. Equation depends only on $x$.</em>
+    </div>
+    <div class="ans-item">
+      <strong>Problem 2:</strong> (C) $\dfrac{dy}{dx} = x$. At $x = 0$, slope = 0 everywhere on the $y$-axis. Slope increases as $x$ increases and decreases as $x$ decreases. No $y$ term means columns are uniform.
+    </div>
+    <div class="ans-item">
+      <strong>Problem 3:</strong><br>
+      (a) $\dfrac{dy}{dx} = 0$ when $3 - y = 0$, so $y = 3$. The entire horizontal line $y = 3$ has flat tick marks.<br>
+      (b) When $y > 3$: slope is negative, curves fall toward $y = 3$. When $y < 3$: slope is positive, curves rise toward $y = 3$.<br>
+      (c) <strong>Stable equilibrium.</strong> Solution curves from both above and below approach $y = 3$. The tick marks funnel inward from both sides.
+    </div>
+  </div>
+</div>
+
+<!-- FAQ -->
+<div class="sec" id="faq">
+  <h2>FAQ</h2>
+
+  <div class="faq-item">
+    <div class="faq-q">Do I need to actually solve a differential equation to draw a slope field?</div>
+    <div class="faq-a">No. Drawing a slope field requires only substitution, not integration. You plug $(x, y)$ coordinates into $\dfrac{dy}{dx}$, compute the number, and draw a line segment at that angle. No antiderivative involved. Solving comes later, if the problem asks for a general or particular solution. For the drawing portion of the FRQ, algebra is not required and usually just wastes time.</div>
+    <div class="faq-close">Zach's coaching close: If you are spending more than 30 seconds per tick mark, you are overcomplicating it. Plug in the numbers. Write the slope. Draw the angle. Move on.</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q">What is an equilibrium solution and will it show up on the AP exam?</div>
+    <div class="faq-a">An equilibrium solution is a constant function $y = c$ that satisfies the differential equation. Find it by setting $\dfrac{dy}{dx} = 0$ and solving for $y$. On a slope field, equilibrium solutions appear as horizontal lines where every tick mark is flat. Yes, they show up on the AP exam in both slope field problems and in the ap calculus slope field frq questions that follow in ap calc unit 7 differential equations.</div>
+    <div class="faq-close">Zach's coaching close: The moment you see a horizontal row of tick marks across the whole field, ask whether that row satisfies $\dfrac{dy}{dx} = 0$. It almost always does, and naming it earns partial credit.</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q">What does the AP exam actually ask about slope fields?</div>
+    <div class="faq-a">Three formats show up: drawing a slope field on a grid, matching a slope field image to the correct equation, and sketching a particular solution through a starting point. All three are FRQ format. The <a href="https://apcentral.collegeboard.org/media/pdf/ap-calculus-ab-course-and-exam-description.pdf" target="_blank">AP Calculus AB Course and Exam Description</a> lists this under Learning Objective FUN-7.D. Practice all three formats before exam day.</div>
+    <div class="faq-close">Zach's coaching close: The one format students practice least is the matching problem. That is also the format where the 4-point method saves the most time. Start there when you practice.</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q">How does a slope field connect to separable differential equations?</div>
+    <div class="faq-a">A slope field is the geometric picture of the differential equation. A separable differential equations ap calc problem gives you the algebraic solution. They describe the same relationship between $x$, $y$, and $\dfrac{dy}{dx}$. If you solve a separable differential equation and get $y = Ce^x$, that family of curves would follow every tick mark in the corresponding slope field. The two tools are complementary: slope fields show you the shape, separable equations give you the formula.</div>
+    <div class="faq-close">Zach's coaching close: The AP exam will sometimes ask you to verify that an algebraic solution is consistent with the slope field. Knowing both sides earns you the justification points.</div>
+  </div>
+</div>
+
+<!-- QUICK REFERENCE BOX -->
+<div class="sec" id="quick-reference">
+  <div class="qr">
+    <div class="qr-ttl">Save This For Exam Day: Slope Fields Quick Reference</div>
+
+    <div class="qr-row">
+      <div class="qr-row-ttl">Core formula</div>
+      <div class="qrf">$$\frac{dy}{dx} = f(x, y) \quad \Rightarrow \quad \text{slope at } (x_0, y_0) = f(x_0, y_0)$$</div>
+    </div>
+
+    <div class="qr-row">
+      <div class="qr-row-ttl">The 4-Point Method (always start here)</div>
+      <ul class="qrb">
+        <li>Test $(0,0)$, $(1,0)$, $(-1,0)$, $(1,1)$ first</li>
+        <li>Positive slope = up-right. Negative = down-right. Zero = horizontal.</li>
+        <li>Look for columns (slope depends on $x$ only) or rows (slope depends on $y$ only)</li>
+      </ul>
+    </div>
+
+    <div class="qr-row">
+      <div class="qr-row-ttl">Reading patterns</div>
+      <ul class="qrb">
+        <li>Slope depends only on $x$: vertical columns are identical</li>
+        <li>Slope depends only on $y$: horizontal rows are identical</li>
+        <li>Equilibrium at $y = c$: find where $\frac{dy}{dx} = 0$ for all $x$</li>
+      </ul>
+    </div>
+
+    <div class="qr-row">
+      <div class="qr-row-ttl">Equilibrium &amp; stability</div>
+      <ul class="qrb">
+        <li>Stable: tick marks funnel toward the equilibrium from both sides</li>
+        <li>Unstable: tick marks push away from the equilibrium on both sides</li>
+      </ul>
+    </div>
+
+    <div class="qr-row">
+      <div class="qr-row-ttl">FRQ communication rule</div>
+      <ul class="qrb">
+        <li>Write the slope values you computed and state the pattern you identified</li>
+        <li>A correct answer with no work shown earns zero on a justification question</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- RELATED POSTS -->
+<div class="sec" id="related">
+  <h2>Related Posts</h2>
+  <a class="related-link" href="/post-01-what-is-a-derivative">What Is a Derivative in AP Calculus? (The Concept, Not Just the Formula): The instantaneous rate of change concept that makes slope fields make sense.</a>
+  <p style="font-size:12px;color:var(--muted);font-style:italic;">Additional Unit 7 posts (separable differential equations, Euler's method) will link here when published.</p>
+</div>
+
+<!-- END CTA -->
+<div class="sec" id="end-cta">
+  <div class="cta">
+    <h3>Get the Review Sheet Before the Exam</h3>
+    <p>Slope fields are a reliable source of free points on the FRQ if you have the method down. The 30-dollar AB Calculus review sheet covers every Unit 7 topic with worked examples and scoring notes. It is what my students use in the final 4 weeks before exam day.</p>
+    <a class="btn" href="https://www.aceapcalculus.com/reviewsheet50">Get the AB Review Sheet</a>
+    <p class="sub">Parents: the review sheet covers every unit tested on the AP Calculus AB exam. It is what my students use in the 4 weeks before the exam.</p>
+  </div>
+
+  <div class="sea">
+    <h3>Summer Program: Active through September 15, 2026</h3>
+    <p>If your student wants to walk into AP Calculus AB already confident on Unit 7 FRQs, my summer program covers every tested topic with real timed practice. Small groups. Structured weekly plan.</p>
+    <a class="btn-w" href="https://www.aceapcalculus.com/summer-diagnostic-page">See Summer Program Details</a>
+  </div>
+</div>
+
+</div><!-- end .ace-post -->
+
+<!-- FAQPage schema for SEO -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Do I need to actually solve a differential equation to draw a slope field?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Drawing a slope field requires only substitution, not integration. You plug (x, y) coordinates into dy/dx, compute the number, and draw a line segment at that angle. No antiderivative involved. Solving comes later, if the problem asks for a general or particular solution."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is an equilibrium solution and will it show up on the AP exam?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "An equilibrium solution is a constant function y = c that satisfies the differential equation. Find it by setting dy/dx = 0 and solving for y. On a slope field, equilibrium solutions appear as horizontal lines where every tick mark is flat. Yes, they show up on the AP exam in both slope field and differential equations problems."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does the AP exam actually ask about slope fields?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Three formats show up: drawing a slope field on a grid, matching a slope field image to the correct equation, and sketching a particular solution through a starting point. All three are FRQ format. Practice all three formats before exam day. The matching problem is where the 4-point method saves the most time."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How does a slope field connect to separable differential equations?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A slope field is the geometric picture of the differential equation. A separable differential equation gives you the algebraic solution. They describe the same relationship between x, y, and dy/dx. The AP exam will sometimes ask you to verify that an algebraic solution is consistent with the slope field."
+      }
+    }
+  ]
+}
+</script>
+
+<!-- ===================================================================
+     ▲▲▲ END: WORDPRESS CUSTOM HTML BLOCK ▲▲▲
+     =================================================================== -->
+
+</div><!-- end .page -->
+</body>
+</html>

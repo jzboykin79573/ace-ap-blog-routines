@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PREVIEW: Separable Differential Equations: AP Calculus FRQ Guide</title>
+
+<!--
+=======================================================================
+  PREVIEW FILE: ACE AP CALCULUS BLOG
+  Post 17: Separable Differential Equations: The Setup That Was Worth 5 Points Last Week
+=======================================================================
+  This file has three jobs:
+  1. Let you preview the post in your browser before publishing
+  2. Show you a publishing guide at the top of the page
+  3. Mark exactly what to copy into each part of WordPress
+
+  HOW TO USE THIS FILE
+  ─────────────────────
+  Open it in your browser → read the publishing guide at the top
+  Open it in VS Code → the comment markers show you what goes where
+
+  WHAT GETS PASTED INTO WORDPRESS
+  ─────────────────────────────────
+  STEP 1 (one time only) → functions.php  (see guide below)
+  STEP 2 → WordPress title field          (see guide below)
+  STEP 3 → One Custom HTML block          (marked in the body below)
+  STEP 4 → Yoast / Rank Math SEO fields   (see guide below)
+=======================================================================
+-->
+
+<!-- PREVIEW-ONLY: Fonts, MathJax, Desmos load here for local preview.
+     WordPress gets MathJax + Desmos from functions.php (Step 1 below).
+     Do NOT paste any of this <head> section into WordPress. -->
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<script>MathJax = { tex: { inlineMath: [['$','$']], displayMath: [['$$','$$']], processEscapes: true } };</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+<script src="https://www.desmos.com/api/v1.7/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0fda6"></script>
+
+<!-- PREVIEW-ONLY CSS: styles for the browser chrome, hero, and page
+     wrapper below. None of this goes into WordPress. -->
+<style>
+:root{
+  --navy:#0f1e3c;--blue:#1a3a6b;--accent:#e8a020;--accent-light:#fef3dc;
+  --green:#1a7a4a;--green-light:#eaf7f0;--red:#c0392b;--red-light:#fdf2f1;
+  --purple:#7c3aed;--purple-light:#f3f0ff;
+  --gray:#f5f6f8;--border:#dde1e8;--text:#1a1a2e;--muted:#6b7280;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:#eef0f4;color:var(--text);font-size:14px;line-height:1.8}
+/* Publishing guide panel */
+.pub-guide{background:#1a1a2e;font-family:'JetBrains Mono',monospace}
+.pub-guide summary{padding:14px 20px;cursor:pointer;color:var(--accent);font-size:13px;font-weight:700;letter-spacing:.5px;list-style:none;display:flex;align-items:center;gap:10px}
+.pub-guide summary::before{content:"▶";font-size:10px;transition:transform .2s}
+.pub-guide[open] summary::before{transform:rotate(90deg)}
+.pub-guide-body{padding:0 20px 20px}
+.pub-step{margin-bottom:24px}
+.pub-step-ttl{color:var(--accent);font-size:12px;font-weight:700;margin-bottom:6px;letter-spacing:.5px}
+.pub-step p{color:rgba(255,255,255,.75);font-size:12px;margin-bottom:8px;font-family:'Inter',sans-serif;line-height:1.6}
+.pub-step textarea{width:100%;background:#0d0d1a;color:#a8d8a8;border:1px solid #333;border-radius:6px;padding:12px;font-size:11px;font-family:'JetBrains Mono',monospace;line-height:1.6;resize:vertical;min-height:80px}
+.pub-step code{background:#0d0d1a;color:var(--accent);padding:2px 6px;border-radius:3px;font-size:11px}
+.pub-divider{border:none;border-top:1px solid #2a2a4a;margin:20px 0}
+/* Preview chrome bar */
+.chrome{background:#2d2d2d;padding:8px 14px;display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:100}
+.dots{display:flex;gap:6px}.dot{width:11px;height:11px;border-radius:50%}
+.dot.r{background:#ff5f57}.dot.y{background:#febc2e}.dot.g{background:#28c840}
+.url{flex:1;background:#3d3d3d;border-radius:5px;padding:4px 10px;color:#aaa;font-size:11px;font-family:'JetBrains Mono',monospace}
+.badge{background:var(--accent);color:var(--navy);font-size:10px;font-weight:700;padding:3px 8px;border-radius:4px}
+/* Preview page wrapper + hero */
+.page{max-width:780px;margin:0 auto;background:#fff;min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,.12)}
+.hero{background:linear-gradient(135deg,var(--navy),var(--blue));padding:40px 40px 32px;color:#fff}
+.tag{display:inline-block;background:var(--accent);color:var(--navy);font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;padding:3px 9px;border-radius:3px;margin-bottom:14px}
+.hero h1{font-family:'Merriweather',serif;font-size:22px;line-height:1.4;margin-bottom:14px}
+.meta{display:flex;gap:10px;flex-wrap:wrap}
+.pill{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.88);font-size:11px;padding:4px 10px;border-radius:20px}
+</style>
+</head>
+<body>
+
+<!-- ===================================================================
+     PUBLISHING GUIDE: visible in your browser, preview only
+     This panel does NOT get pasted into WordPress.
+     =================================================================== -->
+<details class="pub-guide" open>
+  <summary>PUBLISHING GUIDE: 4 steps to post this to WordPress</summary>
+  <div class="pub-guide-body">
+
+    <div class="pub-step">
+      <div class="pub-step-ttl">STEP 1 (ONE TIME ONLY): Add MathJax + Desmos to functions.php</div>
+      <p>Do this once. After that, skip to Step 2 for every future post.<br>
+         Go to: WordPress Admin → Appearance → Theme File Editor → functions.php<br>
+         Scroll to the bottom and paste the code below.</p>
+      <textarea readonly rows="10">
+// ── ACE AP CALCULUS: MathJax + Desmos ─────────────────────────────
+// Paste this at the bottom of functions.php (one time only).
+
+add_action('wp_head', function() {
+    echo '<script>MathJax = { tex: { inlineMath: [["$","$"]], displayMath: [["$$","$$"]] } };</script>';
+    echo '<script src="https://www.desmos.com/api/v1.7/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0fda6"></script>';
+}, 1);
+
+add_action('wp_enqueue_scripts', function() {
+    wp_enqueue_script('mathjax', 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js', [], null, false);
+});
+// ──────────────────────────────────────────────────────────────────</textarea>
+    </div>
+
+    <hr class="pub-divider">
+
+    <div class="pub-step">
+      <div class="pub-step-ttl">STEP 2: WordPress title field</div>
+      <p>In the WordPress editor, click the title field at the top and paste this exactly:</p>
+      <textarea readonly rows="2">Separable Differential Equations in AP Calculus: The Setup That Was Worth 5 Points Last Week</textarea>
+    </div>
+
+    <hr class="pub-divider">
+
+    <div class="pub-step">
+      <div class="pub-step-ttl">STEP 3: WordPress Custom HTML block (the post content)</div>
+      <p>In the WordPress editor content area:<br>
+         1. Click the <code>+</code> button → search <code>Custom HTML</code> → add that block<br>
+         2. Open this file in VS Code or any text editor<br>
+         3. Find the comment that says: <code>▼▼▼ START: PASTE THIS INTO WORDPRESS CUSTOM HTML BLOCK ▼▼▼</code><br>
+         4. Select everything from that line down to: <code>▲▲▲ END: WORDPRESS CUSTOM HTML BLOCK ▲▲▲</code><br>
+         5. Paste into the Custom HTML block in WordPress<br><br>
+         That section contains the fonts link, all the CSS, all the post content, and the Desmos graph script.</p>
+    </div>
+
+    <hr class="pub-divider">
+
+    <div class="pub-step">
+      <div class="pub-step-ttl">STEP 4: SEO fields (in the WordPress sidebar)</div>
+      <p>If you use Yoast or Rank Math, fill these in the sidebar before publishing:</p>
+      <textarea readonly rows="5">
+SEO Title:       Separable Differential Equations: AP Calculus FRQ Guide
+Meta Description: Learn to solve separable differential equations for the AP Calculus FRQ. Separation, u-sub, and initial conditions worked out step by step, May 2026 mock exam.
+Slug:            separable-differential-equations-ap-calculus
+Focus Keyword:   separable differential equations AP calculus</textarea>
+    </div>
+
+  </div>
+</details>
+<!-- END PUBLISHING GUIDE -->
+
+
+<!-- ===================================================================
+     PREVIEW ONLY: browser chrome bar
+     Do NOT paste this into WordPress.
+     =================================================================== -->
+<div class="chrome">
+  <div class="dots">
+    <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
+  </div>
+  <div class="url">enginearu.com/ap-calculus-prep/separable-differential-equations-ap-calculus/</div>
+  <div class="badge">PREVIEW</div>
+</div>
+<!-- END PREVIEW CHROME -->
+
+
+<!-- ===================================================================
+     PREVIEW ONLY: hero header
+     WordPress uses the title field (Step 2) instead of this.
+     Do NOT paste this into WordPress.
+     =================================================================== -->
+<div class="page">
+<div class="hero">
+  <div class="tag">AP Calculus AB · BC · Unit 7: Differential Equations</div>
+  <h1>Separable Differential Equations in AP Calculus<br>The Setup That Was Worth 5 Points Last Week</h1>
+  <div class="meta">
+    <span class="pill">17 min read</span>
+    <span class="pill">May 2026 mock exam, fully worked</span>
+    <span class="pill">FRQ, 5 graded steps</span>
+  </div>
+</div>
+<!-- END PREVIEW HERO -->
+
+
+<!-- ===================================================================
+     ▼▼▼ START: PASTE THIS INTO WORDPRESS CUSTOM HTML BLOCK ▼▼▼
+     ===================================================================
+     Select from this line all the way down to the matching END marker.
+     Paste the entire selection into one Custom HTML block in WordPress.
+     =================================================================== -->
+
+<!-- Google Fonts: loads the typefaces used in the post styling -->
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<!-- Post CSS: all visual styles for the content below -->
+<style>
+.ace-post{
+  --navy:#0f1e3c;--blue:#1a3a6b;--accent:#e8a020;--accent-light:#fef3dc;
+  --green:#1a7a4a;--green-light:#eaf7f0;--red:#c0392b;--red-light:#fdf2f1;
+  --purple:#7c3aed;--purple-light:#f3f0ff;
+  --gray:#f5f6f8;--border:#dde1e8;--text:#1a1a2e;--muted:#6b7280;
+  font-family:'Inter',sans-serif;font-size:14px;line-height:1.8;color:var(--text);
+  padding:32px 0;
+}
+.ace-post .toc{background:var(--gray);border-left:4px solid var(--navy);border-radius:0 8px 8px 0;padding:18px 20px;margin-bottom:36px}
+.ace-post .toc-ttl{font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.ace-post .toc ol{padding-left:18px}.ace-post .toc li{margin-bottom:6px}
+.ace-post .toc a{color:var(--blue);text-decoration:none;font-size:13px;font-weight:500}
+.ace-post .sec{margin-bottom:40px}
+.ace-post h2{font-family:'Merriweather',serif;font-size:18px;font-weight:700;color:var(--navy);margin-bottom:14px;padding-bottom:8px;border-bottom:2px solid var(--border)}
+.ace-post h3{font-size:14px;font-weight:700;color:var(--blue);margin:18px 0 8px}
+.ace-post p{margin-bottom:13px;font-size:14px}
+.ace-post .math-block{background:var(--gray);border-radius:8px;padding:16px 20px;margin:14px 0;text-align:center;overflow-x:auto;font-size:15px}
+.ace-post .step{display:flex;gap:14px;margin-bottom:18px;align-items:flex-start}
+.ace-post .snum{background:var(--navy);color:#fff;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;margin-top:2px}
+.ace-post .scontent{flex:1}
+.ace-post .slbl{font-weight:700;font-size:13px;color:var(--navy);margin-bottom:5px}
+.ace-post .scontent p{font-size:13px;margin-bottom:6px}
+.ace-post .rubric{background:var(--green-light);border-left:4px solid var(--green);border-radius:0 8px 8px 0;padding:14px 18px;margin:16px 0}
+.ace-post .rubric-ttl{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--green);margin-bottom:8px}
+.ace-post .rubric ul{padding-left:18px}.ace-post .rubric li{font-size:13px;margin-bottom:5px;color:#1a4a32}
+.ace-post .cta{background:linear-gradient(135deg,var(--navy),var(--blue));border-radius:12px;padding:24px 26px;margin:28px 0;color:#fff}
+.ace-post .cta h3{color:#fff;margin:0 0 8px;font-size:15px;font-family:'Merriweather',serif}
+.ace-post .cta p{color:rgba(255,255,255,.85);font-size:13px;margin-bottom:14px}
+.ace-post .btn{display:inline-block;background:var(--accent);color:var(--navy);font-weight:700;font-size:13px;padding:10px 20px;border-radius:6px;text-decoration:none}
+.ace-post .sub{font-size:11px;color:rgba(255,255,255,.6);margin-top:10px;font-style:italic}
+.ace-post .sea{background:var(--accent-light);border:2px solid var(--accent);border-radius:12px;padding:22px 26px;margin:20px 0}
+.ace-post .sea h3{color:var(--navy);font-size:14px;margin-bottom:8px;font-weight:700}
+.ace-post .sea p{font-size:13px;color:#5a4500;margin-bottom:12px}
+.ace-post .btn-w{display:inline-block;background:var(--navy);color:#fff;font-weight:700;font-size:13px;padding:10px 20px;border-radius:6px;text-decoration:none}
+.ace-post .mk{border-left:4px solid var(--red);border-radius:0 8px 8px 0;padding:14px 18px;background:var(--red-light);margin-bottom:16px}
+.ace-post .mk-n{font-weight:700;color:var(--red);font-size:13px;margin-bottom:5px}
+.ace-post .mk-w{font-size:12px;color:#7a2020;margin-bottom:6px;font-style:italic}
+.ace-post .mk-f{font-size:13px;color:var(--text)}
+.ace-post .mk-c{font-size:12px;color:#7a2020;margin-top:8px;padding-top:8px;border-top:1px solid rgba(192,57,43,.2);font-weight:600}
+.ace-post .prob{background:var(--gray);border-radius:8px;padding:16px 18px;margin-bottom:14px;border:1px solid var(--border)}
+.ace-post .plbl{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.ace-post .prob p{font-size:13px;margin-bottom:8px}
+.ace-post .answers{background:var(--navy);border-radius:8px;padding:18px 20px;margin-top:20px}
+.ace-post .ans-ttl{color:var(--accent);font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:12px}
+.ace-post .ans-item{font-size:13px;color:rgba(255,255,255,.9);margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid rgba(255,255,255,.1)}
+.ace-post .ans-item:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
+/* FAQ accordion */
+.ace-post .faq-list{border:1px solid var(--border,#dde3ed);border-radius:8px;overflow:hidden;margin:24px 0}
+.ace-post .faq-item{border-bottom:1px solid var(--border,#dde3ed);padding:0}
+.ace-post .faq-item:last-child{border-bottom:none}
+.ace-post .faq-item summary{padding:14px 16px;cursor:pointer;font-weight:600;color:var(--navy,#0f1e3c);font-size:14px;list-style:none;display:flex;align-items:center;gap:8px;user-select:none;background:#fff}
+.ace-post .faq-item summary::-webkit-details-marker{display:none}
+.ace-post .faq-item summary::marker{display:none}
+.ace-post .faq-item summary .faq-q-label{color:var(--accent,#e8a020);font-weight:700;flex-shrink:0}
+.ace-post .faq-item summary .faq-toggle{margin-left:auto;color:var(--accent,#e8a020);font-size:20px;font-weight:300;flex-shrink:0;line-height:1}
+.ace-post .faq-item[open] summary .faq-toggle{content:'-'}
+.ace-post .faq-a{padding:4px 16px 14px;color:var(--text-mid,#4a5568);line-height:1.7}
+.ace-post .faq-a p{margin:0}
+.ace-post .qr{background:var(--navy);color:#fff;border-radius:10px;padding:24px 26px;margin:20px 0}
+.ace-post .qr-ttl{color:var(--accent);font-size:12px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:16px}
+.ace-post .qrf{background:rgba(255,255,255,.07);border-radius:6px;padding:12px 16px;margin-bottom:10px;text-align:center}
+.ace-post .qrf-lbl{font-size:11px;color:rgba(255,255,255,.5);margin-bottom:6px}
+.ace-post .qrb{margin-top:14px;list-style:none;padding-left:0}
+.ace-post .qrb li{font-size:12px;color:rgba(255,255,255,.85);margin-bottom:6px;padding-left:20px;position:relative}
+.ace-post .qrb li::before{content:"✓";color:#4ade80;position:absolute;left:0;font-weight:700}
+.ace-post .qrb .nv{color:#fca5a5!important}.ace-post .qrb .nv::before{content:"✗"!important;color:#fca5a5!important}
+.ace-post .note{background:var(--purple-light);border-left:3px solid var(--purple);border-radius:0 6px 6px 0;padding:10px 14px;margin:14px 0;font-size:12px;color:#4c1d95}
+.ace-post .one-liner{background:var(--accent-light);border:2px solid var(--accent);border-radius:8px;padding:16px 20px;margin:20px 0;font-size:15px;font-weight:700;color:var(--navy);text-align:center;font-family:'Merriweather',serif;font-style:italic}
+.ace-post .related-link{display:block;padding:12px 14px;background:var(--gray);border-radius:6px;border:1px solid var(--border);margin-bottom:8px;font-size:13px;color:var(--blue);text-decoration:none}
+.ace-post .related-link:hover{background:#e8edf5}
+.ace-post .related-draft{font-size:11px;color:var(--muted);margin-left:6px}
+.ace-post .desmos-wrap{border-radius:10px;overflow:hidden;margin:18px 0;border:1px solid var(--border)}
+.ace-post .desmos-label{background:var(--navy);color:#fff;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:8px 14px;display:flex;align-items:center;gap:6px}
+.ace-post .desmos-dot{width:8px;height:8px;border-radius:50%;background:var(--accent)}
+.ace-post .body-list{padding-left:20px;margin-bottom:12px;font-size:13px}
+.ace-post .body-list li{margin-bottom:5px}
+.ace-post hr{border:none;border-top:1px solid var(--border);margin:28px 0}
+.ace-post .cheat{background:var(--accent-light);border:1px solid var(--accent);border-radius:8px;padding:14px 16px;margin:16px 0}
+.ace-post .cheat-ttl{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#8a5a00;margin-bottom:8px}
+.ace-post .cheat-list{padding-left:0;list-style:none}
+.ace-post .cheat-list li{font-size:13px;padding:4px 0;display:flex;align-items:flex-start;gap:8px;color:#5a3c00}
+.ace-post .cheat-list li::before{content:"→";color:var(--accent);font-weight:700;flex-shrink:0;margin-top:2px}
+.ace-post .compare{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);border-radius:10px;overflow:hidden;margin:18px 0}
+.ace-post .compare-side{padding:18px 20px;background:#fff}
+.ace-post .compare-side.left{background:var(--gray)}
+.ace-post .compare-lbl{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px}
+.ace-post .compare-lbl.aroc{color:var(--muted)}
+.ace-post .compare-lbl.iroc{color:var(--blue)}
+.ace-post .compare-val{font-size:15px;font-weight:800;color:var(--navy);margin-bottom:4px;font-family:'Merriweather',serif}
+.ace-post .compare-sub{font-size:12px;color:var(--muted);line-height:1.5}
+.ace-post .compare-badge{display:inline-block;margin-top:8px;font-size:10px;font-weight:700;padding:3px 8px;border-radius:4px}
+.ace-post .compare-badge.aroc{background:var(--gray);color:var(--muted);border:1px solid var(--border)}
+.ace-post .compare-badge.iroc{background:var(--blue);color:#fff}
+</style>
+
+<!-- Post content: all sections of the blog post -->
+<div class="ace-post">
+
+  <!-- Table of contents -->
+  <div class="toc">
+    <div class="toc-ttl">Jump To What You Need</div>
+    <ol>
+      <li><a href="#starting-line">The Starting-Line Problem</a></li>
+      <li><a href="#what-it-means">What Separable Actually Means</a></li>
+      <li><a href="#method">The 4-Step Separation Framework</a></li>
+      <li><a href="#example-1">Worked Example 1: The May 5 Mock Exam Problem</a></li>
+      <li><a href="#mid-cta">Grab the Free Guide</a></li>
+      <li><a href="#example-2">Worked Example 2: FRQ Scoring Walkthrough</a></li>
+      <li><a href="#mistakes">The 3 Mistakes That Cost Points on This Sub-Part</a></li>
+      <li><a href="#practice">Practice Problems</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="#quick-reference">Save This For Exam Day</a></li>
+      <li><a href="#related">Related Posts</a></li>
+    </ol>
+  </div>
+
+  <!-- Section 1: The Starting-Line Problem (INTRO, HEAVY) -->
+  <div class="sec" id="starting-line">
+    <h2>The Starting-Line Problem</h2>
+
+    <!-- HOOK TYPE: name-the-feeling -->
+    <p>There is a specific feeling that hits when you read "find a particular solution" on the FRQ. You know integration is somewhere in the answer. You can feel it. But you cannot find the starting line.</p>
+
+    <p>That is exactly what happened to students in both of my groups on the May 5 mock exam. The sub-part asked them to separate variables and find a particular solution given initial conditions. I watched the same thing play out in two separate sessions: students who understood the concept, who knew integration was involved, who had done similar problems in practice. And still could not write the first line.</p>
+
+    <p>Here is what that first line looks like:</p>
+
+    <div class="math-block">$$\frac{dH}{\sqrt{4+H}} = 12\,dT$$</div>
+
+    <p>That is it. That is the separation. Students who wrote that line got most of the remaining 5 points in that sub-part. Students who did not left 5 on the table.</p>
+
+    <p>On the May 5 mock, that separation sub-part was worth 5 out of 9 total points on that FRQ. It was the single most missed section across both groups. Not because the math was impossible. Because students could not write the first line.</p>
+
+    <p>This post fixes that. I am going to walk you through the full setup: separate, u-substitution, integrate, apply initial conditions, solve for C, isolate H. Every step. No gaps. And when you are done reading, that first line will never be the problem again.</p>
+
+    <p>This is the skill that separates students who score 4s and 5s on FRQs from students who leave partial-credit points scattered across every question.</p>
+  </div>
+
+  <!-- Section 2: What it means (LIGHT + 1 STANCE) -->
+  <div class="sec" id="what-it-means">
+    <h2>What Separable Differential Equations Actually Mean</h2>
+
+    <p>Most students learn about separable differential equations in AP Calculus as a procedure. Separate the variables. Integrate both sides. Solve for C. That is true. But if that is all you know, you will get tripped up the moment the equation does not look like the textbook example.</p>
+
+    <p>Here is the analogy I use. Think of a differential equation as two people in a room who are not allowed to be on the same side of an equals sign. A separable equation is one where you can move every piece involving $y$ (or $H$, or whatever dependent variable you have) to the left side, and every piece involving $x$ (or $T$) to the right side. Separated. No mixing allowed once you have done it.</p>
+
+    <p>The formal definition: a separable differential equation is one that can be written in the form</p>
+
+    <div class="math-block">$$\frac{dy}{dx} = f(x) \cdot g(y)$$</div>
+
+    <p>where $f(x)$ is a function of $x$ only and $g(y)$ is a function of $y$ only. Once you have that form, divide both sides by $g(y)$, multiply both sides by $dx$, and the variables are separated. Then integrate.</p>
+
+    <p>The reason this matters for the AP exam: most FRQ differential equation sub-parts are testing exactly this skill. You are given a differential equation and asked to find a particular solution. Separation of variables is the mechanism. It is how solving differential equations by hand starts in Unit 7.</p>
+
+    <p>One distinction worth naming here: a differential equation describes an <strong>instantaneous rate of change</strong>. How fast is $H$ changing at this exact moment as $T$ changes? That is the IROC framing. It is not an average over an interval. The AROC would describe how much $H$ changed across a whole interval of time. The differential equation only captures the instantaneous picture at each specific point on the curve. That is why initial conditions let you pin down one specific solution curve out of the infinitely many curves the general equation describes.</p>
+
+    <!-- AROC vs IROC comparison -->
+    <div class="compare">
+      <div class="compare-side left">
+        <div class="compare-lbl aroc">Average Rate of Change</div>
+        <div class="compare-val">$\Delta H / \Delta T$</div>
+        <div class="compare-sub">Change in height over an interval of time<br>Not what the differential equation captures</div>
+        <span class="compare-badge aroc">Interval, not the DE</span>
+      </div>
+      <div class="compare-side">
+        <div class="compare-lbl iroc">Instantaneous Rate of Change</div>
+        <div class="compare-val" style="color:var(--blue)">$dH/dT$</div>
+        <div class="compare-sub">Slope of the solution curve at one specific point<br>This is what the differential equation describes</div>
+        <span class="compare-badge iroc">This is the derivative (and the DE)</span>
+      </div>
+    </div>
+
+    <p>The one thing I need you to understand before we go to the steps: this is not about recognizing that integration is in there. You already know that. The question is whether you can write the separated form first. That is the gatekeeping step. That is what the AP exam is actually testing when it asks you to "find a particular solution to the differential equation."</p>
+  </div>
+
+  <!-- Section 3: The Method (LIGHT) -->
+  <div class="sec" id="method">
+    <h2>The 4-Step Separation Framework</h2>
+
+    <p>Every separable differential equation problem on the AP exam runs through the same 4 steps. Write these on your scratch paper at the start of every FRQ that involves a differential equation, before you even read the specific question.</p>
+
+    <div class="step">
+      <div class="snum">1</div>
+      <div class="scontent">
+        <div class="slbl">Separate the variables</div>
+        <p>Get all $y$ terms (and $dy$) on one side. Get all $x$ terms (and $dx$) on the other. Write the differential notation explicitly. Do not leave $\frac{dy}{dx}$ as a fraction you are going to work around. Move it.</p>
+        <div class="math-block">$$g(y)\,dy = f(x)\,dx$$</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="snum">2</div>
+      <div class="scontent">
+        <div class="slbl">Integrate both sides</div>
+        <p>Put an integral sign on each side. Write $+C$ immediately on the right after integrating. Do not skip it. If either side requires a u-substitution, do that work now and show it explicitly.</p>
+        <div class="math-block">$$\int g(y)\,dy = \int f(x)\,dx + C$$</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="snum">3</div>
+      <div class="scontent">
+        <div class="slbl">Apply the initial condition</div>
+        <p>Substitute the given values into your integrated equation. Solve for $C$. Write the value explicitly. Never assume $C = 0$.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="snum">4</div>
+      <div class="scontent">
+        <div class="slbl">Isolate the dependent variable (if asked)</div>
+        <p>Some FRQ parts ask for an explicit solution $y = f(x)$. Others accept implicit form. Read the question. If it says "find $H$ in terms of $T$," isolate $H$. When in doubt, isolate. You cannot lose points for going further. You can lose points for stopping early.</p>
+      </div>
+    </div>
+
+    <div class="note">
+      <strong>Process note:</strong> Write $+C$ on one side after integrating and leave it there until you solve for it using the initial condition. If you write $+C_1$ and $+C_2$ on both sides, that is fine. Immediately rename the combined constant $C = C_2 - C_1$. The AP rubric cares that $C$ is present and solved. It does not care which side you put it on.
+    </div>
+  </div>
+
+  <!-- Section 4: Worked Example 1 (PROCESS) -->
+  <div class="sec" id="example-1">
+    <h2>Worked Example 1: The May 5 Mock Exam Problem</h2>
+
+    <p>This is the exact FRQ sub-part from the May 5 mock exam. Both student groups saw this problem. Students who wrote the first separation line correctly got most of the points. Students who did not got zero on this sub-part.</p>
+
+    <div class="prob">
+      <div class="plbl">The Problem</div>
+      <p>A container holds water. Let $H$ represent the height of the water in centimeters and $T$ represent time in minutes. The rate of change of height satisfies</p>
+      <div class="math-block">$$\frac{dH}{dT} = \frac{12}{\sqrt{4+H}}$$</div>
+      <p>At time $T = 0$, the height is $H = 0$. Find the particular solution $H(T)$.</p>
+    </div>
+
+    <h3>Step 1: Separate the variables</h3>
+    <p>Move $\sqrt{4+H}$ to the left, $dT$ to the right.</p>
+    <div class="math-block">$$\frac{dH}{\sqrt{4+H}} = 12\,dT \quad \Longleftrightarrow \quad (4+H)^{-1/2}\,dH = 12\,dT$$</div>
+    <p>This is the line. Write it. Once it is on the page, the rest follows directly.</p>
+
+    <h3>Step 2: Integrate both sides</h3>
+    <p>The right side: $\displaystyle\int 12\,dT = 12T$.</p>
+    <p>The left side requires a u-substitution. Write it explicitly:</p>
+    <div class="math-block">
+      $$\text{Let } u = 4+H, \quad du = dH$$
+      $$\int u^{-1/2}\,du = \frac{u^{1/2}}{1/2} = 2u^{1/2} = 2\sqrt{4+H}$$
+    </div>
+    <p>After integrating both sides:</p>
+    <div class="math-block">$$2\sqrt{4+H} = 12T + C$$</div>
+
+    <h3>Step 3: Apply the initial condition $T = 0$, $H = 0$</h3>
+    <div class="math-block">
+      $$2\sqrt{4+0} = 12(0) + C$$
+      $$2(2) = C \quad \Rightarrow \quad C = 4$$
+    </div>
+    <div class="math-block">$$2\sqrt{4+H} = 12T + 4$$</div>
+
+    <h3>Step 4: Isolate $H$</h3>
+    <div class="math-block">
+      $$\sqrt{4+H} = 6T + 2$$
+      $$4+H = (6T+2)^2$$
+      $$\boxed{H(T) = (6T+2)^2 - 4}$$
+    </div>
+
+    <div class="rubric">
+      <div class="rubric-ttl">Here is exactly how the AP exam scores this type of problem</div>
+      <ul>
+        <li>Correctly separated variables: $dH$ and $\sqrt{4+H}$ on the left, $12\,dT$ on the right: <strong>1 point</strong></li>
+        <li>Correct antiderivative on the left, including the u-substitution: <strong>1 point</strong></li>
+        <li>$+C$ present after integration: <strong>1 point</strong></li>
+        <li>Initial condition substituted correctly and $C = 4$ found: <strong>1 point</strong></li>
+        <li>Correct explicit particular solution $H(T) = (6T+2)^2 - 4$ stated: <strong>1 point</strong></li>
+      </ul>
+    </div>
+
+    <div class="note">
+      <strong>FRQ communication rule:</strong> Write your u-substitution work explicitly: "Let $u = 4+H$, $du = dH$" before computing the antiderivative. Even if you get the right answer, missing this shown work can cost you the integration point. One line. Protects one point.
+    </div>
+
+    <!-- Live Desmos graph: particular solution curve -->
+    <div class="desmos-wrap">
+      <div class="desmos-label">
+        <div class="desmos-dot"></div>
+        Live Graph: Particular Solution $H(T) = (6T+2)^2 - 4$ passing through $(0, 0)$
+      </div>
+      <div id="desmos-particular-solution" style="width:100%;height:320px;"></div>
+    </div>
+  </div>
+
+  <!-- Mid-post CTA (NEUTRAL) -->
+  <div class="cta" id="mid-cta">
+    <h3>Grab the Free "Before AP Calculus" Guide</h3>
+    <p>If this post is clicking for you but you want to know which other topics in Unit 7 and Unit 8 are going to show up on the actual AP exam, I put together a free guide that walks through exactly what to have locked in before exam day. No filler.</p>
+    <a class="btn" href="https://aceapcalculus.com/review-sheet/">Get the Free AP Calculus Review Sheet</a>
+    <p class="sub">Parents: this guide shows you exactly where your student stands on the Unit 7 and 8 material that accounts for roughly 17-21% of the AP exam score.</p>
+  </div>
+
+  <!-- Section 5: Worked Example 2 (PROCESS) -->
+  <div class="sec" id="example-2">
+    <h2>Worked Example 2: A Different FRQ Setup</h2>
+
+    <p>Same 4 steps. Different integration technique on the left side. This is the kind of variety the AP exam uses to check whether you actually understand the procedure or just memorized one example.</p>
+
+    <div class="prob">
+      <div class="plbl">The Problem</div>
+      <p>Solve the separable differential equation</p>
+      <div class="math-block">$$\frac{dy}{dx} = 3x^2 e^{-y}$$</div>
+      <p>with the initial condition $y(0) = 1$.</p>
+    </div>
+
+    <h3>Step 1: Separate the variables</h3>
+    <div class="math-block">$$e^y\,dy = 3x^2\,dx$$</div>
+
+    <h3>Step 2: Integrate both sides</h3>
+    <div class="math-block">
+      $$\int e^y\,dy = \int 3x^2\,dx$$
+      $$e^y = x^3 + C$$
+    </div>
+
+    <h3>Step 3: Apply the initial condition $x = 0$, $y = 1$</h3>
+    <div class="math-block">
+      $$e^1 = 0^3 + C \quad \Rightarrow \quad C = e$$
+      $$e^y = x^3 + e$$
+    </div>
+
+    <h3>Step 4: Isolate $y$</h3>
+    <div class="math-block">$$\boxed{y = \ln(x^3 + e)}$$</div>
+
+    <div class="rubric">
+      <div class="rubric-ttl">Here is exactly how the AP exam scores this type of problem</div>
+      <ul>
+        <li>Correct separation: $e^y\,dy$ on one side, $3x^2\,dx$ on the other: <strong>1 point</strong></li>
+        <li>Correct antiderivatives on both sides: <strong>1 point</strong></li>
+        <li>$+C$ present and on the correct side: <strong>1 point</strong></li>
+        <li>Initial condition applied correctly and $C = e$ found: <strong>1 point</strong></li>
+        <li>Explicit solution $y = \ln(x^3 + e)$ clearly stated: <strong>1 point</strong></li>
+      </ul>
+    </div>
+
+    <div class="note">
+      <strong>Sign check:</strong> If you land a negative number inside a natural log, go back and check your integration signs and initial condition substitution first. $\ln$ of a negative number is undefined. It means the algebra went wrong somewhere, not that the answer is valid.
+    </div>
+  </div>
+
+  <!-- Section 6: The 3 Mistakes (MEDIUM) -->
+  <div class="sec" id="mistakes">
+    <h2>The 3 Mistakes That Cost Points on This Sub-Part</h2>
+
+    <div class="mk">
+      <div class="mk-n">Mistake 1: Seeing integration but not writing the separation first</div>
+      <div class="mk-w">Why it happens: Every student knows integration is involved. So they try to integrate $\frac{dH}{dT} = \frac{12}{\sqrt{4+H}}$ directly, as if $H$ were already isolated. The right side contains $H$, not just $T$. You cannot integrate it with respect to $T$ while $H$ is sitting in it.</div>
+      <p class="mk-f">The fix: Before you write a single integral sign, write the separated form. Full stop. Step 1 exists for a reason.</p>
+      <div class="mk-c">Consequence: On the May 5 mock exam, students who skipped this step forfeited up to 4 of the 5 available points on that sub-part.</div>
+    </div>
+
+    <div class="mk">
+      <div class="mk-n">Mistake 2: Leaving the left side unintegrated (forgetting the u-substitution)</div>
+      <div class="mk-w">Why it happens: The integral $\int (4+H)^{-1/2}\,dH$ does not look standard at first glance. Students try to write $\ln\sqrt{4+H}$ instead of applying the power rule with the correct substitution, or they stall entirely.</div>
+      <p class="mk-f">The fix: Any composite expression inside a power, like $(4+H)^{-1/2}$ or $\sqrt{something + variable}$, is a u-substitution trigger. Set $u$ equal to the inner expression. Write it. One line of scratch work protects the integration point.</p>
+      <div class="mk-c">Consequence: Even with correct separation, a wrong antiderivative costs the integration point and contaminates the $C$ calculation. One missed technique, two lost points.</div>
+    </div>
+
+    <div class="mk">
+      <div class="mk-n">Mistake 3: Forgetting to write $+C$ before applying the initial condition</div>
+      <div class="mk-w">Why it happens: Students complete the integration, get $2\sqrt{4+H} = 12T$, and substitute the initial condition to verify. But $+C$ was never written. They assume $C = 0$ because the equation "balanced." Except $2\sqrt{4} = 4$, not $0$. $C = 4$, and they lost it.</div>
+      <p class="mk-f">The fix: $+C$ goes in immediately after integration, before anything else. Write it. Solve for it using the initial condition. Never assume it is zero.</p>
+      <div class="mk-c">Consequence: On a 9-point FRQ, losing both the $C$ point and the particular solution point is a 2-point hit from one omission.</div>
+    </div>
+  </div>
+
+  <!-- Section 7: Practice Problems (LIGHT) -->
+  <div class="sec" id="practice">
+    <h2>Practice Problems</h2>
+
+    <p>Try these on your own before checking the answers. If you get stuck on the separation step, write the equation in the form $g(y)\,dy = f(x)\,dx$ before you reach for the integral sign.</p>
+
+    <div class="prob">
+      <div class="plbl">Problem 1: Direct Separation</div>
+      <div class="math-block">$$\frac{dy}{dx} = 2xy, \quad y(0) = 3$$</div>
+      <p>Find the particular solution.</p>
+    </div>
+
+    <div class="prob">
+      <div class="plbl">Problem 2: Requires u-Substitution on One Side</div>
+      <div class="math-block">$$\frac{dy}{dx} = \frac{4x}{(1+x^2)^2}, \quad y(0) = 2$$</div>
+      <p>Find the particular solution.</p>
+    </div>
+
+    <div class="prob">
+      <div class="plbl">Problem 3: Word Problem Setup</div>
+      <p>A population $P$ (in thousands) grows according to $\dfrac{dP}{dt} = 0.5P$. At time $t = 0$, the population is $P = 8$ thousand. Write a particular solution $P(t)$ and state the population at $t = 4$.</p>
+    </div>
+
+    <div class="answers">
+      <div class="ans-ttl">Answers</div>
+      <div class="ans-item">
+        <strong>Problem 1:</strong> Separate: $\frac{dy}{y} = 2x\,dx$. Integrate: $\ln|y| = x^2 + C$. Apply $y(0) = 3$: $\ln 3 = C$. Particular solution: $y = 3e^{x^2}$.
+      </div>
+      <div class="ans-item">
+        <strong>Problem 2:</strong> Separate: $dy = \frac{4x}{(1+x^2)^2}\,dx$. Let $u = 1+x^2$, $du = 2x\,dx$. Right side: $\int \frac{2}{u^2}\,du = -\frac{2}{u} = -\frac{2}{1+x^2}$. Apply $y(0) = 2$: $2 = -2 + C$, so $C = 4$. Particular solution: $y = 4 - \dfrac{2}{1+x^2}$.
+      </div>
+      <div class="ans-item">
+        <strong>Problem 3:</strong> Separate: $\frac{dP}{P} = 0.5\,dt$. Integrate: $\ln|P| = 0.5t + C$. Apply $P(0) = 8$: $C = \ln 8$. Particular solution: $P(t) = 8e^{0.5t}$. At $t = 4$: $P(4) = 8e^{2} \approx 59.1$ thousand.
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 8: FAQ (LIGHT + ZACH CLOSE) -->
+  <div class="sec" id="faq">
+    <h2>FAQ</h2>
+
+    <div class="faq-list">
+      <details class="faq-item">
+        <summary><span class="faq-q-label">Q:</span> What makes a differential equation "separable"?<span class="faq-toggle">+</span></summary>
+        <div class="faq-a">
+          <p>A differential equation is separable if you can rewrite it so that all the $y$ terms (including $dy$) are on one side and all the $x$ terms (including $dx$) are on the other. The formal test: can you write $\frac{dy}{dx}$ as a product $f(x) \cdot g(y)$? If yes, divide by $g(y)$, multiply by $dx$, and you have separated it. If the equation mixes $x$ and $y$ in a way that does not factor, it is not separable and you need a different method.</p>
+          <p>For Unit 7 on the AP exam, if you are asked to "find a particular solution to the differential equation," it is almost always separable. That is what the FRQ sub-part is testing.</p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary><span class="faq-q-label">Q:</span> How do I solve separable differential equations step by step on the AP exam?<span class="faq-toggle">+</span></summary>
+        <div class="faq-a">
+          <p>Four steps, every time: (1) separate, $g(y)\,dy = f(x)\,dx$; (2) integrate both sides and write $+C$ immediately; (3) apply the initial condition and solve for $C$; (4) isolate the dependent variable if the problem asks for explicit form. Do not skip Step 1. Do not skip $+C$. Those are the two most common single points lost on the AP FRQ.</p>
+          <p>The AP Calculus FRQ rubric for separation of variables problems typically allocates 1 point per step, so every step matters independently. You can earn 3 out of 5 points even if you do not finish. But only if you show the steps. For a pure math reference on the technique, see <a href="https://tutorial.math.lamar.edu/Classes/DE/Separable.aspx">Paul's Online Notes on separation of variables</a>.</p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary><span class="faq-q-label">Q:</span> Is separation of variables the same as integration?<span class="faq-toggle">+</span></summary>
+        <div class="faq-a">
+          <p>No. Separation comes before integration. Separation is the algebraic step that gets the variables on opposite sides. Integration is what you do after separation. Students who confuse the order try to integrate the original equation without separating first. They cannot, because both variables are mixed together on one side.</p>
+          <p>Think of it this way: separation makes the integrals possible. Without it, you are trying to integrate $\frac{12}{\sqrt{4+H}}$ with respect to $T$, and $H$ is floating there with no mechanism to handle it. Separation removes that problem. Then integration runs normally.</p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary><span class="faq-q-label">Q:</span> Do I always need an explicit solution on the AP FRQ?<span class="faq-toggle">+</span></summary>
+        <div class="faq-a">
+          <p>Read the question carefully. "Find a particular solution" usually means explicit form: $y = f(x)$ or $H = f(T)$. "Solve the differential equation" without specifying explicit sometimes accepts implicit form with $C$ solved. When in doubt, isolate.</p>
+          <p>In the May 5 mock problem, the question said "find the particular solution $H(T)$." Explicit was required. Stopping at $2\sqrt{4+H} = 12T + 4$ without isolating $H$ would likely lose the final point. One more step, one more point. Do not stop early.</p>
+        </div>
+      </details>
+    </div>
+  </div>
+
+  <!-- Section 9: Quick Reference Box (NEUTRAL) -->
+  <div class="qr" id="quick-reference">
+    <div class="qr-ttl">Save This For Exam Day</div>
+
+    <div class="qrf">
+      <div class="qrf-lbl">4-Step Framework: Every Separable DE Problem</div>
+      $$\text{1. Separate: } g(y)\,dy = f(x)\,dx$$
+      $$\text{2. Integrate both sides, write } +C \text{ immediately}$$
+      $$\text{3. Apply initial condition, solve for } C$$
+      $$\text{4. Isolate } y \text{ (if explicit form required)}$$
+    </div>
+
+    <div class="qrf">
+      <div class="qrf-lbl">Common AP Forms</div>
+      $$\frac{dy}{dx} = ky \quad \Rightarrow \quad y = Ae^{kx}$$
+      $$\frac{dH}{dT} = \frac{k}{\sqrt{a+H}} \quad \Rightarrow \quad 2\sqrt{a+H} = kT + C$$
+    </div>
+
+    <ul class="qrb">
+      <li>Write the separated form before any integral sign</li>
+      <li>Show u-substitution work explicitly. One line protects the integration point.</li>
+      <li>Write $+C$ before applying any initial condition</li>
+      <li>Apply initial condition to find $C$. Never assume $C = 0$.</li>
+      <li class="nv">Do not integrate the unseparated equation. It will not work when $y$ appears on the right side.</li>
+      <li class="nv">Do not skip $+C$. It costs you both the $C$ point and the particular solution point.</li>
+    </ul>
+  </div>
+
+  <!-- Screenshot-able one-liner -->
+  <div class="one-liner">
+    If you wrote that first separation line, you were already halfway to a 5-point sub-part.
+  </div>
+
+  <!-- Section 10: Related Posts (NEUTRAL) -->
+  <div class="sec" id="related">
+    <h2>Related Posts</h2>
+    <p>These posts connect directly to what you just read. If separation of variables felt right but the integration step slowed you down, start with integration intro. If you want to understand where differential equations come from graphically, slope fields is the right next read.</p>
+    <a class="related-link" href="https://enginearu.com/ap-calculus-prep/what-is-a-derivative-ap-calculus/">What Is a Derivative in AP Calculus? (The Concept, Not Just the Formula): the rate-of-change foundation that makes dH/dT make sense</a>
+    <a class="related-link" href="/ap-calculus-prep/integration-intro-ap-calculus/">Integration in AP Calculus: How It Works and Why It Matters <span class="related-draft">[DRAFT, no live URL yet]</span></a>
+    <a class="related-link" href="/ap-calculus-prep/slope-fields-ap-calculus/">Slope Fields in AP Calculus: How to Read, Sketch, and Match Them <span class="related-draft">[DRAFT, no live URL yet]</span></a>
+  </div>
+
+  <hr>
+
+  <!-- End CTA (NEUTRAL + 1 consequence line) -->
+  <div class="cta" id="end-cta">
+    <h3>You Know What Comes Next</h3>
+    <p>You now have the exact setup (separate, u-sub, integrate, apply C) for the problem type that was worth 5 points on the May 5 mock. Work through the 3 practice problems above before exam day. Do not just read through them. Write out every step. Because if the separation step is still shaky, every differential equations sub-part on the actual FRQ is going to cost you points you should have kept.</p>
+    <a class="btn" href="https://enginearu.com/the-ultimate-ap-calculus-review-sheet/">Download the Free AP Calculus Review Sheet</a>
+    <p class="sub">Parents: if your student is within three weeks of the AP Calculus exam and differential equations has been a sticking point, this is the week to address it. The FRQ differential equations sub-part is worth 5-9 points on its own. One hour of targeted review on the separation setup can be the difference between a 3 and a 4.</p>
+  </div>
+
+  <!-- Seasonal CTA (active Jan 1 to Sep 15; date = May 7, 2026, active) -->
+  <div class="sea">
+    <h3>Get Ahead This Summer: Before Unit 7 Becomes a Problem</h3>
+    <p>If you want your student to walk into AP Calculus already ahead on Unit 7 and the integration techniques that feed into it, my summer program runs in July and August. Small groups. Real FRQ practice. Structured plan. Spots fill fast.</p>
+    <a class="btn-w" href="https://aceapcalculus.com/summer-diagnostic-page">See Summer Program Details and Reserve a Spot</a>
+  </div>
+
+</div>
+<!-- END post content -->
+
+<!-- Desmos script: particular solution curve H(T) = (6T+2)^2 - 4 -->
+<script>
+(function() {
+  var elt = document.getElementById('desmos-particular-solution');
+  if (!elt || typeof Desmos === 'undefined') return;
+  var calc = Desmos.GraphingCalculator(elt, {
+    expressions: false,
+    settingsMenu: false,
+    zoomButtons: false,
+    lockViewport: true
+  });
+  calc.setMathBounds({ left: -0.5, right: 4, bottom: -10, top: 200 });
+  calc.setExpression({ id: 'solution', latex: 'H=(6T+2)^{2}-4', color: '#1a3a6b', lineWidth: 2.5 });
+  calc.setExpression({ id: 'origin', latex: '(0,0)', color: '#e8a020', pointSize: 9 });
+  calc.setExpression({ id: 'origin-lbl', latex: '(0,0)', label: 'Initial condition (0, 0)', showLabel: true, color: '#e8a020' });
+})();
+</script>
+
+<!-- FAQPage schema for SEO -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What makes a differential equation \"separable\"?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A differential equation is separable if you can rewrite it so that all the y terms (including dy) are on one side and all the x terms (including dx) are on the other. The formal test: can you write dy/dx as a product f(x) times g(y)? If yes, divide by g(y), multiply by dx, and you have separated it. For Unit 7 on the AP exam, if you are asked to find a particular solution, it is almost always separable."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I solve separable differential equations step by step on the AP exam?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Four steps, every time: (1) separate, g(y) dy = f(x) dx; (2) integrate both sides and write +C immediately; (3) apply the initial condition and solve for C; (4) isolate the dependent variable if the problem asks for explicit form. Do not skip Step 1. Do not skip +C. Those are the two most common single points lost on the AP FRQ."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is separation of variables the same as integration?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Separation comes before integration. Separation is the algebraic step that gets the variables on opposite sides. Integration is what you do after separation. Students who confuse the order try to integrate the original equation without separating first. Separation makes the integrals possible — without it, you cannot handle the mixed variables."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do I always need an explicit solution on the AP FRQ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Read the question carefully. \"Find a particular solution\" usually means explicit form: y = f(x). \"Solve the differential equation\" without specifying explicit sometimes accepts implicit form with C solved. When in doubt, isolate. You cannot lose points for going further. You can lose points for stopping early."
+      }
+    }
+  ]
+}
+</script>
+
+<!-- ===================================================================
+     ▲▲▲ END: WORDPRESS CUSTOM HTML BLOCK ▲▲▲
+     =================================================================== -->
+
+</div><!-- .page -->
+</body>
+</html>

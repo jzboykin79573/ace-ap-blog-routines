@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PREVIEW: First and Second Derivative Test in AP Calculus: How to Find Every Max and Min on the Exam</title>
+
+<!--
+=======================================================================
+  PREVIEW FILE: ACE AP CALCULUS BLOG
+  Post 18: First and Second Derivative Test in AP Calculus:
+           How to Find Every Max and Min on the Exam
+=======================================================================
+  This file has three jobs:
+  1. Let you preview the post in your browser before publishing
+  2. Show you a publishing guide at the top of the page
+  3. Mark exactly what to copy into each part of WordPress
+
+  HOW TO USE THIS FILE
+  ─────────────────────
+  Open it in your browser → read the publishing guide at the top
+  Open it in VS Code → the comment markers show you what goes where
+
+  WHAT GETS PASTED INTO WORDPRESS
+  ─────────────────────────────────
+  STEP 1 (one time only) → functions.php  (see guide below)
+  STEP 2 → WordPress title field          (see guide below)
+  STEP 3 → One Custom HTML block          (marked in the body below)
+  STEP 4 → Yoast / Rank Math SEO fields   (see guide below)
+=======================================================================
+-->
+
+<!-- PREVIEW-ONLY: Fonts, MathJax, Desmos load here for local preview.
+     WordPress gets MathJax + Desmos from functions.php (Step 1 below).
+     Do NOT paste any of this <head> section into WordPress. -->
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<script>MathJax = { tex: { inlineMath: [['$','$']], displayMath: [['$$','$$']], processEscapes: true } };</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+<script src="https://www.desmos.com/api/v1.7/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0fda6"></script>
+
+<!-- PREVIEW-ONLY CSS: styles for the browser chrome, hero, and page
+     wrapper below. None of this goes into WordPress. -->
+<style>
+:root{
+  --navy:#0f1e3c;--blue:#1a3a6b;--accent:#e8a020;--accent-light:#fef3dc;
+  --green:#1a7a4a;--green-light:#eaf7f0;--red:#c0392b;--red-light:#fdf2f1;
+  --purple:#7c3aed;--purple-light:#f3f0ff;
+  --gray:#f5f6f8;--border:#dde1e8;--text:#1a1a2e;--muted:#6b7280;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:#eef0f4;color:var(--text);font-size:14px;line-height:1.8}
+/* Publishing guide panel */
+.pub-guide{background:#1a1a2e;font-family:'JetBrains Mono',monospace}
+.pub-guide summary{padding:14px 20px;cursor:pointer;color:var(--accent);font-size:13px;font-weight:700;letter-spacing:.5px;list-style:none;display:flex;align-items:center;gap:10px}
+.pub-guide summary::before{content:"▶";font-size:10px;transition:transform .2s}
+.pub-guide[open] summary::before{transform:rotate(90deg)}
+.pub-guide-body{padding:0 20px 20px}
+.pub-step{margin-bottom:24px}
+.pub-step-ttl{color:var(--accent);font-size:12px;font-weight:700;margin-bottom:6px;letter-spacing:.5px}
+.pub-step p{color:rgba(255,255,255,.75);font-size:12px;margin-bottom:8px;font-family:'Inter',sans-serif;line-height:1.6}
+.pub-step textarea{width:100%;background:#0d0d1a;color:#a8d8a8;border:1px solid #333;border-radius:6px;padding:12px;font-size:11px;font-family:'JetBrains Mono',monospace;line-height:1.6;resize:vertical;min-height:80px}
+.pub-step code{background:#0d0d1a;color:var(--accent);padding:2px 6px;border-radius:3px;font-size:11px}
+.pub-divider{border:none;border-top:1px solid #2a2a4a;margin:20px 0}
+/* Preview chrome bar */
+.chrome{background:#2d2d2d;padding:8px 14px;display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:100}
+.dots{display:flex;gap:6px}.dot{width:11px;height:11px;border-radius:50%}
+.dot.r{background:#ff5f57}.dot.y{background:#febc2e}.dot.g{background:#28c840}
+.url{flex:1;background:#3d3d3d;border-radius:5px;padding:4px 10px;color:#aaa;font-size:11px;font-family:'JetBrains Mono',monospace}
+.badge{background:var(--accent);color:var(--navy);font-size:10px;font-weight:700;padding:3px 8px;border-radius:4px}
+/* Preview page wrapper + hero */
+.page{max-width:780px;margin:0 auto;background:#fff;min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,.12)}
+.hero{background:linear-gradient(135deg,var(--navy),var(--blue));padding:40px 40px 32px;color:#fff}
+.tag{display:inline-block;background:var(--accent);color:var(--navy);font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;padding:3px 9px;border-radius:3px;margin-bottom:14px}
+.hero h1{font-family:'Merriweather',serif;font-size:22px;line-height:1.4;margin-bottom:14px}
+.meta{display:flex;gap:10px;flex-wrap:wrap}
+.pill{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.88);font-size:11px;padding:4px 10px;border-radius:20px}
+</style>
+</head>
+<body>
+
+<!-- ===================================================================
+     PUBLISHING GUIDE: visible in your browser, preview only
+     This panel does NOT get pasted into WordPress.
+     =================================================================== -->
+<details class="pub-guide" open>
+  <summary>PUBLISHING GUIDE: 4 steps to post this to WordPress</summary>
+  <div class="pub-guide-body">
+
+    <div class="pub-step">
+      <div class="pub-step-ttl">STEP 1 (ONE TIME ONLY): Add MathJax + Desmos to functions.php</div>
+      <p>Do this once. After that, skip to Step 2 for every future post.<br>
+         Go to: WordPress Admin → Appearance → Theme File Editor → functions.php<br>
+         Scroll to the bottom and paste the code below.</p>
+      <textarea readonly rows="10">
+// ── ACE AP CALCULUS: MathJax + Desmos ─────────────────────────────
+// Paste this at the bottom of functions.php (one time only).
+
+add_action('wp_head', function() {
+    echo '<script>MathJax = { tex: { inlineMath: [["$","$"]], displayMath: [["$$","$$"]] } };</script>';
+    echo '<script src="https://www.desmos.com/api/v1.7/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0fda6"></script>';
+}, 1);
+
+add_action('wp_enqueue_scripts', function() {
+    wp_enqueue_script('mathjax', 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js', [], null, false);
+});
+// ──────────────────────────────────────────────────────────────────</textarea>
+    </div>
+
+    <hr class="pub-divider">
+
+    <div class="pub-step">
+      <div class="pub-step-ttl">STEP 2: WordPress title field</div>
+      <p>In the WordPress editor, click the title field at the top and paste this exactly:</p>
+      <textarea readonly rows="2">First and Second Derivative Test in AP Calculus: How to Find Every Max and Min on the Exam</textarea>
+    </div>
+
+    <hr class="pub-divider">
+
+    <div class="pub-step">
+      <div class="pub-step-ttl">STEP 3: WordPress Custom HTML block (the post content)</div>
+      <p>In the WordPress editor content area:<br>
+         1. Click the <code>+</code> button → search <code>Custom HTML</code> → add that block<br>
+         2. Open this file in VS Code or any text editor<br>
+         3. Find the comment that says: <code>▼▼▼ START: PASTE THIS INTO WORDPRESS CUSTOM HTML BLOCK ▼▼▼</code><br>
+         4. Select everything from that line down to: <code>▲▲▲ END: WORDPRESS CUSTOM HTML BLOCK ▲▲▲</code><br>
+         5. Paste into the Custom HTML block in WordPress<br><br>
+         That section contains the fonts link, all the CSS, all the post content, and both Desmos graph scripts.</p>
+    </div>
+
+    <hr class="pub-divider">
+
+    <div class="pub-step">
+      <div class="pub-step-ttl">STEP 4: SEO fields (in the WordPress sidebar)</div>
+      <p>If you use Yoast or Rank Math, fill these in the sidebar before publishing:</p>
+      <textarea readonly rows="5">
+SEO Title:       First and Second Derivative Test in AP Calculus 2026 (FRQ Guide)
+Meta Description: Learn how to use the first and second derivative test in AP Calculus to find every local max and min. Sign charts, SDT vs. concavity test, and FRQ rubric points. All in one place.
+Slug:            first-second-derivative-test-ap-calculus
+Focus Keyword:   first and second derivative test AP Calculus</textarea>
+    </div>
+
+  </div>
+</details>
+<!-- END PUBLISHING GUIDE -->
+
+
+<!-- ===================================================================
+     PREVIEW ONLY: browser chrome bar
+     Do NOT paste this into WordPress.
+     =================================================================== -->
+<div class="chrome">
+  <div class="dots">
+    <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
+  </div>
+  <div class="url">enginearu.com/ap-calculus-prep/first-second-derivative-test-ap-calculus/</div>
+  <div class="badge">PREVIEW</div>
+</div>
+<!-- END PREVIEW CHROME -->
+
+
+<!-- ===================================================================
+     PREVIEW ONLY: hero header
+     WordPress uses the title field (Step 2) instead of this.
+     Do NOT paste this into WordPress.
+     =================================================================== -->
+<div class="page">
+<div class="hero">
+  <div class="tag">AP Calculus AB · BC · Unit 5: Analytical Applications</div>
+  <h1>First and Second Derivative Test in AP Calculus<br>How to Find Every Max and Min on the Exam</h1>
+  <div class="meta">
+    <span class="pill">14 min read</span>
+    <span class="pill">FRQ scoring rubric included</span>
+    <span class="pill">SDT vs. Concavity Test explained</span>
+  </div>
+</div>
+<!-- END PREVIEW HERO -->
+
+
+<!-- ===================================================================
+     ▼▼▼ START: PASTE THIS INTO WORDPRESS CUSTOM HTML BLOCK ▼▼▼
+     ===================================================================
+     Select from this line all the way down to the matching END marker.
+     Paste the entire selection into one Custom HTML block in WordPress.
+     =================================================================== -->
+
+<!-- Google Fonts: loads the typefaces used in the post styling -->
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<!-- Post CSS: all visual styles for the content below -->
+<style>
+.ace-post{
+  --navy:#0f1e3c;--blue:#1a3a6b;--accent:#e8a020;--accent-light:#fef3dc;
+  --green:#1a7a4a;--green-light:#eaf7f0;--red:#c0392b;--red-light:#fdf2f1;
+  --purple:#7c3aed;--purple-light:#f3f0ff;
+  --gray:#f5f6f8;--border:#dde1e8;--text:#1a1a2e;--muted:#6b7280;
+  font-family:'Inter',sans-serif;font-size:14px;line-height:1.8;color:var(--text);
+  padding:32px 0;
+}
+.ace-post .toc{background:var(--gray);border-left:4px solid var(--navy);border-radius:0 8px 8px 0;padding:18px 20px;margin-bottom:36px}
+.ace-post .toc-ttl{font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.ace-post .toc ol{padding-left:18px}.ace-post .toc li{margin-bottom:6px}
+.ace-post .toc a{color:var(--blue);text-decoration:none;font-size:13px;font-weight:500}
+.ace-post .sec{margin-bottom:40px}
+.ace-post h2{font-family:'Merriweather',serif;font-size:18px;font-weight:700;color:var(--navy);margin-bottom:14px;padding-bottom:8px;border-bottom:2px solid var(--border)}
+.ace-post h3{font-size:14px;font-weight:700;color:var(--blue);margin:18px 0 8px}
+.ace-post p{margin-bottom:13px;font-size:14px}
+.ace-post .math-block{background:var(--gray);border-radius:8px;padding:16px 20px;margin:14px 0;text-align:center;overflow-x:auto;font-size:15px}
+.ace-post .step{display:flex;gap:14px;margin-bottom:18px;align-items:flex-start}
+.ace-post .snum{background:var(--navy);color:#fff;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;margin-top:2px}
+.ace-post .scontent{flex:1}
+.ace-post .slbl{font-weight:700;font-size:13px;color:var(--navy);margin-bottom:5px}
+.ace-post .scontent p{font-size:13px;margin-bottom:6px}
+.ace-post .rubric{background:var(--green-light);border-left:4px solid var(--green);border-radius:0 8px 8px 0;padding:14px 18px;margin:16px 0}
+.ace-post .rubric-ttl{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--green);margin-bottom:8px}
+.ace-post .rubric ul{padding-left:18px}.ace-post .rubric li{font-size:13px;margin-bottom:5px;color:#1a4a32}
+.ace-post .cta{background:linear-gradient(135deg,var(--navy),var(--blue));border-radius:12px;padding:24px 26px;margin:28px 0;color:#fff}
+.ace-post .cta h3{color:#fff;margin:0 0 8px;font-size:15px;font-family:'Merriweather',serif}
+.ace-post .cta p{color:rgba(255,255,255,.85);font-size:13px;margin-bottom:14px}
+.ace-post .btn{display:inline-block;background:var(--accent);color:var(--navy);font-weight:700;font-size:13px;padding:10px 20px;border-radius:6px;text-decoration:none}
+.ace-post .sub{font-size:11px;color:rgba(255,255,255,.6);margin-top:10px;font-style:italic}
+.ace-post .sea{background:var(--accent-light);border:2px solid var(--accent);border-radius:12px;padding:22px 26px;margin:20px 0}
+.ace-post .sea h3{color:var(--navy);font-size:14px;margin-bottom:8px;font-weight:700}
+.ace-post .sea p{font-size:13px;color:#5a4500;margin-bottom:12px}
+.ace-post .btn-w{display:inline-block;background:var(--navy);color:#fff;font-weight:700;font-size:13px;padding:10px 20px;border-radius:6px;text-decoration:none}
+.ace-post .mk{border-left:4px solid var(--red);border-radius:0 8px 8px 0;padding:14px 18px;background:var(--red-light);margin-bottom:16px}
+.ace-post .mk-n{font-weight:700;color:var(--red);font-size:13px;margin-bottom:5px}
+.ace-post .mk-w{font-size:12px;color:#7a2020;margin-bottom:6px;font-style:italic}
+.ace-post .mk-f{font-size:13px;color:var(--text)}
+.ace-post .mk-c{font-size:12px;color:#7a2020;margin-top:8px;padding-top:8px;border-top:1px solid rgba(192,57,43,.2);font-weight:600}
+.ace-post .prob{background:var(--gray);border-radius:8px;padding:16px 18px;margin-bottom:14px;border:1px solid var(--border)}
+.ace-post .plbl{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.ace-post .prob p{font-size:13px;margin-bottom:8px}
+.ace-post .answers{background:var(--navy);border-radius:8px;padding:18px 20px;margin-top:20px}
+.ace-post .ans-ttl{color:var(--accent);font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:12px}
+.ace-post .ans-item{font-size:13px;color:rgba(255,255,255,.9);margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid rgba(255,255,255,.1)}
+.ace-post .ans-item:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
+/* FAQ accordion */
+.ace-post .faq-list{border:1px solid var(--border,#dde3ed);border-radius:8px;overflow:hidden;margin:24px 0}
+.ace-post .faq-item{border-bottom:1px solid var(--border,#dde3ed);padding:0}
+.ace-post .faq-item:last-child{border-bottom:none}
+.ace-post .faq-item summary{padding:14px 16px;cursor:pointer;font-weight:600;color:var(--navy,#0f1e3c);font-size:14px;list-style:none;display:flex;align-items:center;gap:8px;user-select:none;background:#fff}
+.ace-post .faq-item summary::-webkit-details-marker{display:none}
+.ace-post .faq-item summary::marker{display:none}
+.ace-post .faq-item summary .faq-q-label{color:var(--accent,#e8a020);font-weight:700;flex-shrink:0}
+.ace-post .faq-item summary .faq-toggle{margin-left:auto;color:var(--accent,#e8a020);font-size:20px;font-weight:300;flex-shrink:0;line-height:1}
+.ace-post .faq-item[open] summary .faq-toggle{content:'-'}
+.ace-post .faq-a{padding:4px 16px 14px;color:var(--text-mid,#4a5568);line-height:1.7}
+.ace-post .faq-a p{margin:0}
+.ace-post .qr{background:var(--navy);color:#fff;border-radius:10px;padding:24px 26px;margin:20px 0}
+.ace-post .qr-ttl{color:var(--accent);font-size:12px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:16px}
+.ace-post .qrf{background:rgba(255,255,255,.07);border-radius:6px;padding:12px 16px;margin-bottom:10px;text-align:center}
+.ace-post .qrf-lbl{font-size:11px;color:rgba(255,255,255,.5);margin-bottom:6px}
+.ace-post .qrb{margin-top:14px;list-style:none;padding-left:0}
+.ace-post .qrb li{font-size:12px;color:rgba(255,255,255,.85);margin-bottom:6px;padding-left:20px;position:relative}
+.ace-post .qrb li::before{content:"✓";color:#4ade80;position:absolute;left:0;font-weight:700}
+.ace-post .qrb .nv{color:#fca5a5!important}.ace-post .qrb .nv::before{content:"✗"!important;color:#fca5a5!important}
+.ace-post .note{background:var(--purple-light);border-left:3px solid var(--purple);border-radius:0 6px 6px 0;padding:10px 14px;margin:14px 0;font-size:12px;color:#4c1d95}
+.ace-post .one-liner{background:var(--accent-light);border:2px solid var(--accent);border-radius:8px;padding:16px 20px;margin:20px 0;font-size:15px;font-weight:700;color:var(--navy);text-align:center;font-family:'Merriweather',serif;font-style:italic}
+.ace-post .related-link{display:block;padding:12px 14px;background:var(--gray);border-radius:6px;border:1px solid var(--border);margin-bottom:8px;font-size:13px;color:var(--blue);text-decoration:none}
+.ace-post .related-link:hover{background:#e8edf5}
+.ace-post .related-draft{font-size:11px;color:var(--muted);margin-left:6px}
+.ace-post .desmos-wrap{border-radius:10px;overflow:hidden;margin:18px 0;border:1px solid var(--border)}
+.ace-post .desmos-label{background:var(--navy);color:#fff;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:8px 14px;display:flex;align-items:center;gap:6px}
+.ace-post .desmos-dot{width:8px;height:8px;border-radius:50%;background:var(--accent)}
+.ace-post .body-list{padding-left:20px;margin-bottom:12px;font-size:13px}
+.ace-post .body-list li{margin-bottom:5px}
+.ace-post hr{border:none;border-top:1px solid var(--border);margin:28px 0}
+/* Sign chart table */
+.ace-post .sign-table{width:100%;border-collapse:collapse;font-size:13px;margin:14px 0}
+.ace-post .sign-table th{background:var(--navy);color:#fff;padding:8px 12px;font-size:11px;font-weight:700;letter-spacing:.5px;text-align:left}
+.ace-post .sign-table td{padding:8px 12px;border-bottom:1px solid var(--border)}
+.ace-post .sign-table tr:nth-child(even) td{background:var(--gray)}
+.ace-post .sign-pos{color:var(--green);font-weight:700}
+.ace-post .sign-neg{color:var(--red);font-weight:700}
+/* SDT vs Concavity callout — distinct navy border, light bg */
+.ace-post .sdt-callout{background:#f0f4ff;border:2px solid var(--blue);border-radius:10px;padding:20px 22px;margin:20px 0}
+.ace-post .sdt-callout-ttl{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--blue);margin-bottom:12px}
+.ace-post .sdt-compare{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px}
+.ace-post .sdt-col{background:#fff;border-radius:6px;padding:14px 16px;border:1px solid var(--border)}
+.ace-post .sdt-col-lbl{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px}
+.ace-post .sdt-col-lbl.ct{color:var(--muted)}
+.ace-post .sdt-col-lbl.sdt{color:var(--blue)}
+.ace-post .sdt-col p{font-size:12px;margin-bottom:6px;line-height:1.6}
+.ace-post .sdt-col strong{color:var(--navy)}
+.ace-post .sdt-trap{background:#fff3cd;border-left:3px solid #e8a020;border-radius:0 6px 6px 0;padding:10px 14px;margin-top:10px;font-size:12px;color:#5a3c00}
+.ace-post .sdt-trap strong{color:var(--navy)}
+/* AROC/IROC compare */
+.ace-post .compare{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);border-radius:10px;overflow:hidden;margin:18px 0}
+.ace-post .compare-side{padding:16px 18px;background:#fff}
+.ace-post .compare-side.left{background:var(--gray)}
+.ace-post .compare-lbl{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px}
+.ace-post .compare-lbl.aroc{color:var(--muted)}
+.ace-post .compare-lbl.iroc{color:var(--blue)}
+.ace-post .compare-val{font-size:15px;font-weight:800;color:var(--navy);margin-bottom:4px;font-family:'Merriweather',serif}
+.ace-post .compare-sub{font-size:12px;color:var(--muted);line-height:1.5}
+.ace-post .compare-badge{display:inline-block;margin-top:8px;font-size:10px;font-weight:700;padding:3px 8px;border-radius:4px}
+.ace-post .compare-badge.aroc{background:var(--gray);color:var(--muted);border:1px solid var(--border)}
+.ace-post .compare-badge.iroc{background:var(--blue);color:#fff}
+@media(max-width:560px){
+  .ace-post .sdt-compare{grid-template-columns:1fr}
+  .ace-post .compare{grid-template-columns:1fr}
+}
+</style>
+
+<!-- Post content: all sections of the blog post -->
+<div class="ace-post">
+
+  <!-- Table of contents -->
+  <div class="toc">
+    <div class="toc-ttl">Jump To What You Need</div>
+    <ol>
+      <li><a href="#critical-point-trap">The Critical Point Trap</a></li>
+      <li><a href="#what-it-means">What the Two Tests Are Actually Answering</a></li>
+      <li><a href="#fdt-framework">The First Derivative Test: Sign Chart Framework</a></li>
+      <li><a href="#example-1">Worked Example 1: FDT on f(x) = x³ &minus; 3x² + 2</a></li>
+      <li><a href="#mid-cta">Grab the Free Guide</a></li>
+      <li><a href="#example-2">Worked Example 2: Second Derivative Test (and When It Fails)</a></li>
+      <li><a href="#sdt-vs-concavity">The SDT vs. Concavity Test: Not the Same Thing</a></li>
+      <li><a href="#mistakes">The 3 Mistakes That Cost Points on This FRQ Type</a></li>
+      <li><a href="#practice">Practice Problems</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="#quick-reference">Save This For Exam Day</a></li>
+      <li><a href="#related">Related Posts</a></li>
+    </ol>
+  </div>
+
+  <!-- Section 1: Intro (HEAVY) -->
+  <div class="sec" id="critical-point-trap">
+    <h2>The Critical Point Trap</h2>
+
+    <!-- HOOK TYPE: name-the-feeling -->
+    <p>A student in my class last spring could find every derivative on the unit test and still lost 9 points on the free response because she found the critical points and stopped there, never checking whether they were actually a max, a min, or neither.</p>
+
+    <p>I see this exact pattern every year. The student does the hard part right. They set up $f'(x)$, factor it, solve for the zeros. Critical points: found. Then they circle those x-values and move on. The FRQ rubric has 5 more points sitting there waiting for them. And they left every one of those points on the table.</p>
+
+    <p>Here is the thing about critical points on the first and second derivative test AP Calculus problems: they are not the answer. They are the starting line. The AP exam is scoring the classification, not the algebra that finds the point. You need to identify which critical points are local maxima, which are local minima, and which are neither. And you need to justify your answer in notation the AP grader can read.</p>
+
+    <!-- SCREENSHOT-ABLE ONE-LINER -->
+    <div class="one-liner">Finding critical points is not the skill. Classifying them is.</div>
+
+    <p>That gap costs students 6 to 9 points on Unit 5 FRQs every single year. Not because the classification is hard once you know the procedure. Because most students treat finding critical points as the finish line when it is the 100-meter mark in a 400-meter race.</p>
+
+    <p>This post gives you both methods, both frameworks, a comparison that will save you from a specific AP exam trap, and every rubric point the grader is looking for.</p>
+  </div>
+
+  <!-- Section 2: What it means (LIGHT + 1 STANCE) -->
+  <div class="sec" id="what-it-means">
+    <h2>What the Two Tests Are Actually Answering</h2>
+
+    <p>Here is the framing I give every student before we start Unit 5.</p>
+
+    <p>The First Derivative Test and the Second Derivative Test answer the exact same question: at this critical point, is the function experiencing a local max, a local min, or neither? Two methods. Same question. Different tools.</p>
+
+    <p>Most students think of them as unrelated topics because the textbook puts them in separate sections. They are not. They are two roads to the same destination. If you know both, you can switch between them. If you only know one, you are stuck when the other would be faster or the one you chose turns out to be inconclusive.</p>
+
+    <p>Quick reminder before we build the frameworks. Every critical point in this unit is about the instantaneous behavior of the function at a specific x-value. That is the IROC framing. If the AP exam gives you a table and asks for the average rate of change between $x = 0$ and $x = 2$, that is not what we are doing here. Average rate of change (AROC) uses two points on an interval. Instantaneous rate of change (IROC) is the derivative at one specific point. The derivative tests classify behavior at one point. Stay in IROC territory.</p>
+
+    <!-- AROC vs IROC comparison block -->
+    <div class="compare">
+      <div class="compare-side left">
+        <div class="compare-lbl aroc">Average Rate of Change (AROC)</div>
+        <div class="compare-val">$\Delta y / \Delta x$</div>
+        <div class="compare-sub">Slope between two points on an interval. Not what the derivative tests use.</div>
+        <span class="compare-badge aroc">Interval-based, not this unit</span>
+      </div>
+      <div class="compare-side">
+        <div class="compare-lbl iroc">Instantaneous Rate of Change (IROC)</div>
+        <div class="compare-val" style="color:var(--blue)">$f'(c)$</div>
+        <div class="compare-sub">Slope of the tangent line at one specific point $c$. This is the derivative test input.</div>
+        <span class="compare-badge iroc">This is what we classify</span>
+      </div>
+    </div>
+
+    <p>A critical point of $f$ is any value $c$ in the domain where $f'(c) = 0$ or $f'(c)$ does not exist. The derivative being zero means a horizontal tangent line at $x = c$. The derivative not existing means a corner, cusp, or vertical tangent. Both are critical points. Both need classification.</p>
+
+    <p>You would think that any point where $f'(c) = 0$ must be a local max or min. It is not. $f(x) = x^3$ has $f'(0) = 0$. The critical point at $x = 0$ is neither a max nor a min. It is an inflection point with a horizontal tangent. This is exactly why classifying the critical point matters. Finding it tells you where to look. Classifying it tells you what you are actually looking at.</p>
+  </div>
+
+  <!-- Section 3: FDT Framework (LIGHT) -->
+  <div class="sec" id="fdt-framework">
+    <h2>The First Derivative Test: Sign Chart Framework</h2>
+
+    <p>The First Derivative Test uses the sign of $f'(x)$ on intervals around the critical point to classify it. The logic: if $f'(x) > 0$ on an interval, $f$ is increasing there. If $f'(x) < 0$, $f$ is decreasing. A local max happens where the function stops increasing and starts decreasing. A local min happens where it stops decreasing and starts increasing.</p>
+
+    <div class="step">
+      <div class="snum">1</div>
+      <div class="scontent">
+        <div class="slbl">Find all critical points</div>
+        <p>Solve $f'(x) = 0$ and identify any x-values where $f'$ is undefined but $f$ itself is defined.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="snum">2</div>
+      <div class="scontent">
+        <div class="slbl">Place critical points on a number line</div>
+        <p>The critical points divide the real line into intervals. Each interval gets its own sign test.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="snum">3</div>
+      <div class="scontent">
+        <div class="slbl">Pick a test value in each interval, evaluate $f'$, record the sign</div>
+        <p>You do not need the exact value. Positive or negative is all you need.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="snum">4</div>
+      <div class="scontent">
+        <div class="slbl">Read the sign pattern at each critical point</div>
+        <p><strong>Positive → Negative:</strong> local maximum.<br>
+           <strong>Negative → Positive:</strong> local minimum.<br>
+           <strong>No sign change:</strong> neither (no extremum).</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="snum">5</div>
+      <div class="scontent">
+        <div class="slbl">Read increasing/decreasing intervals from the same chart</div>
+        <p>Where $f' > 0$: $f$ is increasing. Where $f' < 0$: $f$ is decreasing. You get both classifications from one sign chart. Free.</p>
+      </div>
+    </div>
+
+    <div class="note">
+      <strong>FRQ communication rule:</strong> A sign chart alone does not earn the justification point. After the chart, write the sentence: "$f'(x)$ changes from negative to positive at $x = 2$, so $f$ has a local minimum at $x = 2$." That sentence is often a dedicated rubric point. Missing it is a free miss.
+    </div>
+  </div>
+
+  <!-- Section 4: Worked Example 1 (PROCESS) -->
+  <div class="sec" id="example-1">
+    <h2>Worked Example 1: FDT on $f(x) = x^3 - 3x^2 + 2$ (Foundational)</h2>
+
+    <p>We are going to use $f(x) = x^3 - 3x^2 + 2$ as the primary function throughout this post. Critical points at $x = 0$ and $x = 2$. Watch how the sign chart classifies both.</p>
+
+    <div class="prob">
+      <div class="plbl">The Problem</div>
+      <p>For $f(x) = x^3 - 3x^2 + 2$, find all local maxima and minima using the First Derivative Test. State all intervals on which $f$ is increasing and decreasing.</p>
+    </div>
+
+    <h3>Step 1: Find $f'(x)$</h3>
+    <div class="math-block">$$f'(x) = 3x^2 - 6x = 3x(x-2)$$</div>
+
+    <h3>Step 2: Find critical points</h3>
+    <div class="math-block">$$3x(x-2) = 0 \implies x = 0 \quad \text{and} \quad x = 2$$</div>
+    <p>Both are in the domain of $f$. Both are critical points. Both need classification.</p>
+
+    <h3>Step 3: Build the sign chart</h3>
+    <p>Three intervals: $(-\infty, 0)$, $(0, 2)$, and $(2, \infty)$.</p>
+
+    <table class="sign-table">
+      <thead>
+        <tr>
+          <th>Interval</th>
+          <th>Test value</th>
+          <th>$f'$(test)</th>
+          <th>Sign of $f'$</th>
+          <th>$f$ behavior</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>$(-\infty, 0)$</td>
+          <td>$x = -1$</td>
+          <td>$3(-1)(-3) = 9$</td>
+          <td class="sign-pos">Positive (+)</td>
+          <td>Increasing</td>
+        </tr>
+        <tr>
+          <td>$(0, 2)$</td>
+          <td>$x = 1$</td>
+          <td>$3(1)(-1) = -3$</td>
+          <td class="sign-neg">Negative (&minus;)</td>
+          <td>Decreasing</td>
+        </tr>
+        <tr>
+          <td>$(2, \infty)$</td>
+          <td>$x = 3$</td>
+          <td>$3(3)(1) = 9$</td>
+          <td class="sign-pos">Positive (+)</td>
+          <td>Increasing</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>Step 4: Classify each critical point</h3>
+    <p>At $x = 0$: $f'$ changes from positive to negative. <strong>Local maximum.</strong></p>
+    <div class="math-block">$$f(0) = (0)^3 - 3(0)^2 + 2 = 2 \implies \text{local max at } (0,\, 2)$$</div>
+
+    <p>At $x = 2$: $f'$ changes from negative to positive. <strong>Local minimum.</strong></p>
+    <div class="math-block">$$f(2) = (2)^3 - 3(2)^2 + 2 = 8 - 12 + 2 = -2 \implies \text{local min at } (2,\, {-2})$$</div>
+
+    <h3>Step 5: Increasing/Decreasing Intervals</h3>
+    <p>Increasing on $(-\infty, 0)$ and $(2, \infty)$. Decreasing on $(0, 2)$.</p>
+
+    <!-- Live Desmos graph: f(x) = x^3 - 3x^2 + 2 with critical points -->
+    <div class="desmos-wrap">
+      <div class="desmos-label">
+        <div class="desmos-dot"></div>
+        Live Graph: $f(x) = x^3 - 3x^2 + 2$ | local max at $(0, 2)$, local min at $(2, -2)$
+      </div>
+      <div id="desmos-cubic" style="width:100%;height:320px;"></div>
+    </div>
+
+    <div class="rubric">
+      <div class="rubric-ttl">Here is exactly how the AP exam scores this type of problem</div>
+      <ul>
+        <li>Find $f'(x) = 3x^2 - 6x$ correctly: <strong>1 point</strong></li>
+        <li>Identify both critical points $x = 0$ and $x = 2$: <strong>1 point</strong></li>
+        <li>Construct a valid sign chart with correct signs in each interval: <strong>1 point</strong></li>
+        <li>Classify $x = 0$ as local max with written justification (sign changes positive to negative): <strong>1 point</strong></li>
+        <li>Classify $x = 2$ as local min with written justification (sign changes negative to positive): <strong>1 point</strong></li>
+        <li>State $f(0) = 2$ and $f(2) = -2$ when asked for the max/min values: <strong>1 point</strong></li>
+      </ul>
+    </div>
+
+    <p>That is 6 points. Every point is earned by something you wrote after the critical points. The critical points themselves earn exactly 1 of those 6.</p>
+  </div>
+
+  <!-- Mid-post CTA (NEUTRAL) -->
+  <div class="cta" id="mid-cta">
+    <h3>Grab the Free "Before AP Calculus" Guide</h3>
+    <p>If this post is clicking for you but the Unit 5 justification language still feels shaky, I put together a free guide that walks through exactly what needs to be in place before analytical applications make sense. Zero fluff.</p>
+    <a class="btn" href="https://aceapcalculus.com/before-apcalc">Get the Free Guide</a>
+    <p class="sub">Parents: this is the resource I share when a student understands how to take a derivative but keeps losing points on justification problems. The gap is almost always in the conceptual foundation, not the new material.</p>
+  </div>
+
+  <!-- Section 5: Worked Example 2 (PROCESS) -->
+  <div class="sec" id="example-2">
+    <h2>Worked Example 2: The Second Derivative Test and When It Fails</h2>
+
+    <p>The Second Derivative Test is faster than the FDT for most functions. It has a case where it completely fails. The AP exam knows this and uses it to separate scores.</p>
+
+    <h3>The SDT Setup</h3>
+    <p>If $c$ is a critical point where $f'(c) = 0$, evaluate $f''(c)$:</p>
+    <ul class="body-list">
+      <li>$f''(c) &lt; 0$: local maximum at $x = c$ (concave down at the peak)</li>
+      <li>$f''(c) &gt; 0$: local minimum at $x = c$ (concave up at the bottom)</li>
+      <li>$f''(c) = 0$: <strong>inconclusive. Fall back to FDT immediately.</strong></li>
+    </ul>
+
+    <p>That third case is the AP exam trap. Saying "inconclusive" and stopping gets you zero. Recognizing that FDT is the backup gets you the points.</p>
+
+    <h3>Back to $f(x) = x^3 - 3x^2 + 2$</h3>
+    <div class="math-block">$$f''(x) = 6x - 6$$</div>
+
+    <p>At $x = 0$: $f''(0) = 6(0) - 6 = -6 &lt; 0$ → <strong>local maximum</strong>. Confirmed.</p>
+    <p>At $x = 2$: $f''(2) = 6(2) - 6 = 6 &gt; 0$ → <strong>local minimum</strong>. Confirmed.</p>
+
+    <p>Same answer as FDT. Two methods, same result. The SDT is faster here because we only plugged in two numbers.</p>
+
+    <hr>
+
+    <h3>Now the Inconclusive Case: $g(x) = x^4$</h3>
+
+    <div class="prob">
+      <div class="plbl">The Problem</div>
+      <p>Find any local extrema of $g(x) = x^4$. Apply the SDT first, then handle the inconclusive result.</p>
+    </div>
+
+    <h3>Step 1: Find $g'(x)$ and the critical point</h3>
+    <div class="math-block">$$g'(x) = 4x^3 = 0 \implies x = 0$$</div>
+
+    <h3>Step 2: Attempt the SDT</h3>
+    <div class="math-block">$$g''(x) = 12x^2 \implies g''(0) = 12(0)^2 = 0$$</div>
+    <p>SDT is <strong>inconclusive</strong>. We cannot conclude anything from this alone. Pivoting to FDT.</p>
+
+    <h3>Step 3: Apply FDT to $g(x) = x^4$</h3>
+
+    <table class="sign-table">
+      <thead>
+        <tr><th>Interval</th><th>Test value</th><th>$g'$(test)</th><th>Sign</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>$(-\infty, 0)$</td>
+          <td>$x = -1$</td>
+          <td>$4(-1)^3 = -4$</td>
+          <td class="sign-neg">Negative</td>
+        </tr>
+        <tr>
+          <td>$(0, \infty)$</td>
+          <td>$x = 1$</td>
+          <td>$4(1)^3 = 4$</td>
+          <td class="sign-pos">Positive</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>$g'$ changes from negative to positive at $x = 0$. <strong>Local minimum at $(0, 0)$.</strong></p>
+
+    <p>The SDT gave us nothing. The FDT gave us the answer. This is why FDT is the backup you always carry into the AP exam.</p>
+
+    <!-- Live Desmos graph: f'(x) = 3x^2 - 6x sign behavior -->
+    <div class="desmos-wrap">
+      <div class="desmos-label">
+        <div class="desmos-dot"></div>
+        Live Graph: $f'(x) = 3x^2 - 6x$ | sign behavior, zeros at $x = 0$ and $x = 2$
+      </div>
+      <div id="desmos-derivative" style="width:100%;height:280px;"></div>
+    </div>
+
+    <div class="rubric">
+      <div class="rubric-ttl">Here is exactly how the AP exam scores the SDT problem type</div>
+      <ul>
+        <li>Compute $f''(x)$ correctly: <strong>1 point</strong></li>
+        <li>Evaluate $f''(c)$ at each critical point and state the sign: <strong>1 point</strong></li>
+        <li>Correctly classify local max or local min based on sign of $f''(c)$: <strong>1 point</strong></li>
+        <li>Recognize $f''(c) = 0$ and explicitly state SDT is inconclusive: <strong>1 point</strong></li>
+        <li>Apply FDT correctly after SDT fails, with sign chart: <strong>1-2 points</strong></li>
+        <li>State final classification with function value at the point: <strong>1 point</strong></li>
+      </ul>
+    </div>
+
+    <p>On a 9-point FRQ, the inconclusive sub-part can be worth 3 points by itself. Students who write "SDT fails, therefore no conclusion" and stop lose all 3. Students who pivot to FDT earn all 3.</p>
+  </div>
+
+  <!-- Section 6: SDT vs Concavity Test (dedicated callout — DIRECTIVE 2) -->
+  <div class="sec" id="sdt-vs-concavity">
+    <h2>The SDT vs. the Concavity Test: These Are Not the Same Thing</h2>
+
+    <p>You already know about concavity. The Second Derivative Test is not the Concavity Test. I need you to feel this distinction, not just memorize it.</p>
+
+    <p>Both tests use $f''(x)$. That is where the similarity ends. They answer completely different questions.</p>
+
+    <!-- Dedicated SDT vs Concavity callout block -->
+    <div class="sdt-callout">
+      <div class="sdt-callout-ttl">SDT vs. Concavity Test: Side by Side</div>
+
+      <div class="sdt-compare">
+        <div class="sdt-col">
+          <div class="sdt-col-lbl ct">Concavity Test</div>
+          <p><strong>Input:</strong> an interval</p>
+          <p><strong>Question:</strong> over this stretch of x-values, is $f$ concave up or concave down?</p>
+          <p><strong>Method:</strong> check whether $f''(x) &gt; 0$ or $f''(x) &lt; 0$ across the interval</p>
+          <p><strong>Output:</strong> a region: "concave up on $(0, 4)$"</p>
+        </div>
+        <div class="sdt-col">
+          <div class="sdt-col-lbl sdt">Second Derivative Test</div>
+          <p><strong>Input:</strong> one critical point $c$ where $f'(c) = 0$</p>
+          <p><strong>Question:</strong> at this specific point, is there a local max or local min?</p>
+          <p><strong>Method:</strong> evaluate $f''(c)$ at the single critical point</p>
+          <p><strong>Output:</strong> a classification: "local min at $x = 2$"</p>
+        </div>
+      </div>
+
+      <div class="sdt-trap">
+        <strong>The AP exam trap:</strong> A student finishes the SDT and writes "concave up on $(0, 4)$" as the answer. That is the Concavity Test answer smuggled into an SDT problem. The rubric awards no points for it.<br><br>
+        Wrong answer: "$f$ is concave up on $(0, 4)$, so it's a minimum."<br>
+        Right answer: "$f''(2) = 6 &gt; 0$, so by the Second Derivative Test, $f$ has a local minimum at $x = 2$."
+      </div>
+    </div>
+
+    <p>Both answers use $f''$. One gives a region. One gives a point classification. The rubric awards the point classification. Students who conflate these two tests answer the wrong question. I have watched this happen. It costs points every single time.</p>
+  </div>
+
+  <!-- Section 7: The 3 Mistakes (MEDIUM) -->
+  <div class="sec" id="mistakes">
+    <h2>The 3 Mistakes That Cost My Students Points</h2>
+
+    <div class="mk">
+      <div class="mk-n">Mistake 1: Finding critical points and treating that as the answer</div>
+      <div class="mk-w">Why it happens: the most algebraically intense part of these problems is finding where $f'(x) = 0$. Students finish that work, see the x-values, and stop. The FRQ rubric typically awards 1 point for finding critical points and 3 to 5 more for classifying them. Stopping at the critical points is stopping after 1 point.</div>
+      <p class="mk-f">The fix: after you find critical points, write the phrase "now classify using FDT" or "now classify using SDT" next to each one. That visual cue keeps you from closing your pencil too early.</p>
+      <div class="mk-c">Consequence: students who skip classification lose 4 to 6 points on problems they set up perfectly. They did the math. They left the points.</div>
+    </div>
+
+    <div class="mk">
+      <div class="mk-n">Mistake 2: Writing "local max" or "local min" without the required justification</div>
+      <div class="mk-w">Why it happens: students know the answer. They circled it on their sign chart. They assume the grader can see what they did. The rubric does not work that way. The AP exam requires the justification written out in derivative notation or words.</div>
+      <p class="mk-f">The fix: after every classification, write one sentence: "$f'$ changes from negative to positive at $x = 2$, so $f$ has a local minimum there." That sentence is often a dedicated rubric point.</p>
+      <div class="mk-c">Consequence: on a 9-point FRQ, missing the justification sentence is a free miss on a point you earned with correct math. That is the gap between a 4 and a 5 composite.</div>
+    </div>
+
+    <div class="mk">
+      <div class="mk-n">Mistake 3: Treating SDT inconclusive as a final answer</div>
+      <div class="mk-w">Why it happens: students learn "if $f''(c) = 0$, the SDT is inconclusive" as a fact and stop. Nobody told them what happens next.</div>
+      <p class="mk-f">The fix: when SDT fails, FDT is the fallback. Always. Write "SDT inconclusive at $x = c$, will use FDT." Then build the sign chart. The AP exam includes these problems specifically to find the students who know both tests.</p>
+      <div class="mk-c">Consequence: students who freeze at "inconclusive" lose 2 to 3 points. Students who pivot to FDT collect them all.</div>
+    </div>
+  </div>
+
+  <!-- Section 8: Practice Problems (LIGHT) -->
+  <div class="sec" id="practice">
+    <h2>Practice Problems</h2>
+
+    <p>Try these before checking the answers. For each problem, write which test you plan to use and write your justification sentence before you write the classification.</p>
+
+    <div class="prob">
+      <div class="plbl">Problem 1: FDT Application</div>
+      <p>Let $h(x) = x^3 - 12x$. Find all local maxima and minima using the First Derivative Test. State the increasing and decreasing intervals.</p>
+    </div>
+
+    <div class="prob">
+      <div class="plbl">Problem 2: SDT Application</div>
+      <p>Let $p(x) = 2x^3 - 9x^2 + 12x - 4$. Use the Second Derivative Test to classify all critical points. If the SDT is inconclusive anywhere, fall back to FDT.</p>
+    </div>
+
+    <div class="prob">
+      <div class="plbl">Problem 3: FRQ Type, Both Tests + Inconclusive Awareness</div>
+      <p>Let $f(x) = x^4 - 8x^2 + 7$.</p>
+      <p>(a) Find all critical points of $f$.</p>
+      <p>(b) Apply the SDT to each critical point. If the SDT is inconclusive, state so explicitly and classify using FDT.</p>
+      <p>(c) Identify all intervals on which $f$ is increasing and all intervals on which $f$ is decreasing.</p>
+    </div>
+
+    <div class="answers">
+      <div class="ans-ttl">Answers</div>
+      <div class="ans-item">
+        <strong>Problem 1:</strong> $h'(x) = 3x^2 - 12 = 3(x-2)(x+2)$. Critical points at $x = -2$ and $x = 2$. Sign chart: positive on $(-\infty,-2)$, negative on $(-2,2)$, positive on $(2,\infty)$. Local maximum at $(-2, 16)$: $h'$ changes positive to negative. Local minimum at $(2, -16)$: $h'$ changes negative to positive. Increasing on $(-\infty,-2)$ and $(2,\infty)$. Decreasing on $(-2,2)$.
+      </div>
+      <div class="ans-item">
+        <strong>Problem 2:</strong> $p'(x) = 6x^2 - 18x + 12 = 6(x-1)(x-2)$. Critical points at $x = 1$ and $x = 2$. $p''(x) = 12x - 18$. $p''(1) = -6 &lt; 0$: local maximum at $(1, 1)$. $p''(2) = 6 &gt; 0$: local minimum at $(2, 0)$. SDT conclusive for both.
+      </div>
+      <div class="ans-item">
+        <strong>Problem 3:</strong> (a) $f'(x) = 4x^3 - 16x = 4x(x-2)(x+2)$. Critical points at $x = -2, 0, 2$.<br>
+        (b) $f''(x) = 12x^2 - 16$. $f''(-2) = 32 &gt; 0$: local min at $(-2, -9)$. $f''(0) = -16 &lt; 0$: local max at $(0, 7)$. $f''(2) = 16 &gt; 0$: local min at $(2, -9)$. SDT conclusive at all three.<br>
+        (c) Sign chart of $f'$: increasing on $(-\infty,-2)$ and $(0,2)$. Decreasing on $(-2,0)$ and $(2,\infty)$.
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 9: FAQ (LIGHT + ZACH CLOSE) -->
+  <div class="sec" id="faq">
+    <h2>FAQ</h2>
+
+    <div class="faq-list">
+      <details class="faq-item">
+        <summary><span class="faq-q-label">Q:</span> When should I use the FDT vs. the SDT on the AP exam?<span class="faq-toggle">+</span></summary>
+        <div class="faq-a">
+          <p>Default to FDT when the problem does not specify a test, or when the function is complicated enough that computing $f''$ would take more time than a sign chart. Use SDT when the problem explicitly asks for it, or when $f''$ is easy to compute and you want the quickest classification path.</p>
+          <p>The most important rule: if $f''(c) = 0$ when you try SDT, stop and run FDT. Never leave "inconclusive" as your final answer. The AP exam is testing whether you know the backup exists.</p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary><span class="faq-q-label">Q:</span> Do I need the function value $f(c)$ in my answer, or just the x-value?<span class="faq-toggle">+</span></summary>
+        <div class="faq-a">
+          <p>The AP rubric almost always wants both. "$f$ has a local minimum at $x = 2$" is partially correct. "$f$ has a local minimum at $(2, -2)$" is fully correct. When the FRQ asks "find the value of the local minimum," give both coordinates and the function value explicitly.</p>
+          <p>Read the question wording carefully. "At which x-value" means just $x$. "Find the local minimum value" means the y-value. One sentence in the prompt tells you exactly what the rubric is scoring.</p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary><span class="faq-q-label">Q:</span> Can a function have a local max at a point where $f'$ does not exist?<span class="faq-toggle">+</span></summary>
+        <div class="faq-a">
+          <p>Yes. The FDT applies to any critical point, including corners and cusps where $f'$ is undefined. Build the sign chart with that point on the number line and check whether $f'$ changes sign. The SDT cannot be used at these points because $f''$ does not exist there either.</p>
+          <p>FDT only at corners and cusps. That is the rule. It comes up on both AB and BC exams in piecewise function problems.</p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary><span class="faq-q-label">Q:</span> How does local max/min connect to absolute max/min problems in Unit 5?<span class="faq-toggle">+</span></summary>
+        <div class="faq-a">
+          <p>Local max/min from FDT and SDT are interior candidates. To find the absolute max/min on a closed interval $[a, b]$, evaluate $f$ at all local extrema inside the interval and at both endpoints. Then compare all the values. Absolute maximum is the largest. Absolute minimum is the smallest.</p>
+          <p>The derivative tests find your candidates. Endpoint evaluation completes the comparison. College Board tests both in the same FRQ problem regularly. Expect to see both in one question, and expect the rubric to award points for each step separately.</p>
+        </div>
+      </details>
+    </div>
+  </div>
+
+  <!-- Screenshot-able one-liner (also appears in intro, repeated here for visual pause) -->
+  <div class="one-liner">Finding critical points is not the skill. Classifying them is.</div>
+
+  <!-- Section 10: Quick Reference Box (NEUTRAL) -->
+  <div class="qr" id="quick-reference">
+    <div class="qr-ttl">Save This For Exam Day</div>
+
+    <div class="qrf">
+      <div class="qrf-lbl">First Derivative Test</div>
+      $$f'(c) = 0 \text{ or DNE} \implies \text{critical point at } c$$
+      <p style="color:rgba(255,255,255,.8);font-size:12px;margin-top:8px;text-align:left">Pos → Neg at $c$ = local max &nbsp;|&nbsp; Neg → Pos at $c$ = local min &nbsp;|&nbsp; No change = neither</p>
+    </div>
+
+    <div class="qrf">
+      <div class="qrf-lbl">Second Derivative Test</div>
+      $$f'(c) = 0, \text{ evaluate } f''(c):$$
+      <p style="color:rgba(255,255,255,.8);font-size:12px;margin-top:8px;text-align:left">$f''(c) &lt; 0$ → local max &nbsp;|&nbsp; $f''(c) &gt; 0$ → local min &nbsp;|&nbsp; $f''(c) = 0$ → inconclusive: use FDT</p>
+    </div>
+
+    <div class="qrf">
+      <div class="qrf-lbl">SDT vs. Concavity Test: One Question Each</div>
+      <p style="color:rgba(255,255,255,.8);font-size:12px;margin-top:8px;text-align:left">
+        <strong style="color:rgba(255,255,255,.9)">Concavity Test:</strong> input = interval → output = concave up/down over a region<br>
+        <strong style="color:rgba(255,255,255,.9)">SDT:</strong> input = one critical point → output = local max or local min at that point
+      </p>
+    </div>
+
+    <ul class="qrb">
+      <li>Write the justification sentence after every sign chart. It is the rubric point.</li>
+      <li>FDT always works. SDT is a shortcut that sometimes fails.</li>
+      <li>SDT inconclusive ($f''(c) = 0$) → pivot to FDT immediately</li>
+      <li>Include both x-value and function value in your final answer</li>
+      <li class="nv">Do not stop after finding critical points. That is 1 of 6 rubric points.</li>
+      <li class="nv">Do not write "concave up on an interval" as an SDT answer. Wrong question.</li>
+      <li class="nv">Do not leave "SDT inconclusive" as a final answer. FDT is the fallback.</li>
+    </ul>
+  </div>
+
+  <!-- Section 11: Related Posts (NEUTRAL) -->
+  <div class="sec" id="related">
+    <h2>Related Posts</h2>
+    <p>These posts connect directly to what you just read. If any step in the classification framework felt uncertain, the foundation is in Post 01 and Post 02.</p>
+    <a class="related-link" href="https://enginearu.com/ap-calculus-prep/what-is-a-derivative-ap-calculus/">What Is a Derivative in AP Calculus? (The Concept, Not Just the Formula): the limit definition and tangent line foundation that makes $f'(c)$ make sense</a>
+    <a class="related-link" href="https://enginearu.com/ap-calculus-prep/limits-intro-ap-calculus/">Limits in AP Calculus: How to Solve Without a Calculator: the limit foundation for everything in Units 2 through 5</a>
+    <a class="related-link" href="https://aceapcalculus.com/reviewsheet50" target="_blank">Zach's Full AP Calculus Review Sheet: every Unit 5 theorem in one place, free</a>
+    <a class="related-link" href="https://enginearu.com/ap-calculus-theorem-drill/?unit=5" target="_blank">Drill Theorems Unit 5: drill these until you can write them cold. That is the only way they show up under pressure.</a>
+
+    <p style="margin-top:16px;font-size:13px;color:var(--muted)">External resources I trust:</p>
+    <a class="related-link" href="https://apcentral.collegeboard.org/courses/ap-calculus-ab" target="_blank">College Board AP Calculus AB Course and Exam Description</a>
+    <a class="related-link" href="https://www.khanacademy.org/math/ap-calculus-ab/ab-diff-analytical-applications-new/ab-5-4/a/applying-the-first-derivative-test" target="_blank">Khan Academy: Applying the First Derivative Test</a>
+    <a class="related-link" href="https://tutorial.math.lamar.edu/Classes/CalcI/ShapeofGraphPtI.aspx" target="_blank">Paul's Online Math Notes: The Shape of a Graph (Part I)</a>
+  </div>
+
+  <hr>
+
+  <!-- End CTA (NEUTRAL + 1 consequence line) -->
+  <div class="cta" id="end-cta">
+    <h3>Lock In Unit 5 Before Exam Day</h3>
+    <p>The derivative tests are the core of Unit 5. If you can classify every critical point correctly and write the justification the AP grader needs to see, you will earn most of the points on any Unit 5 FRQ. Even on problems you have not seen before. The classification method transfers. The justification sentence transfers. That is 6 to 9 points per FRQ you stop leaving on the table.</p>
+    <a class="btn" href="https://aceapcalculus.com/before-apcalc">Download the Free Guide</a>
+    <p class="sub">Parents: if your student understands how to take a derivative but keeps losing points on justification questions, this is the resource that explains why. The gap is almost always in knowing what to do with the derivative, not how to find it.</p>
+  </div>
+
+  <!-- Seasonal CTA (active Jan 1 to Sep 15; date = May 8, 2026, active) -->
+  <div class="sea">
+    <h3>Get Ahead This Summer: Walk Into Unit 5 Already Ready</h3>
+    <p>If you want your student to walk into AP Calculus next year already ahead on analytical applications, my summer program runs in July and August. Small groups. Real FRQ practice. Structured plan. Proven results. Spots fill fast.</p>
+    <a class="btn-w" href="https://aceapcalculus.com/summer-diagnostic-page">See Summer Program Details and Reserve a Spot</a><br><br>
+    <a class="btn-w" href="https://aceapcalculus.com/summer-diagnostic-page" style="background:transparent;border:2px solid var(--navy);color:var(--navy);margin-top:8px">Take the Free Pre-Assessment</a>
+    <p style="font-size:11px;color:#5a4500;margin-top:10px;font-style:italic">Parents: the pre-assessment shows you exactly where your student stands before the summer program begins. Free. About 15 minutes.</p>
+  </div>
+
+</div>
+<!-- END post content -->
+
+<!-- Desmos script 1: f(x) = x^3 - 3x^2 + 2 with critical points marked -->
+<script>
+(function() {
+  var elt = document.getElementById('desmos-cubic');
+  if (!elt || typeof Desmos === 'undefined') return;
+  var calc = Desmos.GraphingCalculator(elt, {
+    expressions: false,
+    settingsMenu: false,
+    zoomButtons: false,
+    lockViewport: true
+  });
+  calc.setMathBounds({ left: -1.5, right: 3.5, bottom: -3.5, top: 3.5 });
+  // Main curve: navy
+  calc.setExpression({ id: 'cubic', latex: 'y=x^{3}-3x^{2}+2', color: '#1a3a6b', lineWidth: 2.5 });
+  // Local max point
+  calc.setExpression({ id: 'max-pt', latex: '(0,2)', color: '#e8a020', pointSize: 10 });
+  calc.setExpression({ id: 'max-lbl', latex: '(0,2)', label: 'local max (0, 2)', showLabel: true, color: '#e8a020' });
+  // Local min point
+  calc.setExpression({ id: 'min-pt', latex: '(2,-2)', color: '#e8a020', pointSize: 10 });
+  calc.setExpression({ id: 'min-lbl', latex: '(2,-2)', label: 'local min (2, -2)', showLabel: true, color: '#e8a020' });
+  // Horizontal tangent lines
+  calc.setExpression({ id: 'htan-max', latex: 'y=2\\left\\{-0.5\\le x\\le0.5\\right\\}', color: '#e8a020', lineWidth: 1.5, lineStyle: Desmos.Styles.DASHED });
+  calc.setExpression({ id: 'htan-min', latex: 'y=-2\\left\\{1.5\\le x\\le2.5\\right\\}', color: '#e8a020', lineWidth: 1.5, lineStyle: Desmos.Styles.DASHED });
+})();
+</script>
+
+<!-- Desmos script 2: f'(x) = 3x^2 - 6x sign behavior -->
+<script>
+(function() {
+  var elt = document.getElementById('desmos-derivative');
+  if (!elt || typeof Desmos === 'undefined') return;
+  var calc = Desmos.GraphingCalculator(elt, {
+    expressions: false,
+    settingsMenu: false,
+    zoomButtons: false,
+    lockViewport: true
+  });
+  calc.setMathBounds({ left: -1, right: 3.5, bottom: -5, top: 5 });
+  // f'(x) curve
+  calc.setExpression({ id: 'fprime', latex: 'y=3x^{2}-6x', color: '#1a3a6b', lineWidth: 2.5 });
+  // Zero crossings
+  calc.setExpression({ id: 'zero1', latex: '(0,0)', color: '#e8a020', pointSize: 9 });
+  calc.setExpression({ id: 'zero1-lbl', latex: '(0,0)', label: "f'=0 at x=0", showLabel: true, color: '#e8a020' });
+  calc.setExpression({ id: 'zero2', latex: '(2,0)', color: '#e8a020', pointSize: 9 });
+  calc.setExpression({ id: 'zero2-lbl', latex: '(2,0)', label: "f'=0 at x=2", showLabel: true, color: '#e8a020' });
+  // x-axis for reference
+  calc.setExpression({ id: 'xaxis', latex: 'y=0', color: '#aaaaaa', lineWidth: 1 });
+})();
+</script>
+
+<!-- FAQPage schema for SEO -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "When should I use the FDT vs. the SDT on the AP exam?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Default to FDT when the problem does not specify a test, or when the function is complicated enough that computing f'' would take more time than a sign chart. Use SDT when the problem explicitly asks for it, or when f'' is easy to compute. The most important rule: if f''(c) = 0 when you try SDT, stop and run FDT. Never leave \"inconclusive\" as your final answer."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do I need the function value f(c) in my answer, or just the x-value?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The AP rubric almost always wants both. \"f has a local minimum at x = 2\" is partially correct. \"f has a local minimum at (2, -2)\" is fully correct. When the FRQ asks \"find the value of the local minimum,\" give both coordinates and the function value explicitly. Read the question wording carefully to know exactly what the rubric is scoring."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can a function have a local max at a point where f' does not exist?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. The FDT applies to any critical point, including corners and cusps where f' is undefined. Build the sign chart with that point on the number line and check whether f' changes sign. The SDT cannot be used at these points because f'' does not exist there either. FDT only at corners and cusps — this comes up on both AB and BC in piecewise function problems."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How does local max/min connect to absolute max/min problems in Unit 5?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Local max/min from FDT and SDT are interior candidates. To find the absolute max/min on a closed interval [a, b], evaluate f at all local extrema inside the interval and at both endpoints. Then compare all the values. The derivative tests find your candidates. Endpoint evaluation completes the comparison. College Board tests both in the same FRQ problem regularly."
+      }
+    }
+  ]
+}
+</script>
+
+<!-- ===================================================================
+     ▲▲▲ END: WORDPRESS CUSTOM HTML BLOCK ▲▲▲
+     =================================================================== -->
+
+</div><!-- .page -->
+</body>
+</html>

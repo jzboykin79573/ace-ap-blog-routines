@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<script>MathJax = { tex: { inlineMath: [['$','$']], displayMath: [['$$','$$']], processEscapes: true } };</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+<style>
+:root{--navy:#0f1e3c;--blue:#1a3a6b;--accent:#e8a020;--accent-light:#fef3dc;--green:#1a7a4a;--green-light:#eaf7f0;--red:#c0392b;--red-light:#fdf2f1;--gray:#f5f6f8;--border:#dde1e8;--text:#1a1a2e;--muted:#6b7280}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:#eef0f4;color:var(--text);font-size:14px;line-height:1.75}
+/* Publishing guide panel */
+.pub-guide{background:#1a1a2e;font-family:'JetBrains Mono',monospace}
+.pub-guide summary{padding:14px 20px;cursor:pointer;color:var(--accent);font-size:13px;font-weight:700;letter-spacing:.5px;list-style:none;display:flex;align-items:center;gap:10px}
+.pub-guide summary::before{content:"▶";font-size:10px;transition:transform .2s}
+.pub-guide[open] summary::before{transform:rotate(90deg)}
+.pub-guide-body{padding:0 20px 20px}
+.pub-step{margin-bottom:24px}
+.pub-step-ttl{color:var(--accent);font-size:12px;font-weight:700;margin-bottom:6px;letter-spacing:.5px}
+.pub-step p{color:rgba(255,255,255,.75);font-size:12px;margin-bottom:8px;font-family:'Inter',sans-serif;line-height:1.6}
+.pub-step textarea{width:100%;background:#0d0d1a;color:#a8d8a8;border:1px solid #333;border-radius:6px;padding:12px;font-size:11px;font-family:'JetBrains Mono',monospace;line-height:1.6;resize:vertical;min-height:80px}
+.pub-step code{background:#0d0d1a;color:var(--accent);padding:2px 6px;border-radius:3px;font-size:11px}
+.pub-divider{border:none;border-top:1px solid #2a2a4a;margin:20px 0}
+.chrome{background:#2d2d2d;padding:8px 14px;display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:100}
+.dots{display:flex;gap:6px}.dot{width:11px;height:11px;border-radius:50%}
+.dot.r{background:#ff5f57}.dot.y{background:#febc2e}.dot.g{background:#28c840}
+.url{flex:1;background:#3d3d3d;border-radius:5px;padding:4px 10px;color:#aaa;font-size:11px;font-family:'JetBrains Mono',monospace}
+.badge{background:var(--accent);color:var(--navy);font-size:10px;font-weight:700;padding:3px 8px;border-radius:4px}
+.page{max-width:780px;margin:0 auto;background:#fff;min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,.12)}
+.hero{background:linear-gradient(135deg,var(--navy),var(--blue));padding:36px 40px 30px;color:#fff}
+.tag{display:inline-block;background:var(--accent);color:var(--navy);font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;padding:3px 9px;border-radius:3px;margin-bottom:14px}
+.hero h1{font-family:'Merriweather',serif;font-size:22px;line-height:1.35;margin-bottom:12px}
+.meta{display:flex;gap:14px;flex-wrap:wrap;margin-top:10px}
+.pill{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.88);font-size:11px;padding:4px 10px;border-radius:20px}
+.ace-post{padding:32px 40px}
+.toc{background:var(--gray);border-left:4px solid var(--navy);border-radius:0 8px 8px 0;padding:18px 20px;margin-bottom:32px}
+.toc-ttl{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.toc ol{padding-left:18px}.toc li{margin-bottom:5px}
+.toc a{color:var(--blue);text-decoration:none;font-size:13px;font-weight:500}
+.sec{margin-bottom:36px}
+h2{font-family:'Merriweather',serif;font-size:18px;font-weight:700;color:var(--navy);margin-bottom:14px;padding-bottom:8px;border-bottom:2px solid var(--border)}
+h3{font-size:14px;font-weight:700;color:var(--blue);margin:16px 0 8px}
+p{margin-bottom:12px;font-size:14px}
+em{font-style:italic;color:var(--muted)}
+.math{background:var(--gray);border-radius:8px;padding:14px 18px;margin:14px 0;text-align:center;overflow-x:auto}
+.step{display:flex;gap:14px;margin-bottom:16px;align-items:flex-start}
+.snum{background:var(--navy);color:#fff;width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;margin-top:2px}
+.slbl{font-weight:700;font-size:13px;color:var(--navy);margin-bottom:4px}
+.rubric{background:var(--green-light);border-left:4px solid var(--green);border-radius:0 8px 8px 0;padding:14px 18px;margin:16px 0}
+.rubric-ttl{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--green);margin-bottom:8px}
+.rubric ul{padding-left:18px}.rubric li{font-size:13px;margin-bottom:5px;color:#1a4a32}
+.cta{background:linear-gradient(135deg,var(--navy),var(--blue));border-radius:12px;padding:24px 26px;margin:28px 0;color:#fff}
+.cta h3{color:#fff;margin:0 0 8px;font-size:15px}
+.cta p{color:rgba(255,255,255,.85);font-size:13px;margin-bottom:14px}
+.btn{display:inline-block;background:var(--accent);color:var(--navy);font-weight:700;font-size:13px;padding:10px 20px;border-radius:6px;cursor:pointer}
+.sub{font-size:11px;color:rgba(255,255,255,.6);margin-top:8px;font-style:italic}
+.sea{background:var(--accent-light);border:2px solid var(--accent);border-radius:12px;padding:20px 24px;margin:20px 0}
+.sea h3{color:var(--navy);font-size:14px;margin-bottom:8px}
+.sea p{font-size:13px;color:#5a4500;margin-bottom:12px}
+.btn-w{display:inline-block;background:var(--navy);color:#fff;font-weight:700;font-size:13px;padding:10px 20px;border-radius:6px}
+.rule-card{background:var(--gray);border-radius:8px;padding:16px 18px;margin-bottom:12px;border-left:4px solid var(--accent)}
+.rule-num{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--accent);margin-bottom:6px}
+.rule-title{font-weight:700;color:var(--navy);font-size:13px;margin-bottom:8px}
+.img-placeholder{border:2px dashed var(--accent);border-radius:10px;padding:28px 20px;text-align:center;margin:20px 0;background:var(--accent-light)}
+.img-placeholder .img-icon{font-size:36px;margin-bottom:10px}
+.img-placeholder .img-lbl{font-weight:700;color:var(--navy);font-size:14px;margin-bottom:6px}
+.img-placeholder .img-sub{font-size:12px;color:#5a4500}
+.img-placeholder .img-note{font-size:11px;color:var(--muted);margin-top:10px;font-family:'JetBrains Mono',monospace;background:rgba(0,0,0,.05);padding:6px 10px;border-radius:4px;display:inline-block}
+.screenshot-liner{background:var(--navy);color:var(--accent);border-radius:8px;padding:14px 18px;margin:16px 0;font-size:14px;font-weight:700;font-style:italic;text-align:center}
+.qr{background:var(--navy);color:#fff;border-radius:10px;padding:22px 24px;margin:20px 0}
+.qr h3{color:var(--accent);font-size:13px;letter-spacing:1px;text-transform:uppercase;margin-bottom:14px}
+.qrf{background:rgba(255,255,255,.07);border-radius:6px;padding:10px 14px;margin-bottom:10px}
+.qrl{color:var(--accent);font-weight:700;font-size:11px;margin-bottom:4px}
+.qrb{margin-top:12px;list-style:none}
+.qrb li{font-size:12px;color:rgba(255,255,255,.85);margin-bottom:5px;padding-left:18px;position:relative}
+.qrb li::before{content:"✓";color:#4ade80;position:absolute;left:0}
+.qrb .nv{color:#fca5a5!important}.qrb .nv::before{content:"✗"!important;color:#fca5a5!important}
+.related-link{display:block;color:var(--blue);font-size:13px;font-weight:500;text-decoration:none;padding:8px 0;border-bottom:1px solid var(--border)}
+hr{border:none;border-top:1px solid var(--border);margin:28px 0}
+.zf{background:#1a1a2e;border-radius:12px;padding:24px;margin-top:40px}
+.zf-ttl{color:var(--accent);font-size:14px;font-weight:800;letter-spacing:1px;text-transform:uppercase;margin-bottom:20px}
+.zi{display:flex;gap:12px;margin-bottom:16px;align-items:flex-start}
+.zchk{width:18px;height:18px;border:2px solid var(--accent);border-radius:3px;flex-shrink:0;margin-top:2px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s}
+.zchk.on{background:var(--accent)}.zchk.on::after{content:"✓";font-size:11px;color:var(--navy);font-weight:800}
+.zilbl{font-weight:700;color:var(--accent);font-size:12px;margin-bottom:4px}
+.zitxt{font-size:12px;color:rgba(255,255,255,.75);line-height:1.5}
+</style>
+</head>
+<body>
+
+<!-- ===================================================================
+     PUBLISHING GUIDE — visible in your browser, preview only
+     This panel does NOT get pasted into WordPress.
+     =================================================================== -->
+<details class="pub-guide" open>
+  <summary>PUBLISHING GUIDE — 3 steps to post this to WordPress</summary>
+  <div class="pub-guide-body">
+
+    <div class="pub-step">
+      <div class="pub-step-ttl">STEP 1 — ONE TIME ONLY: Add MathJax + Desmos to functions.php</div>
+      <p>Do this once. After that, skip to Step 2 for every future post.<br>
+         Go to: WordPress Admin → Appearance → Theme File Editor → functions.php<br>
+         Scroll to the bottom and paste the code below.</p>
+      <textarea readonly rows="10">
+// ── ACE AP CALCULUS: MathJax + Desmos ─────────────────────────────
+// Paste this at the bottom of functions.php — one time only.
+
+add_action('wp_head', function() {
+    echo '<script>MathJax = { tex: { inlineMath: [["$","$"]], displayMath: [["$$","$$"]] } };</script>';
+    echo '<script src="https://www.desmos.com/api/v1.7/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0fda6"></script>';
+}, 1);
+
+add_action('wp_enqueue_scripts', function() {
+    wp_enqueue_script('mathjax', 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js', [], null, false);
+});
+// ──────────────────────────────────────────────────────────────────</textarea>
+    </div>
+
+    <hr class="pub-divider">
+
+    <div class="pub-step">
+      <div class="pub-step-ttl">STEP 2 — WordPress title field</div>
+      <p>In the WordPress editor, click the title field at the top and paste this exactly:</p>
+      <textarea readonly rows="2">U-Substitution in AP Calculus: The One Integration Technique That Unlocks Every Chain Rule Problem</textarea>
+    </div>
+
+    <hr class="pub-divider">
+
+    <div class="pub-step">
+      <div class="pub-step-ttl">STEP 3 — WordPress Custom HTML block (the post content)</div>
+      <p>In the WordPress editor content area:<br>
+         1. Click the <code>+</code> button → search <code>Custom HTML</code> → add that block<br>
+         2. Open this file in VS Code or any text editor<br>
+         3. Find the comment that says: <code>▼▼▼ START: PASTE THIS INTO WORDPRESS CUSTOM HTML BLOCK ▼▼▼</code><br>
+         4. Select everything from that line down to: <code>▲▲▲ END: WORDPRESS CUSTOM HTML BLOCK ▲▲▲</code><br>
+         5. Paste into the Custom HTML block in WordPress<br><br>
+         That section contains the fonts link, all the CSS, all the post content, and the Desmos graph script.</p>
+    </div>
+
+    <hr class="pub-divider">
+
+    <div class="pub-step">
+      <div class="pub-step-ttl">STEP 4 — SEO fields (in the WordPress sidebar)</div>
+      <p>If you use Yoast or Rank Math, fill these in the sidebar before publishing:</p>
+      <textarea readonly rows="5">
+SEO Title:       U-Substitution AP Calculus: Zach's 89% Rule (2026)
+Meta Description: Master u-substitution in AP Calculus with Zach's 89% rule. Step-by-step method, FRQ scoring tips, and the framework that works on exam problems.
+Slug:            u-substitution-ap-calculus
+Focus Keyword:   u substitution ap calculus</textarea>
+    </div>
+
+  </div>
+</details>
+<!-- END PUBLISHING GUIDE -->
+
+
+<!-- ===================================================================
+     PREVIEW ONLY: browser chrome bar
+     Do NOT paste this into WordPress.
+     =================================================================== -->
+<div class="chrome">
+  <div class="dots"><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div></div>
+  <div class="url">enginearu.com/blog/u-substitution-ap-calculus</div>
+  <div class="badge">NARROW-FOCUS DRAFT v1</div>
+</div>
+<!-- END PREVIEW CHROME -->
+
+
+<!-- ===================================================================
+     PREVIEW ONLY: hero header
+     WordPress uses the title field (Step 2) instead of this.
+     Do NOT paste this into WordPress.
+     =================================================================== -->
+<div class="page">
+  <div class="hero">
+    <div class="tag">Unit 6 | AB + BC | 2026</div>
+    <h1>U-Substitution in AP Calculus:<br>The One Integration Technique That Unlocks Every Chain Rule Problem</h1>
+    <div class="meta">
+      <div class="pill">7 min read</div>
+      <div class="pill">The method every AP Calculus student needs locked in before exam day</div>
+    </div>
+  </div>
+<!-- END PREVIEW HERO -->
+
+
+<!-- ===================================================================
+     ▼▼▼ START: PASTE THIS INTO WORDPRESS CUSTOM HTML BLOCK ▼▼▼
+     ===================================================================
+     Select from this line all the way down to the matching END marker.
+     Paste the entire selection into one Custom HTML block in WordPress.
+     =================================================================== -->
+
+<div class="ace-post">
+
+    <!-- TABLE OF CONTENTS -->
+    <div class="toc">
+      <div class="toc-ttl">Jump To What You Need</div>
+      <ol>
+        <li><a href="#the-freeze">Why U-Sub Stops Students Cold</a></li>
+        <li><a href="#what-it-does">What U-Substitution Actually Does</a></li>
+        <li><a href="#89-percent-rule">Zach's 89% Rule for Picking u</a></li>
+        <li><a href="#examples">U-Sub Step by Step: Two Examples</a></li>
+        <li><a href="#quick-reference">Save This For Exam Day</a></li>
+        <li><a href="#end-cta">Next Steps</a></li>
+      </ol>
+    </div>
+
+    <!-- INTRO: name-the-feeling hook -->
+    <div class="sec" id="the-freeze">
+      <h2>Why U-Sub Stops Students Cold</h2>
+      <!-- HOOK TYPE: name-the-feeling -->
+      <p>There is a moment in every Unit 6 session where a student who has been acing every derivative problem stares at \(\int 2x \cdot \cos(x^2)\,dx\) and goes completely blank.</p>
+      <p>I know that feeling. I call it the Integration Wall. You have spent months learning how to take derivatives. The chain rule, the product rule, the quotient rule. You are good at it. Then integration shows up and suddenly all of those tools stop working in the direction you know. You cannot just run the chain rule backward by instinct. You need a system.</p>
+      <p>That is exactly what u-substitution is. It is the system.</p>
+
+      <!-- SCREENSHOT-ABLE ONE-LINER -->
+      <div class="screenshot-liner">
+        U-substitution is the chain rule run in reverse. Once you see it that way, picking u becomes obvious.
+      </div>
+      <!-- END ONE-LINER -->
+
+      <p>The students who get stuck on u-sub are not stuck because the math is hard. They are stuck because nobody gave them a rule for choosing u. You can find 50 examples online. What you will not find is a clear answer to the question every student asks first: how do I know what to pick for u?</p>
+      <p>That is what this post gives you. My 89% rule. The method I use with every AB student I work with. BC students: the full integration flowchart is in my review sheets at <strong>aceapcalculus.com/reviewsheet50</strong>.</p>
+    </div>
+
+    <hr>
+
+    <!-- WHAT IT DOES -->
+    <div class="sec" id="what-it-does">
+      <h2>What U-Substitution Actually Does</h2>
+      <p>Here is the thing most textbooks get wrong: they teach u-substitution as a technique before explaining why it works. You end up memorizing steps without knowing what you are doing.</p>
+      <p>U-substitution is not a magic trick. It is the chain rule applied to integration.</p>
+      <p>Think about how the chain rule works for derivatives. If you have \(\frac{d}{dx}[\sin(x^2)]\), you get \(\cos(x^2) \cdot 2x\). The \(2x\) is the derivative of the inside function \(x^2\).</p>
+      <p>Now look at \(\int 2x \cdot \cos(x^2)\,dx\). That \(2x\) is sitting right there. It did not appear by accident. When you see a function multiplied by the derivative of something inside a composition, that is u-substitution territory. You are undoing the chain rule.</p>
+      <p>Rename the inside function as \(u\), compute \(du\), and rewrite the whole integral in terms of \(u\). If you picked the right \(u\), the \(du\) cancels cleanly and you have a simple integral. If it does not cancel, you either picked wrong or need a different technique. Either way, that is useful information.</p>
+    </div>
+
+    <hr>
+
+    <!-- 89% RULE -->
+    <div class="sec" id="89-percent-rule">
+      <h2>Zach's 89% Rule for Picking u</h2>
+      <p>I call this the 89% rule because it works on roughly 89% of u-sub problems on the AP exam. Not 100%. But 89% means you can stop guessing and start having a process.</p>
+      <p>Try each step in order until something cancels cleanly.</p>
+
+      <div class="rule-card">
+        <div class="rule-num">Step 1 - First Try</div>
+        <div class="rule-title">Start with what is in parentheses.</div>
+        <p style="font-size:13px;margin-bottom:8px">If the integrand has a composite function, the inside piece is your first guess. In \(\int 2x \cdot \cos(x^2)\,dx\), the \(x^2\) is inside the cosine. Try \(u = x^2\).</p>
+        <p style="font-size:13px;margin-bottom:0">Check: \(du = 2x\,dx\). That \(2x\,dx\) is sitting right in the integrand. Clean cancellation. Done.</p>
+      </div>
+
+      <div class="rule-card">
+        <div class="rule-num">Step 2 - Second Try</div>
+        <div class="rule-title">Look at the denominator or what is under the radical.</div>
+        <p style="font-size:13px;margin-bottom:8px">If there is no obvious composite, try the denominator of a fraction or whatever lives under a square root sign.</p>
+        <p style="font-size:13px;margin-bottom:0">For \(\displaystyle\int \frac{3x^2}{x^3 + 5}\,dx\), try \(u = x^3 + 5\). Then \(du = 3x^2\,dx\), which is exactly the numerator. Clean cancellation.</p>
+      </div>
+
+      <div class="rule-card">
+        <div class="rule-num">Step 3 - No Exceptions</div>
+        <div class="rule-title">For e to a power, the exponent is always u.</div>
+        <p style="font-size:13px;margin-bottom:8px">If you see \(\int e^{(\text{something})}\,dx\), let \(u\) equal that something. Every time. No exceptions at the AB level.</p>
+        <p style="font-size:13px;margin-bottom:0">For \(\int 6x^2 e^{x^3}\,dx\): \(u = x^3\), \(du = 3x^2\,dx\), so \(6x^2\,dx = 2\,du\). The integral becomes \(\int 2e^u\,du = 2e^{x^3} + C\).</p>
+      </div>
+
+      <!-- IMAGE PLACEHOLDER -->
+      <div class="img-placeholder">
+        <div class="img-icon">&#128202;</div>
+        <div class="img-lbl">[INSERT 89% RULE FLOWCHART IMAGE HERE]</div>
+        <div class="img-sub">From Zach's "Flowchart for Integration (AB Students)" Google Doc</div>
+        <div class="img-note">Upload directly to WordPress before publishing. This image is the visual version of the 3-step rule above.</div>
+      </div>
+      <!-- END IMAGE PLACEHOLDER -->
+
+      <p>BC students: the full integration flowchart covers what to do when u-sub does not work, including integration by parts, partial fractions, and trig substitution. All of that is in the review sheets. AB students, the 89% rule gets you through Unit 6 on the AP exam.</p>
+    </div>
+
+    <hr>
+
+    <!-- EXAMPLES -->
+    <div class="sec" id="examples">
+      <h2>U-Sub Step by Step: Two Examples</h2>
+
+      <h3>Example 1: Clean Cancellation</h3>
+      <p><strong>Problem:</strong> Evaluate \(\displaystyle\int 2x \cdot \cos(x^2)\,dx\).</p>
+
+      <div class="step">
+        <div class="snum">1</div>
+        <div>
+          <div class="slbl">Choose u</div>
+          <p style="font-size:13px;margin-bottom:4px">\(u = x^2\). Inside the cosine. Rule 1 of the 89% rule.</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="snum">2</div>
+        <div>
+          <div class="slbl">Find du</div>
+          <div class="math">\[\frac{du}{dx} = 2x \implies du = 2x\,dx\]</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="snum">3</div>
+        <div>
+          <div class="slbl">Substitute</div>
+          <p style="font-size:13px;margin-bottom:4px">The \(2x\,dx\) in the integral is exactly \(du\). Replace everything:</p>
+          <div class="math">\[\int \cos(u)\,du\]</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="snum">4</div>
+        <div>
+          <div class="slbl">Integrate in terms of u</div>
+          <div class="math">\[= \sin(u) + C\]</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="snum">5</div>
+        <div>
+          <div class="slbl">Substitute back and verify</div>
+          <div class="math">\[\boxed{\sin(x^2) + C}\]</div>
+          <p style="font-size:13px;margin-bottom:0">Verification: \(\frac{d}{dx}[\sin(x^2)] = \cos(x^2) \cdot 2x\). Matches the original integrand. Verification is not optional on FRQ.</p>
+        </div>
+      </div>
+
+      <div class="rubric">
+        <div class="rubric-ttl">Here is exactly how the AP exam scores this type of problem</div>
+        <ul>
+          <li>Correct identification of u and computation of du</li>
+          <li>Complete substitution with no leftover x terms in the integral</li>
+          <li>Correct antiderivative in terms of u</li>
+          <li>Back-substitution to the original variable before stating the final answer</li>
+          <li>+C on every indefinite integral (dropping it costs you the justification point)</li>
+        </ul>
+      </div>
+
+      <hr style="margin:24px 0">
+
+      <h3>Example 2: Adjusting a Constant</h3>
+      <p><strong>Problem:</strong> Evaluate \(\displaystyle\int 6x^2 e^{x^3}\,dx\).</p>
+
+      <div class="step">
+        <div class="snum">1</div>
+        <div>
+          <div class="slbl">Choose u</div>
+          <p style="font-size:13px;margin-bottom:4px">\(u = x^3\). The exponent. Rule 3 of the 89% rule.</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="snum">2</div>
+        <div>
+          <div class="slbl">Find du</div>
+          <div class="math">\[du = 3x^2\,dx\]</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="snum">3</div>
+        <div>
+          <div class="slbl">Adjust</div>
+          <p style="font-size:13px;margin-bottom:4px">I have \(6x^2\,dx\) in the integral, but \(du = 3x^2\,dx\). That means \(6x^2\,dx = 2\,du\).</p>
+          <p style="font-size:13px;margin-bottom:0">This is the step where students freeze the second time. You are allowed to multiply by a constant to make the substitution work. You are not allowed to introduce an x term that is not already there. Constants are fine. Variables are not.</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="snum">4</div>
+        <div>
+          <div class="slbl">Substitute</div>
+          <div class="math">\[\int 6x^2 e^{x^3}\,dx = \int 2e^u\,du\]</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="snum">5</div>
+        <div>
+          <div class="slbl">Integrate, substitute back, verify</div>
+          <div class="math">\[= 2e^u + C = \boxed{2e^{x^3} + C}\]</div>
+          <p style="font-size:13px;margin-bottom:0">Verification: \(\frac{d}{dx}[2e^{x^3}] = 2e^{x^3} \cdot 3x^2 = 6x^2 e^{x^3}\). Confirmed.</p>
+        </div>
+      </div>
+
+      <div class="rubric">
+        <div class="rubric-ttl">Here is exactly what the AP exam is checking on this problem type</div>
+        <ul>
+          <li>Constant adjustment identified and executed correctly</li>
+          <li>du computation shown explicitly before substituting</li>
+          <li>No leftover variable terms after substitution</li>
+          <li>Back-substitution completed before the final answer</li>
+          <li>+C on the final answer</li>
+        </ul>
+      </div>
+    </div>
+
+    <hr>
+
+    <!-- QUICK REFERENCE BOX -->
+    <div class="qr" id="quick-reference">
+      <h3>Save This For Exam Day</h3>
+
+      <div class="qrf">
+        <div class="qrl">ZACH'S 89% RULE - PICKING u IN ORDER</div>
+        <p style="font-size:12px;color:rgba(255,255,255,.85);margin-bottom:4px">1. Inside parentheses (composite function)</p>
+        <p style="font-size:12px;color:rgba(255,255,255,.85);margin-bottom:4px">2. Denominator or under the radical</p>
+        <p style="font-size:12px;color:rgba(255,255,255,.85);margin-bottom:0">3. Exponent on e (no exceptions at AB level)</p>
+      </div>
+
+      <div class="qrf">
+        <div class="qrl">THE SUBSTITUTION STEPS</div>
+        <p style="font-size:12px;color:rgba(255,255,255,.85);margin-bottom:0">
+          1. Choose u &nbsp;|&nbsp; 2. Find du &nbsp;|&nbsp; 3. Adjust constants if needed<br>
+          4. Substitute (no x terms should remain) &nbsp;|&nbsp; 5. Integrate in u<br>
+          6. Substitute back to x &nbsp;|&nbsp; 7. Add +C &nbsp;|&nbsp; 8. Verify by differentiating
+        </p>
+      </div>
+
+      <ul class="qrb">
+        <li>Always verify: does differentiating your answer give back the original integrand?</li>
+        <li>+C is required on every indefinite integral. No exceptions.</li>
+        <li>Constant adjustments are allowed. Variable adjustments are not.</li>
+        <li class="nv">NEVER leave the final answer in terms of u. Always substitute back to x.</li>
+      </ul>
+    </div>
+
+    <hr>
+
+    <!-- RELATED POSTS -->
+    <div class="sec" id="related">
+      <h2>Related Posts</h2>
+      <a class="related-link" href="/what-is-a-derivative-ap-calculus">What Is a Derivative in AP Calculus? (The Concept, Not Just the Formula)</a>
+      <p style="font-size:12px;color:var(--muted);margin-top:8px">Note to Zach: Unit 6 ultimate guide pillar post will be linked here once written.</p>
+    </div>
+
+    <!-- END CTA -->
+    <div class="cta" id="end-cta">
+      <h3>Get This Locked In Before the Exam</h3>
+      <p>U-substitution is the gateway to the rest of Unit 6. Once it clicks, everything that follows builds directly on this foundation. If u-sub is shaky going into exam day, the Unit 6 FRQ becomes a grind instead of a win.</p>
+      <div class="btn">Take the Free Pre-Assessment - aceapcalculus.com/summer-diagnostic-page</div>
+      <div class="sub">Parents: the pre-assessment takes about 20 minutes and gives you a clear picture of which topics your student has solid and which ones need work before exam day.</div>
+    </div>
+
+    <!-- SEASONAL CTA - Active through September 15, 2026 -->
+    <div class="sea">
+      <h3>Summer Program - July and August 2026</h3>
+      <p>Want your student building this skill set over the summer with structured practice and expert coaching? Small groups. Real FRQ problems. A plan that actually prepares them for exam day. Spots fill fast.</p>
+      <div class="btn-w">See Summer Program Details and Reserve a Spot</div>
+    </div>
+
+    <!-- ZACH'S FLOW CHECKLIST -->
+    <div class="zf">
+      <div class="zf-ttl">Zach's Flow Checklist</div>
+
+      <div class="zi">
+        <div class="zchk" onclick="this.classList.toggle('on')"></div>
+        <div>
+          <div class="zilbl">Math Accuracy</div>
+          <div class="zitxt">
+            (1) &#8747;2x&#183;cos(x&#178;)dx = sin(x&#178;)+C. Verified: d/dx[sin(x&#178;)] = 2x&#183;cos(x&#178;). Confirmed.<br>
+            (2) &#8747;6x&#178;e^(x&#179;)dx = 2e^(x&#179;)+C. Verified: d/dx[2e^(x&#179;)] = 6x&#178;e^(x&#179;). Confirmed.<br>
+            (3) u = x&#179;+5, du = 3x&#178;dx matches numerator. Confirmed.<br>
+            (4) +C on all indefinite integrals. Confirmed.
+          </div>
+        </div>
+      </div>
+
+      <div class="zi">
+        <div class="zchk" onclick="this.classList.toggle('on')"></div>
+        <div>
+          <div class="zilbl">Personal Moment</div>
+          <div class="zitxt">"Integration Wall" named feeling in intro. 89% rule branded with Zach's name throughout. Verify the percentage framing sounds like you. Adjust if "89%" feels off.</div>
+        </div>
+      </div>
+
+      <div class="zi">
+        <div class="zchk" onclick="this.classList.toggle('on')"></div>
+        <div>
+          <div class="zilbl">Voice Check</div>
+          <div class="zitxt">Flag for review: "You are allowed to multiply by a constant to make the substitution work. You are not allowed to introduce an x term that is not already there." Confirm this matches how you explain it in session.</div>
+        </div>
+      </div>
+
+      <div class="zi">
+        <div class="zchk" onclick="this.classList.toggle('on')"></div>
+        <div>
+          <div class="zilbl">Image Placeholder</div>
+          <div class="zitxt">Clearly marked in the 89% Rule section. Upload "Flowchart for Integration (AB Students)" from your Google Doc directly into WordPress before publishing.</div>
+        </div>
+      </div>
+
+      <div class="zi">
+        <div class="zchk" onclick="this.classList.toggle('on')"></div>
+        <div>
+          <div class="zilbl">CTA Confirmation</div>
+          <div class="zitxt">End CTA: Option E (pre-assessment). Seasonal: Option D (summer program) active through Sept 15, 2026.</div>
+        </div>
+      </div>
+
+      <div class="zi">
+        <div class="zchk" onclick="this.classList.toggle('on')"></div>
+        <div>
+          <div class="zilbl">Read Time</div>
+          <div class="zitxt">~1,500 words / 200 = ~7 minutes including math processing time. Confirmed.</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- SEO METADATA -->
+    <div style="background:var(--gray);border-radius:8px;padding:16px 18px;margin-top:28px;font-size:12px;color:var(--muted)">
+      <strong style="color:var(--navy)">SEO Metadata (for WordPress)</strong><br>
+      <strong>Title:</strong> U-Substitution in AP Calculus: Step-by-Step Guide (2026)<br>
+      <strong>Meta Description:</strong> Learn u-substitution in AP Calculus with Zach's 89% rule for picking u. Step-by-step examples, FRQ scoring breakdown, and the method that works on 89% of AP exam problems.<br>
+      <strong>Primary Keyword:</strong> u substitution ap calculus<br>
+      <strong>URL Slug:</strong> /u-substitution-ap-calculus<br>
+      <strong>Image Alt:</strong> Flowchart showing Zach's 89% rule for choosing u in AP Calculus u-substitution problems
+    </div>
+
+</div>
+
+<!-- ===================================================================
+     ▲▲▲ END: WORDPRESS CUSTOM HTML BLOCK ▲▲▲
+     =================================================================== -->
+
+</div><!-- /page — preview wrapper, not part of WordPress paste -->
+
+</body>
+</html>

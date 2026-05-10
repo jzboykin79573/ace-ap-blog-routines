@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PREVIEW - Related Rates: The FRQ That Costs Students 4 Points Every May</title>
+
+<!--
+=======================================================================
+  PREVIEW FILE - ACE AP CALCULUS BLOG
+  Post 06: Related Rates: The FRQ That Costs Students 4 Points Every May
+=======================================================================
+  This file has three jobs:
+  1. Let you preview the post in your browser before publishing
+  2. Show you a publishing guide at the top of the page
+  3. Mark exactly what to copy into each part of WordPress
+
+  HOW TO USE THIS FILE
+  --------------------
+  Open it in your browser to read the publishing guide at the top.
+  Open it in VS Code to see the comment markers that show what goes where.
+
+  WHAT GETS PASTED INTO WORDPRESS
+  -------------------------------
+  STEP 1 (one time only) -> functions.php  (see guide below)
+  STEP 2 -> WordPress title field          (see guide below)
+  STEP 3 -> One Custom HTML block          (marked in the body below)
+=======================================================================
+-->
+
+<!-- PREVIEW-ONLY: Fonts, MathJax, Desmos load here for local preview.
+     WordPress gets MathJax + Desmos from functions.php (Step 1 below).
+     Do NOT paste any of this <head> section into WordPress. -->
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<script>MathJax = { tex: { inlineMath: [['$','$']], displayMath: [['$$','$$']], processEscapes: true } };</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+<script src="https://www.desmos.com/api/v1.7/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0fda6"></script>
+
+<!-- PREVIEW-ONLY CSS: styles for the browser chrome, hero, and page
+     wrapper below. None of this goes into WordPress. -->
+<style>
+:root{
+  --navy:#0f1e3c;--blue:#1a3a6b;--accent:#e8a020;--accent-light:#fef3dc;
+  --green:#1a7a4a;--green-light:#eaf7f0;--red:#c0392b;--red-light:#fdf2f1;
+  --purple:#7c3aed;--purple-light:#f3f0ff;
+  --gray:#f5f6f8;--border:#dde1e8;--text:#1a1a2e;--muted:#6b7280;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:#eef0f4;color:var(--text);font-size:14px;line-height:1.8}
+/* Publishing guide panel */
+.pub-guide{background:#1a1a2e;font-family:'JetBrains Mono',monospace}
+.pub-guide summary{padding:14px 20px;cursor:pointer;color:var(--accent);font-size:13px;font-weight:700;letter-spacing:.5px;list-style:none;display:flex;align-items:center;gap:10px}
+.pub-guide summary::before{content:"\25B6";font-size:10px;transition:transform .2s}
+.pub-guide[open] summary::before{transform:rotate(90deg)}
+.pub-guide-body{padding:0 20px 20px}
+.pub-step{margin-bottom:24px}
+.pub-step-ttl{color:var(--accent);font-size:12px;font-weight:700;margin-bottom:6px;letter-spacing:.5px}
+.pub-step p{color:rgba(255,255,255,.75);font-size:12px;margin-bottom:8px;font-family:'Inter',sans-serif;line-height:1.6}
+.pub-step textarea{width:100%;background:#0d0d1a;color:#a8d8a8;border:1px solid #333;border-radius:6px;padding:12px;font-size:11px;font-family:'JetBrains Mono',monospace;line-height:1.6;resize:vertical;min-height:80px}
+.pub-step code{background:#0d0d1a;color:var(--accent);padding:2px 6px;border-radius:3px;font-size:11px}
+.pub-divider{border:none;border-top:1px solid #2a2a4a;margin:20px 0}
+/* Preview chrome bar */
+.chrome{background:#2d2d2d;padding:8px 14px;display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:100}
+.dots{display:flex;gap:6px}.dot{width:11px;height:11px;border-radius:50%}
+.dot.r{background:#ff5f57}.dot.y{background:#febc2e}.dot.g{background:#28c840}
+.url{flex:1;background:#3d3d3d;border-radius:5px;padding:4px 10px;color:#aaa;font-size:11px;font-family:'JetBrains Mono',monospace}
+.badge{background:var(--accent);color:var(--navy);font-size:10px;font-weight:700;padding:3px 8px;border-radius:4px}
+/* Preview page wrapper + hero */
+.page{max-width:780px;margin:0 auto;background:#fff;min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,.12)}
+.hero{background:linear-gradient(135deg,var(--navy),var(--blue));padding:40px 40px 32px;color:#fff}
+.tag{display:inline-block;background:var(--accent);color:var(--navy);font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;padding:3px 9px;border-radius:3px;margin-bottom:14px}
+.hero h1{font-family:'Merriweather',serif;font-size:22px;line-height:1.4;margin-bottom:14px}
+.meta{display:flex;gap:10px;flex-wrap:wrap}
+.pill{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.88);font-size:11px;padding:4px 10px;border-radius:20px}
+</style>
+</head>
+<body>
+
+<!-- ===================================================================
+     PUBLISHING GUIDE - visible in your browser, preview only
+     This panel does NOT get pasted into WordPress.
+     =================================================================== -->
+<details class="pub-guide" open>
+  <summary>PUBLISHING GUIDE - 4 steps to post this to WordPress</summary>
+  <div class="pub-guide-body">
+
+    <div class="pub-step">
+      <div class="pub-step-ttl">STEP 1 - ONE TIME ONLY: Add MathJax + Desmos to functions.php</div>
+      <p>Do this once. After that, skip to Step 2 for every future post.<br>
+         Go to: WordPress Admin -> Appearance -> Theme File Editor -> functions.php<br>
+         Scroll to the bottom and paste the code below.</p>
+      <textarea readonly rows="12">
+// -- ACE AP CALCULUS: MathJax + Desmos --------------------------
+// Paste this at the bottom of functions.php - one time only.
+
+add_action('wp_head', function() {
+    echo '<script>MathJax = { tex: { inlineMath: [["$","$"]], displayMath: [["$$","$$"]] } };</script>';
+    echo '<script src="https://www.desmos.com/api/v1.7/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0fda6"></script>';
+}, 1);
+
+add_action('wp_enqueue_scripts', function() {
+    wp_enqueue_script('mathjax', 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js', [], null, false);
+});
+// ---------------------------------------------------------------</textarea>
+    </div>
+
+    <hr class="pub-divider">
+
+    <div class="pub-step">
+      <div class="pub-step-ttl">STEP 2 - WordPress title field</div>
+      <p>In the WordPress editor, click the title field at the top and paste this exactly:</p>
+      <textarea readonly rows="2">Related Rates: The FRQ That Costs Students 4 Points Every May</textarea>
+    </div>
+
+    <hr class="pub-divider">
+
+    <div class="pub-step">
+      <div class="pub-step-ttl">STEP 3 - WordPress Custom HTML block (the post content)</div>
+      <p>In the WordPress editor content area:<br>
+         1. Click the <code>+</code> button -> search <code>Custom HTML</code> -> add that block<br>
+         2. Open this file in VS Code or any text editor<br>
+         3. Find the comment that says: <code>&#9660;&#9660;&#9660; START: PASTE THIS INTO WORDPRESS CUSTOM HTML BLOCK &#9660;&#9660;&#9660;</code><br>
+         4. Select everything from that line down to: <code>&#9650;&#9650;&#9650; END: WORDPRESS CUSTOM HTML BLOCK &#9650;&#9650;&#9650;</code><br>
+         5. Paste into the Custom HTML block in WordPress<br><br>
+         That section contains the fonts link, all the CSS, all the post content, and the Desmos graph script (if any).</p>
+    </div>
+
+    <hr class="pub-divider">
+
+    <div class="pub-step">
+      <div class="pub-step-ttl">STEP 4 - SEO fields (in the WordPress sidebar)</div>
+      <p>If you use Yoast or Rank Math, fill these in the sidebar before publishing:</p>
+      <textarea readonly rows="5">
+SEO Title:       Related Rates AP Calculus: 5-Step FRQ Problem Solver
+Meta Description: Master related rates with the exact 5-step method AP Calculus tutors use. Cone, ladder, and ship problems with full solutions and scoring rubrics.
+Slug:            related-rates-ap-calculus
+Focus Keyword:   related rates ap calculus</textarea>
+    </div>
+
+  </div>
+</details>
+<!-- END PUBLISHING GUIDE -->
+
+
+<!-- ===================================================================
+     PREVIEW ONLY: browser chrome bar
+     Do NOT paste this into WordPress.
+     =================================================================== -->
+<div class="chrome">
+  <div class="dots">
+    <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
+  </div>
+  <div class="url">aceapcalculus.com/ap-calculus-prep/related-rates-ap-calculus/</div>
+  <div class="badge">PREVIEW</div>
+</div>
+<!-- END PREVIEW CHROME -->
+
+
+<!-- ===================================================================
+     PREVIEW ONLY: hero header
+     WordPress uses the title field (Step 2) instead of this.
+     Do NOT paste this into WordPress.
+     =================================================================== -->
+<div class="page">
+<div class="hero">
+  <div class="tag">AP Calculus AB &middot; BC &middot; Unit 4</div>
+  <h1>Related Rates: The FRQ That Costs Students 4 Points Every May</h1>
+  <div class="meta">
+    <span class="pill">17 min read</span>
+    <span class="pill">400+ EngiNearU students</span>
+    <span class="pill">3 to 5 score improvement</span>
+  </div>
+</div>
+<!-- END PREVIEW HERO -->
+
+
+<!-- ===================================================================
+     &#9660;&#9660;&#9660; START: PASTE THIS INTO WORDPRESS CUSTOM HTML BLOCK &#9660;&#9660;&#9660;
+     ===================================================================
+     Select from this line all the way down to the matching END marker.
+     Paste the entire selection into one Custom HTML block in WordPress.
+     =================================================================== -->
+
+<!-- Google Fonts - loads the typefaces used in the post styling -->
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<!-- Post CSS - all visual styles for the content below -->
+<style>
+.ace-post{
+  --navy:#0f1e3c;--blue:#1a3a6b;--accent:#e8a020;--accent-light:#fef3dc;
+  --green:#1a7a4a;--green-light:#eaf7f0;--red:#c0392b;--red-light:#fdf2f1;
+  --purple:#7c3aed;--purple-light:#f3f0ff;
+  --gray:#f5f6f8;--border:#dde1e8;--text:#1a1a2e;--muted:#6b7280;
+  font-family:'Inter',sans-serif;font-size:14px;line-height:1.8;color:var(--text);
+  padding:32px 0;
+}
+.ace-post h1{font-family:'Merriweather',serif;font-size:28px;font-weight:700;color:var(--navy);margin-bottom:20px;line-height:1.3}
+.ace-post h2{font-family:'Merriweather',serif;font-size:18px;font-weight:700;color:var(--navy);margin-bottom:14px;padding-bottom:8px;border-bottom:2px solid var(--border);margin-top:0}
+.ace-post h3{font-size:14px;font-weight:700;color:var(--blue);margin:18px 0 8px}
+.ace-post p{margin-bottom:13px;font-size:14px}
+.ace-post ul,.ace-post ol{padding-left:20px;margin-bottom:14px}
+.ace-post li{margin-bottom:6px;font-size:14px}
+.ace-post strong{color:var(--navy);font-weight:700}
+.ace-post code{background:var(--gray);padding:2px 6px;border-radius:3px;font-family:'JetBrains Mono',monospace;font-size:12px}
+.ace-post blockquote{border-left:3px solid var(--accent);padding-left:16px;margin-left:0;margin-bottom:14px;color:var(--muted);font-style:italic}
+.ace-post hr{border:none;border-top:1px solid var(--border);margin:28px 0}
+.ace-post img{max-width:100%;height:auto;border-radius:6px;margin:14px 0}
+/* Table of contents */
+.ace-post .toc{background:var(--gray);border-left:4px solid var(--navy);border-radius:0 8px 8px 0;padding:18px 20px;margin-bottom:36px}
+.ace-post .toc-ttl{font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.ace-post .toc ol{padding-left:18px}.ace-post .toc li{margin-bottom:6px}
+.ace-post .toc a{color:var(--blue);text-decoration:none;font-size:13px;font-weight:500}
+/* Section wrappers */
+.ace-post .sec{margin-bottom:40px}
+/* Math display blocks */
+.ace-post .math-block{background:var(--gray);border-radius:8px;padding:16px 20px;margin:14px 0;text-align:center;overflow-x:auto;font-size:15px}
+/* Worked example steps */
+.ace-post .step{display:flex !important;gap:14px !important;margin-bottom:18px !important;align-items:flex-start !important;}
+.ace-post .snum{background:var(--navy);color:#fff;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;margin-top:2px}
+.ace-post .scontent{flex:1}
+.ace-post .slbl{font-weight:700;font-size:13px;color:var(--navy);margin-bottom:5px}
+.ace-post .scontent p{font-size:13px;margin-bottom:6px}
+.ace-post .scontent ul,.ace-post .scontent ol{font-size:13px;padding-left:18px;margin-bottom:8px}
+.ace-post .scontent li{font-size:13px;margin-bottom:4px}
+/* Rubric (green) */
+.ace-post .rubric{background:var(--green-light) !important;border-left:4px solid var(--green) !important;border-radius:0 8px 8px 0 !important;padding:14px 18px !important;margin:16px 0 !important;}
+.ace-post .rubric-ttl{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--green);margin-bottom:8px}
+.ace-post .rubric ul{padding-left:18px}.ace-post .rubric li{font-size:13px;margin-bottom:5px;color:#1a4a32}
+/* Note (purple) */
+.ace-post .note{background:var(--purple-light) !important;border-left:3px solid var(--purple) !important;border-radius:0 6px 6px 0 !important;padding:10px 14px !important;margin:14px 0 !important;font-size:12px;color:#4c1d95 !important;}
+.ace-post .note strong{color:#4c1d95}
+/* CTAs */
+.ace-post .cta{background:linear-gradient(135deg,var(--navy),var(--blue)) !important;border-radius:12px !important;padding:24px 26px !important;margin:28px 0 !important;color:#fff !important;}
+.ace-post .cta h3{color:#fff;margin:0 0 8px;font-size:15px;font-family:'Merriweather',serif}
+.ace-post .cta p{color:rgba(255,255,255,.85);font-size:13px;margin-bottom:14px}
+.ace-post .btn{display:inline-block;background:var(--accent);color:var(--navy);font-weight:700;font-size:13px;padding:10px 20px;border-radius:6px;text-decoration:none}
+.ace-post .sub{font-size:11px;color:rgba(255,255,255,.6);margin-top:10px;font-style:italic}
+/* End CTA (gold border) */
+.ace-post .sea{background:var(--accent-light) !important;border:2px solid var(--accent) !important;border-radius:12px !important;padding:22px 26px !important;margin:20px 0 !important;}
+.ace-post .sea h3{color:var(--navy);font-size:14px;margin-bottom:8px;font-weight:700}
+.ace-post .sea p{font-size:13px;color:#5a4500;margin-bottom:12px}
+.ace-post .btn-w{display:inline-block;background:var(--navy);color:#fff;font-weight:700;font-size:13px;padding:10px 20px;border-radius:6px;text-decoration:none}
+/* Mistake cards (red) */
+.ace-post .mk{border-left:4px solid var(--red) !important;border-radius:0 8px 8px 0 !important;padding:14px 18px !important;background:var(--red-light) !important;margin-bottom:20px !important;}
+.ace-post .mk-n{font-weight:700;color:var(--red);font-size:13px;margin-bottom:5px}
+.ace-post .mk-w{font-size:12px;color:#7a2020;margin-bottom:6px;font-style:italic}
+.ace-post .mk-f{font-size:13px;color:var(--text)}
+.ace-post .mk ol{padding-left:18px;margin:8px 0}
+.ace-post .mk li{font-size:13px;color:var(--text);margin-bottom:4px}
+/* Practice problems */
+.ace-post .prob{background:var(--gray) !important;border-radius:8px !important;padding:16px 18px !important;margin-bottom:14px !important;border:1px solid var(--border) !important;}
+.ace-post .plbl{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.ace-post .prob p{font-size:13px;margin-bottom:6px}
+.ace-post .answers{background:var(--navy) !important;border-radius:8px !important;padding:18px 20px !important;margin-top:20px !important;}
+.ace-post .ans-ttl{color:var(--accent);font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:12px}
+.ace-post .ans-item{font-size:13px;color:rgba(255,255,255,.9);margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid rgba(255,255,255,.1)}
+.ace-post .ans-item:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
+/* FAQ */
+.ace-post .faq-item{border-bottom:1px solid var(--border);padding:16px 0}
+.ace-post .faq-item:last-child{border-bottom:none}
+.ace-post .faq-q{font-weight:700;color:var(--navy);font-size:13px;margin-bottom:8px}
+.ace-post .faq-a{font-size:13px;line-height:1.7}
+.ace-post .faq-a p{font-size:13px;margin-bottom:8px}
+.ace-post .faq-a ul{padding-left:18px;font-size:13px}
+.ace-post .faq-a li{margin-bottom:4px}
+/* Quick reference */
+.ace-post .qr{background:var(--navy) !important;color:#fff !important;border-radius:10px !important;padding:24px 26px !important;margin:20px 0 !important;}
+.ace-post .qr-ttl{color:var(--accent);font-size:12px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:16px}
+.ace-post .qrf{background:rgba(255,255,255,.07);border-radius:6px;padding:12px 16px;margin-bottom:10px}
+.ace-post .qrf-lbl{font-size:11px;color:rgba(255,255,255,.5);margin-bottom:6px;font-weight:700;letter-spacing:.8px;text-transform:uppercase}
+.ace-post .qrb{margin-top:8px;list-style:none;padding-left:0}
+.ace-post .qrb li{font-size:12px;color:rgba(255,255,255,.85);margin-bottom:6px;padding-left:20px;position:relative}
+.ace-post .qrb li::before{content:"\2713";color:#4ade80;position:absolute;left:0;font-weight:700}
+.ace-post .qrb .nv{color:#fca5a5!important}.ace-post .qrb .nv::before{content:"\2717"!important;color:#fca5a5!important}
+/* Related posts */
+.ace-post .related-link{display:block;padding:12px 14px;background:var(--gray);border-radius:6px;border:1px solid var(--border);margin-bottom:8px;font-size:13px;color:var(--blue);text-decoration:none}
+.ace-post .ext-link{display:block;padding:10px 14px;background:#fff;border-radius:6px;border:1px solid var(--border);margin-bottom:8px;font-size:12px;color:var(--blue);text-decoration:none}
+.ace-post .ext-link:hover{background:var(--gray)}
+/* Body list */
+.ace-post .body-list{padding-left:20px;margin-bottom:12px;font-size:13px}
+.ace-post .body-list li{margin-bottom:5px}
+/* SVG diagram wrapper */
+.ace-post .diagram{margin:20px auto;text-align:center}
+.ace-post .diagram-cap{font-size:11px;color:var(--muted);text-align:center;margin-top:6px;font-style:italic}
+/* Comparison cards (wrong vs right) */
+.ace-post .compare{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--border);border-radius:10px;overflow:hidden;margin:20px 0}
+.ace-post .compare-side{padding:16px 18px;background:#fff}
+.ace-post .compare-side.wrong{background:var(--red-light)}
+.ace-post .compare-side.right{background:var(--green-light)}
+.ace-post .compare-lbl{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:10px}
+.ace-post .compare-lbl.wrong-lbl{color:var(--red)}
+.ace-post .compare-lbl.right-lbl{color:var(--green)}
+.ace-post .compare-val{font-size:13px;line-height:1.8;color:var(--text)}
+.ace-post .compare-val em{color:var(--muted);font-size:12px}
+/* Definition card */
+.ace-post .def-card{border-radius:8px;overflow:hidden;border:1px solid var(--border);margin:18px 0}
+.ace-post .def-hd{background:var(--navy);color:#fff;padding:10px 16px;font-size:12px;font-weight:700;letter-spacing:.5px;text-transform:uppercase}
+.ace-post .def-bd{padding:14px 18px;background:#fff}
+.ace-post .def-bd p{font-size:13px;margin-bottom:8px;line-height:1.7}
+.ace-post .def-bd p:last-child{margin-bottom:0}
+/* Gold cheat/reminder box */
+.ace-post .cheat{background:var(--accent-light) !important;border:1px solid var(--accent) !important;border-radius:8px !important;padding:14px 18px !important;margin:18px 0 !important;}
+.ace-post .cheat-ttl{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#8a5a00;margin-bottom:10px}
+.ace-post .cheat-list{padding-left:0;list-style:none;margin:0}
+.ace-post .cheat-list li{font-size:13px;padding:5px 0;display:flex;align-items:flex-start;gap:10px;color:#5a3c00;border-bottom:1px solid rgba(232,160,32,0.2)}
+.ace-post .cheat-list li:last-child{border-bottom:none}
+.ace-post .cheat-list li::before{content:"\2192";color:var(--accent);font-weight:800;flex-shrink:0;margin-top:1px;font-size:14px}
+/* Inline callout highlight */
+.ace-post .callout{background:rgba(232,160,32,0.1);border-left:4px solid var(--accent);border-radius:0 6px 6px 0;padding:10px 14px;margin:14px 0;font-size:13px;color:#5a3c00;font-weight:600}
+</style>
+
+<!-- Post content - all sections of the blog post -->
+<div class="ace-post">
+
+<h1>Related Rates: The FRQ That Costs Students 4 Points Every May</h1>
+<p><strong>17 minute read | Used by 400+ EngiNearU students to solve the cone and ladder problems with confidence</strong></p>
+<hr>
+
+<!-- Table of contents -->
+<div class="toc">
+  <div class="toc-ttl">Jump To What You Need</div>
+  <ol>
+    <li><a href="#mistake">The Mistake I See Every Single Year</a></li>
+    <li><a href="#what-it-means">What Related Rates Actually Means</a></li>
+    <li><a href="#method">The Method: Five-Step Framework</a></li>
+    <li><a href="#example-1">Worked Example 1: The Cone Problem (Foundational)</a></li>
+    <li><a href="#mid-cta">Grab the Free Review Sheet</a></li>
+    <li><a href="#example-2">Worked Example 2: The Ladder Problem (FRQ-Level)</a></li>
+    <li><a href="#why-frq">Why Related Rates Appears on the FRQ Every Year</a></li>
+    <li><a href="#mistakes">The 3 Mistakes That Cost My Students Points</a></li>
+    <li><a href="#practice">Practice Problems</a></li>
+    <li><a href="#faq">FAQ</a></li>
+    <li><a href="#quick-reference">Save This For Exam Day</a></li>
+    <li><a href="#related">Related Posts</a></li>
+  </ol>
+</div>
+
+<!-- =====================================================================
+     Section 1: The Mistake
+     ===================================================================== -->
+<div class="sec" id="mistake">
+  <h2>The Mistake I See Every Single Year</h2>
+  <p>Roughly half my students get the related rates FRQ wrong every spring not because they cannot take a derivative, but because they substitute their numbers before they differentiate, and that single move quietly costs them 3 to 4 points every May.</p>
+  <p>I watch this happen year after year. A student sits down with a cone-filling problem. They know the formula is $V = \frac{1}{3}\pi r^2 h$. They plug in the specific numbers they were given. Then they try to differentiate. By then the damage is done. The derivative becomes impossible to take.</p>
+  <p>Here is the thing: every student I have seen do this is smart enough to pass AP Calculus. They understand derivatives. They know how to use the chain rule. The problem is not intelligence. The problem is order. Do the steps in the wrong order and a solvable problem becomes unsolvable. Do them in the right order and it takes 90 seconds.</p>
+  <p>Related rates is not a new concept. It is implicit differentiation with real numbers attached. And yet it gets a whole section of the exam because the order of operations matters. More than any other problem type in Unit 4, related rates separates students who actually practiced this specific skill from students who thought they did.</p>
+  <p>This post teaches you exactly where to put the numbers and when. By the time we are done, you will know the five-step process cold, you will see why that order is critical, and you will be ready for any rate problem the AP exam throws at you. Including the ones with changing angles, changing dimensions, and multiple variables all moving at once.</p>
+  <p>That is the difference between a 3 and a 5 on the free response.</p>
+</div>
+
+<!-- =====================================================================
+     Section 2: What It Means
+     ===================================================================== -->
+<div class="sec" id="what-it-means">
+  <h2>What Related Rates Actually Means</h2>
+  <p>In your Unit 2 post, we talked about the distinction between average rate of change and instantaneous rate of change. Related rates is where that distinction becomes essential.</p>
+  <p>Average rate of change tells you how much something changed over an interval. A ladder falling 2 feet over 3 seconds. A cone filling 5 cubic centimeters per second. Those are just numbers. They do not connect to anything.</p>
+  <p>Related rates asks: if one thing is changing at a known rate, how fast is something else changing at this exact moment?</p>
+  <p>Your car accelerates from 0 to 60 miles per hour. At the exact moment you hit 60, what is your acceleration? That is a related rate question. The speed changed, and we want to know the rate of change of speed right now.</p>
+  <p>Same thing with the cone. Water flows into a cone at 2 cubic centimeters per second. That is constant. The volume is always growing at that rate. But the height is not growing at a constant rate. At the moment the water level is 3 centimeters high, the height is growing at some rate. At 5 centimeters, it is growing at a different rate. Related rates finds that instantaneous rate.</p>
+  <p>That distinction matters. Most students think "the cone is filling at 2 cubic centimeters per second, so the height is growing at... something." The something is the whole problem. And the only tool that finds it is implicit differentiation.</p>
+
+  <h3>Why This Matters: A Real Scenario from the Exam</h3>
+  <p>Picture yourself on FRQ question 2. You have 40 minutes left. The problem says: "Water flows into a cone-shaped container at a constant rate of 2 cubic centimeters per second. The cone has a fixed height of 10 centimeters and a radius of 4 centimeters. Find the rate at which the water level is rising when the water depth reaches 3 centimeters."</p>
+  <p>Your instinct is correct: you should use a formula and take a derivative. But here is where students diverge.</p>
+  <p>Half the room thinks: "The problem gives me a rate (2 cm&#179;/s) and specific numbers (3 cm, 10 cm, 4 cm). Let me plug those in right now." They write $V = \frac{1}{3}\pi r^2 h$, then substitute $h = 3$, getting $V = \frac{1}{3}\pi r^2 (3)$. Then they try to differentiate. But $h$ is no longer a variable. The derivative of 3 is zero. Their equation breaks.</p>
+  <p>The other half thinks: "I need to find a relationship between the variables first, then differentiate, then substitute." They identify that the water forms a cone with the same proportions as the full cone (similar triangles). They write $r = \frac{2}{5}h$. They substitute into the volume formula before any numbers touch the problem, getting $V = \frac{4\pi}{75}h^3$. Now $h$ is still a variable. They differentiate. Then they plug in the numbers. They solve correctly in 90 seconds.</p>
+  <p>The difference is order. And the difference in score is 3 to 4 points.</p>
+
+  <div class="compare">
+    <div class="compare-side wrong">
+      <div class="compare-lbl wrong-lbl">Wrong Order — Loses 3 Points</div>
+      <div class="compare-val">
+        1. Write $V = \frac{1}{3}\pi r^2 h$<br>
+        2. Substitute $h = 3$ immediately<br>
+        3. Try to differentiate<br>
+        <em>— $h$ is gone. You need $\frac{dr}{dt}$ and you don't have it. Stuck.</em>
+      </div>
+    </div>
+    <div class="compare-side right">
+      <div class="compare-lbl right-lbl">Right Order — Full Credit</div>
+      <div class="compare-val">
+        1. Write $V = \frac{1}{3}\pi r^2 h$<br>
+        2. Eliminate $r$ using similar triangles<br>
+        3. Differentiate, then substitute $h = 3$<br>
+        <em>— $h$ is still a variable when you differentiate. Solvable.</em>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout">Numbers are dessert. Eat the geometry and calculus first — substitute only at the very end.</div>
+
+  <h3>The Working Definition</h3>
+
+  <div class="def-card">
+    <div class="def-hd">Related Rates — Working Definition</div>
+    <div class="def-bd">
+      <p><strong>Related rates</strong> is a method that uses implicit differentiation with respect to time to find an unknown rate of change when other rates are known.</p>
+      <p><em>Implicit differentiation</em> — differentiate the constraint equation as-is, do not solve for one variable first. <em>With respect to time</em> — every changing variable gets a $\frac{d\cdot}{dt}$ term. <em>Unknown rate</em> — that is what you are solving for. <em>Other rates are known</em> — that is what the problem gives you.</p>
+    </div>
+  </div>
+</div>
+
+<!-- =====================================================================
+     Section 3: The Method
+     ===================================================================== -->
+<div class="sec" id="method">
+  <h2>The Method: Five-Step Framework</h2>
+  <p>Every related rates problem follows the same order. Get the order wrong and you get the wrong answer. Get it right and you get a 9 out of 9 points on the FRQ.</p>
+
+  <div class="step">
+    <div class="snum">1</div>
+    <div class="scontent">
+      <div class="slbl">Draw a diagram and label all variables.</div>
+      <p>Not a fancy diagram. A sketch. A circle for the cone. A triangle for the ladder. A rectangle for the trough. Anything that helps you see the relationships. Label every dimension with a variable. Height is $h$. Radius is $r$. Time is always $t$.</p>
+      <p>Do not label any dimension with a number yet. That is the step students skip that costs them points.</p>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="snum">2</div>
+    <div class="scontent">
+      <div class="slbl">Write down what you know and what you need to find.</div>
+      <p>The problem will tell you a rate. Water flows in at $\frac{dV}{dt} = 2$ cm&#179;/s. The ladder is sliding down at $\frac{dx}{dt} = -1$ foot/second. Write these down.</p>
+      <p>At the bottom of your paper, write what you are solving for. Maybe $\frac{dh}{dt}$ at a specific moment. Maybe $\frac{dr}{dt}$. Be clear about what you need.</p>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="snum">3</div>
+    <div class="scontent">
+      <div class="slbl">Write an equation relating all variables.</div>
+      <p>This is the geometry step. Use the formulas you should have memorized: volume of a cone, area of a circle, Pythagorean theorem, similar triangles.</p>
+      <p>Write one equation that connects everything moving in the problem. For a cone filling: $V = \frac{1}{3}\pi r^2 h$. For a ladder sliding: $x^2 + y^2 = L^2$.</p>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="snum">4</div>
+    <div class="scontent">
+      <div class="slbl">Differentiate both sides with respect to time using implicit differentiation.</div>
+      <p>Differentiate the whole equation. Use chain rule for anything involving a variable that changes over time.</p>
+      <p><strong>Do not substitute numbers yet. Differentiate first, substitute second.</strong> This order is the difference between a solvable problem and an unsolvable one.</p>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="snum">5</div>
+    <div class="scontent">
+      <div class="slbl">Substitute known values and solve for the unknown rate.</div>
+      <p>Now plug in the specific numbers from the problem. Height at that moment. Known rates. Everything. Then solve for the rate you need.</p>
+    </div>
+  </div>
+
+  <div class="cheat">
+    <div class="cheat-ttl">The Order That Never Changes</div>
+    <ul class="cheat-list">
+      <li><strong>Geometry first</strong> — draw, label all variables, eliminate extras using constraints</li>
+      <li><strong>Differentiate second</strong> — implicit differentiation with respect to time, chain rule on every term</li>
+      <li><strong>Numbers last</strong> — substitute specific values only after the derivative is complete</li>
+    </ul>
+  </div>
+</div>
+
+<!-- =====================================================================
+     Section 4: Worked Example 1 — The Cone
+     ===================================================================== -->
+<div class="sec" id="example-1">
+  <h2>Worked Example 1: The Cone Problem (Foundational)</h2>
+  <p>This is the most common related rates problem on the AP exam. Water flows into a cone. The radius and height change together. Your job: find the rate at which the height is growing. This problem type accounts for about 60% of related rates FRQs historically, so mastering this specific setup is worth the effort.</p>
+
+  <div class="prob">
+    <div class="plbl">Problem</div>
+    <p>Water flows into a cone-shaped container at a constant rate of 2 cubic centimeters per second. The cone has a fixed height of 10 centimeters and a fixed radius of 4 centimeters (measured at the top opening). At the moment when the water level reaches 3 centimeters high, how fast is the water level rising? Express your answer in exact form and as a decimal approximation.</p>
+  </div>
+
+  <h3>Understanding the Setup Before You Solve</h3>
+  <p>Before you write anything, pause and picture what is happening. Water is flowing in at the same rate the entire time: 2 cm&#179;/s, constant. But the cone is narrow at the bottom and wider at the top. When the water is 1 centimeter high, the water surface is a tiny circle. When the water is 5 centimeters high, the water surface is a larger circle. Same volume per second flowing in, but a wider surface, so the height grows more slowly. This is the insight that makes related rates real: one constant rate ($\frac{dV}{dt}$) produces a changing rate ($\frac{dh}{dt}$). That is the whole problem.</p>
+
+  <!-- SVG: Cone Diagram -->
+  <div class="diagram">
+    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0ODAgMzYwIiBzdHlsZT0id2lkdGg6MTAwJTttYXgtd2lkdGg6NDYwcHg7ZGlzcGxheTpibG9jazttYXJnaW46MCBhdXRvO2ZvbnQtZmFtaWx5OidJbnRlcicsc2Fucy1zZXJpZiI+CiAgICAgIDxyZWN0IHdpZHRoPSI0ODAiIGhlaWdodD0iMzYwIiBmaWxsPSIjZjdmOWZjIiByeD0iMTIiLz4KCiAgICAgIDwhLS0gRnVsbCBjb25lIG91dGxpbmUuIEFwZXgoMjIwLDMzMCksIHRvcC1sZWZ0KDYwLDUwKSwgdG9wLXJpZ2h0KDM4MCw1MCkgLS0+CiAgICAgIDxsaW5lIHgxPSI2MCIgeTE9IjUwIiB4Mj0iMjIwIiB5Mj0iMzMwIiBzdHJva2U9IiMwZjFlM2MiIHN0cm9rZS13aWR0aD0iMi41Ii8+CiAgICAgIDxsaW5lIHgxPSIzODAiIHkxPSI1MCIgeDI9IjIyMCIgeTI9IjMzMCIgc3Ryb2tlPSIjMGYxZTNjIiBzdHJva2Utd2lkdGg9IjIuNSIvPgogICAgICA8ZWxsaXBzZSBjeD0iMjIwIiBjeT0iNTAiIHJ4PSIxNjAiIHJ5PSIxNiIgZmlsbD0icmdiYSgxNSwzMCw2MCwwLjA0KSIgc3Ryb2tlPSIjMGYxZTNjIiBzdHJva2Utd2lkdGg9IjIuNSIvPgoKICAgICAgPCEtLSBXYXRlciByZWdpb24gKGggfiAxMDUgcHgg4oaSIHdhdGVyX3k9MjI1LCBoYWxmLXdpZHRoPTYwKSAtLT4KICAgICAgPHBvbHlnb24gcG9pbnRzPSIxNjAsMjI1IDI4MCwyMjUgMjIwLDMzMCIgZmlsbD0icmdiYSg1OSwxMzAsMjQ2LDAuMjIpIi8+CiAgICAgIDxlbGxpcHNlIGN4PSIyMjAiIGN5PSIyMjUiIHJ4PSI2MCIgcnk9IjkiIGZpbGw9InJnYmEoNTksMTMwLDI0NiwwLjQpIiBzdHJva2U9IiMxYTNhNmIiIHN0cm9rZS13aWR0aD0iMiIvPgoKICAgICAgPCEtLSBGdWxsIHJhZGl1cyBicmFja2V0ICh0b3ApIC0tPgogICAgICA8bGluZSB4MT0iMjIwIiB5MT0iMzIiIHgyPSIzODAiIHkyPSIzMiIgc3Ryb2tlPSIjNmI3MjgwIiBzdHJva2Utd2lkdGg9IjEuNCIgc3Ryb2tlLWRhc2hhcnJheT0iNCwzIi8+CiAgICAgIDxsaW5lIHgxPSIyMjAiIHkxPSIyNiIgeDI9IjIyMCIgeTI9IjM4IiBzdHJva2U9IiM2YjcyODAiIHN0cm9rZS13aWR0aD0iMS40Ii8+CiAgICAgIDxsaW5lIHgxPSIzODAiIHkxPSIyNiIgeDI9IjM4MCIgeTI9IjM4IiBzdHJva2U9IiM2YjcyODAiIHN0cm9rZS13aWR0aD0iMS40Ii8+CiAgICAgIDxyZWN0IHg9IjI3MCIgeT0iMTQiIHdpZHRoPSI2MCIgaGVpZ2h0PSIyMCIgcng9IjQiIGZpbGw9IndoaXRlIiBzdHJva2U9IiNjZmQ0ZGMiIHN0cm9rZS13aWR0aD0iMSIvPgogICAgICA8dGV4dCB4PSIzMDAiIHk9IjI0IiBmaWxsPSIjMGYxZTNjIiBmb250LXNpemU9IjEyIiBmb250LXdlaWdodD0iNzAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIj40IGNtPC90ZXh0PgoKICAgICAgPCEtLSBGdWxsIGhlaWdodCBicmFja2V0IChyaWdodCBvZiBjb25lKSAtLT4KICAgICAgPGxpbmUgeDE9IjQwMiIgeTE9IjUwIiB4Mj0iNDAyIiB5Mj0iMzMwIiBzdHJva2U9IiM2YjcyODAiIHN0cm9rZS13aWR0aD0iMS40Ii8+CiAgICAgIDxsaW5lIHgxPSIzOTYiIHkxPSI1MCIgeDI9IjQwOCIgeTI9IjUwIiBzdHJva2U9IiM2YjcyODAiIHN0cm9rZS13aWR0aD0iMS40Ii8+CiAgICAgIDxsaW5lIHgxPSIzOTYiIHkxPSIzMzAiIHgyPSI0MDgiIHkyPSIzMzAiIHN0cm9rZT0iIzZiNzI4MCIgc3Ryb2tlLXdpZHRoPSIxLjQiLz4KICAgICAgPHJlY3QgeD0iNDEyIiB5PSIxODAiIHdpZHRoPSI1NiIgaGVpZ2h0PSIyMiIgcng9IjQiIGZpbGw9IndoaXRlIiBzdHJva2U9IiNjZmQ0ZGMiIHN0cm9rZS13aWR0aD0iMSIvPgogICAgICA8dGV4dCB4PSI0NDAiIHk9IjE5MSIgZmlsbD0iIzBmMWUzYyIgZm9udC1zaXplPSIxMyIgZm9udC13ZWlnaHQ9IjcwMCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSI+MTAgY208L3RleHQ+CgogICAgICA8IS0tIFdhdGVyIHJhZGl1cyBsYWJlbCAoYWJvdmUgd2F0ZXIgc3VyZmFjZSwgZGFzaGVkIGxpbmUgb3V0IHRvIHJpZ2h0IGVkZ2Ugb2Ygd2F0ZXIpIC0tPgogICAgICA8bGluZSB4MT0iMjIwIiB5MT0iMjI1IiB4Mj0iMjgwIiB5Mj0iMjI1IiBzdHJva2U9IiMxYTNhNmIiIHN0cm9rZS13aWR0aD0iMS40IiBzdHJva2UtZGFzaGFycmF5PSIzLDMiLz4KICAgICAgPHJlY3QgeD0iMjMyIiB5PSIyMDgiIHdpZHRoPSIyMiIgaGVpZ2h0PSIyMCIgcng9IjQiIGZpbGw9IndoaXRlIiBzdHJva2U9IiMxYTNhNmIiIHN0cm9rZS13aWR0aD0iMS40Ii8+CiAgICAgIDx0ZXh0IHg9IjI0MyIgeT0iMjE5IiBmaWxsPSIjMWEzYTZiIiBmb250LXNpemU9IjE0IiBmb250LXdlaWdodD0iODAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIj5yPC90ZXh0PgoKICAgICAgPCEtLSBXYXRlciBoZWlnaHQgbGFiZWwgKGxlZnQsIHdpdGggYnJhY2tldCBmcm9tIHdhdGVyIHN1cmZhY2UgdG8gYXBleCkgLS0+CiAgICAgIDxsaW5lIHgxPSIxMzgiIHkxPSIyMjUiIHgyPSIxMzgiIHkyPSIzMzAiIHN0cm9rZT0iIzFhM2E2YiIgc3Ryb2tlLXdpZHRoPSIxLjYiLz4KICAgICAgPGxpbmUgeDE9IjEzMiIgeTE9IjIyNSIgeDI9IjE0NCIgeTI9IjIyNSIgc3Ryb2tlPSIjMWEzYTZiIiBzdHJva2Utd2lkdGg9IjEuNiIvPgogICAgICA8bGluZSB4MT0iMTMyIiB5MT0iMzMwIiB4Mj0iMTQ0IiB5Mj0iMzMwIiBzdHJva2U9IiMxYTNhNmIiIHN0cm9rZS13aWR0aD0iMS42Ii8+CiAgICAgIDxyZWN0IHg9IjExMyIgeT0iMjY2IiB3aWR0aD0iMjIiIGhlaWdodD0iMjIiIHJ4PSI0IiBmaWxsPSJ3aGl0ZSIgc3Ryb2tlPSIjMWEzYTZiIiBzdHJva2Utd2lkdGg9IjEuNCIvPgogICAgICA8dGV4dCB4PSIxMjQiIHk9IjI3NyIgZmlsbD0iIzFhM2E2YiIgZm9udC1zaXplPSIxNSIgZm9udC13ZWlnaHQ9IjgwMCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSI+aDwvdGV4dD4KCiAgICAgIDwhLS0gZGgvZHQgdXB3YXJkIGFycm93IChjbGVhcmx5IGFib3ZlIHdhdGVyIHN1cmZhY2UsIGdvbGQsIHByb21pbmVudCkgLS0+CiAgICAgIDxsaW5lIHgxPSIyMjAiIHkxPSIyMjAiIHgyPSIyMjAiIHkyPSIxODAiIHN0cm9rZT0iI2U4YTAyMCIgc3Ryb2tlLXdpZHRoPSIzLjUiLz4KICAgICAgPHBvbHlnb24gcG9pbnRzPSIyMTIsMTg0IDIyOCwxODQgMjIwLDE2NCIgZmlsbD0iI2U4YTAyMCIvPgogICAgICA8cmVjdCB4PSIyMzQiIHk9IjE3NCIgd2lkdGg9IjgwIiBoZWlnaHQ9IjIyIiByeD0iNCIgZmlsbD0id2hpdGUiIHN0cm9rZT0iI2U4YTAyMCIgc3Ryb2tlLXdpZHRoPSIxLjUiLz4KICAgICAgPHRleHQgeD0iMjc0IiB5PSIxODUiIGZpbGw9IiNlOGEwMjAiIGZvbnQtc2l6ZT0iMTIiIGZvbnQtd2VpZ2h0PSI4MDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGRvbWluYW50LWJhc2VsaW5lPSJtaWRkbGUiPmRoL2R0ID0gPzwvdGV4dD4KCiAgICAgIDwhLS0gZFYvZHQgbGFiZWwgKHRvcC1sZWZ0LCBzZXBhcmF0ZWQgY2xlYW5seSkgLS0+CiAgICAgIDxyZWN0IHg9IjE0IiB5PSI1MCIgd2lkdGg9IjEyMCIgaGVpZ2h0PSIzNiIgcng9IjYiIGZpbGw9IndoaXRlIiBzdHJva2U9IiNjZmQ0ZGMiIHN0cm9rZS13aWR0aD0iMS4yIi8+CiAgICAgIDx0ZXh0IHg9Ijc0IiB5PSI2NSIgZmlsbD0iIzBmMWUzYyIgZm9udC1zaXplPSIxMiIgZm9udC13ZWlnaHQ9IjcwMCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+ZFYvZHQgPSAyIGNtwrMvczwvdGV4dD4KICAgICAgPHRleHQgeD0iNzQiIHk9Ijc5IiBmaWxsPSIjNmI3MjgwIiBmb250LXNpemU9IjEwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5mbG93aW5nIGluPC90ZXh0PgoKICAgICAgPCEtLSBTaW1pbGFyIHRyaWFuZ2xlcyByYXRpbyAoYm90dG9tLXJpZ2h0LCBjbGVhbikgLS0+CiAgICAgIDxyZWN0IHg9IjE0IiB5PSIzMDUiIHdpZHRoPSIxMjAiIGhlaWdodD0iMzgiIHJ4PSI2IiBmaWxsPSJ3aGl0ZSIgc3Ryb2tlPSIjY2ZkNGRjIiBzdHJva2Utd2lkdGg9IjEuMiIvPgogICAgICA8dGV4dCB4PSI3NCIgeT0iMzIxIiBmaWxsPSIjMGYxZTNjIiBmb250LXNpemU9IjExIiBmb250LXdlaWdodD0iNzAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5zaW1pbGFyIHRyaWFuZ2xlczwvdGV4dD4KICAgICAgPHRleHQgeD0iNzQiIHk9IjMzNiIgZmlsbD0iIzFhM2E2YiIgZm9udC1zaXplPSIxMiIgZm9udC13ZWlnaHQ9IjgwMCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+ciAvIGggPSAyIC8gNTwvdGV4dD4KICAgIDwvc3ZnPg==" alt="Cone diagram showing water filling a cone with apex at the bottom. Full cone has fixed height 10 cm and radius 4 cm. Water inside has changing height h and surface radius r. Similar triangles give the ratio r/h = 2/5. Water flows in at dV/dt = 2 cubic centimeters per second." style="width:100%;max-width:460px;display:block;margin:0 auto;height:auto" loading="lazy"/>
+    <p class="diagram-cap">Fig. 1 — Cone with apex at bottom. The full cone has fixed height 10 cm and radius 4 cm. The water inside has changing height h and surface radius r. Similar triangles give the ratio r / h = 2 / 5 at every moment.</p>
+  </div>
+
+  <div class="step">
+    <div class="snum">1</div>
+    <div class="scontent">
+      <div class="slbl">Draw and label — keep all dimensions as variables</div>
+      <p>Sketch the cone with apex at the bottom (see diagram above). Inside it, draw the smaller cone representing the current water level. Label the water height $h$ and the water surface radius $r$. The full cone dimensions (10 cm, 4 cm) are fixed constants. Do not write specific numbers on your diagram yet.</p>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="snum">2</div>
+    <div class="scontent">
+      <div class="slbl">Write down what you know and what you need to find</div>
+      <p><strong>Known:</strong> $\frac{dV}{dt} = 2$ cm&#179;/s (constant rate water flows in)</p>
+      <p><strong>At the moment of interest:</strong> $h = 3$ cm (the water depth right now)</p>
+      <p><strong>Find:</strong> $\frac{dh}{dt}$ when $h = 3$ (how fast is the height growing right now?)</p>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="snum">3</div>
+    <div class="scontent">
+      <div class="slbl">Write the volume equation and eliminate the extra variable</div>
+      <p>The volume of a cone is $V = \frac{1}{3}\pi r^2 h$. But this has two changing variables — $r$ and $h$ — which means you cannot differentiate cleanly yet. Use similar triangles to eliminate $r$.</p>
+      <p>The water cone and the full cone are similar shapes. The full cone has $\frac{r}{h} = \frac{4}{10} = \frac{2}{5}$, so at any moment:</p>
+      <div class="math-block">$$r = \frac{2}{5}h$$</div>
+      <p>Substitute into the volume formula:</p>
+      <div class="math-block">$$V = \frac{1}{3}\pi \left(\frac{2}{5}h\right)^2 h = \frac{1}{3}\pi \cdot \frac{4}{25}h^2 \cdot h = \frac{4\pi}{75}h^3$$</div>
+      <p>Now the equation has only $h$ as a changing variable.</p>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="snum">4</div>
+    <div class="scontent">
+      <div class="slbl">Differentiate both sides with respect to time</div>
+      <p>Differentiate $V = \frac{4\pi}{75}h^3$ with respect to $t$. Apply chain rule on $h^3$ since $h$ changes over time:</p>
+      <div class="math-block">$$\frac{dV}{dt} = \frac{4\pi}{75} \cdot 3h^2 \cdot \frac{dh}{dt} = \frac{4\pi h^2}{25} \cdot \frac{dh}{dt}$$</div>
+      <p>No numbers yet. $h$ is still a variable. $\frac{dh}{dt}$ is the unknown you are solving for.</p>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="snum">5</div>
+    <div class="scontent">
+      <div class="slbl">Substitute known values and solve</div>
+      <p>Plug in $\frac{dV}{dt} = 2$ and $h = 3$:</p>
+      <div class="math-block">$$2 = \frac{4\pi (3)^2}{25} \cdot \frac{dh}{dt} = \frac{36\pi}{25} \cdot \frac{dh}{dt}$$</div>
+      <div class="math-block">$$\frac{dh}{dt} = 2 \cdot \frac{25}{36\pi} = \frac{50}{36\pi} = \frac{25}{18\pi} \text{ cm/s}$$</div>
+      <div class="math-block">$$\boxed{\frac{dh}{dt} = \frac{25}{18\pi} \approx 0.44 \text{ cm/s}}$$</div>
+    </div>
+  </div>
+
+  <div class="note">
+    <strong>Zach's Note — Units cost you points.</strong> The AP exam awards a specific scoring point for correct units on every rate answer. Write cm/s (centimeters per second), not just the number. If the problem asks for a volume rate, write cm&#179;/s. If it asks for an area rate, write cm&#178;/s. One missing unit label can cost you a full point on an FRQ worth 9. Write your units every single time.
+  </div>
+
+  <p><strong>Why the height grows slowly at h = 3:</strong> The water is only 3 cm deep out of 10, so the water surface is a narrow circle. The cone is getting wider as the water rises. By the time the water reaches 5 cm, the same 2 cm&#179;/s is spreading over a larger surface, so $\frac{dh}{dt}$ will be smaller. One constant volume rate, one changing height rate. That is the whole insight.</p>
+
+  <div class="rubric">
+    <div class="rubric-ttl">How the AP exam scores this problem</div>
+    <ul>
+      <li><strong>Point 1: Geometric relationship</strong> — You must state or clearly show $\frac{r}{h} = \frac{4}{10}$ (similar triangles). The relationship must appear explicitly.</li>
+      <li><strong>Point 2: Volume equation in one variable</strong> — You substitute the relationship and simplify to $V = \frac{4\pi}{75}h^3$ or equivalent.</li>
+      <li><strong>Point 3: Correct implicit differentiation</strong> — You differentiate with respect to time and apply chain rule: $\frac{dV}{dt} = \frac{4\pi h^2}{25} \cdot \frac{dh}{dt}$ or equivalent.</li>
+      <li><strong>Point 4: Substitute and solve</strong> — Plug in $\frac{dV}{dt} = 2$ and $h = 3$, then solve algebraically. Arithmetic must be correct.</li>
+      <li><strong>Point 5: Units and correct notation</strong> — Write $\frac{dh}{dt} = \frac{25}{18\pi}$ cm/s. Not $h' = 0.44$. The AP is strict on notation and units.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- =====================================================================
+     Mid CTA
+     ===================================================================== -->
+<div id="mid-cta">
+  <div class="cta">
+    <h3>Grab the Free Related Rates Review Sheet</h3>
+    <p>Related rates formulas show up the same way every year. Cone volumes, Pythagorean distances, area of circles. I put together a free sheet that has every formula you need, plus the decision tree for which one to use when.</p>
+    <a class="btn" href="https://www.aceapcalculus.com/reviewsheet50" target="_blank">Get the Free Review Sheet</a>
+    <div class="sub">Parents: this sheet is what students should have memorized before they walk into exam day. A 60-second review the morning of can be the difference between confident and panicked.</div>
+  </div>
+</div>
+
+<!-- =====================================================================
+     Section 6: Worked Example 2 — The Ladder
+     ===================================================================== -->
+<div class="sec" id="example-2">
+  <h2>Worked Example 2: The Ladder Problem (FRQ-Level)</h2>
+  <p>This is the second most common related rates problem on the AP exam, accounting for about 25% of related rates questions. A ladder leans against a wall. The bottom slides away at a constant rate. The top slides down at a different rate. Two things moving simultaneously. Your job: find one rate when you know the other. This is harder than the cone because there is no similar-triangles step — the constraint comes directly from geometry, and you differentiate immediately.</p>
+
+  <h3>Why This Problem Is Harder Than the Cone</h3>
+  <p>In the cone problem, you had to eliminate a variable using similar triangles before differentiating. Here, you do not. The Pythagorean theorem directly relates $x$ and $y$. You can differentiate it immediately. But that means $\frac{dy}{dt}$ appears alongside $\frac{dx}{dt}$ in your derivative equation. You must be comfortable with multiple rates in one equation.</p>
+
+  <div class="prob">
+    <div class="plbl">Problem</div>
+    <p>A 13-foot ladder leans against a vertical wall. The bottom of the ladder slides away from the wall at a constant rate of 2 feet per second. At the moment when the bottom of the ladder is 5 feet from the wall, how fast is the top of the ladder sliding down the wall?</p>
+  </div>
+
+  <!-- SVG: Ladder Diagram -->
+  <div class="diagram">
+    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0NDAgMzIwIiBzdHlsZT0id2lkdGg6MTAwJTttYXgtd2lkdGg6NDIwcHg7ZGlzcGxheTpibG9jazttYXJnaW46MCBhdXRvO2ZvbnQtZmFtaWx5OidJbnRlcicsc2Fucy1zZXJpZiI+CiAgICAgIDxyZWN0IHdpZHRoPSI0NDAiIGhlaWdodD0iMzIwIiBmaWxsPSIjZjdmOWZjIiByeD0iMTIiLz4KCiAgICAgIDwhLS0gV2FsbCBzaGFkaW5nIChsZWZ0IHN0cmlwIGJlaGluZCB3YWxsKSAtLT4KICAgICAgPHJlY3QgeD0iNTAiIHk9IjQwIiB3aWR0aD0iMzAiIGhlaWdodD0iMjIwIiBmaWxsPSJyZ2JhKDE1LDMwLDYwLDAuMDcpIi8+CgogICAgICA8IS0tIFdhbGwgKHZlcnRpY2FsKSAtLT4KICAgICAgPGxpbmUgeDE9IjgwIiB5MT0iNDAiIHgyPSI4MCIgeTI9IjI2MCIgc3Ryb2tlPSIjMGYxZTNjIiBzdHJva2Utd2lkdGg9IjMiLz4KICAgICAgPCEtLSBHcm91bmQgKGhvcml6b250YWwpIC0tPgogICAgICA8bGluZSB4MT0iODAiIHkxPSIyNjAiIHgyPSIzODAiIHkyPSIyNjAiIHN0cm9rZT0iIzBmMWUzYyIgc3Ryb2tlLXdpZHRoPSIzIi8+CgogICAgICA8IS0tIFJpZ2h0LWFuZ2xlIGJveCBhdCBjb3JuZXIgLS0+CiAgICAgIDxwb2x5bGluZSBwb2ludHM9IjgwLDI0NiA5NCwyNDYgOTQsMjYwIiBmaWxsPSJub25lIiBzdHJva2U9IiMwZjFlM2MiIHN0cm9rZS13aWR0aD0iMS42Ii8+CgogICAgICA8IS0tIExhZGRlciBoeXBvdGVudXNlOiB0b3AoODAsNjApIOKGkiBiYXNlKDIyMCwyNjApIC0tPgogICAgICA8bGluZSB4MT0iODAiIHkxPSI2MCIgeDI9IjIyMCIgeTI9IjI2MCIgc3Ryb2tlPSIjYzAzOTJiIiBzdHJva2Utd2lkdGg9IjMuNSIvPgoKICAgICAgPCEtLSBMID0gMTMgZnQgb24gbGFkZGVyIC0tPgogICAgICA8cmVjdCB4PSIxMTgiIHk9IjEzOCIgd2lkdGg9Ijc2IiBoZWlnaHQ9IjIyIiByeD0iNCIgZmlsbD0id2hpdGUiIHN0cm9rZT0iI2MwMzkyYiIgc3Ryb2tlLXdpZHRoPSIxLjMiLz4KICAgICAgPHRleHQgeD0iMTU2IiB5PSIxNDkiIGZpbGw9IiNjMDM5MmIiIGZvbnQtc2l6ZT0iMTIiIGZvbnQtd2VpZ2h0PSI4MDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGRvbWluYW50LWJhc2VsaW5lPSJtaWRkbGUiPkwgPSAxMyBmdDwvdGV4dD4KCiAgICAgIDwhLS0geSBicmFja2V0IChsZWZ0IG9mIHdhbGwpIC0tPgogICAgICA8bGluZSB4MT0iMzYiIHkxPSI2MCIgeDI9IjM2IiB5Mj0iMjYwIiBzdHJva2U9IiMxYTNhNmIiIHN0cm9rZS13aWR0aD0iMS41Ii8+CiAgICAgIDxsaW5lIHgxPSIzMCIgeTE9IjYwIiB4Mj0iNDIiIHkyPSI2MCIgc3Ryb2tlPSIjMWEzYTZiIiBzdHJva2Utd2lkdGg9IjEuNSIvPgogICAgICA8bGluZSB4MT0iMzAiIHkxPSIyNjAiIHgyPSI0MiIgeTI9IjI2MCIgc3Ryb2tlPSIjMWEzYTZiIiBzdHJva2Utd2lkdGg9IjEuNSIvPgogICAgICA8cmVjdCB4PSIxNCIgeT0iMTQ4IiB3aWR0aD0iMjIiIGhlaWdodD0iMjIiIHJ4PSI0IiBmaWxsPSJ3aGl0ZSIgc3Ryb2tlPSIjMWEzYTZiIiBzdHJva2Utd2lkdGg9IjEuNCIvPgogICAgICA8dGV4dCB4PSIyNSIgeT0iMTU5IiBmaWxsPSIjMWEzYTZiIiBmb250LXNpemU9IjE1IiBmb250LXdlaWdodD0iODAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIj55PC90ZXh0PgoKICAgICAgPCEtLSB4IGJyYWNrZXQgKGJlbG93IGdyb3VuZCkgLS0+CiAgICAgIDxsaW5lIHgxPSI4MCIgeTE9IjI3OCIgeDI9IjIyMCIgeTI9IjI3OCIgc3Ryb2tlPSIjMWEzYTZiIiBzdHJva2Utd2lkdGg9IjEuNSIvPgogICAgICA8bGluZSB4MT0iODAiIHkxPSIyNzIiIHgyPSI4MCIgeTI9IjI4NCIgc3Ryb2tlPSIjMWEzYTZiIiBzdHJva2Utd2lkdGg9IjEuNSIvPgogICAgICA8bGluZSB4MT0iMjIwIiB5MT0iMjcyIiB4Mj0iMjIwIiB5Mj0iMjg0IiBzdHJva2U9IiMxYTNhNmIiIHN0cm9rZS13aWR0aD0iMS41Ii8+CiAgICAgIDxyZWN0IHg9IjEzOSIgeT0iMjg4IiB3aWR0aD0iMjIiIGhlaWdodD0iMjIiIHJ4PSI0IiBmaWxsPSJ3aGl0ZSIgc3Ryb2tlPSIjMWEzYTZiIiBzdHJva2Utd2lkdGg9IjEuNCIvPgogICAgICA8dGV4dCB4PSIxNTAiIHk9IjI5OSIgZmlsbD0iIzFhM2E2YiIgZm9udC1zaXplPSIxNSIgZm9udC13ZWlnaHQ9IjgwMCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSI+eDwvdGV4dD4KCiAgICAgIDwhLS0gZHgvZHQgYXJyb3cgKGdvbGQsIHJpZ2h0d2FyZCBhdCBiYXNlKSAtLT4KICAgICAgPGxpbmUgeDE9IjIyNSIgeTE9IjI2MCIgeDI9IjI4MCIgeTI9IjI2MCIgc3Ryb2tlPSIjZThhMDIwIiBzdHJva2Utd2lkdGg9IjMuNSIvPgogICAgICA8cG9seWdvbiBwb2ludHM9IjI3NiwyNTMgMjc2LDI2NyAyOTIsMjYwIiBmaWxsPSIjZThhMDIwIi8+CiAgICAgIDxyZWN0IHg9IjIyNSIgeT0iMjMyIiB3aWR0aD0iODYiIGhlaWdodD0iMjIiIHJ4PSI0IiBmaWxsPSJ3aGl0ZSIgc3Ryb2tlPSIjZThhMDIwIiBzdHJva2Utd2lkdGg9IjEuNSIvPgogICAgICA8dGV4dCB4PSIyNjgiIHk9IjI0MyIgZmlsbD0iI2U4YTAyMCIgZm9udC1zaXplPSIxMiIgZm9udC13ZWlnaHQ9IjgwMCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSI+ZHgvZHQgPSAyIGZ0L3M8L3RleHQ+CgogICAgICA8IS0tIGR5L2R0IGFycm93IChnb2xkLCBkb3dud2FyZCBhdCB0b3Agb2Ygd2FsbCkgLS0+CiAgICAgIDxsaW5lIHgxPSI4MCIgeTE9IjYyIiB4Mj0iODAiIHkyPSIxMTgiIHN0cm9rZT0iI2U4YTAyMCIgc3Ryb2tlLXdpZHRoPSIzLjUiLz4KICAgICAgPHBvbHlnb24gcG9pbnRzPSI3MywxMTQgODcsMTE0IDgwLDEzMCIgZmlsbD0iI2U4YTAyMCIvPgogICAgICA8cmVjdCB4PSI5MiIgeT0iNzgiIHdpZHRoPSI3NCIgaGVpZ2h0PSIyMiIgcng9IjQiIGZpbGw9IndoaXRlIiBzdHJva2U9IiNlOGEwMjAiIHN0cm9rZS13aWR0aD0iMS41Ii8+CiAgICAgIDx0ZXh0IHg9IjEyOSIgeT0iODkiIGZpbGw9IiNlOGEwMjAiIGZvbnQtc2l6ZT0iMTIiIGZvbnQtd2VpZ2h0PSI4MDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGRvbWluYW50LWJhc2VsaW5lPSJtaWRkbGUiPmR5L2R0ID0gPzwvdGV4dD4KCiAgICAgIDwhLS0gUHl0aGFnb3JlYW4gbm90ZSAobG93ZXItcmlnaHQsIG91dHNpZGUgdHJpYW5nbGUpIC0tPgogICAgICA8cmVjdCB4PSIyOTgiIHk9IjI4MCIgd2lkdGg9IjEzMCIgaGVpZ2h0PSIzMiIgcng9IjYiIGZpbGw9IndoaXRlIiBzdHJva2U9IiNjZmQ0ZGMiIHN0cm9rZS13aWR0aD0iMS4yIi8+CiAgICAgIDx0ZXh0IHg9IjM2MyIgeT0iMjkzIiBmaWxsPSIjMGYxZTNjIiBmb250LXNpemU9IjExIiBmb250LXdlaWdodD0iNzAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5QeXRoYWdvcmVhbjwvdGV4dD4KICAgICAgPHRleHQgeD0iMzYzIiB5PSIzMDYiIGZpbGw9IiMxYTNhNmIiIGZvbnQtc2l6ZT0iMTIiIGZvbnQtd2VpZ2h0PSI4MDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiPnjCsiArIHnCsiA9IDE2OTwvdGV4dD4KICAgIDwvc3ZnPg==" alt="Ladder leaning against a vertical wall. The horizontal distance x and vertical distance y form a right triangle with the ladder of length L = 13 ft as the hypotenuse. The base slides away at dx/dt = 2 ft/s; the top slides down at dy/dt (unknown). Constraint: x squared plus y squared equals 169." style="width:100%;max-width:420px;display:block;margin:0 auto;height:auto" loading="lazy"/>
+    <p class="diagram-cap">Fig. 2 — Ladder leaning against a wall. The horizontal distance x and vertical distance y both change with time. The ladder length L = 13 ft is constant, so it has zero derivative.</p>
+  </div>
+
+  <div class="step">
+    <div class="snum">1</div>
+    <div class="scontent">
+      <div class="slbl">Draw, label, and identify what is fixed vs. what changes</div>
+      <p>Sketch a right triangle (see diagram above): wall is vertical, ground is horizontal, ladder is the hypotenuse.</p>
+      <ul>
+        <li>$x$ = horizontal distance from the wall to the base of the ladder (changes over time)</li>
+        <li>$y$ = vertical distance from the ground to the top of the ladder (also changes)</li>
+        <li>The ladder length is 13 feet — this never changes</li>
+      </ul>
+      <p>The ladder length is a constant. Its derivative will be zero. That is why the constraint equation stays simple.</p>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="snum">2</div>
+    <div class="scontent">
+      <div class="slbl">Write down what you know and what you need to find</div>
+      <p><strong>Given:</strong> $\frac{dx}{dt} = 2$ feet/second (the bottom slides away at a constant rate)</p>
+      <p><strong>At the specific moment:</strong> $x = 5$ feet (the bottom is currently 5 feet from the wall)</p>
+      <p><strong>Find:</strong> $\frac{dy}{dt}$ when $x = 5$ (how fast is the top sliding down right now?)</p>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="snum">3</div>
+    <div class="scontent">
+      <div class="slbl">Write the constraint equation and find the missing dimension</div>
+      <p>By the Pythagorean theorem, at any moment in time:</p>
+      <div class="math-block">$$x^2 + y^2 = 13^2 = 169$$</div>
+      <p>Before you differentiate, find the value of $y$ when $x = 5$ — you need it for Step 5:</p>
+      <div class="math-block">$$25 + y^2 = 169 \implies y^2 = 144 \implies y = 12 \text{ ft}$$</div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="snum">4</div>
+    <div class="scontent">
+      <div class="slbl">Differentiate both sides with respect to time</div>
+      <p>Apply the chain rule to both terms on the left. The right side is zero because 169 is a constant (the ladder length never changes):</p>
+      <div class="math-block">$$2x \cdot \frac{dx}{dt} + 2y \cdot \frac{dy}{dt} = 0$$</div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="snum">5</div>
+    <div class="scontent">
+      <div class="slbl">Substitute known values and solve for the unknown rate</div>
+      <p>Plug in $x = 5$, $y = 12$, $\frac{dx}{dt} = 2$:</p>
+      <div class="math-block">$$2(5)(2) + 2(12) \cdot \frac{dy}{dt} = 0$$</div>
+      <div class="math-block">$$20 + 24 \cdot \frac{dy}{dt} = 0 \implies \frac{dy}{dt} = -\frac{20}{24} = -\frac{5}{6} \text{ ft/s}$$</div>
+      <div class="math-block">$$\boxed{\frac{dy}{dt} = -\frac{5}{6} \text{ ft/s} \approx -0.833 \text{ ft/s}}$$</div>
+    </div>
+  </div>
+
+  <div class="note">
+    <strong>Zach's Note — Units and sign both matter.</strong> The negative sign is not a mistake — it tells you the height is decreasing, which is exactly what should happen as the ladder slides away. Write ft/s (feet per second) with your answer, not just the number. On the AP, leaving off the unit label or the sign costs you a point. Both are meaningful. The answer is $-\frac{5}{6}$ ft/s, which means the top of the ladder is sliding DOWN at $\frac{5}{6}$ ft/s.
+  </div>
+
+  <h3>Interpreting the Answer: What the Negative Sign Means</h3>
+  <p>The negative sign tells you that $y$ is decreasing. As the ladder slides away from the wall, the top slides down. A decreasing quantity has a negative rate of change. On the AP exam, you can express this answer in two equivalent ways:</p>
+  <ul class="body-list">
+    <li><strong>Formal notation:</strong> $\frac{dy}{dt} = -\frac{5}{6}$ feet per second</li>
+    <li><strong>Contextual language:</strong> The top of the ladder is sliding down at a rate of $\frac{5}{6}$ feet per second.</li>
+  </ul>
+  <p>The AP accepts both. Most students use the formal notation in their work and the contextual form in the final answer sentence when the rubric asks for one.</p>
+
+  <div class="rubric">
+    <div class="rubric-ttl">How the AP exam scores this problem</div>
+    <ul>
+      <li><strong>Point 1: Constraint equation</strong> — You must write $x^2 + y^2 = 169$ explicitly. Skipping this and going straight to differentiation loses this point.</li>
+      <li><strong>Point 2: Find the missing dimension</strong> — Substitute $x = 5$ into the Pythagorean equation and correctly solve for $y = 12$. Many students skip this step, which makes Step 5 impossible.</li>
+      <li><strong>Point 3: Correct implicit differentiation</strong> — Differentiate both sides, apply chain rule to both $x^2$ and $y^2$: $2x\frac{dx}{dt} + 2y\frac{dy}{dt} = 0$. Forgetting chain rule on $y^2$ loses this point.</li>
+      <li><strong>Point 4: Substitute and solve</strong> — Plug in $x = 5$, $y = 12$, $\frac{dx}{dt} = 2$, solve for $\frac{dy}{dt}$. Arithmetic must be correct including fraction simplification.</li>
+      <li><strong>Point 5: Sign, units, and notation</strong> — Write $\frac{dy}{dt} = -\frac{5}{6}$ ft/s. The negative sign and the units are both required for this point.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- =====================================================================
+     Section 7: Why Related Rates Appears on the FRQ
+     ===================================================================== -->
+<div class="sec" id="why-frq">
+  <h2>Why Related Rates Appears on the FRQ Every Year</h2>
+  <p>When the AP exam writers design the free response section, they are not trying to trick you. They are trying to test whether you understand calculus as a tool for the real world. Related rates is perfect for this because it requires every skill from Unit 4: geometric constraint reasoning, implicit differentiation, the chain rule, and algebraic problem-solving, all in sequence.</p>
+
+  <h3>What the AP Is Actually Measuring</h3>
+  <p>When you solve a related rates FRQ, the grader is assessing five things:</p>
+  <ol class="body-list">
+    <li><strong>Can you translate a word problem into a mathematical constraint?</strong> Identifying what is fixed vs. what is changing is not calculus — it is mathematical modeling. Many students skip this step or do it carelessly.</li>
+    <li><strong>Do you know the geometric formulas and when to use them?</strong> The AP assumes you know these cold. No formula sheet. No guessing.</li>
+    <li><strong>Can you eliminate extra variables before differentiating?</strong> In the cone problem, you must use similar triangles. This is not asked for explicitly — you must recognize that you need it. This is the highest-level reasoning step.</li>
+    <li><strong>Do you know implicit differentiation well enough to apply it flawlessly?</strong> Chain rule on every changing term, every time.</li>
+    <li><strong>Can you execute algebra under pressure without losing track of variables?</strong> Fractions, simplification, sign errors — the arithmetic matters.</li>
+  </ol>
+
+  <div class="callout">Related rates is the only problem type on the AP that measures modeling, formula knowledge, constraint reasoning, differentiation, and algebra — all in one question. That is why it appears every year.</div>
+
+  <h3>Historical Pattern: Related Rates on the AP</h3>
+  <ul class="body-list">
+    <li><strong>100% of recent exams</strong> include a related rates problem or implicit differentiation problem that uses the same technique.</li>
+    <li><strong>About 70% of those</strong> are explicit word problems (cones, ladders, shadows).</li>
+    <li><strong>About 30%</strong> are dressed up as pure calculus ("implicitly differentiate and find $\frac{dy}{dx}$ at a specific point").</li>
+  </ul>
+  <p>Cone and ladder are the archetypes. Every other related rates problem on the AP is a blend of these two. Master those two setups and you can solve anything the exam throws at you.</p>
+</div>
+
+<!-- =====================================================================
+     Section 8: The 3 Mistakes
+     ===================================================================== -->
+<div class="sec" id="mistakes">
+  <h2>The 3 Mistakes That Cost My Students Points</h2>
+  <p>Over 15 years of teaching AP Calculus, I have seen the same errors tank students on this FRQ repeatedly. These three mistakes are not conceptual. They are execution errors. And they are completely predictable.</p>
+
+  <!-- Mistake 1 -->
+  <div class="mk">
+    <div class="mk-n">Mistake 1: Substituting Numbers Before Differentiating</div>
+    <div class="mk-w">Why it happens: The problem gives you specific numbers and your instinct is to plug them in immediately. It feels efficient.</div>
+    <div class="mk-f">
+      <p>You see the cone formula $V = \frac{1}{3}\pi r^2 h$, you read that the water level is 3 centimeters, and you think: "I should substitute $h = 3$ right now." So you write $V = \pi r^2$ and try to differentiate. But 3 is now a constant multiplier. You end up needing $\frac{dr}{dt}$, which the problem did not give you. You are stuck. 2 to 3 points gone in 30 seconds.</p>
+      <p><strong>The correct order:</strong></p>
+      <ol>
+        <li>Write the general equation: $V = \frac{1}{3}\pi r^2 h$</li>
+        <li>Eliminate extra variables using geometry: $r = \frac{2}{5}h$</li>
+        <li>Substitute the constraint into the volume formula: $V = \frac{4\pi}{75}h^3$</li>
+        <li>Differentiate: $\frac{dV}{dt} = \frac{4\pi h^2}{25} \cdot \frac{dh}{dt}$</li>
+        <li>Now substitute $h = 3$ and solve.</li>
+      </ol>
+      <p><strong>Memory rule: Geometry first. Differentiation second. Numbers last.</strong> Think of the numbers as dessert. You do not eat dessert before the meal.</p>
+      <p>This is the number one error on related rates FRQs. It costs 2 to 3 points on a 9-point question — the exact gap between a 4 and a 5 on the composite score.</p>
+    </div>
+  </div>
+
+  <!-- Mistake 2 -->
+  <div class="mk">
+    <div class="mk-n">Mistake 2: Forgetting the Chain Rule on Variables That Change Over Time</div>
+    <div class="mk-w">Why it happens: You see $r^2$ and apply power rule: $\frac{d}{dt}(r^2) = 2r$. But $r$ is a function of time, not a constant.</div>
+    <div class="mk-f">
+      <p>The correct derivative is $\frac{d}{dt}(r^2) = 2r \cdot \frac{dr}{dt}$. The chain rule adds the $\frac{dr}{dt}$ at the end. Without it, your equation is missing a term and your final answer is wrong.</p>
+      <p><strong>Fix:</strong> Before you differentiate, draw a box around every variable that changes with time. In the cone problem, box $r$ and $h$. The ladder length? Do not box it — it is fixed. Every boxed variable gets a $\frac{d(\text{variable})}{dt}$ when you differentiate it.</p>
+      <p>Missing this on one term costs 1 to 2 rubric points. Missing it on multiple terms means your entire differentiation is wrong and your answer cannot be recovered.</p>
+    </div>
+  </div>
+
+  <!-- Mistake 3 (with shadow SVG) -->
+  <div class="mk">
+    <div class="mk-n">Mistake 3: Identifying the Wrong Geometric Constraint</div>
+    <div class="mk-w">Why it happens: Students memorize "cone = similar triangles" and "ladder = Pythagorean" without understanding why.</div>
+    <div class="mk-f">
+      <p>Then they see a shadow problem they have never seen before and guess the wrong constraint. If the constraint is wrong, the whole problem is wrong — 2 to 3 points gone immediately.</p>
+
+      <!-- SVG: Shadow / Similar Triangles Diagram -->
+      <div class="diagram" style="margin:16px auto">
+        <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MjAgMjgwIiBzdHlsZT0id2lkdGg6MTAwJTttYXgtd2lkdGg6NTAwcHg7ZGlzcGxheTpibG9jazttYXJnaW46MCBhdXRvO2ZvbnQtZmFtaWx5OidJbnRlcicsc2Fucy1zZXJpZiI+CiAgICAgICAgICA8cmVjdCB3aWR0aD0iNTIwIiBoZWlnaHQ9IjI4MCIgZmlsbD0iI2Y3ZjlmYyIgcng9IjEyIi8+CgogICAgICAgICAgPCEtLSBHcm91bmQgbGluZSAtLT4KICAgICAgICAgIDxsaW5lIHgxPSIyMCIgeTE9IjIxMCIgeDI9IjUwMCIgeTI9IjIxMCIgc3Ryb2tlPSIjMGYxZTNjIiBzdHJva2Utd2lkdGg9IjIuNSIvPgoKICAgICAgICAgIDwhLS0gQmlnIHRyaWFuZ2xlIChsaWdodCDihpIgc2hhZG93IHRpcCk6IGxpZ2h0LXRvcCg2MCw1NSkg4oaSIHRpcCgzNjAsMjEwKSDihpIgYmFzZSg2MCwyMTApIC0tPgogICAgICAgICAgPHBvbHlnb24gcG9pbnRzPSI2MCw1NSAzNjAsMjEwIDYwLDIxMCIgZmlsbD0icmdiYSgyMzIsMTYwLDMyLDAuMTQpIi8+CiAgICAgICAgICA8bGluZSB4MT0iNjAiIHkxPSI1NSIgeDI9IjM2MCIgeTI9IjIxMCIgc3Ryb2tlPSIjZThhMDIwIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1kYXNoYXJyYXk9IjYsMyIvPgoKICAgICAgICAgIDwhLS0gU21hbGwgdHJpYW5nbGUgKHBlcnNvbiDihpIgc2hhZG93IHRpcCk6IHBlcnNvbi10b3AoMjcwLDE1MCkg4oaSIHRpcCgzNjAsMjEwKSDihpIgcGVyc29uLWJhc2UoMjcwLDIxMCkgLS0+CiAgICAgICAgICA8cG9seWdvbiBwb2ludHM9IjI3MCwxNTAgMzYwLDIxMCAyNzAsMjEwIiBmaWxsPSJyZ2JhKDE5Miw1Nyw0MywwLjE4KSIvPgogICAgICAgICAgPGxpbmUgeDE9IjI3MCIgeTE9IjE1MCIgeDI9IjM2MCIgeTI9IjIxMCIgc3Ryb2tlPSIjYzAzOTJiIiBzdHJva2Utd2lkdGg9IjIiLz4KICAgICAgICAgIDxsaW5lIHgxPSIyNzAiIHkxPSIxNTAiIHgyPSIyNzAiIHkyPSIyMTAiIHN0cm9rZT0iI2MwMzkyYiIgc3Ryb2tlLXdpZHRoPSIyIi8+CgogICAgICAgICAgPCEtLSBTdHJlZXQgbGlnaHQgcG9sZSArIGJ1bGIgLS0+CiAgICAgICAgICA8bGluZSB4MT0iNjAiIHkxPSIyMTAiIHgyPSI2MCIgeTI9IjU4IiBzdHJva2U9IiMwZjFlM2MiIHN0cm9rZS13aWR0aD0iMy41Ii8+CiAgICAgICAgICA8Y2lyY2xlIGN4PSI2MCIgY3k9IjUwIiByPSI4IiBmaWxsPSIjZThhMDIwIiBzdHJva2U9IiMwZjFlM2MiIHN0cm9rZS13aWR0aD0iMS41Ii8+CiAgICAgICAgICA8Y2lyY2xlIGN4PSI2MCIgY3k9IjUwIiByPSIzIiBmaWxsPSIjZmZmOGQ2Ii8+CgogICAgICAgICAgPCEtLSAyMCBmdCBwb2xlIGxhYmVsIChyaWdodCBzaWRlIG9mIHBvbGUpIC0tPgogICAgICAgICAgPGxpbmUgeDE9Ijc4IiB5MT0iNTUiIHgyPSI3OCIgeTI9IjIxMCIgc3Ryb2tlPSIjNmI3MjgwIiBzdHJva2Utd2lkdGg9IjEuMiIvPgogICAgICAgICAgPGxpbmUgeDE9IjcyIiB5MT0iNTUiIHgyPSI4NCIgeTI9IjU1IiBzdHJva2U9IiM2YjcyODAiIHN0cm9rZS13aWR0aD0iMS4yIi8+CiAgICAgICAgICA8bGluZSB4MT0iNzIiIHkxPSIyMTAiIHgyPSI4NCIgeTI9IjIxMCIgc3Ryb2tlPSIjNmI3MjgwIiBzdHJva2Utd2lkdGg9IjEuMiIvPgogICAgICAgICAgPHJlY3QgeD0iODYiIHk9IjEyMyIgd2lkdGg9IjQyIiBoZWlnaHQ9IjIwIiByeD0iNCIgZmlsbD0id2hpdGUiIHN0cm9rZT0iI2NmZDRkYyIgc3Ryb2tlLXdpZHRoPSIxLjIiLz4KICAgICAgICAgIDx0ZXh0IHg9IjEwNyIgeT0iMTMzIiBmaWxsPSIjMGYxZTNjIiBmb250LXNpemU9IjEyIiBmb250LXdlaWdodD0iNzAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIj4yMCBmdDwvdGV4dD4KCiAgICAgICAgICA8IS0tIFBlcnNvbiBmaWd1cmUgKHZlcnRpY2FsKSAtLT4KICAgICAgICAgIDxsaW5lIHgxPSIyNzAiIHkxPSIyMTAiIHgyPSIyNzAiIHkyPSIxNTMiIHN0cm9rZT0iIzFhM2E2YiIgc3Ryb2tlLXdpZHRoPSIzIi8+CiAgICAgICAgICA8Y2lyY2xlIGN4PSIyNzAiIGN5PSIxNDgiIHI9IjciIGZpbGw9IiMxYTNhNmIiLz4KCiAgICAgICAgICA8IS0tIDYgZnQgcGVyc29uIGxhYmVsIC0tPgogICAgICAgICAgPHJlY3QgeD0iMjgwIiB5PSIxNjYiIHdpZHRoPSIzNiIgaGVpZ2h0PSIyMCIgcng9IjQiIGZpbGw9IndoaXRlIiBzdHJva2U9IiNjZmQ0ZGMiIHN0cm9rZS13aWR0aD0iMS4yIi8+CiAgICAgICAgICA8dGV4dCB4PSIyOTgiIHk9IjE3NiIgZmlsbD0iIzFhM2E2YiIgZm9udC1zaXplPSIxMiIgZm9udC13ZWlnaHQ9IjcwMCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSI+NiBmdDwvdGV4dD4KCiAgICAgICAgICA8IS0tIFdhbGtpbmcgZGlyZWN0aW9uIGFycm93IChzbWFsbCwgYmVzaWRlIHBlcnNvbikgLS0+CiAgICAgICAgICA8bGluZSB4MT0iMjgyIiB5MT0iMTk1IiB4Mj0iMzA0IiB5Mj0iMTk1IiBzdHJva2U9IiMxYTNhNmIiIHN0cm9rZS13aWR0aD0iMi4yIi8+CiAgICAgICAgICA8cG9seWdvbiBwb2ludHM9IjMwMCwxODkgMzAwLDIwMSAzMTIsMTk1IiBmaWxsPSIjMWEzYTZiIi8+CgogICAgICAgICAgPCEtLSBTaGFkb3cgdGlwIGRvdCAtLT4KICAgICAgICAgIDxjaXJjbGUgY3g9IjM2MCIgY3k9IjIxMCIgcj0iNSIgZmlsbD0iI2MwMzkyYiIgc3Ryb2tlPSJ3aGl0ZSIgc3Ryb2tlLXdpZHRoPSIxLjUiLz4KCiAgICAgICAgICA8IS0tIHggYnJhY2tldDogbGlnaHQtYmFzZSB0byBwZXJzb24tYmFzZSAoYmVsb3cgZ3JvdW5kKSAtLT4KICAgICAgICAgIDxsaW5lIHgxPSI2MCIgeTE9IjIyNiIgeDI9IjI3MCIgeTI9IjIyNiIgc3Ryb2tlPSIjMWEzYTZiIiBzdHJva2Utd2lkdGg9IjEuNSIvPgogICAgICAgICAgPGxpbmUgeDE9IjYwIiB5MT0iMjIwIiB4Mj0iNjAiIHkyPSIyMzIiIHN0cm9rZT0iIzFhM2E2YiIgc3Ryb2tlLXdpZHRoPSIxLjUiLz4KICAgICAgICAgIDxsaW5lIHgxPSIyNzAiIHkxPSIyMjAiIHgyPSIyNzAiIHkyPSIyMzIiIHN0cm9rZT0iIzFhM2E2YiIgc3Ryb2tlLXdpZHRoPSIxLjUiLz4KICAgICAgICAgIDxyZWN0IHg9IjE1NSIgeT0iMjM0IiB3aWR0aD0iMjIiIGhlaWdodD0iMjIiIHJ4PSI0IiBmaWxsPSJ3aGl0ZSIgc3Ryb2tlPSIjMWEzYTZiIiBzdHJva2Utd2lkdGg9IjEuNCIvPgogICAgICAgICAgPHRleHQgeD0iMTY2IiB5PSIyNDUiIGZpbGw9IiMxYTNhNmIiIGZvbnQtc2l6ZT0iMTUiIGZvbnQtd2VpZ2h0PSI4MDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGRvbWluYW50LWJhc2VsaW5lPSJtaWRkbGUiPng8L3RleHQ+CgogICAgICAgICAgPCEtLSBzIGJyYWNrZXQ6IHBlcnNvbi1iYXNlIHRvIHNoYWRvdy10aXAgLS0+CiAgICAgICAgICA8bGluZSB4MT0iMjcwIiB5MT0iMjI2IiB4Mj0iMzYwIiB5Mj0iMjI2IiBzdHJva2U9IiNjMDM5MmIiIHN0cm9rZS13aWR0aD0iMS41Ii8+CiAgICAgICAgICA8bGluZSB4MT0iMzYwIiB5MT0iMjIwIiB4Mj0iMzYwIiB5Mj0iMjMyIiBzdHJva2U9IiNjMDM5MmIiIHN0cm9rZS13aWR0aD0iMS41Ii8+CiAgICAgICAgICA8cmVjdCB4PSIzMDQiIHk9IjIzNCIgd2lkdGg9IjIyIiBoZWlnaHQ9IjIyIiByeD0iNCIgZmlsbD0id2hpdGUiIHN0cm9rZT0iI2MwMzkyYiIgc3Ryb2tlLXdpZHRoPSIxLjQiLz4KICAgICAgICAgIDx0ZXh0IHg9IjMxNSIgeT0iMjQ1IiBmaWxsPSIjYzAzOTJiIiBmb250LXNpemU9IjE1IiBmb250LXdlaWdodD0iODAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIj5zPC90ZXh0PgoKICAgICAgICAgIDwhLS0gQ29uc3RyYWludCBsZWdlbmQgKHVwcGVyLXJpZ2h0LCBjbGVhbikgLS0+CiAgICAgICAgICA8cmVjdCB4PSIzNzgiIHk9IjMyIiB3aWR0aD0iMTI4IiBoZWlnaHQ9Ijc2IiByeD0iNiIgZmlsbD0id2hpdGUiIHN0cm9rZT0iI2NmZDRkYyIgc3Ryb2tlLXdpZHRoPSIxLjIiLz4KICAgICAgICAgIDx0ZXh0IHg9IjQ0MiIgeT0iNTAiIGZpbGw9IiMwZjFlM2MiIGZvbnQtc2l6ZT0iMTIiIGZvbnQtd2VpZ2h0PSI3MDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiPlNpbWlsYXIgdHJpYW5nbGVzPC90ZXh0PgogICAgICAgICAgPGxpbmUgeDE9IjM5MiIgeTE9IjYwIiB4Mj0iNDkyIiB5Mj0iNjAiIHN0cm9rZT0iI2NmZDRkYyIgc3Ryb2tlLXdpZHRoPSIxIi8+CiAgICAgICAgICA8dGV4dCB4PSI0NDIiIHk9Ijc2IiBmaWxsPSIjZThhMDIwIiBmb250LXNpemU9IjEwIiBmb250LXdlaWdodD0iNzAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5CaWc6IGxpZ2h0IOKGkiB0aXA8L3RleHQ+CiAgICAgICAgICA8dGV4dCB4PSI0NDIiIHk9IjkwIiBmaWxsPSIjYzAzOTJiIiBmb250LXNpemU9IjEwIiBmb250LXdlaWdodD0iNzAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5TbWFsbDogcGVyc29uIOKGkiB0aXA8L3RleHQ+CiAgICAgICAgICA8dGV4dCB4PSI0NDIiIHk9IjEwMyIgZmlsbD0iIzFhM2E2YiIgZm9udC1zaXplPSIxMSIgZm9udC13ZWlnaHQ9IjgwMCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+MjAgLyAoeCtzKSA9IDYgLyBzPC90ZXh0PgogICAgICAgIDwvc3ZnPg==" alt="Shadow problem: a 6 ft person walks away from a 20 ft street light. Two similar triangles form: a big one from the light to the shadow tip, and a small one from the person to the shadow tip. Distance from light to person is x; shadow length is s. Constraint from similar triangles: 20 over x plus s equals 6 over s." style="width:100%;max-width:500px;display:block;margin:0 auto;height:auto" loading="lazy"/>
+        <p class="diagram-cap">Fig. 3 — Shadow problem. The street light and the person create two similar triangles. The constraint comes from matching ratios of corresponding sides.</p>
+      </div>
+
+      <p><strong>Fix:</strong> Do not memorize constraints for specific problems. Memorize the method instead.</p>
+      <ol>
+        <li><strong>Draw a picture.</strong> A sketch that shows the geometric setup.</li>
+        <li><strong>Identify what is fixed.</strong> Write down the fixed quantities.</li>
+        <li><strong>Identify what is changing.</strong> Write down which quantities change.</li>
+        <li><strong>Write the geometric relationship.</strong> Right triangle with changing sides? Pythagorean theorem. Two similar shapes with a fixed ratio? Similar triangles. Circle or sphere changing? Area or volume formula.</li>
+        <li><strong>Write one equation</strong> that relates all the variables and constants.</li>
+      </ol>
+      <p>The shadow problem above uses similar triangles — exactly like the cone. A student who drew a picture and saw two triangles would identify this. A student who memorized "cone = similar triangles" might guess wrong. Draw the picture every time. Always.</p>
+    </div>
+  </div>
+</div>
+
+<!-- =====================================================================
+     Section 9: Practice Problems
+     ===================================================================== -->
+<div class="sec" id="practice">
+  <h2>Practice Problems</h2>
+  <p>Try these on your own before checking the answers. If you get stuck, go back to the method section and identify which step you are stuck on.</p>
+
+  <div class="prob">
+    <div class="plbl">Problem 1 — Cone with water</div>
+    <p>Water flows into a cone at 5 cubic inches per second. The cone has a fixed height of 12 inches and a fixed radius of 6 inches. At the moment when the water level is 4 inches high, how fast is the water level rising?</p>
+  </div>
+
+  <div class="prob">
+    <div class="plbl">Problem 2 — Circle expanding</div>
+    <p>A circle's area is increasing at a constant rate of 10 square centimeters per second. At the moment when the radius is 3 centimeters, how fast is the radius increasing?</p>
+  </div>
+
+  <div class="prob">
+    <div class="plbl">Problem 3 — Two ships</div>
+    <p>Two ships leave a harbor. One travels due north at 20 miles per hour. The other travels due east at 15 miles per hour. At the moment when the northbound ship has traveled 12 miles and the eastbound ship has traveled 9 miles, how fast is the distance between them increasing?</p>
+  </div>
+
+  <div class="answers">
+    <div class="ans-ttl">Answers</div>
+    <div class="ans-item">
+      <strong>Problem 1:</strong> Similar triangles give $r = \frac{1}{2}h$, so $V = \frac{\pi}{12}h^3$. Differentiating: $\frac{dV}{dt} = \frac{\pi h^2}{4} \cdot \frac{dh}{dt}$. Substituting $\frac{dV}{dt} = 5$ and $h = 4$: $\frac{dh}{dt} = \frac{5 \cdot 4}{4\pi \cdot 4} = \frac{5}{4\pi} \approx 0.398$ in/s.
+    </div>
+    <div class="ans-item">
+      <strong>Problem 2:</strong> $A = \pi r^2$, so $\frac{dA}{dt} = 2\pi r \cdot \frac{dr}{dt}$. Substituting $\frac{dA}{dt} = 10$ and $r = 3$: $\frac{dr}{dt} = \frac{10}{2\pi(3)} = \frac{5}{3\pi} \approx 0.53$ cm/s.
+    </div>
+    <div class="ans-item">
+      <strong>Problem 3:</strong> First find distance: $d = \sqrt{12^2 + 9^2} = \sqrt{225} = 15$ miles. Then $d^2 = x^2 + y^2$, differentiate: $2d\frac{dd}{dt} = 2x\frac{dx}{dt} + 2y\frac{dy}{dt}$. Substituting: $2(15)\frac{dd}{dt} = 2(12)(20) + 2(9)(15) = 480 + 270 = 750$, so $\frac{dd}{dt} = \frac{750}{30} = 25$ mi/hr.
+    </div>
+  </div>
+</div>
+
+<!-- =====================================================================
+     Section 10: FAQ
+     ===================================================================== -->
+<div class="sec" id="faq">
+  <h2>FAQ</h2>
+
+  <div class="faq-item">
+    <div class="faq-q">Q: Why do I have to use implicit differentiation? Can I just solve for one variable first?</div>
+    <div class="faq-a">
+      <p>Short answer: you can try, but it usually makes things worse. In the cone, solving for $r$ first worked because similar triangles gave a clean relationship. In the ladder problem, isolating $y$ from $x^2 + y^2 = 169$ gives $y = \sqrt{169 - x^2}$ — which is more complicated to differentiate and more error-prone than the implicit approach.</p>
+      <p>On harder problems with multiple variables, solving first is impossible. Implicit differentiation works on all problems without modification. Use it every time.</p>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q">Q: What does the negative sign mean in the ladder problem?</div>
+    <div class="faq-a">
+      <p>A negative rate means the quantity is decreasing. When $\frac{dy}{dt} = -\frac{5}{6}$, the height is decreasing at $\frac{5}{6}$ feet per second. The sign gives direction. On the AP exam you must interpret the sign correctly — answering "$\frac{5}{6}$ feet per second" without the negative loses the units/sign point on the rubric.</p>
+      <ul>
+        <li><strong>Notation form:</strong> $\frac{dy}{dt} = -\frac{5}{6}$ feet per second</li>
+        <li><strong>Contextual form:</strong> The height is decreasing at $\frac{5}{6}$ feet per second.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q">Q: What if I get a positive rate for something that should be decreasing?</div>
+    <div class="faq-a">
+      <p>Check your setup. You probably mislabeled a direction. The physics of the problem should match your answer. If the ladder top is sliding down, $\frac{dy}{dt}$ must be negative. Common mistake: writing $\frac{dx}{dt} = -2$ when the problem says "the bottom slides away at 2 feet per second." Sliding away is the positive direction, so $\frac{dx}{dt} = +2$.</p>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q">Q: Do I need to memorize all the geometric formulas?</div>
+    <div class="faq-a">
+      <p>Yes, and I am serious about this. The AP exam does not provide a formula sheet. Write these on the top of your exam as soon as you sit down:</p>
+      <ul>
+        <li>Cone: $V = \frac{1}{3}\pi r^2 h$</li>
+        <li>Cylinder: $V = \pi r^2 h$</li>
+        <li>Sphere: $V = \frac{4}{3}\pi r^3$, $A = 4\pi r^2$</li>
+        <li>Circle: $A = \pi r^2$, $C = 2\pi r$</li>
+        <li>Pythagorean theorem: $x^2 + y^2 = c^2$</li>
+      </ul>
+      <p>This takes 90 seconds and saves you mental energy when you are mid-problem and panicking about whether the cone formula has a $\frac{1}{3}$.</p>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q">Q: What if the problem has more than two variables changing?</div>
+    <div class="faq-a">
+      <p>Use the exact same method. Write one constraint equation relating all variables. Differentiate with respect to time. The differentiated equation will have multiple $\frac{d\cdot}{dt}$ terms. Plug in the known rates and solve for the unknown. The two-ship problem in the practice section is an example: three changing quantities ($x$, $y$, $d$), one constraint ($d^2 = x^2 + y^2$), same five-step method.</p>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q">Q: Can I use implicit differentiation without understanding the geometry?</div>
+    <div class="faq-a">
+      <p>Technically yes, but you will be fragile. You could follow the steps mechanically and get the right answer on a familiar problem. But on the exam, when you hit a problem you have not seen before, geometric intuition is what lets you debug. Draw the picture. Understand why the cone height grows fast when the water is shallow and slow when it is deep. Understand why the ladder height decreases as the base moves away. That intuition separates students who can solve any related rates problem from students who can only solve the one they practiced.</p>
+    </div>
+  </div>
+</div>
+
+<!-- =====================================================================
+     Section 11: Save This For Exam Day
+     ===================================================================== -->
+<div class="sec" id="quick-reference">
+  <h2>Save This For Exam Day</h2>
+
+  <div class="qr">
+    <div class="qr-ttl">Related Rates Quick Reference</div>
+
+    <div class="qrf">
+      <div class="qrf-lbl">The 5-Step Method (in order, every time)</div>
+      <ul class="qrb">
+        <li>Draw and label all variables (no numbers yet)</li>
+        <li>Write what is given and what you need to find</li>
+        <li>Write one equation relating the variables</li>
+        <li>Differentiate both sides with respect to time</li>
+        <li>Substitute known values and solve for the unknown rate</li>
+      </ul>
+    </div>
+
+    <div class="qrf">
+      <div class="qrf-lbl">Key Formulas to Memorize</div>
+      <ul class="qrb">
+        <li>Cone: $V = \frac{1}{3}\pi r^2 h$</li>
+        <li>Cylinder: $V = \pi r^2 h$</li>
+        <li>Sphere: $V = \frac{4}{3}\pi r^3$, $A = 4\pi r^2$</li>
+        <li>Circle: $A = \pi r^2$, $C = 2\pi r$</li>
+        <li>Pythagorean: $x^2 + y^2 = c^2$</li>
+      </ul>
+    </div>
+
+    <div class="qrf">
+      <div class="qrf-lbl">Always Do This</div>
+      <ul class="qrb">
+        <li>Differentiate before substituting specific numbers</li>
+        <li>Every changing variable gets a $\frac{d\cdot}{dt}$ when you differentiate</li>
+        <li>Use similar triangles to eliminate extra variables before differentiating</li>
+        <li>Write units on every rate answer (cm/s, ft/s, cm&#179;/s, etc.)</li>
+        <li>Include the sign in your answer — negative means decreasing</li>
+      </ul>
+    </div>
+
+    <div class="qrf">
+      <div class="qrf-lbl">Never Do This</div>
+      <ul class="qrb">
+        <li class="nv">Substitute a specific number into the equation before you differentiate</li>
+        <li class="nv">Forget the $\frac{d\cdot}{dt}$ on variables inside functions (chain rule)</li>
+        <li class="nv">Differentiate a constant and expect a non-zero answer</li>
+        <li class="nv">Leave off units on the final rate answer</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- =====================================================================
+     Section 12: Related Posts
+     ===================================================================== -->
+<div class="sec" id="related">
+  <h2>Related Posts</h2>
+  <p>If related rates made sense here, these posts cover the concepts that support and extend this skill:</p>
+
+  <a class="related-link" href="post-01-what-is-a-derivative">What Is a Derivative in AP Calculus</a>
+  <a class="related-link" href="post-05-derivative-rules">Derivative Rules in AP Calculus (Power, Product, Chain)</a>
+  <a class="related-link" href="post-04-continuity-vs-differentiability">Continuity vs. Differentiability in AP Calculus</a>
+
+  <p style="margin-top:16px"><strong>External Resources:</strong></p>
+  <a class="ext-link" href="https://www.khanacademy.org/math/ap-calculus-ab/ab-differentiation-2-new/ab-4-4/v/related-rates-intro" target="_blank">Khan Academy: Related Rates Problems</a>
+  <a class="ext-link" href="https://apcentral.collegeboard.org/courses/ap-calculus-ab" target="_blank">College Board: AP Calculus Course Description</a>
+  <a class="ext-link" href="https://tutorial.math.lamar.edu/Classes/CalcI/RelatedRates.aspx" target="_blank">Paul's Online Math Notes: Related Rates</a>
+</div>
+
+<!-- End CTA -->
+<hr>
+<div id="end-cta">
+  <div class="cta">
+    <h3>Master Related Rates Now, Then Keep Moving</h3>
+    <p>Related rates is the moment implicit differentiation becomes real. It is no longer a weird algebra thing. It is how calculus answers questions about the world. You now know the method. You have seen it twice. The cone problem and the ladder problem are the archetypes. Everything else is a variation on one of these two.</p>
+    <p>The review sheet below has every formula you need and the decision tree for which one to use when. Use it. Memorize it.</p>
+    <a class="btn" href="https://www.aceapcalculus.com/reviewsheet50" target="_blank">Get the Free Review Sheet</a>
+    <div class="sub">Parents: related rates is a skill that transfers to physics, engineering, and economics. A student who owns this concept in April will feel the payoff for years after AP exam day.</div>
+  </div>
+
+  <div class="sea">
+    <h3>Summer Program — Spots Are Limited</h3>
+    <p>If your student is heading into next year's AP Calculus and wants to walk in already ahead of the class, my summer program runs in July and August. Related rates is one of the first things we lock in, so students arrive in the school year understanding implicit differentiation as a real tool, not a weird algebraic trick. Real FRQ practice. Small groups. Structured plan.</p>
+    <a class="btn-w" href="https://www.aceapcalculus.com/summer-diagnostic-page" target="_blank">View Summer Program Details</a>
+  </div>
+</div>
+
+<hr>
+
+</div>
+
+<!-- &#9650;&#9650;&#9650; END: WORDPRESS CUSTOM HTML BLOCK &#9650;&#9650;&#9650; -->
+
+</div>
+</body>
+</html>

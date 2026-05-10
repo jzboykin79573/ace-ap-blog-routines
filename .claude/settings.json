@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Read",
+      "Write(Blogs/drafts/**)",
+      "Write(Blogs/previews/**)",
+      "Edit(Blogs/**)",
+      "Bash"
+    ]
+  }
+}

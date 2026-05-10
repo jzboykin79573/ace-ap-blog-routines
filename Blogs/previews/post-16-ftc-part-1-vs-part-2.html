@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PREVIEW: The Fundamental Theorem of Calculus: Part 1 vs. Part 2, AP Calculus</title>
+
+<!--
+=======================================================================
+  PREVIEW FILE: ACE AP CALCULUS BLOG
+  Post 16: The Fundamental Theorem of Calculus: Part 1 vs. Part 2
+=======================================================================
+  This file has three jobs:
+  1. Let you preview the post in your browser before publishing
+  2. Show you a publishing guide at the top of the page
+  3. Mark exactly what to copy into each part of WordPress
+
+  HOW TO USE THIS FILE
+  ─────────────────────
+  Open it in your browser → read the publishing guide at the top
+  Open it in VS Code → the comment markers show you what goes where
+
+  WHAT GETS PASTED INTO WORDPRESS
+  ─────────────────────────────────
+  STEP 1 (one time only) → functions.php  (see guide below)
+  STEP 2 → WordPress title field          (see guide below)
+  STEP 3 → One Custom HTML block          (marked in the body below)
+  STEP 4 → Yoast/Rank Math SEO fields    (see guide below)
+=======================================================================
+-->
+
+<!-- PREVIEW-ONLY: Fonts, MathJax, Desmos load here for local preview.
+     WordPress gets MathJax + Desmos from functions.php (Step 1 below).
+     Do NOT paste any of this <head> section into WordPress. -->
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<script>MathJax = { tex: { inlineMath: [['$','$']], displayMath: [['$$','$$']], processEscapes: true } };</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+<script src="https://www.desmos.com/api/v1.7/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0fda6"></script>
+
+<!-- PREVIEW-ONLY CSS: styles for the browser chrome, hero, and page
+     wrapper below. None of this goes into WordPress. -->
+<style>
+:root{
+  --navy:#0f1e3c;--blue:#1a3a6b;--accent:#e8a020;--accent-light:#fef3dc;
+  --green:#1a7a4a;--green-light:#eaf7f0;--red:#c0392b;--red-light:#fdf2f1;
+  --purple:#7c3aed;--purple-light:#f3f0ff;
+  --gray:#f5f6f8;--border:#dde1e8;--text:#1a1a2e;--muted:#6b7280;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:#eef0f4;color:var(--text);font-size:14px;line-height:1.8}
+/* Publishing guide panel */
+.pub-guide{background:#1a1a2e;font-family:'JetBrains Mono',monospace}
+.pub-guide summary{padding:14px 20px;cursor:pointer;color:var(--accent);font-size:13px;font-weight:700;letter-spacing:.5px;list-style:none;display:flex;align-items:center;gap:10px}
+.pub-guide summary::before{content:"▶";font-size:10px;transition:transform .2s}
+.pub-guide[open] summary::before{transform:rotate(90deg)}
+.pub-guide-body{padding:0 20px 20px}
+.pub-step{margin-bottom:24px}
+.pub-step-ttl{color:var(--accent);font-size:12px;font-weight:700;margin-bottom:6px;letter-spacing:.5px}
+.pub-step p{color:rgba(255,255,255,.75);font-size:12px;margin-bottom:8px;font-family:'Inter',sans-serif;line-height:1.6}
+.pub-step textarea{width:100%;background:#0d0d1a;color:#a8d8a8;border:1px solid #333;border-radius:6px;padding:12px;font-size:11px;font-family:'JetBrains Mono',monospace;line-height:1.6;resize:vertical;min-height:80px}
+.pub-step code{background:#0d0d1a;color:var(--accent);padding:2px 6px;border-radius:3px;font-size:11px}
+.pub-divider{border:none;border-top:1px solid #2a2a4a;margin:20px 0}
+/* Preview chrome bar */
+.chrome{background:#2d2d2d;padding:8px 14px;display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:100}
+.dots{display:flex;gap:6px}.dot{width:11px;height:11px;border-radius:50%}
+.dot.r{background:#ff5f57}.dot.y{background:#febc2e}.dot.g{background:#28c840}
+.url{flex:1;background:#3d3d3d;border-radius:5px;padding:4px 10px;color:#aaa;font-size:11px;font-family:'JetBrains Mono',monospace}
+.badge{background:var(--accent);color:var(--navy);font-size:10px;font-weight:700;padding:3px 8px;border-radius:4px}
+/* Preview page wrapper + hero */
+.page{max-width:780px;margin:0 auto;background:#fff;min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,.12)}
+.hero{background:linear-gradient(135deg,var(--navy),var(--blue));padding:40px 40px 32px;color:#fff}
+.tag{display:inline-block;background:var(--accent);color:var(--navy);font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;padding:3px 9px;border-radius:3px;margin-bottom:14px}
+.hero h1{font-family:'Merriweather',serif;font-size:22px;line-height:1.4;margin-bottom:14px}
+.meta{display:flex;gap:10px;flex-wrap:wrap}
+.pill{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.88);font-size:11px;padding:4px 10px;border-radius:20px}
+</style>
+</head>
+<body>
+
+<!-- ===================================================================
+     PUBLISHING GUIDE: visible in your browser, preview only
+     This panel does NOT get pasted into WordPress.
+     =================================================================== -->
+<details class="pub-guide" open>
+  <summary>PUBLISHING GUIDE: 4 steps to post this to WordPress</summary>
+  <div class="pub-guide-body">
+
+    <div class="pub-step">
+      <div class="pub-step-ttl">STEP 1 (ONE TIME ONLY): Add MathJax + Desmos to functions.php</div>
+      <p>Do this once. After that, skip to Step 2 for every future post.<br>
+         Go to: WordPress Admin → Appearance → Theme File Editor → functions.php<br>
+         Scroll to the bottom and paste the code below.</p>
+      <textarea readonly rows="10">
+// ── ACE AP CALCULUS: MathJax + Desmos ─────────────────────────────
+// Paste this at the bottom of functions.php (one time only).
+
+add_action('wp_head', function() {
+    echo '<script>MathJax = { tex: { inlineMath: [["$","$"]], displayMath: [["$$","$$"]] } };</script>';
+    echo '<script src="https://www.desmos.com/api/v1.7/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0fda6"></script>';
+}, 1);
+
+add_action('wp_enqueue_scripts', function() {
+    wp_enqueue_script('mathjax', 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js', [], null, false);
+});
+// ──────────────────────────────────────────────────────────────────</textarea>
+    </div>
+
+    <hr class="pub-divider">
+
+    <div class="pub-step">
+      <div class="pub-step-ttl">STEP 2: WordPress title field</div>
+      <p>In the WordPress editor, click the title field at the top and paste this exactly:</p>
+      <textarea readonly rows="2">The Fundamental Theorem of Calculus: You Already Use Part 1 Every Day and Don't Know It</textarea>
+    </div>
+
+    <hr class="pub-divider">
+
+    <div class="pub-step">
+      <div class="pub-step-ttl">STEP 3: WordPress Custom HTML block (the post content)</div>
+      <p>In the WordPress editor content area:<br>
+         1. Click the <code>+</code> button → search <code>Custom HTML</code> → add that block<br>
+         2. Open this file in VS Code or any text editor<br>
+         3. Find the comment that says: <code>▼▼▼ START: PASTE THIS INTO WORDPRESS CUSTOM HTML BLOCK ▼▼▼</code><br>
+         4. Select everything from that line down to: <code>▲▲▲ END: WORDPRESS CUSTOM HTML BLOCK ▲▲▲</code><br>
+         5. Paste into the Custom HTML block in WordPress<br><br>
+         That section contains the fonts link, all the CSS, all the post content, and the Desmos graph script.</p>
+    </div>
+
+    <hr class="pub-divider">
+
+    <div class="pub-step">
+      <div class="pub-step-ttl">STEP 4: SEO fields (in the WordPress sidebar)</div>
+      <p>If you use Yoast or Rank Math, fill these in the sidebar before publishing:</p>
+      <textarea readonly rows="6">
+SEO Title:       Fundamental Theorem of Calculus: FTC Parts 1 and 2
+Meta Description: The FTC has 2 parts and the AP exam tests both. Learn which one you already use, which one you blank on, and the chain rule extension that shows up every year.
+Slug:            fundamental-theorem-of-calculus-ap-calculus
+Focus Keyword:   fundamental theorem of calculus AP calculus</textarea>
+    </div>
+
+  </div>
+</details>
+<!-- END PUBLISHING GUIDE -->
+
+
+<!-- ===================================================================
+     PREVIEW ONLY: browser chrome bar
+     Do NOT paste this into WordPress.
+     =================================================================== -->
+<div class="chrome">
+  <div class="dots">
+    <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
+  </div>
+  <div class="url">enginearu.com/ap-calculus-prep/fundamental-theorem-of-calculus-ap-calculus/</div>
+  <div class="badge">PREVIEW</div>
+</div>
+<!-- END PREVIEW CHROME -->
+
+
+<!-- ===================================================================
+     PREVIEW ONLY: hero header
+     WordPress uses the title field (Step 2) instead of this.
+     Do NOT paste this into WordPress.
+     =================================================================== -->
+<div class="page">
+<div class="hero">
+  <div class="tag">AP Calculus AB · BC · Unit 6</div>
+  <h1>The Fundamental Theorem of Calculus:<br>You Already Use Part 1 Every Day and Don't Know It</h1>
+  <div class="meta">
+    <span class="pill">⏱ 18 min read</span>
+    <span class="pill">✓ 500+ EngiNearU students</span>
+    <span class="pill">3 → 5 score improvement</span>
+  </div>
+</div>
+<!-- END PREVIEW HERO -->
+
+
+<!-- ===================================================================
+     ▼▼▼ START: PASTE THIS INTO WORDPRESS CUSTOM HTML BLOCK ▼▼▼
+     ===================================================================
+     Select from this line all the way down to the matching END marker.
+     Paste the entire selection into one Custom HTML block in WordPress.
+     =================================================================== -->
+
+<!-- Google Fonts: loads the typefaces used in the post styling -->
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<!-- Post CSS: all visual styles for the content below -->
+<style>
+.ace-post{
+  --navy:#0f1e3c;--blue:#1a3a6b;--accent:#e8a020;--accent-light:#fef3dc;
+  --green:#1a7a4a;--green-light:#eaf7f0;--red:#c0392b;--red-light:#fdf2f1;
+  --purple:#7c3aed;--purple-light:#f3f0ff;
+  --gray:#f5f6f8;--border:#dde1e8;--text:#1a1a2e;--muted:#6b7280;
+  font-family:'Inter',sans-serif;font-size:14px;line-height:1.8;color:var(--text);
+  padding:32px 0;
+}
+.ace-post .toc{background:var(--gray);border-left:4px solid var(--navy);border-radius:0 8px 8px 0;padding:18px 20px;margin-bottom:36px}
+.ace-post .toc-ttl{font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.ace-post .toc ol{padding-left:18px}.ace-post .toc li{margin-bottom:6px}
+.ace-post .toc a{color:var(--blue);text-decoration:none;font-size:13px;font-weight:500}
+.ace-post .sec{margin-bottom:40px}
+.ace-post h2{font-family:'Merriweather',serif;font-size:18px;font-weight:700;color:var(--navy);margin-bottom:14px;padding-bottom:8px;border-bottom:2px solid var(--border)}
+.ace-post h3{font-size:14px;font-weight:700;color:var(--blue);margin:18px 0 8px}
+.ace-post p{margin-bottom:13px;font-size:14px}
+.ace-post .math-block{background:var(--gray);border-radius:8px;padding:16px 20px;margin:14px 0;text-align:center;overflow-x:auto;font-size:15px}
+.ace-post .step{display:flex;gap:14px;margin-bottom:18px;align-items:flex-start}
+.ace-post .snum{background:var(--navy);color:#fff;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;margin-top:2px}
+.ace-post .scontent{flex:1}
+.ace-post .slbl{font-weight:700;font-size:13px;color:var(--navy);margin-bottom:5px}
+.ace-post .scontent p{font-size:13px;margin-bottom:6px}
+.ace-post .rubric{background:var(--green-light);border-left:4px solid var(--green);border-radius:0 8px 8px 0;padding:14px 18px;margin:16px 0}
+.ace-post .rubric-ttl{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--green);margin-bottom:8px}
+.ace-post .rubric ul{padding-left:18px}.ace-post .rubric li{font-size:13px;margin-bottom:5px;color:#1a4a32}
+.ace-post .mcq-check{background:#eef2ff;border-left:4px solid #4f46e5;border-radius:0 8px 8px 0;padding:14px 18px;margin:16px 0}
+.ace-post .mcq-ttl{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#4f46e5;margin-bottom:8px}
+.ace-post .mcq-check ul{padding-left:18px}.ace-post .mcq-check li{font-size:13px;margin-bottom:5px;color:#312e81}
+.ace-post .cta{background:linear-gradient(135deg,var(--navy),var(--blue));border-radius:12px;padding:24px 26px;margin:28px 0;color:#fff}
+.ace-post .cta h3{color:#fff;margin:0 0 8px;font-size:15px;font-family:'Merriweather',serif}
+.ace-post .cta p{color:rgba(255,255,255,.85);font-size:13px;margin-bottom:14px}
+.ace-post .btn{display:inline-block;background:var(--accent);color:var(--navy);font-weight:700;font-size:13px;padding:10px 20px;border-radius:6px;text-decoration:none}
+.ace-post .sub{font-size:11px;color:rgba(255,255,255,.6);margin-top:10px;font-style:italic}
+.ace-post .sea{background:var(--accent-light);border:2px solid var(--accent);border-radius:12px;padding:22px 26px;margin:20px 0}
+.ace-post .sea h3{color:var(--navy);font-size:14px;margin-bottom:8px;font-weight:700}
+.ace-post .sea p{font-size:13px;color:#5a4500;margin-bottom:12px}
+.ace-post .btn-w{display:inline-block;background:var(--navy);color:#fff;font-weight:700;font-size:13px;padding:10px 20px;border-radius:6px;text-decoration:none}
+.ace-post .mk{border-left:4px solid var(--red);border-radius:0 8px 8px 0;padding:14px 18px;background:var(--red-light);margin-bottom:16px}
+.ace-post .mk-n{font-weight:700;color:var(--red);font-size:13px;margin-bottom:5px}
+.ace-post .mk-w{font-size:12px;color:#7a2020;margin-bottom:6px;font-style:italic}
+.ace-post .mk-f{font-size:13px;color:var(--text)}
+.ace-post .prob{background:var(--gray);border-radius:8px;padding:16px 18px;margin-bottom:14px;border:1px solid var(--border)}
+.ace-post .plbl{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.ace-post .prob p{font-size:13px;margin-bottom:8px}
+.ace-post .answers{background:var(--navy);border-radius:8px;padding:18px 20px;margin-top:20px}
+.ace-post .ans-ttl{color:var(--accent);font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:12px}
+.ace-post .ans-item{font-size:13px;color:rgba(255,255,255,.9);margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid rgba(255,255,255,.1)}
+.ace-post .ans-item:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
+/* FAQ accordion */
+.ace-post .faq-list{border:1px solid var(--border,#dde3ed);border-radius:8px;overflow:hidden;margin:24px 0}
+.ace-post .faq-item{border-bottom:1px solid var(--border,#dde3ed);padding:0}
+.ace-post .faq-item:last-child{border-bottom:none}
+.ace-post .faq-item summary{padding:14px 16px;cursor:pointer;font-weight:600;color:var(--navy,#0f1e3c);font-size:14px;list-style:none;display:flex;align-items:center;gap:8px;user-select:none;background:#fff}
+.ace-post .faq-item summary::-webkit-details-marker{display:none}
+.ace-post .faq-item summary::marker{display:none}
+.ace-post .faq-item summary .faq-q-label{color:var(--accent,#e8a020);font-weight:700;flex-shrink:0}
+.ace-post .faq-item summary .faq-toggle{margin-left:auto;color:var(--accent,#e8a020);font-size:20px;font-weight:300;flex-shrink:0;line-height:1}
+.ace-post .faq-item[open] summary .faq-toggle{content:'-'}
+.ace-post .faq-a{padding:4px 16px 14px;color:var(--text-mid,#4a5568);line-height:1.7}
+.ace-post .faq-a p{margin:0}
+.ace-post .qref{background:var(--navy);border-radius:12px;padding:24px 26px;color:#fff;margin:28px 0}
+.ace-post .qref-ttl{color:var(--accent);font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:16px}
+.ace-post .qref-section{margin-bottom:18px}
+.ace-post .qref-label{color:rgba(255,255,255,.55);font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px}
+.ace-post .qref-formula{background:rgba(255,255,255,.08);border-radius:6px;padding:10px 14px;font-size:14px;color:#fff;margin-bottom:4px;text-align:center}
+.ace-post .qref-note{font-size:12px;color:rgba(255,255,255,.6);margin-top:4px}
+.ace-post .one-liner{background:var(--accent-light);border:2px solid var(--accent);border-radius:8px;padding:14px 18px;margin:24px 0;text-align:center}
+.ace-post .one-liner p{font-size:15px;font-weight:700;color:var(--navy);margin:0}
+.ace-post .compare-table{width:100%;border-collapse:collapse;margin:16px 0;font-size:13px}
+.ace-post .compare-table th{background:var(--navy);color:#fff;padding:10px 12px;text-align:left;font-size:11px;letter-spacing:.5px}
+.ace-post .compare-table td{padding:10px 12px;border-bottom:1px solid var(--border)}
+.ace-post .compare-table tr:nth-child(even) td{background:var(--gray)}
+.ace-post .related-list{padding-left:18px}
+.ace-post .related-list li{margin-bottom:8px;font-size:13px}
+.ace-post .related-list a{color:var(--blue);text-decoration:none;font-weight:500}
+.ace-post .tag-unit{display:inline-block;background:var(--purple-light);color:var(--purple);font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:3px 8px;border-radius:4px;margin-bottom:6px}
+.ace-post .note-box{background:var(--accent-light);border-left:3px solid var(--accent);border-radius:0 6px 6px 0;padding:10px 14px;margin:14px 0;font-size:12px;color:#5a3c00}
+</style>
+
+<div class="ace-post">
+
+  <!-- TABLE OF CONTENTS -->
+  <div class="toc">
+    <div class="toc-ttl">Jump To What You Need</div>
+    <ol>
+      <li><a href="#invisible-theorem">The Invisible Theorem</a></li>
+      <li><a href="#what-it-means">What the Two Parts Actually Mean</a></li>
+      <li><a href="#framework">How to Tell Them Apart Every Time</a></li>
+      <li><a href="#example-1">Worked Example 1: FTC Part 2 (Evaluation)</a></li>
+      <li><a href="#mid-cta">Grab the Free Guide</a></li>
+      <li><a href="#example-2">Worked Example 2: FTC Part 1 with Chain Rule</a></li>
+      <li><a href="#mistakes">The 3 Mistakes That Cost My Students Points</a></li>
+      <li><a href="#practice">Practice Problems</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="#quick-reference">Save This For Exam Day</a></li>
+      <li><a href="#related">Related Posts</a></li>
+    </ol>
+  </div>
+
+  <!-- INTRO -->
+  <div class="sec" id="invisible-theorem">
+    <h2>The Invisible Theorem</h2>
+
+    <!-- HOOK TYPE: name-the-feeling -->
+    <p>There is a specific experience almost every AP Calculus student has with the Fundamental Theorem of Calculus, and I call it the FTC Blind Spot. You have been using one part of it for months. You use it every single time you evaluate a definite integral. And then one day, the AP exam asks you to identify it by name, or to apply the other part, and your mind goes completely blank.</p>
+
+    <p>In a session on May 5, one of my students, Max, said exactly this: "I can't tell you what it is, but I know that I use it all the time without recognizing it." When I told him, "You know one of them for sure, because you use it every time you evaluate a definite integral," something clicked. The theorem he had been using automatically for weeks had never been named for him.</p>
+
+    <p>That is the exact gap the AP exam exploits. The <strong>fundamental theorem of calculus AP calculus</strong> questions are not asking you to discover something new. They are asking you to name something you already do, and then do the harder part, which most students have never practiced at all.</p>
+
+    <p>Here is the real cost. Two separate groups of my students missed FRQ Part C on the same exam because they did not know that $\frac{d}{dx}\int_a^x f(t)\,dt = f(x)$, or that when the upper bound is $x^2$ instead of $x$, you need the chain rule. That is not a conceptual mystery. That is 3 to 4 points left on the table because one specific skill was never drilled.</p>
+
+    <p>This post names both parts, shows you exactly how to tell them apart, and gives you the chain rule extension that shows up on the AP exam every single year.</p>
+  </div>
+
+  <!-- WHAT IT MEANS -->
+  <div class="sec" id="what-it-means">
+    <h2>What the Two Parts Actually Mean</h2>
+
+    <p>Most textbooks open this topic by calling one theorem "Part 1" and another "Part 2" and then listing definitions. I have never found that useful as a starting point. Here is the framing I use with every student instead.</p>
+
+    <p>Think about a thermostat in a room. The temperature has been changing all morning. You walk in and ask two different questions: "What is the current rate of temperature change?" And: "How much did the total temperature change from 8 a.m. to noon?"</p>
+
+    <p>Those are two completely different questions. One is about a rate at a specific moment. One is about accumulated change over an interval. The Fundamental Theorem of Calculus is the bridge between those two questions. It says that integration and differentiation are inverse operations. Not similar operations. Inverse ones. That is not just a philosophical claim. It has two specific, testable forms, and the AP exam uses both.</p>
+
+    <h3>FTC Part 1: The Derivative of an Integral</h3>
+
+    <p>This is the part Max had never named. If you define a function by accumulating area under a curve from a fixed point $a$ to a variable point $x$, the derivative of that accumulation function is just the original integrand.</p>
+
+    <div class="math-block">
+      $$\frac{d}{dx}\int_a^x f(t)\,dt = f(x)$$
+    </div>
+
+    <p>You would think Part 1 is the simpler one because the result looks clean. It is not the part students use automatically. It is the one they blank on.</p>
+
+    <h3>FTC Part 2: The Evaluation Theorem</h3>
+
+    <p>This is what you have been doing every single time you compute a definite integral. You find an antiderivative $F(x)$ and evaluate $F(b) - F(a)$.</p>
+
+    <div class="math-block">
+      $$\int_a^b f(x)\,dx = F(b) - F(a)$$
+    </div>
+
+    <p>Every definite integral you have ever computed uses this. Every one. Most of my students learn this as "plug in the bounds" without ever connecting it to a theorem with a name. The AP exam will ask you to identify it or use it in a justification. Know both.</p>
+
+    <div class="note-box">
+      <strong>Naming note:</strong> Some older textbooks flip the numbering. What you see labeled "Part 2" in one curriculum may be called "Part 1" in another. The College Board's AP Calculus Course and Exam Description uses the evaluation theorem as Part 2. When in doubt, go by context: if the problem asks for a derivative of an integral, that is the differentiation form regardless of what your textbook calls it.
+    </div>
+  </div>
+
+  <!-- FRAMEWORK -->
+  <div class="sec" id="framework">
+    <h2>How to Tell Them Apart Every Time</h2>
+
+    <p>The whole distinction comes down to one question: what is the problem asking you to <em>do</em>?</p>
+
+    <div class="step">
+      <div class="snum">1</div>
+      <div class="scontent">
+        <div class="slbl">What is the operation being performed?</div>
+        <p>If the problem asks you to evaluate a definite integral and get a number: use <strong>FTC Part 2 (Evaluation Theorem)</strong>.</p>
+        <p>If the problem gives you a function defined as an integral and asks for its derivative: use <strong>FTC Part 1 (Derivative of an Integral)</strong>.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="snum">2</div>
+      <div class="scontent">
+        <div class="slbl">What does the expression look like?</div>
+        <table class="compare-table">
+          <thead>
+            <tr><th>You see this form...</th><th>Use this</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>$\int_a^b f(x)\,dx = ?$ (find the value)</td>
+              <td>FTC Part 2: find antiderivative, evaluate $F(b)-F(a)$</td>
+            </tr>
+            <tr>
+              <td>$\frac{d}{dx}\int_a^x f(t)\,dt = ?$ (upper bound is $x$)</td>
+              <td>FTC Part 1: answer is just $f(x)$</td>
+            </tr>
+            <tr>
+              <td>$\frac{d}{dx}\int_a^{g(x)} f(t)\,dt = ?$ (upper bound is a function)</td>
+              <td>FTC Part 1 + Chain Rule: $f(g(x)) \cdot g'(x)$</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="snum">3</div>
+      <div class="scontent">
+        <div class="slbl">Watch the upper bound.</div>
+        <p>If the upper bound is $x$, the answer is just $f(x)$. If it is $x^2$, $\sin(x)$, or any other function of $x$, you apply the chain rule. The AP exam tests this specific variation every year.</p>
+        <div class="math-block">$$\frac{d}{dx}\int_a^{x^2} f(t)\,dt = f(x^2) \cdot 2x$$</div>
+      </div>
+    </div>
+
+    <div class="note-box">
+      <strong>AROC vs. IROC connection:</strong> FTC Part 2 is about accumulated change over an interval, which connects to average rate of change (AROC). FTC Part 1 produces an instantaneous rate at a specific point (IROC). If the exam asks for the average rate of change of $F(x) = \int_a^x f(t)\,dt$ over $[c,d]$, that is $\frac{F(d)-F(c)}{d-c}$. If it asks for the instantaneous rate at $x = c$, that is $F'(c) = f(c)$ by Part 1. Different question. Different answer. Different theorem.
+    </div>
+  </div>
+
+  <!-- WORKED EXAMPLE 1 -->
+  <div class="sec" id="example-1">
+    <h2>Worked Example 1: FTC Part 2, Evaluating a Definite Integral</h2>
+
+    <p>This is the version you already use. Work through it explicitly labeling each step because on FRQ Part C, the AP exam expects you to justify your work by name.</p>
+
+    <p><strong>Problem:</strong> Evaluate $\displaystyle\int_1^4 (3x^2 - 2x + 5)\,dx$.</p>
+
+    <div class="step">
+      <div class="snum">1</div>
+      <div class="scontent">
+        <div class="slbl">Identify the theorem.</div>
+        <p>We are evaluating a definite integral to get a number. This is FTC Part 2: $\int_a^b f(x)\,dx = F(b) - F(a)$.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="snum">2</div>
+      <div class="scontent">
+        <div class="slbl">Find the antiderivative.</div>
+        <div class="math-block">$$F(x) = x^3 - x^2 + 5x$$</div>
+        <p>Antiderivative of $3x^2$ is $x^3$. Of $-2x$ is $-x^2$. Of $5$ is $5x$. No $+C$ needed for definite integrals. It cancels in $F(b)-F(a)$.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="snum">3</div>
+      <div class="scontent">
+        <div class="slbl">Evaluate at the bounds.</div>
+        <div class="math-block">$$F(4) = (4)^3 - (4)^2 + 5(4) = 64 - 16 + 20 = 68$$</div>
+        <div class="math-block">$$F(1) = (1)^3 - (1)^2 + 5(1) = 1 - 1 + 5 = 5$$</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="snum">4</div>
+      <div class="scontent">
+        <div class="slbl">Subtract.</div>
+        <div class="math-block">$$\int_1^4 (3x^2 - 2x + 5)\,dx = F(4) - F(1) = 68 - 5 = \boxed{63}$$</div>
+      </div>
+    </div>
+
+    <div class="rubric">
+      <div class="rubric-ttl">Here is exactly how the AP exam scores this type of problem</div>
+      <ul>
+        <li>Correct antiderivative with all three terms (no $+C$ required for definite integrals, but do not write one inconsistently)</li>
+        <li>Correct evaluation of $F(b)$ and $F(a)$ separately. The AP exam credits each computation even if you make an arithmetic error on the subtraction.</li>
+        <li>Correct subtraction $F(b) - F(a)$ in the right order. Writing $F(a) - F(b)$ is wrong and scores zero for that step.</li>
+        <li>On an FRQ, writing "by the Fundamental Theorem of Calculus, Part 2" before the antiderivative step earns the justification point. Skipping that line costs you the point even if your math is perfectly correct.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- MID-POST CTA -->
+  <div class="cta" id="mid-cta">
+    <h3>Not sure what you need before Unit 6 clicks?</h3>
+    <p>If integration is shaky, the FTC will feel harder than it needs to be. I put together a free AP Calculus review sheet that covers exactly what needs to be solid before this topic makes sense. Zero fluff.</p>
+    <a href="https://www.aceapcalculus.com/ap-calculus-review-sheet/" class="btn">Free AP Calculus Review Sheet</a>
+    <div class="sub">Parents: this is a great tool to identify the exact gaps before your student hits the tougher integration units.</div>
+  </div>
+
+  <!-- WORKED EXAMPLE 2 -->
+  <div class="sec" id="example-2">
+    <h2>Worked Example 2: FTC Part 1 with Chain Rule (The MCQ Type That Trips Everyone)</h2>
+
+    <p>This is the problem type that cost Max and two full groups of my students FRQ points. The AP exam gives you a function defined as an integral and asks for its derivative. If you have never drilled this form specifically, you will freeze.</p>
+
+    <h3>Problem 1 (basic): Upper bound is plain $x$</h3>
+
+    <p>Let $G(x) = \displaystyle\int_2^x (t^3 + \cos t)\,dt$. Find $G'(x)$.</p>
+
+    <p><strong>Solution:</strong> Upper bound is $x$. Straight FTC Part 1. No chain rule needed.</p>
+    <div class="math-block">$$G'(x) = x^3 + \cos x$$</div>
+    <p>Whatever was under the integral sign, written in terms of $x$ instead of $t$. That is the whole result.</p>
+
+    <h3>Problem 2 (chain rule version): Upper bound is $x^2$</h3>
+
+    <p>Let $H(x) = \displaystyle\int_0^{x^2} \sqrt{1 + t^3}\,dt$. Find $H'(x)$.</p>
+
+    <div class="step">
+      <div class="snum">1</div>
+      <div class="scontent"><p>Upper bound is $x^2$, not $x$. Chain rule required.</p></div>
+    </div>
+    <div class="step">
+      <div class="snum">2</div>
+      <div class="scontent"><p>Let $u = x^2$. By FTC Part 1: $\frac{dH}{du} = \sqrt{1+u^3}$.</p></div>
+    </div>
+    <div class="step">
+      <div class="snum">3</div>
+      <div class="scontent"><p>Chain rule: $\frac{dH}{dx} = \frac{dH}{du} \cdot \frac{du}{dx} = \sqrt{1+u^3} \cdot 2x$.</p></div>
+    </div>
+    <div class="step">
+      <div class="snum">4</div>
+      <div class="scontent">
+        <p>Substitute $u = x^2$ back:</p>
+        <div class="math-block">$$H'(x) = \sqrt{1+(x^2)^3} \cdot 2x = \boxed{2x\sqrt{1+x^6}}$$</div>
+      </div>
+    </div>
+
+    <h3>Problem 3 (AP exam style): Variable in the lower bound</h3>
+
+    <p>Let $F(x) = \displaystyle\int_x^5 e^{t^2}\,dt$. Find $F'(x)$.</p>
+
+    <p>Twist: the variable is in the lower bound, not the upper bound. Flip the bounds and flip the sign.</p>
+
+    <div class="math-block">$$F(x) = -\int_5^x e^{t^2}\,dt$$</div>
+    <div class="math-block">$$F'(x) = \boxed{-e^{x^2}}$$</div>
+
+    <!-- Desmos graph: accumulation function G(x) = x^3/3 + x -->
+    <div id="desmos-ftc" style="width:100%;height:320px;border-radius:10px;overflow:hidden;margin:16px 0;"></div>
+    <p style="font-size:11px;color:var(--muted);text-align:center;margin-top:-8px;margin-bottom:16px;">Graph of $G(x) = \int_0^x (t^2+1)\,dt = \frac{x^3}{3}+x$ (navy). Its derivative $G'(x) = f(x) = x^2+1$ (gold). At $x=2$: $G'(2) = f(2) = 5$.</p>
+
+    <div class="mcq-check">
+      <div class="mcq-ttl">Here is exactly what the AP exam is checking on this problem type</div>
+      <ul>
+        <li>Recognizing that a function defined as an integral with a variable upper bound calls for FTC Part 1</li>
+        <li>Applying the chain rule when the upper bound is a composite function: $x^2$, $\sin x$, $3x+1$</li>
+        <li>Handling a variable in the lower bound by flipping and negating before applying Part 1</li>
+        <li>Writing the answer in terms of $x$, not $t$. The $t$ is the dummy integration variable. It disappears in the result. If $t$ appears in your final answer, something went wrong.</li>
+        <li>On MCQ, this entire problem should take under 90 seconds. Pattern recognition is the skill.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- THE 3 MISTAKES -->
+  <div class="sec" id="mistakes">
+    <h2>The 3 Mistakes That Cost My Students Points</h2>
+
+    <div class="mk">
+      <div class="mk-n">Mistake 1: Treating both parts as the same thing and picking one randomly</div>
+      <div class="mk-w">Why it happens: Students see "Fundamental Theorem of Calculus" and know they are supposed to use it, but have never cleanly separated the two parts. Both feel vague. They apply whichever formula feels closer.</div>
+      <div class="mk-f"><strong>Fix:</strong> Use the one-question triage above. Before you write anything, ask: "Am I finding the value of a definite integral, or am I differentiating a function that is defined as an integral?" That single question routes you to the right part every time. Two separate skills. Two separate operations.<br><br><em>Consequence:</em> On FRQ Part C, students who could not name which theorem they were applying lost the justification point even when their arithmetic was correct. Missing that point is the difference between a 4 and a 5 for students in the 60–67 composite range.</div>
+    </div>
+
+    <div class="mk">
+      <div class="mk-n">Mistake 2: Forgetting the chain rule when the upper bound is a function</div>
+      <div class="mk-w">Why it happens: The basic version, $\frac{d}{dx}\int_a^x f(t)\,dt = f(x)$, is clean and memorable. So when students see a more complex upper bound, they apply the same clean formula and stop. They get $f(x^2)$ instead of $f(x^2) \cdot 2x$.</div>
+      <div class="mk-f"><strong>Fix:</strong> Every time the upper bound is anything other than plain $x$, write out the chain rule step explicitly. $u = g(x)$, then $f(u) \cdot g'(x)$. Do not skip the multiplication step.<br><br><em>Consequence:</em> This is an MCQ point that should take under 90 seconds. Missing it because you dropped the chain rule means you spent the time and still got it wrong. The wrong answer choice usually corresponds exactly to the result you get if you forget the $g'(x)$ factor.</div>
+    </div>
+
+    <div class="mk">
+      <div class="mk-n">Mistake 3: Leaving the dummy variable in the answer</div>
+      <div class="mk-w">Why it happens: The FTC Part 1 problems all use $t$ as the integration variable. After applying the theorem, students copy $f(t)$ into their answer instead of converting to $f(x)$.</div>
+      <div class="mk-f"><strong>Fix:</strong> Immediately after applying Part 1, replace every $t$ with $x$ (or with $g(x)$ if chain rule applies). The $t$ is a placeholder. It has no meaning outside the integral. If $t$ appears in your final answer, that is a red flag.<br><br><em>Consequence:</em> On MCQ, your result still has $t$ in it and does not match any answer choice. You second-guess yourself, waste 90 seconds, and often switch to the wrong answer.</div>
+    </div>
+  </div>
+
+  <!-- PRACTICE PROBLEMS -->
+  <div class="sec" id="practice">
+    <h2>Practice Problems</h2>
+
+    <p>Try these before checking the answers. For each one, identify which part of the FTC applies before you write a single symbol.</p>
+
+    <div class="prob">
+      <div class="plbl">Problem 1: Evaluation</div>
+      <p>$$\int_0^3 (x^2 - 4x + 7)\,dx$$</p>
+    </div>
+
+    <div class="prob">
+      <div class="plbl">Problem 2: FTC Part 1 with Chain Rule</div>
+      <p>Let $G(x) = \displaystyle\int_1^{x^3} \sin(t^2)\,dt$. Find $G'(x)$.</p>
+    </div>
+
+    <div class="prob">
+      <div class="plbl">Problem 3: Variable in Lower Bound</div>
+      <p>Let $F(x) = \displaystyle\int_x^{10} (t^2 + 1)\,dt$. Find $F'(x)$.</p>
+    </div>
+
+    <div class="answers">
+      <div class="ans-ttl">Answers</div>
+      <div class="ans-item">
+        <strong>Problem 1:</strong> $F(x) = \frac{x^3}{3} - 2x^2 + 7x$. $F(3) = 9 - 18 + 21 = 12$. $F(0) = 0$. Answer: $12$.
+      </div>
+      <div class="ans-item">
+        <strong>Problem 2:</strong> Upper bound is $x^3$. Chain rule: $G'(x) = \sin((x^3)^2) \cdot 3x^2 = 3x^2\sin(x^6)$.
+      </div>
+      <div class="ans-item">
+        <strong>Problem 3:</strong> Variable in lower bound. Flip and negate: $F(x) = -\int_{10}^x(t^2+1)\,dt$. So $F'(x) = -(x^2+1)$.
+      </div>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <div class="sec" id="faq">
+    <h2>FAQ</h2>
+
+    <div class="faq-list">
+      <details class="faq-item">
+        <summary><span class="faq-q-label">Q:</span> What is the Fundamental Theorem of Calculus in AP Calculus, and how many parts are there?<span class="faq-toggle">+</span></summary>
+        <div class="faq-a"><p>There are 2 parts. Part 1 says that if $F(x) = \int_a^x f(t)\,dt$, then $F'(x) = f(x)$. Part 2 (the Evaluation Theorem) says $\int_a^b f(x)\,dx = F(b) - F(a)$. Both are in scope for AB and BC. Part 2 shows up every time you compute a definite integral. Part 1 shows up in MCQ and FRQ as a standalone problem type.</p><p>Know both and know which is which. The AP exam will not tell you which one to use.</p></div>
+      </details>
+
+      <details class="faq-item">
+        <summary><span class="faq-q-label">Q:</span> When do I use FTC Part 1 vs. Part 2 on the AP exam?<span class="faq-toggle">+</span></summary>
+        <div class="faq-a"><p>If the problem gives you a function defined as an integral and asks for its derivative, use Part 1. If it asks you to compute the value of a definite integral, use Part 2. The expression tells you which one: $\frac{d}{dx}[\text{integral}]$ is Part 1. $\int_a^b f(x)\,dx =$ a number is Part 2. The hardest MCQ variants give you both in the same problem. Stay calm and do one step at a time.</p><p>If you see $\frac{d}{dx}$ in front of an integral sign, you are in Part 1 territory. That single symbol is the triage.</p></div>
+      </details>
+
+      <details class="faq-item">
+        <summary><span class="faq-q-label">Q:</span> How does the chain rule apply to FTC Part 1?<span class="faq-toggle">+</span></summary>
+        <div class="faq-a"><p>When the upper bound is a function of $x$ (like $x^2$, $\sin x$, or $3x+1$), you apply the chain rule on top of Part 1: $\frac{d}{dx}\int_a^{g(x)} f(t)\,dt = f(g(x)) \cdot g'(x)$. Memorize that template. The AP exam tests this version specifically, and the wrong answer choices are designed to catch students who apply Part 1 without the chain rule factor.</p><p>This is one of the most learnable 1-point MCQ gains on the entire exam. Recognize the pattern, apply it in under 90 seconds, automatic point.</p></div>
+      </details>
+
+      <details class="faq-item">
+        <summary><span class="faq-q-label">Q:</span> Do I need to know the proof of the FTC for AP Calculus?<span class="faq-toggle">+</span></summary>
+        <div class="faq-a"><p>No. The AP exam does not ask you to prove either part. It asks you to apply them, identify them by name in justifications, and recognize which one a problem is calling for. What you need cold: the statement of both parts, the chain rule extension of Part 1, and the FRQ justification language ("by the Fundamental Theorem of Calculus, Part 2").</p><p>Proofs are for your teacher to know. AP points come from application and justification. Focus there.</p></div>
+      </details>
+    </div>
+  </div>
+
+  <!-- QUICK REFERENCE -->
+  <div class="qref" id="quick-reference">
+    <div class="qref-ttl">Save This For Exam Day</div>
+
+    <div class="qref-section">
+      <div class="qref-label">FTC Part 2: Evaluation Theorem</div>
+      <div class="qref-formula">$$\int_a^b f(x)\,dx = F(b) - F(a)$$</div>
+      <div class="qref-note">Use when: evaluating a definite integral to get a number.</div>
+    </div>
+
+    <div class="qref-section">
+      <div class="qref-label">FTC Part 1: Basic (upper bound is $x$)</div>
+      <div class="qref-formula">$$\frac{d}{dx}\int_a^x f(t)\,dt = f(x)$$</div>
+      <div class="qref-note">Use when: differentiating an accumulation function with upper bound $x$.</div>
+    </div>
+
+    <div class="qref-section">
+      <div class="qref-label">FTC Part 1: Chain Rule Extension (upper bound is $g(x)$)</div>
+      <div class="qref-formula">$$\frac{d}{dx}\int_a^{g(x)} f(t)\,dt = f(g(x)) \cdot g'(x)$$</div>
+      <div class="qref-note">Use when: upper bound is any function of $x$, not just plain $x$.</div>
+    </div>
+
+    <div class="qref-section">
+      <div class="qref-label">Lower Bound Has the Variable? Flip and Negate.</div>
+      <div class="qref-formula">$$\frac{d}{dx}\int_x^b f(t)\,dt = -f(x)$$</div>
+    </div>
+
+    <div class="qref-section">
+      <div class="qref-label">FRQ Justification Language (Required for the Justification Point)</div>
+      <div class="qref-formula" style="font-size:12px;text-align:left;padding:12px 14px;">"By the Fundamental Theorem of Calculus, Part 2..."<br>"By the Fundamental Theorem of Calculus, Part 1..."</div>
+    </div>
+
+    <div class="qref-section">
+      <div class="qref-label">Dummy Variable Rule</div>
+      <div class="qref-note" style="color:rgba(255,255,255,.8);">The $t$ in the integrand becomes $x$ (or $g(x)$) in the result. If $t$ is still in your answer, you have not finished.</div>
+    </div>
+  </div>
+
+  <!-- SCREENSHOT-ABLE ONE-LINER -->
+  <div class="one-liner">
+    <p>Every time you evaluate a definite integral, you are using the Fundamental Theorem of Calculus Part 2.</p>
+  </div>
+  <!-- END ONE-LINER -->
+
+  <!-- RELATED POSTS -->
+  <div class="sec" id="related">
+    <h2>Related Posts</h2>
+    <p>If this clicked, these posts connect directly to the FTC:</p>
+    <ul class="related-list">
+      <li><a href="https://enginearu.com/ap-calculus-prep/what-is-a-derivative-ap-calculus/">What Is a Derivative in AP Calculus?</a> The limit definitions that underpin everything FTC Part 1 produces.</li>
+      <li><a href="/ap-calculus-prep/integration-intro/">Integration and Accumulation of Change: Unit 6 Intro</a> Where the definite integral is defined and why the FTC works. <em>[Draft, URL pending]</em></li>
+      <li><a href="/ap-calculus-prep/u-substitution/">U-Substitution in AP Calculus</a> The technique you need to evaluate the antiderivatives FTC Part 2 depends on. <em>[Draft, URL pending]</em></li>
+    </ul>
+  </div>
+
+  <!-- END CTA -->
+  <div class="cta" id="end-cta">
+    <h3>Stop Guessing. Start Drilling.</h3>
+    <p>My students who blank on FTC Part 1 during the exam have usually seen it before. They just never drilled it until recognition was automatic. Part 2 shows up in almost every FRQ that involves integration. Part 1 with the chain rule is a regular MCQ point. Together they account for more AP points than almost any other single concept in Unit 6.</p>
+    <p>If FTC Part 1 with the chain rule feels shaky right now, that shakiness will show up on exam day. The fix is not re-reading notes. It is drilling the specific pattern until recognition is automatic.</p>
+    <a href="https://enginearu.com/the-ultimate-ap-calculus-review-sheet/" class="btn">Free AP Calculus Review Sheet</a>
+    <div class="sub">Parents: if your student is heading into the AP exam and integration feels uncertain, the FTC is the exact topic to address first. It is not optional content.</div>
+  </div>
+
+  <!-- SEASONAL CTA (active through September 15, 2026) -->
+  <div class="sea">
+    <h3>Walk Into AP Calculus Already Ahead on Integration</h3>
+    <p>My summer program covers both parts of the FTC with real exam-style problems, small groups, and a structured plan. Spots fill fast.</p>
+    <a href="https://www.aceapcalculus.com/summer-diagnostic-page" class="btn-w">Free Pre-Assessment</a>
+  </div>
+
+</div><!-- end .ace-post -->
+
+<!-- Desmos: accumulation function G(x) = x^3/3 + x and its derivative f(x) = x^2+1 -->
+<script>
+(function() {
+  var elt = document.getElementById('desmos-ftc');
+  if (!elt || typeof Desmos === 'undefined') return;
+  var calc = Desmos.GraphingCalculator(elt, {
+    expressions: false,
+    settingsMenu: false,
+    zoomButtons: false,
+    lockViewport: true
+  });
+  calc.setMathBounds({ left: -1, right: 4, bottom: -1, top: 14 });
+  calc.setExpression({ id: 'accum', latex: 'G(x)=\\frac{x^3}{3}+x', color: '#1a3a6b', lineWidth: 2.5 });
+  calc.setExpression({ id: 'deriv', latex: 'f(x)=x^2+1', color: '#e8a020', lineWidth: 2, lineStyle: Desmos.Styles.DASHED });
+  calc.setExpression({ id: 'pt', latex: '(2, \\frac{8}{3}+2)', color: '#e8a020', pointSize: 9 });
+  calc.setExpression({ id: 'lbl', latex: '(2, \\frac{8}{3}+2)', label: "G'(2)=f(2)=5", showLabel: true, color: '#e8a020' });
+})();
+</script>
+
+<!-- FAQPage schema for SEO -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is the Fundamental Theorem of Calculus in AP Calculus, and how many parts are there?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "There are 2 parts. Part 1 says that if F(x) equals the integral from a to x of f(t) dt, then F'(x) = f(x). Part 2 (the Evaluation Theorem) says the integral from a to b of f(x) dx equals F(b) minus F(a). Both are in scope for AB and BC. Part 2 shows up every time you compute a definite integral. Part 1 shows up in MCQ and FRQ as a standalone problem type."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "When do I use FTC Part 1 vs. Part 2 on the AP exam?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "If the problem gives you a function defined as an integral and asks for its derivative, use Part 1. If it asks you to compute the value of a definite integral, use Part 2. The expression tells you which one: d/dx of an integral is Part 1. The integral from a to b equaling a number is Part 2."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How does the chain rule apply to FTC Part 1?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "When the upper bound is a function of x (like x^2, sin x, or 3x+1), you apply the chain rule on top of Part 1: d/dx of the integral from a to g(x) of f(t) dt equals f(g(x)) times g'(x). Memorize that template. The AP exam tests this version specifically, and wrong answer choices are designed to catch students who apply Part 1 without the chain rule factor."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do I need to know the proof of the FTC for AP Calculus?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. The AP exam does not ask you to prove either part. It asks you to apply them, identify them by name in justifications, and recognize which one a problem is calling for. What you need cold: the statement of both parts, the chain rule extension of Part 1, and the FRQ justification language."
+      }
+    }
+  ]
+}
+</script>
+
+<!-- ===================================================================
+     ▲▲▲ END: WORDPRESS CUSTOM HTML BLOCK ▲▲▲
+     =================================================================== -->
+
+</div><!-- end .page -->
+
+</body>
+</html>

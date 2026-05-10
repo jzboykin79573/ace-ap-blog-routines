@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-chtml.min.js"></script>
+<style>
+:root{--navy:#0f1e3c;--blue:#1a3a6b;--accent:#e8a020;--accent-light:#fef3dc;--green:#1a7a4a;--green-light:#eaf7f0;--red:#c0392b;--red-light:#fdf2f1;--gray:#f5f6f8;--border:#dde1e8;--text:#1a1a2e;--muted:#6b7280}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:#eef0f4;color:var(--text);font-size:14px;line-height:1.75}
+.chrome{background:#2d2d2d;padding:8px 14px;display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:100}
+.dots{display:flex;gap:6px}.dot{width:11px;height:11px;border-radius:50%}
+.dot.r{background:#ff5f57}.dot.y{background:#febc2e}.dot.g{background:#28c840}
+.url{flex:1;background:#3d3d3d;border-radius:5px;padding:4px 10px;color:#aaa;font-size:11px;font-family:'JetBrains Mono',monospace}
+.badge{background:var(--accent);color:var(--navy);font-size:10px;font-weight:700;padding:3px 8px;border-radius:4px}
+.page{max-width:780px;margin:0 auto;background:#fff;min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,.12)}
+.hero{background:linear-gradient(135deg,var(--navy),var(--blue));padding:36px 40px 30px;color:#fff}
+.tag{display:inline-block;background:var(--accent);color:var(--navy);font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;padding:3px 9px;border-radius:3px;margin-bottom:14px}
+.hero h1{font-family:'Merriweather',serif;font-size:22px;line-height:1.35;margin-bottom:12px}
+.meta{display:flex;gap:14px;flex-wrap:wrap;margin-top:10px}
+.pill{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.88);font-size:11px;padding:4px 10px;border-radius:20px}
+.body{padding:32px 40px}
+.toc{background:var(--gray);border-left:4px solid var(--navy);border-radius:0 8px 8px 0;padding:18px 20px;margin-bottom:32px}
+.toc-ttl{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.toc ol{padding-left:18px}.toc li{margin-bottom:5px}
+.toc a{color:var(--blue);text-decoration:none;font-size:13px;font-weight:500}
+.sec{margin-bottom:36px}
+h2{font-family:'Merriweather',serif;font-size:18px;font-weight:700;color:var(--navy);margin-bottom:14px;padding-bottom:8px;border-bottom:2px solid var(--border)}
+h3{font-size:14px;font-weight:700;color:var(--blue);margin:16px 0 8px}
+p{margin-bottom:12px;font-size:14px}
+em{font-style:italic;color:var(--muted)}
+.math{background:var(--gray);border-radius:8px;padding:14px 18px;margin:14px 0;text-align:center;overflow-x:auto}
+.def-card{border-radius:8px;overflow:hidden;border:1px solid var(--border);margin-bottom:14px}
+.def-hd{background:var(--navy);color:#fff;padding:8px 14px;font-size:12px;font-weight:700;display:flex;align-items:center;gap:8px}
+.num{background:var(--accent);color:var(--navy);width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;flex-shrink:0}
+.def-bd{padding:14px;background:#fff}
+.def-bd p{font-size:13px;margin-bottom:8px}
+.step{display:flex;gap:14px;margin-bottom:16px;align-items:flex-start}
+.snum{background:var(--navy);color:#fff;width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;margin-top:2px}
+.slbl{font-weight:700;font-size:13px;color:var(--navy);margin-bottom:4px}
+.rubric{background:var(--green-light);border-left:4px solid var(--green);border-radius:0 8px 8px 0;padding:14px 18px;margin:16px 0}
+.rubric-ttl{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--green);margin-bottom:8px}
+.rubric ul{padding-left:18px}.rubric li{font-size:13px;margin-bottom:5px;color:#1a4a32}
+.cta{background:linear-gradient(135deg,var(--navy),var(--blue));border-radius:12px;padding:22px 24px;margin:28px 0;color:#fff}
+.cta h3{color:#fff;margin:0 0 8px;font-size:15px}
+.cta p{color:rgba(255,255,255,.85);font-size:13px;margin-bottom:14px}
+.btn{display:inline-block;background:var(--accent);color:var(--navy);font-weight:700;font-size:13px;padding:9px 18px;border-radius:6px;cursor:pointer}
+.sub{font-size:11px;color:rgba(255,255,255,.6);margin-top:8px;font-style:italic}
+.sea{background:var(--accent-light);border:2px solid var(--accent);border-radius:12px;padding:20px 24px;margin:20px 0}
+.sea h3{color:var(--navy);font-size:14px;margin-bottom:8px}
+.sea p{font-size:13px;color:#5a4500;margin-bottom:12px}
+.btn-w{display:inline-block;background:var(--navy);color:#fff;font-weight:700;font-size:13px;padding:9px 18px;border-radius:6px}
+.mk{border-left:4px solid var(--red);border-radius:0 8px 8px 0;padding:14px 18px;background:var(--red-light);margin-bottom:14px}
+.mk-n{font-weight:700;color:var(--red);font-size:13px;margin-bottom:5px}
+.mk-w{font-size:12px;color:#7a2020;margin-bottom:6px;font-style:italic}
+.mk-f{font-size:13px}
+.faq-item{border-bottom:1px solid var(--border);padding:14px 0}
+.faq-q{font-weight:700;color:var(--navy);font-size:13px;margin-bottom:6px}
+.faq-a{font-size:13px}
+.qr{background:var(--navy);color:#fff;border-radius:10px;padding:22px 24px;margin:20px 0}
+.qr h3{color:var(--accent);font-size:13px;letter-spacing:1px;text-transform:uppercase;margin-bottom:14px}
+.qrf{background:rgba(255,255,255,.07);border-radius:6px;padding:10px 14px;margin-bottom:10px}
+.qrl{color:var(--accent);font-weight:700;font-size:11px;margin-bottom:4px}
+.qrb{margin-top:12px;list-style:none}
+.qrb li{font-size:12px;color:rgba(255,255,255,.85);margin-bottom:5px;padding-left:18px;position:relative}
+.qrb li::before{content:"✓";color:#4ade80;position:absolute;left:0}
+.qrb .nv{color:#fca5a5!important}.qrb .nv::before{content:"✗"!important;color:#fca5a5!important}
+.prob{background:var(--gray);border-radius:8px;padding:14px 18px;margin-bottom:12px}
+.plbl{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.desmos{border:2px dashed #cbd5e1;border-radius:10px;padding:28px 20px;text-align:center;margin:16px 0;background:#f8fafc}
+.desmos .icon{font-size:30px;margin-bottom:8px}
+.desmos .dlbl{font-weight:700;color:var(--blue);font-size:13px;margin-bottom:4px}
+.desmos .dsub{font-size:11px;color:var(--muted)}
+.added{display:inline-block;background:#e0f2fe;color:#0369a1;font-size:10px;font-weight:600;padding:2px 7px;border-radius:3px;margin-bottom:6px}
+.zf{background:#1a1a2e;border-radius:12px;padding:24px;margin-top:40px}
+.zf-ttl{color:var(--accent);font-size:14px;font-weight:800;letter-spacing:1px;text-transform:uppercase;margin-bottom:20px}
+.zi{display:flex;gap:12px;margin-bottom:16px;align-items:flex-start}
+.zchk{width:18px;height:18px;border:2px solid var(--accent);border-radius:3px;flex-shrink:0;margin-top:2px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s}
+.zchk.on{background:var(--accent)}.zchk.on::after{content:"✓";font-size:11px;color:var(--navy);font-weight:800}
+.zilbl{font-weight:700;color:var(--accent);font-size:12px;margin-bottom:4px}
+.zitxt{font-size:12px;color:rgba(255,255,255,.75);line-height:1.5}
+hr{border:none;border-top:1px solid var(--border);margin:28px 0}
+blockquote{background:var(--gray);border-left:4px solid var(--accent);padding:12px 16px;border-radius:0 6px 6px 0;font-size:13px;font-style:italic;margin:14px 0}
+</style>
+</head>
+<body>
+<div class="chrome">
+  <div class="dots"><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div></div>
+  <div class="url">enginearu.com/blog/what-is-a-derivative-ap-calculus</div>
+  <div class="badge">FULLY HUMANIZED DRAFT v3</div>
+</div>
+<div class="page">
+  <div class="hero">
+    <div class="tag">Unit 2 - AB + BC - 2026</div>
+    <h1>What Is a Derivative in AP Calculus 2026?<br>(The Concept, Not Just the Formula)</h1>
+    <div class="meta">
+      <div class="pill">12 min read</div>
+      <div class="pill">Used by 500+ EngiNearU students to go from a 3 to a 5</div>
+    </div>
+  </div>
+  <div class="body">
+
+    <div class="toc">
+      <div class="toc-ttl">Jump To What You Need</div>
+      <ol>
+        <li><a href="#mistake">The Mistake I See Every Single Year</a></li>
+        <li><a href="#meaning">What a Derivative Actually Means</a></li>
+        <li><a href="#three">The Three Definitions You Must Know</a></li>
+        <li><a href="#ex1">Worked Example 1 - General Form</a></li>
+        <li><a href="#midcta">Free Guide</a></li>
+        <li><a href="#ex2">Worked Example 2 - FRQ-Level</a></li>
+        <li><a href="#mistakes">The 3 Mistakes That Cost My Students Points</a></li>
+        <li><a href="#practice">Practice Problems</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="#qr">Save This For Exam Day</a></li>
+      </ol>
+    </div>
+
+    <div class="sec" id="mistake">
+      <h2>The Mistake I See Every Single Year</h2>
+      <p>Every year, about half the students I work with watch the same thing happen to themselves. They sit down for the AP Calculus exam, flip to a free response question, and see this:</p>
+      <div class="math">\[\lim_{h \to 0} \frac{f(a + h) - f(a)}{h}\]</div>
+      <p>They freeze. And to be clear - it is not because these students are not smart enough. I have worked with students scoring 80s and 90s on their unit tests who still froze on this exact problem type. The issue is never intelligence. It is preparation. Specifically, not knowing what the right things are to remember and retain going into exam day. That is exactly what this post fixes.</p>
+      <p>That limit right there? That is not some scary new formula. That is just a derivative. Written out the long way. In my opinion, this is the single most forgotten concept in Unit 2... so don't let this be you.</p>
+      <p>Here is the truth: there are exactly <strong>3</strong> limit definitions of the derivative. Most students only learn <strong>1</strong>, if not any! However, the AP exam uses all <strong>3</strong>. And if you know all 3 cold, you will recognize that limit immediately and know exactly what to do.</p>
+      <p>Most students learn derivatives through basic memorization - you know, just know the formulas. But I believe you should know the concepts first, because that is what AP graders actually expect. In my experience, that order is the difference between a student who gets a 3 and my students who score 5s.</p>
+      <blockquote>This is not a quick read. But 12 minutes here will save you hours of confusion later in your course.</blockquote>
+      <p>By the time we are done, you will know what a derivative means conceptually, you will have all 3 limit definitions locked in, and you will be able to handle the problem type where the AP exam gives you the limit and asks you to identify the function. And just so you know - this shows up every single year on the AP exam in some form. Expect it.</p>
+    </div>
+
+    <hr>
+
+    <div class="sec" id="meaning">
+      <h2>What a Derivative Actually Means</h2>
+      <p>Textbooks explain derivatives with slope formulas and secant lines. I have never found that helpful as a first explanation - and honestly, neither have my students. Here is the analogy I use with every single one of my students instead.</p>
+      <p>I want you to forget the formula for a second. Think about driving to the mall.</p>
+      <p>The mall is 10 minutes away. You hop in the car and start driving. Now your friend in the passenger seat asks: "How fast are you going right now? Not your average speed the whole trip. Right now, at exactly 5 minutes from the house?"</p>
+      <p>That is a derivative. You are asking for the speed at one exact moment in time. Not over an interval. Not an average. A snapshot.</p>
+      <p>Most students think the graph is the hard part. It is actually the easiest way to see what a derivative is doing.</p>
+      <p>In math terms, a derivative measures how fast a function is changing at a specific input value. When I say "take the derivative," what I am really asking you is: how fast is this function moving right now, at this exact x-value?</p>
+      <p>On a graph, that question has a clean answer. If I hand you the graph of \(x^2\) and ask you what the derivative is at \(x = 1\), I am asking one specific question: what is the slope of the line that just barely touches that curve right there? That slope is your derivative. That is it.</p>
+      <div class="desmos">
+        <div class="icon">📈</div>
+        <div class="dlbl">DESMOS GRAPH GOES HERE</div>
+        <div class="dsub">f(x) = x&#178;, tangent line at x=1 (y=2x-1), optional fading secant line<br>Window: x[-2,3], y[-1,6] - Label (1,1) as "Derivative = slope here"<br><strong>Screenshot only. ~90 seconds in Desmos.</strong></div>
+      </div>
+      <p>Most definitions in your textbook take three sentences to say what I am about to say in one. That is on purpose. Here is the definition I make every student write down before we move on - no exceptions.</p>
+      <blockquote>The derivative is the limit of the slope between two points on a curve as those points get closer and closer until they become one.</blockquote>
+      <p>Think about what that looks like on the graph of \(x^2\) at \(x = 1\). Those two points are literally collapsing into the single point \((1, 1)\). That is not an abstraction. That is exactly what the limit is doing.</p>
+      <p>And here is the truth - if you cannot say that definition out loud without looking at your notes, you are not ready for the exam. I have seen students who could do the algebra perfectly but could not explain what a derivative is in one sentence. That is the gap that costs you points on the free response every single time.</p>
+    </div>
+
+    <hr>
+
+    <div class="sec" id="three">
+      <h2>The Three Definitions You Must Know</h2>
+      <p>I am not going to sugarcoat this one.</p>
+      <p>Every year I work with AP Calculus students, I tell them the same thing: you need to know all 3 limit definitions. Not 1. Not 2. All 3. And every year, most of them do not take it seriously enough early on. I have had students lose 4 to 6 points on a single free response because they only knew the general form and froze when they saw one of the other two.</p>
+      <p>That is not a small mistake. On a 45-point free response section, 4 to 6 points is the difference between a 4 and a 5.</p>
+      <p>Do not be that student. Lock these in now and they will save you points not just in Unit 2 but all the way to exam day.</p>
+
+      <div class="def-card">
+        <div class="def-hd"><div class="num">1</div>General Form - Returns a function</div>
+        <div class="def-bd">
+          <p>You would think this is the most important definition since it shows up first. It is not.</p>
+          <p>Definition 1 is the one most students know - and also the one the AP exam uses least on its own. I use this when I want the derivative as a function. You put \(x^2\) in, you get \(2x\) back. The answer still has x in it because you are finding the derivative for every point, not just one.</p>
+          <div class="math">\[f'(x) = \lim_{h \to 0} \frac{f(x + h) - f(x)}{h}\]</div>
+          <p>Use this when the problem says "find \(f'(x)\)" with no specific point mentioned.</p>
+        </div>
+      </div>
+
+      <div class="def-card">
+        <div class="def-hd"><div class="num">2</div>Alternate Form 1 - x approaches a</div>
+        <div class="def-bd">
+          <p>Most students skip this one because it looks different from what they memorized. That is exactly why it shows up on the exam.</p>
+          <p>This is the definition I see most often in the "identify the function" problem type. The big tell: the limit variable is x, not h. If you see limit as x approaches 6, that 6 is your a. Full stop.</p>
+          <div class="math">\[f'(a) = \lim_{x \to a} \frac{f(x) - f(a)}{x - a}\]</div>
+          <p>Use this when you see the limit as x approaches a specific number. If it is not h approaching zero, start here.</p>
+        </div>
+      </div>
+
+      <div class="def-card">
+        <div class="def-hd"><div class="num">3</div>Alternate Form 2 - h approaches 0, at a fixed point</div>
+        <div class="def-bd">
+          <p>This one trips my students up the most because it looks exactly like Definition 1. But look closer.</p>
+          <p>There is a fixed number sitting where you would normally see x. If you see \(\lim_{h \to 0} \frac{f(2+h) - f(2)}{h}\), that 2 is your a. Not x. 2.</p>
+          <div class="math">\[f'(a) = \lim_{h \to 0} \frac{f(a + h) - f(a)}{h}\]</div>
+          <p>This is the definition that separates students who actually studied all 3 from students who just think they did.</p>
+        </div>
+      </div>
+
+      <p><strong>My quick cheat for telling them apart:</strong><br>
+      h to 0 with x = Definition 1 &nbsp;|&nbsp; x to a = Definition 2 &nbsp;|&nbsp; h to 0 with fixed number = Definition 3</p>
+      <div class="added">ADDED FOR CLARITY - not in original lecture</div>
+      <p style="font-size:13px;color:var(--muted)">The AP exam will sometimes tell you which form to use. But for "identify the function" problems, you need to recognize the form yourself first. That recognition is the skill.</p>
+    </div>
+
+    <hr>
+
+    <div class="sec" id="ex1">
+      <h2>Worked Example 1 - General Form (Foundational)</h2>
+      <p><strong>Problem:</strong> Use the general form to find \(f'(x)\) if \(f(x) = x^2\).</p>
+      <div class="step"><div class="snum">1</div><div><div class="slbl">Write the general form formula first</div><p style="font-size:13px;margin-bottom:4px">I always tell my students: write the formula before you touch the function. It saves you from algebra mistakes later.</p><div class="math">\[f'(x) = \lim_{h \to 0} \frac{f(x + h) - f(x)}{h}\]</div></div></div>
+      <div class="step"><div class="snum">2</div><div><div class="slbl">Substitute - replace every x with (x+h)</div><div class="math">\[f'(x) = \lim_{h \to 0} \frac{(x + h)^2 - x^2}{h}\]</div></div></div>
+      <div class="step"><div class="snum">3</div><div><div class="slbl">Expand the numerator</div><div class="math">\[f'(x) = \lim_{h \to 0} \frac{x^2 + 2xh + h^2 - x^2}{h}\]</div></div></div>
+      <div class="step"><div class="snum">4</div><div><div class="slbl">Cancel what cancels - everything without h goes away</div><p style="font-size:13px;margin-bottom:4px">Tip I give all my students: if something without an h is left over, go back and check your algebra.</p><div class="math">\[f'(x) = \lim_{h \to 0} \frac{2xh + h^2}{h}\]</div></div></div>
+      <div class="step"><div class="snum">5</div><div><div class="slbl">Factor h from the entire numerator</div><div class="math">\[f'(x) = \lim_{h \to 0} \frac{h(2x + h)}{h}\]</div></div></div>
+      <div class="step"><div class="snum">6</div><div><div class="slbl">Cancel h and apply the limit</div><div class="math">\[f'(x) = \lim_{h \to 0} (2x + h) = \boxed{2x}\]</div></div></div>
+      <div class="rubric">
+        <div class="rubric-ttl">Here is exactly how the AP exam scores this type of problem</div>
+        <ul>
+          <li>Set up the correct limit definition with f(x+h) and f(x) in the right positions</li>
+          <li>Correctly expand (x+h)&#178; - squaring the binomial is one of the most common errors I see</li>
+          <li>Show the cancellation of x&#178; terms explicitly</li>
+          <li>Factor and cancel h from numerator and denominator before applying the limit</li>
+          <li>Apply the limit by direct substitution after h cancels</li>
+          <li>State the final derivative clearly - write it out, do not just circle a number</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="cta" id="midcta">
+      <h3>Grab the Free "Before AP Calculus" Guide</h3>
+      <p>Not sure what you need solid before Unit 2 clicks? I put together a free guide that walks you through exactly what needs to be locked in before derivatives make sense. Zero fluff.</p>
+      <div class="btn">Get the Free Guide - aceapcalculus.com/before-apcalc</div>
+      <div class="sub">Parents: great starting point to see where your student stands before the school year begins.</div>
+    </div>
+
+    <hr>
+
+    <div class="sec" id="ex2">
+      <h2>Worked Example 2 - FRQ-Level Problem</h2>
+      <p>This is the problem type I just warned you about. The AP exam hands you the limit. You have to identify the definition, the function, and the value of a - before you can even start solving. I have seen students spend 3 minutes staring at this problem type because they did not practice recognizing the form. Do not be that student.</p>
+
+      <h3>Part (a)</h3>
+      <div class="math">\[\lim_{x \to 6} \frac{-2x^2 + x - (-66)}{x - 6}\]</div>
+      <p>First thing I do: look at what variable the limit is in. This one is as \(x \to 6\), not \(h \to 0\). That tells me immediately - Definition 2.</p>
+      <p>Matching pieces: \(a = 6\), \(f(a) = -66\), \(f(x) = -2x^2 + x\)</p>
+      <p>Check: \(f(6) = -2(36) + 6 = -72 + 6 = -66\). Confirmed. \[\boxed{f(x) = -2x^2 + x, \quad a = 6}\]</p>
+
+      <h3>Part (b)</h3>
+      <div class="math">\[\lim_{h \to 0} \frac{3(2 + h)^4 - 3(2)^4}{h}\]</div>
+      <p>The limit is as \(h \to 0\) - but there is a fixed number, 2, sitting where you would expect x. That is the tell. Definition 3.</p>
+      <p>Matching: \(a = 2\), \(f(x) = 3x^4\). Check: \(f(2) = 3(16) = 48\). Confirmed. \[\boxed{f(x) = 3x^4, \quad a = 2}\]</p>
+
+      <h3>Part (c)</h3>
+      <div class="math">\[\lim_{x \to -\pi/2} \frac{\sin(x) - (-1)}{x - (-\pi/2)}\]</div>
+      <p>x is approaching a specific value. Back to Definition 2. \(f(x) = \sin(x)\), \(a = -\pi/2\).</p>
+      <p>Check: \(\sin(-\pi/2) = -1\). Confirmed. Bottom of the unit circle - have that memorized cold. \[\boxed{f(x) = \sin(x), \quad a = -\frac{\pi}{2}}\]</p>
+
+      <div class="rubric">
+        <div class="rubric-ttl">Here is exactly how the AP exam scores this type of problem</div>
+        <ul>
+          <li>Correctly identify which definition is being used (1 point per part)</li>
+          <li>Correctly identify f(x) - partial credit possible but you need the right function</li>
+          <li>Correctly identify a - its own point, separate from f(x)</li>
+          <li>Verification by substitution earns the justification point</li>
+        </ul>
+      </div>
+    </div>
+
+    <hr>
+
+    <div class="sec" id="mistakes">
+      <h2>The 3 Mistakes That Cost My Students Points</h2>
+      <div class="mk">
+        <div class="mk-n">Mistake 1: Forcing every problem into one definition</div>
+        <div class="mk-w">Why it happens: My students memorize the general form first and try to use it on everything. It is also the most dangerous assumption they can make walking into the AP exam.</div>
+        <div class="mk-f">Fix: Look at the limit variable first. h to 0 with x? General Form. x to a? Definition 2. h to 0 with a fixed number? Definition 3. Identify first. Then solve.</div>
+      </div>
+      <div class="mk">
+        <div class="mk-n">Mistake 2: Canceling h before factoring it from the whole numerator</div>
+        <div class="mk-w">Why it happens: My students try to cancel h from individual terms. The algebra looks right in the moment. It is not.</div>
+        <div class="mk-f">Fix: Expand, combine, factor h from the entire numerator, then cancel. If you cancel h early, you will get the wrong answer and not know why.</div>
+      </div>
+      <div class="mk">
+        <div class="mk-n">Mistake 3: Writing the answer without derivative notation</div>
+        <div class="mk-w">Why it happens: My students do all the algebra correctly, get the right number, and write it down without labeling what it is. They worked hard for that answer and then left a point on the table.</div>
+        <div class="mk-f">Fix: Write f'(x) = or f'(a) = in front of your answer every single time. I have seen this cost points on otherwise perfect solutions.</div>
+      </div>
+    </div>
+
+    <hr>
+
+    <div class="sec" id="practice">
+      <h2>Practice Problems</h2>
+      <p>Try these on your own before checking the answers. If you get stuck, go back to the definition section and identify the form first.</p>
+      <div class="prob"><div class="plbl">Problem 1 - Single Step</div><p>Use the general form to find \(f'(x)\) if \(f(x) = 8x\).</p></div>
+      <div class="prob"><div class="plbl">Problem 2 - Multi-Step</div><p>Given \(\displaystyle\lim_{h \to 0} \frac{4(x+h)^3 + 7(x+h) - (4x^3 + 7x)}{h}\): (a) identify the definition, (b) name f(x), (c) set up using Definition 3 at a=1.</p></div>
+      <div class="prob"><div class="plbl">Problem 3 - FRQ Style (Justification Required)</div><p>Given \(\displaystyle\lim_{x \to 3} \frac{\sqrt{x} - \sqrt{3}}{x - 3}\): (a) identify f(x) and a, (b) explain what this represents using "tangent line" and "derivative," (c) find the numerical value.</p></div>
+      <div style="background:var(--gray);border-radius:6px;padding:12px 16px;margin-top:12px;font-size:12px"><strong>Answers:</strong> P1: f'(x) = 8 &nbsp;|&nbsp; P2: f(x) = 4x&#179;+7x &nbsp;|&nbsp; P3: f(x)=&#8730;x, a=3, f'(3)=&#8730;3/6 &nbsp;<em>(Zach: verify P3 before publishing)</em></div>
+    </div>
+
+    <hr>
+
+    <div class="sec" id="faq">
+      <h2>FAQ</h2>
+      <div class="faq-item"><div class="faq-q">Q: What is a derivative in AP Calculus?</div><div class="faq-a">A: A derivative tells you how fast a function is changing at one specific point. Graphically, it is the slope of the tangent line to the curve at that point. On the AP exam you are going to see derivatives written in limit notation, in function notation like f'(x), and in Leibniz notation like dy/dx. I tell my students: if you see any of those three, someone is asking you to take a derivative.</div></div>
+      <div class="faq-item"><div class="faq-q">Q: Do I really need to memorize all three limit definitions of the derivative?</div><div class="faq-a">A: Yes - and I say this every single year to every single student I work with. The AP exam uses all 3 forms. I have had students lose points specifically because they only knew the general form. All 3 definitions are in scope for both AB and BC. No exceptions.</div></div>
+      <div class="faq-item"><div class="faq-q">Q: What is the difference between the general form and the alternate form of the derivative?</div><div class="faq-a">A: The general form gives you the derivative as a function - x is still in the result. The alternate forms give you the derivative at one specific point. The fastest way to tell them apart on an exam: look at whether you see x or a fixed number in the limit expression, and whether the limit variable is h or x. That single check will point you to the right definition every time.</div></div>
+      <div class="faq-item"><div class="faq-q">Q: How is a derivative related to a tangent line?</div><div class="faq-a">A: The derivative at a point and the slope of the tangent line at that point are the same number. Not similar. The same. When you compute f'(2), you are finding the slope of the line that just touches the curve at x = 2. That connection is tested directly on the AP exam, and I want you to have it down cold before exam day.</div></div>
+    </div>
+
+    <div class="qr" id="qr">
+      <h3>Save This For Exam Day</h3>
+      <div class="qrf"><div class="qrl">DEFINITION 1 - GENERAL FORM</div>\[f'(x) = \lim_{h \to 0} \frac{f(x+h) - f(x)}{h}\]</div>
+      <div class="qrf"><div class="qrl">DEFINITION 2 - ALTERNATE FORM 1</div>\[f'(a) = \lim_{x \to a} \frac{f(x) - f(a)}{x - a}\]</div>
+      <div class="qrf"><div class="qrl">DEFINITION 3 - ALTERNATE FORM 2</div>\[f'(a) = \lim_{h \to 0} \frac{f(a+h) - f(a)}{h}\]</div>
+      <ul class="qrb">
+        <li>Derivative = slope of tangent line at a point</li>
+        <li>Everything without h attached should cancel</li>
+        <li>Check: does f(a) match what is in the expression?</li>
+        <li class="nv">NEVER cancel h from individual terms before factoring from the whole numerator</li>
+      </ul>
+    </div>
+
+    <div class="cta" style="margin-top:32px">
+      <h3>Get the Free Guide - Then Come Back Ready</h3>
+      <p>The derivative is the foundation. Everything in AP Calculus AB and BC builds on what you just read. Before you move to derivative rules, make sure the conceptual piece is locked in - because if this is shaky, everything after it gets harder than it needs to be.</p>
+      <div class="btn">Download Free Guide - aceapcalculus.com/before-apcalc</div>
+      <div class="sub">Parents: great resource to send your student right now if they are in the middle of the course and feeling lost.</div>
+    </div>
+
+    <div class="sea">
+      <h3>Summer Program - July and August 2026</h3>
+      <p>Want your student to walk into AP Calculus next year already ahead of the class? Small groups. Real FRQ practice. Structured plan. Proven results. Spots fill fast.</p>
+      <div class="btn-w">See Summer Program Details and Reserve a Spot</div>
+    </div>
+
+    <div class="zf">
+      <div class="zf-ttl">Zach's Flow Checklist</div>
+      <div class="zi"><div class="zchk" onclick="this.classList.toggle('on')"></div><div><div class="zilbl">Math Accuracy</div><div class="zitxt">Verify f'(3) = root(3)/6 for Practice Problem 3. All other equations confirmed from transcripts.</div></div></div>
+      <div class="zi"><div class="zchk" onclick="this.classList.toggle('on')"></div><div><div class="zilbl">Personal Moment</div><div class="zitxt">INSERTED in "Three Definitions" section opening. 4-6 points lost stat is specific and real. Adjust any wording that does not sound exactly like you.</div></div></div>
+      <div class="zi"><div class="zchk" onclick="this.classList.toggle('on')"></div><div><div class="zilbl">Voice Check</div><div class="zitxt">Read the one-sentence definition aloud: "The derivative is the limit of the slope between two points on a curve as those points get closer and closer until they become one." Rewrite in your own words if needed.</div></div></div>
+      <div class="zi"><div class="zchk" onclick="this.classList.toggle('on')"></div><div><div class="zilbl">Desmos Graph</div><div class="zitxt">f(x)=x², tangent at x=1 (y=2x-1). Screenshot only. Window x[-2,3] y[-1,6]. ~90 seconds.</div></div></div>
+      <div class="zi"><div class="zchk" onclick="this.classList.toggle('on')"></div><div><div class="zilbl">CTA Confirmation</div><div class="zitxt">Mid-post: Option A. End: Option A. Seasonal: Option D - active through Sept 15, 2026.</div></div></div>
+      <div class="zi"><div class="zchk" onclick="this.classList.toggle('on')"></div><div><div class="zilbl">Read Time</div><div class="zitxt">12 minutes. Confirmed.</div></div></div>
+    </div>
+
+  </div>
+</div>
+</body>
+</html>

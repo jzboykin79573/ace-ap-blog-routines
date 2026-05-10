@@ -1,0 +1,116 @@
+# =============================================================
+# ace-ap-blog — .gitignore
+#
+# This file tells Git what NOT to track. The theme files are
+# what we care about. WordPress core, uploads, secrets, and
+# editor/OS junk should never end up in the repo.
+# =============================================================
+
+
+# -------------------------------------------------------------
+# WORDPRESS CORE
+# Never commit WP core — it's installed separately on the server.
+# This theme lives at wp-content/themes/ace-ap-blog/ and is the
+# only thing that needs to be in version control.
+# -------------------------------------------------------------
+wp-admin/
+wp-includes/
+wp-login.php
+wp-blog-header.php
+wp-comments-post.php
+wp-config.php
+wp-config-sample.php
+wp-cron.php
+wp-links-opml.php
+wp-load.php
+wp-mail.php
+wp-settings.php
+wp-signup.php
+wp-trackback.php
+xmlrpc.php
+index.php
+license.txt
+readme.html
+
+
+# -------------------------------------------------------------
+# WORDPRESS UPLOADS & GENERATED FILES
+# Media uploads belong to the server, not the repo.
+# -------------------------------------------------------------
+wp-content/uploads/
+wp-content/upgrade/
+wp-content/backup-db/
+wp-content/cache/
+wp-content/blogs.dir/
+wp-content/advanced-cache.php
+wp-content/db.php
+wp-content/object-cache.php
+
+
+# -------------------------------------------------------------
+# WORDPRESS PLUGINS
+# Plugins are managed separately (or via composer). Don't track them here.
+# -------------------------------------------------------------
+wp-content/plugins/
+
+
+# -------------------------------------------------------------
+# SECRETS & ENVIRONMENT FILES
+# NEVER commit credentials, API keys, or environment config.
+# -------------------------------------------------------------
+.env
+.env.local
+.env.production
+wp-config.php
+*.key
+*.pem
+*.cert
+
+
+# -------------------------------------------------------------
+# NODE / NPM (if a build tool is added in future)
+# -------------------------------------------------------------
+node_modules/
+npm-debug.log
+yarn-error.log
+.npm
+
+
+# -------------------------------------------------------------
+# macOS SYSTEM FILES
+# -------------------------------------------------------------
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+
+# -------------------------------------------------------------
+# EDITOR FILES
+# -------------------------------------------------------------
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+*.sublime-project
+*.sublime-workspace
+
+
+# -------------------------------------------------------------
+# ZIP ARCHIVES (old versioned zips should not be in the repo)
+# -------------------------------------------------------------
+*.zip
+
+
+# -------------------------------------------------------------
+# COMPILED / BUILD OUTPUT (if Sass or PostCSS is added later)
+# -------------------------------------------------------------
+/dist/
+/build/
+*.css.map

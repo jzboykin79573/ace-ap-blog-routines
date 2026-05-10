@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PREVIEW — What Is a Derivative in AP Calculus 2026?</title>
+
+<!--
+=======================================================================
+  PREVIEW FILE — ACE AP CALCULUS BLOG
+  Post 01: What Is a Derivative in AP Calculus 2026?
+=======================================================================
+  This file has three jobs:
+  1. Let you preview the post in your browser before publishing
+  2. Show you a publishing guide at the top of the page
+  3. Mark exactly what to copy into each part of WordPress
+
+  HOW TO USE THIS FILE
+  ─────────────────────
+  Open it in your browser → read the publishing guide at the top
+  Open it in VS Code → the comment markers show you what goes where
+
+  WHAT GETS PASTED INTO WORDPRESS
+  ─────────────────────────────────
+  STEP 1 (one time only) → functions.php  (see guide below)
+  STEP 2 → WordPress title field          (see guide below)
+  STEP 3 → One Custom HTML block          (marked in the body below)
+=======================================================================
+-->
+
+<!-- PREVIEW-ONLY: Fonts, MathJax, Desmos load here for local preview.
+     WordPress gets MathJax + Desmos from functions.php (Step 1 below).
+     Do NOT paste any of this <head> section into WordPress. -->
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<script>MathJax = { tex: { inlineMath: [['$','$']], displayMath: [['$$','$$']], processEscapes: true } };</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+<script src="https://www.desmos.com/api/v1.7/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0fda6"></script>
+
+<!-- PREVIEW-ONLY CSS: styles for the browser chrome, hero, and page
+     wrapper below. None of this goes into WordPress. -->
+<style>
+:root{
+  --navy:#0f1e3c;--blue:#1a3a6b;--accent:#e8a020;--accent-light:#fef3dc;
+  --green:#1a7a4a;--green-light:#eaf7f0;--red:#c0392b;--red-light:#fdf2f1;
+  --purple:#7c3aed;--purple-light:#f3f0ff;
+  --gray:#f5f6f8;--border:#dde1e8;--text:#1a1a2e;--muted:#6b7280;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:#eef0f4;color:var(--text);font-size:14px;line-height:1.8}
+/* Publishing guide panel */
+.pub-guide{background:#1a1a2e;font-family:'JetBrains Mono',monospace}
+.pub-guide summary{padding:14px 20px;cursor:pointer;color:var(--accent);font-size:13px;font-weight:700;letter-spacing:.5px;list-style:none;display:flex;align-items:center;gap:10px}
+.pub-guide summary::before{content:"▶";font-size:10px;transition:transform .2s}
+.pub-guide[open] summary::before{transform:rotate(90deg)}
+.pub-guide-body{padding:0 20px 20px}
+.pub-step{margin-bottom:24px}
+.pub-step-ttl{color:var(--accent);font-size:12px;font-weight:700;margin-bottom:6px;letter-spacing:.5px}
+.pub-step p{color:rgba(255,255,255,.75);font-size:12px;margin-bottom:8px;font-family:'Inter',sans-serif;line-height:1.6}
+.pub-step textarea{width:100%;background:#0d0d1a;color:#a8d8a8;border:1px solid #333;border-radius:6px;padding:12px;font-size:11px;font-family:'JetBrains Mono',monospace;line-height:1.6;resize:vertical;min-height:80px}
+.pub-step code{background:#0d0d1a;color:var(--accent);padding:2px 6px;border-radius:3px;font-size:11px}
+.pub-divider{border:none;border-top:1px solid #2a2a4a;margin:20px 0}
+/* Preview chrome bar */
+.chrome{background:#2d2d2d;padding:8px 14px;display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:100}
+.dots{display:flex;gap:6px}.dot{width:11px;height:11px;border-radius:50%}
+.dot.r{background:#ff5f57}.dot.y{background:#febc2e}.dot.g{background:#28c840}
+.url{flex:1;background:#3d3d3d;border-radius:5px;padding:4px 10px;color:#aaa;font-size:11px;font-family:'JetBrains Mono',monospace}
+.badge{background:var(--accent);color:var(--navy);font-size:10px;font-weight:700;padding:3px 8px;border-radius:4px}
+/* Preview page wrapper + hero */
+.page{max-width:780px;margin:0 auto;background:#fff;min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,.12)}
+.hero{background:linear-gradient(135deg,var(--navy),var(--blue));padding:40px 40px 32px;color:#fff}
+.tag{display:inline-block;background:var(--accent);color:var(--navy);font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;padding:3px 9px;border-radius:3px;margin-bottom:14px}
+.hero h1{font-family:'Merriweather',serif;font-size:22px;line-height:1.4;margin-bottom:14px}
+.meta{display:flex;gap:10px;flex-wrap:wrap}
+.pill{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.88);font-size:11px;padding:4px 10px;border-radius:20px}
+</style>
+</head>
+<body>
+
+<!-- ===================================================================
+     PUBLISHING GUIDE — visible in your browser, preview only
+     This panel does NOT get pasted into WordPress.
+     =================================================================== -->
+<details class="pub-guide" open>
+  <summary>PUBLISHING GUIDE — 3 steps to post this to WordPress</summary>
+  <div class="pub-guide-body">
+
+    <div class="pub-step">
+      <div class="pub-step-ttl">STEP 1 — ONE TIME ONLY: Add MathJax + Desmos to functions.php</div>
+      <p>Do this once. After that, skip to Step 2 for every future post.<br>
+         Go to: WordPress Admin → Appearance → Theme File Editor → functions.php<br>
+         Scroll to the bottom and paste the code below.</p>
+      <textarea readonly rows="10">
+// ── ACE AP CALCULUS: MathJax + Desmos ─────────────────────────────
+// Paste this at the bottom of functions.php — one time only.
+
+add_action('wp_head', function() {
+    echo '<script>MathJax = { tex: { inlineMath: [["$","$"]], displayMath: [["$$","$$"]] } };</script>';
+    echo '<script src="https://www.desmos.com/api/v1.7/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0fda6"></script>';
+}, 1);
+
+add_action('wp_enqueue_scripts', function() {
+    wp_enqueue_script('mathjax', 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js', [], null, false);
+});
+// ──────────────────────────────────────────────────────────────────</textarea>
+    </div>
+
+    <hr class="pub-divider">
+
+    <div class="pub-step">
+      <div class="pub-step-ttl">STEP 2 — WordPress title field</div>
+      <p>In the WordPress editor, click the title field at the top and paste this exactly:</p>
+      <textarea readonly rows="2">What Is a Derivative in AP Calculus 2026? (The Concept, Not Just the Formula)</textarea>
+    </div>
+
+    <hr class="pub-divider">
+
+    <div class="pub-step">
+      <div class="pub-step-ttl">STEP 3 — WordPress Custom HTML block (the post content)</div>
+      <p>In the WordPress editor content area:<br>
+         1. Click the <code>+</code> button → search <code>Custom HTML</code> → add that block<br>
+         2. Open this file in VS Code or any text editor<br>
+         3. Find the comment that says: <code>▼▼▼ START: PASTE THIS INTO WORDPRESS CUSTOM HTML BLOCK ▼▼▼</code><br>
+         4. Select everything from that line down to: <code>▲▲▲ END: WORDPRESS CUSTOM HTML BLOCK ▲▲▲</code><br>
+         5. Paste into the Custom HTML block in WordPress<br><br>
+         That section contains the fonts link, all the CSS, all the post content, and the Desmos graph script.</p>
+    </div>
+
+    <hr class="pub-divider">
+
+    <div class="pub-step">
+      <div class="pub-step-ttl">STEP 4 — SEO fields (in the WordPress sidebar)</div>
+      <p>If you use Yoast or Rank Math, fill these in the sidebar before publishing:</p>
+      <textarea readonly rows="5">
+SEO Title:       What Is a Derivative in AP Calculus? (2026 Guide)
+Meta Description: Learn what a derivative really means in AP Calculus AB/BC. All 3 limit definitions, worked examples, and common mistakes — built for exam day.
+Slug:            what-is-a-derivative-ap-calculus
+Focus Keyword:   what is a derivative in AP Calculus</textarea>
+    </div>
+
+  </div>
+</details>
+<!-- END PUBLISHING GUIDE -->
+
+
+<!-- ===================================================================
+     PREVIEW ONLY: browser chrome bar
+     Do NOT paste this into WordPress.
+     =================================================================== -->
+<div class="chrome">
+  <div class="dots">
+    <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
+  </div>
+  <div class="url">enginearu.com/ap-calculus-prep/what-is-a-derivative-ap-calculus/</div>
+  <div class="badge">PREVIEW</div>
+</div>
+<!-- END PREVIEW CHROME -->
+
+
+<!-- ===================================================================
+     PREVIEW ONLY: hero header
+     WordPress uses the title field (Step 2) instead of this.
+     Do NOT paste this into WordPress.
+     =================================================================== -->
+<div class="page">
+<div class="hero">
+  <div class="tag">AP Calculus AB · BC · Unit 2</div>
+  <h1>What Is a Derivative in AP Calculus 2026?<br>(The Concept, Not Just the Formula)</h1>
+  <div class="meta">
+    <span class="pill">⏱ 12 min read</span>
+    <span class="pill">✓ 500+ EngiNearU students</span>
+    <span class="pill">3 → 5 score improvement</span>
+  </div>
+</div>
+<!-- END PREVIEW HERO -->
+
+
+<!-- ===================================================================
+     ▼▼▼ START: PASTE THIS INTO WORDPRESS CUSTOM HTML BLOCK ▼▼▼
+     ===================================================================
+     Select from this line all the way down to the matching END marker.
+     Paste the entire selection into one Custom HTML block in WordPress.
+     =================================================================== -->
+
+<!-- Google Fonts — loads the typefaces used in the post styling -->
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<!-- Post CSS — all visual styles for the content below -->
+<style>
+.ace-post{
+  --navy:#0f1e3c;--blue:#1a3a6b;--accent:#e8a020;--accent-light:#fef3dc;
+  --green:#1a7a4a;--green-light:#eaf7f0;--red:#c0392b;--red-light:#fdf2f1;
+  --purple:#7c3aed;--purple-light:#f3f0ff;
+  --gray:#f5f6f8;--border:#dde1e8;--text:#1a1a2e;--muted:#6b7280;
+  font-family:'Inter',sans-serif;font-size:14px;line-height:1.8;color:var(--text);
+  padding:32px 0;
+}
+.ace-post .toc{background:var(--gray);border-left:4px solid var(--navy);border-radius:0 8px 8px 0;padding:18px 20px;margin-bottom:36px}
+.ace-post .toc-ttl{font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.ace-post .toc ol{padding-left:18px}.ace-post .toc li{margin-bottom:6px}
+.ace-post .toc a{color:var(--blue);text-decoration:none;font-size:13px;font-weight:500}
+.ace-post .sec{margin-bottom:40px}
+.ace-post h2{font-family:'Merriweather',serif;font-size:18px;font-weight:700;color:var(--navy);margin-bottom:14px;padding-bottom:8px;border-bottom:2px solid var(--border)}
+.ace-post h3{font-size:14px;font-weight:700;color:var(--blue);margin:18px 0 8px}
+.ace-post p{margin-bottom:13px;font-size:14px}
+.ace-post .math-block{background:var(--gray);border-radius:8px;padding:16px 20px;margin:14px 0;text-align:center;overflow-x:auto;font-size:15px}
+.ace-post .compare{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);border-radius:10px;overflow:hidden;margin:18px 0}
+.ace-post .compare-side{padding:18px 20px;background:#fff}
+.ace-post .compare-side.left{background:var(--gray)}
+.ace-post .compare-lbl{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px}
+.ace-post .compare-lbl.aroc{color:var(--muted)}
+.ace-post .compare-lbl.iroc{color:var(--blue)}
+.ace-post .compare-val{font-size:22px;font-weight:800;color:var(--navy);margin-bottom:4px}
+.ace-post .compare-sub{font-size:12px;color:var(--muted);line-height:1.5}
+.ace-post .compare-badge{display:inline-block;margin-top:8px;font-size:10px;font-weight:700;padding:3px 8px;border-radius:4px}
+.ace-post .compare-badge.aroc{background:var(--gray);color:var(--muted);border:1px solid var(--border)}
+.ace-post .compare-badge.iroc{background:var(--blue);color:#fff}
+.ace-post .def-card{border-radius:8px;overflow:hidden;border:1px solid var(--border);margin-bottom:14px}
+.ace-post .def-hd{background:var(--navy);color:#fff;padding:9px 14px;font-size:12px;font-weight:700;display:flex;align-items:center;gap:8px}
+.ace-post .num{background:var(--accent);color:var(--navy);width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;flex-shrink:0}
+.ace-post .def-bd{padding:14px 16px;background:#fff}
+.ace-post .def-bd p{font-size:13px;margin-bottom:8px}
+.ace-post .def-bd p:last-child{margin-bottom:0}
+.ace-post .def-tag{display:inline-block;font-size:10px;font-weight:700;padding:2px 7px;border-radius:3px;margin-top:4px;background:var(--green-light);color:var(--green)}
+.ace-post .cheat{background:var(--accent-light);border:1px solid var(--accent);border-radius:8px;padding:14px 16px;margin:16px 0}
+.ace-post .cheat-ttl{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#8a5a00;margin-bottom:8px}
+.ace-post .cheat-list{padding-left:0;list-style:none}
+.ace-post .cheat-list li{font-size:13px;padding:4px 0;display:flex;align-items:flex-start;gap:8px;color:#5a3c00}
+.ace-post .cheat-list li::before{content:"→";color:var(--accent);font-weight:700;flex-shrink:0;margin-top:2px}
+.ace-post .note{background:var(--purple-light);border-left:3px solid var(--purple);border-radius:0 6px 6px 0;padding:10px 14px;margin:14px 0;font-size:12px;color:#4c1d95}
+.ace-post .step{display:flex;gap:14px;margin-bottom:18px;align-items:flex-start}
+.ace-post .snum{background:var(--navy);color:#fff;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;margin-top:2px}
+.ace-post .scontent{flex:1}
+.ace-post .slbl{font-weight:700;font-size:13px;color:var(--navy);margin-bottom:5px}
+.ace-post .scontent p{font-size:13px;margin-bottom:6px}
+.ace-post .rubric{background:var(--green-light);border-left:4px solid var(--green);border-radius:0 8px 8px 0;padding:14px 18px;margin:16px 0}
+.ace-post .rubric-ttl{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--green);margin-bottom:8px}
+.ace-post .rubric ul{padding-left:18px}.ace-post .rubric li{font-size:13px;margin-bottom:5px;color:#1a4a32}
+.ace-post .mcq-check{background:#eef2ff;border-left:4px solid #4f46e5;border-radius:0 8px 8px 0;padding:14px 18px;margin:16px 0}
+.ace-post .mcq-ttl{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#4f46e5;margin-bottom:8px}
+.ace-post .mcq-check ul{padding-left:18px}.ace-post .mcq-check li{font-size:13px;margin-bottom:5px;color:#312e81}
+.ace-post .cta{background:linear-gradient(135deg,var(--navy),var(--blue));border-radius:12px;padding:24px 26px;margin:28px 0;color:#fff}
+.ace-post .cta h3{color:#fff;margin:0 0 8px;font-size:15px;font-family:'Merriweather',serif}
+.ace-post .cta p{color:rgba(255,255,255,.85);font-size:13px;margin-bottom:14px}
+.ace-post .btn{display:inline-block;background:var(--accent);color:var(--navy);font-weight:700;font-size:13px;padding:10px 20px;border-radius:6px;text-decoration:none}
+.ace-post .sub{font-size:11px;color:rgba(255,255,255,.6);margin-top:10px;font-style:italic}
+.ace-post .sea{background:var(--accent-light);border:2px solid var(--accent);border-radius:12px;padding:22px 26px;margin:20px 0}
+.ace-post .sea h3{color:var(--navy);font-size:14px;margin-bottom:8px;font-weight:700}
+.ace-post .sea p{font-size:13px;color:#5a4500;margin-bottom:12px}
+.ace-post .btn-w{display:inline-block;background:var(--navy);color:#fff;font-weight:700;font-size:13px;padding:10px 20px;border-radius:6px;text-decoration:none}
+.ace-post .mk{border-left:4px solid var(--red);border-radius:0 8px 8px 0;padding:14px 18px;background:var(--red-light);margin-bottom:16px}
+.ace-post .mk-n{font-weight:700;color:var(--red);font-size:13px;margin-bottom:5px}
+.ace-post .mk-w{font-size:12px;color:#7a2020;margin-bottom:6px;font-style:italic}
+.ace-post .mk-f{font-size:13px;color:var(--text)}
+.ace-post .prob{background:var(--gray);border-radius:8px;padding:16px 18px;margin-bottom:14px;border:1px solid var(--border)}
+.ace-post .plbl{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.ace-post .prob p{font-size:13px;margin-bottom:8px}
+.ace-post .answers{background:var(--navy);border-radius:8px;padding:18px 20px;margin-top:20px}
+.ace-post .ans-ttl{color:var(--accent);font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:12px}
+.ace-post .ans-item{font-size:13px;color:rgba(255,255,255,.9);margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid rgba(255,255,255,.1)}
+.ace-post .ans-item:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
+.ace-post .faq-item{border-bottom:1px solid var(--border);padding:16px 0}
+.ace-post .faq-q{font-weight:700;color:var(--navy);font-size:13px;margin-bottom:8px}
+.ace-post .faq-a{font-size:13px;line-height:1.7}
+.ace-post .qr{background:var(--navy);color:#fff;border-radius:10px;padding:24px 26px;margin:20px 0}
+.ace-post .qr-ttl{color:var(--accent);font-size:12px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:16px}
+.ace-post .qrf{background:rgba(255,255,255,.07);border-radius:6px;padding:12px 16px;margin-bottom:10px;text-align:center}
+.ace-post .qrf-lbl{font-size:11px;color:rgba(255,255,255,.5);margin-bottom:6px}
+.ace-post .qrb{margin-top:14px;list-style:none;padding-left:0}
+.ace-post .qrb li{font-size:12px;color:rgba(255,255,255,.85);margin-bottom:6px;padding-left:20px;position:relative}
+.ace-post .qrb li::before{content:"✓";color:#4ade80;position:absolute;left:0;font-weight:700}
+.ace-post .qrb .nv{color:#fca5a5!important}.ace-post .qrb .nv::before{content:"✗"!important;color:#fca5a5!important}
+.ace-post .related-link{display:block;padding:12px 14px;background:var(--gray);border-radius:6px;border:1px solid var(--border);margin-bottom:8px;font-size:13px;color:var(--muted);font-style:italic}
+.ace-post .desmos-wrap{border-radius:10px;overflow:hidden;margin:18px 0;border:1px solid var(--border)}
+.ace-post .desmos-label{background:var(--navy);color:#fff;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:8px 14px;display:flex;align-items:center;gap:6px}
+.ace-post .desmos-dot{width:8px;height:8px;border-radius:50%;background:var(--accent)}
+.ace-post .body-list{padding-left:20px;margin-bottom:12px;font-size:13px}
+.ace-post .body-list li{margin-bottom:5px}
+.ace-post hr{border:none;border-top:1px solid var(--border);margin:28px 0}
+</style>
+
+<!-- Post content — all sections of the blog post -->
+<div class="ace-post">
+
+  <!-- Table of contents -->
+  <div class="toc">
+    <div class="toc-ttl">Jump To What You Need</div>
+    <ol>
+      <li><a href="#mistake">The Mistake I See Every Single Year</a></li>
+      <li><a href="#what-it-means">What a Derivative Actually Means</a></li>
+      <li><a href="#three-definitions">The Three Definitions You Must Know</a></li>
+      <li><a href="#example-1">Worked Example 1 — General Form (Foundational)</a></li>
+      <li><a href="#mid-cta">Grab the Free Guide</a></li>
+      <li><a href="#example-2">Worked Example 2 — The MCQ Problem Type That Shows Up Every Year</a></li>
+      <li><a href="#mistakes">The 3 Mistakes That Cost My Students Points</a></li>
+      <li><a href="#practice">Practice Problems</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="#quick-reference">Save This For Exam Day</a></li>
+      <li><a href="#related">Related Posts</a></li>
+    </ol>
+  </div>
+
+  <!-- Section 1: The Mistake -->
+  <div class="sec" id="mistake">
+    <h2>The Mistake I See Every Single Year</h2>
+    <p>Every year, about half the students I work with watch the same thing happen to themselves. They sit down for the AP Calculus exam, get to a multiple choice question, and see this:</p>
+    <div class="math-block">$$\lim_{h \to 0} \frac{f(a + h) - f(a)}{h}$$</div>
+    <p>They freeze. And to be clear — it is not because these students are not smart enough. I have worked with students scoring 80s and 90s on their unit tests who still froze on this exact problem type. The issue is never intelligence. It is preparation. Specifically, not knowing what the right things are to remember and retain going into exam day. That is exactly what this post fixes.</p>
+    <p>That limit right there? That is not some scary new formula. That is just a derivative. Written out the long way. In my opinion, this is the single most forgotten concept in Unit 2... so don't let this be you.</p>
+    <p>There are exactly 3 limit definitions of the derivative. Most students only remember 1, if not any! However, the AP exam uses all 3. And if you know all 3 cold, you will recognize that limit immediately and know exactly what to do. In the multiple choice section, that recognition is worth an automatic point and takes under 60 seconds.</p>
+    <p>Oh.. and yes! This is simply basic memorization, which I am typically not a fan of. I believe you should know the concepts first, because that is what AP graders actually expect. In my experience, that order is the difference between a student who gets a 3 and my students who score 5s.</p>
+    <p>This is not a quick read. But 12 minutes here will save you hours of confusion later in your course.</p>
+    <p>By the time we are done, you will know what a derivative means conceptually, you will have all 3 limit definitions locked in, and you will be able to handle any limit definition of a derivative problem type where the AP exam gives you the limit and asks you to evaluate it. And just so you know — this shows up every single year on the AP exam in some form. Expect it.</p>
+  </div>
+
+  <!-- Section 2: What it means -->
+  <div class="sec" id="what-it-means">
+    <h2>What a Derivative Actually Means</h2>
+    <p>Textbooks explain derivatives with slope formulas and secant lines. I have never found that helpful as a first explanation and neither have my students. Here is the analogy I use with every single one of my students instead.</p>
+    <p>Forget the formula for a second. Think about driving to the mall.</p>
+    <p>The mall is exactly 12 miles away. You leave the house, drive through a few lights, hit a stretch of highway, and pull into the parking lot 20 minutes later. Your average speed for the entire trip? 36 miles per hour. Total distance divided by total time. 12 miles over one-third of an hour. Done.</p>
+    <p>That is the <strong>average rate of change</strong>. And here is the thing about average rate of change that most students do not think about: it tells you almost nothing useful about what actually happened during those 20 minutes.</p>
+    <p>Because at some point you were sitting at a red light. Speed: 0. At another point you merged onto the highway and hit 65. And at exactly 8 minutes from the house, you were doing 42 miles per hour coasting through a green light. None of that shows up in 36 miles per hour. That number is just the big-picture summary. It smooths over every moment in between.</p>
+    <p>Now your friend in the passenger seat glances at the speedometer at exactly that 8-minute mark and asks: <em>"How fast are we going right now?"</em></p>
+    <p><strong>That is a derivative.</strong></p>
+    <p>Not your average over the whole trip. Not 36. The exact speed at one specific moment: 42 miles per hour at exactly that point in time.</p>
+
+    <!-- AROC vs IROC comparison card -->
+    <div class="compare">
+      <div class="compare-side left">
+        <div class="compare-lbl aroc">Average Rate of Change</div>
+        <div class="compare-val">36 mph</div>
+        <div class="compare-sub">Total distance ÷ total time<br>The whole 20-minute trip</div>
+        <span class="compare-badge aroc">Interval — not the derivative</span>
+      </div>
+      <div class="compare-side">
+        <div class="compare-lbl iroc">Instantaneous Rate of Change</div>
+        <div class="compare-val" style="color:var(--blue)">42 mph</div>
+        <div class="compare-sub">Speedometer at exactly 8 min<br>One specific moment</div>
+        <span class="compare-badge iroc">This is the derivative</span>
+      </div>
+    </div>
+
+    <p>Your car's speedometer is doing calculus every second. It does not care where you started or where you are going. It only cares about right now.</p>
+    <p>This is the distinction most students miss going into the AP exam. Average rate of change looks at an interval. "From minute 0 to minute 20, how much did your position change relative to time?" Instantaneous rate of change collapses that interval down to a single point. The limit is the mathematical tool that does that collapsing. That is all the limit definition of the derivative is: the process of shrinking the interval until it disappears.</p>
+    <p>This distinction shows up in multiple choice more than anywhere else. A question will give you a table of values and ask for the average rate of change over an interval. Then the next part will ask for the instantaneous rate at a specific point. Same function. Two completely different questions. Students who treat them as interchangeable miss both. I see it every single year.</p>
+    <p><strong>The derivative answers the second question. Only the second.</strong></p>
+    <p>A derivative measures how fast a function is changing at a specific input value. When I say "take the derivative," what I am really asking you is: how fast is this function changing right now, at this exact x-value?</p>
+    <p>On a graph, that question has a clean answer. If I hand you the graph of $x^2$ and ask you what the derivative is at $x = 1$, I am asking one specific question: what is the slope of the line that just barely touches that curve right there? That slope is your derivative. That is it.</p>
+
+    <!-- Live Desmos graph -->
+    <div class="desmos-wrap">
+      <div class="desmos-label">
+        <div class="desmos-dot"></div>
+        Live Graph — f(x) = x² with tangent line at x = 1 (slope = 2)
+      </div>
+      <div id="desmos-tangent" style="width:100%;height:320px;"></div>
+    </div>
+
+    <p>Most definitions in your textbook take three sentences to say what I am about to say in one. That is on purpose. Here is the definition I make every student write down before we move on — no exceptions.</p>
+    <p><strong>The derivative is the limit of the slope between two points on a curve as those points get closer and closer until they become one.</strong></p>
+    <p>Think about what that looks like on the graph of $x^2$ at $x = 1$. Those two points are literally collapsing into the single point $(1, 1)$. That is not an abstraction. That is exactly what the limit is doing.</p>
+    <p>And here is the truth: if you cannot say that definition out loud without looking at your notes, you are not ready for the exam. I have seen students who could do the algebra perfectly but could not explain what a derivative is in one sentence. This is the gap that costs you points on easy MCQ problems.</p>
+  </div>
+
+  <!-- Section 3: Three definitions -->
+  <div class="sec" id="three-definitions">
+    <h2>The Three Definitions You Must Know</h2>
+    <p>Every year I work with AP Calculus students, I tell them the same thing: you need to know all 3 limit definitions. Not 1. Not 2. All 3. And every year, most of them do not take it seriously enough early on. I have watched students miss 3 or 4 multiple choice questions in a row because they only knew the general form and froze when they saw one of the other two.</p>
+    <p>That is not a small mistake. Multiple choice questions on this topic are some of the most learnable points on the exam. Missing 3 or 4 questions you should have gotten automatically is a hit to your score you do not need to take.</p>
+    <p>Do not be that student. Lock these in now and they will save you points not just in Unit 2 but all the way to exam day.</p>
+
+    <div class="def-card">
+      <div class="def-hd"><div class="num">1</div>Definition 1 — The General Form</div>
+      <div class="def-bd">
+        <p>You would think this is the most important definition since it shows up first. It is not.</p>
+        <p>Definition 1 is the one most students know — and also the one the AP exam uses least on its own. I use this one when I want the derivative as a function. You put $x^2$ in, you get $2x$ back. The answer still has x in it because you are finding the derivative for every point, not just one specific point.</p>
+        <div class="math-block">$$f'(x) = \lim_{h \to 0} \frac{f(x + h) - f(x)}{h}$$</div>
+        <span class="def-tag">Use when: problem says "find f'(x)" with no specific point mentioned</span>
+      </div>
+    </div>
+
+    <div class="def-card">
+      <div class="def-hd"><div class="num">2</div>Definition 2 — Alternate Form (x approaches a)</div>
+      <div class="def-bd">
+        <p>Most students skip this one because it looks different from what they memorized. That is exactly why it shows up on the exam.</p>
+        <p>This is the definition I see most often in the "identify the function" problem type on the AP exam. It gives you the derivative at one specific point. The big tell: the limit variable is x, not h. If you see limit as x approaches 6, that 6 is your a. Full stop.</p>
+        <div class="math-block">$$f'(a) = \lim_{x \to a} \frac{f(x) - f(a)}{x - a}$$</div>
+        <span class="def-tag">Use when: limit variable is x approaching a specific number (not h → 0)</span>
+      </div>
+    </div>
+
+    <div class="def-card">
+      <div class="def-hd"><div class="num">3</div>Definition 3 — Alternate Form (h approaches 0, at a point)</div>
+      <div class="def-bd">
+        <p>This one trips my students up the most because it looks exactly like Definition 1. But look closer.</p>
+        <p>There is a fixed number sitting in the expression where you would normally see x. If you see something like $\lim_{h \to 0} \frac{f(2+h) - f(2)}{h}$, that 2 sitting there is your a. Not x. 2.</p>
+        <div class="math-block">$$f'(a) = \lim_{h \to 0} \frac{f(a + h) - f(a)}{h}$$</div>
+        <span class="def-tag">Use when: h → 0 but a fixed number appears where x should be</span>
+      </div>
+    </div>
+
+    <div class="cheat">
+      <div class="cheat-ttl">My quick cheat for telling them apart on the AP exam</div>
+      <ul class="cheat-list">
+        <li>$h \to 0$ with $x$ in the expression &nbsp;=&nbsp; <strong>Definition 1, General Form</strong></li>
+        <li>$x \to a$ (x approaching a number) &nbsp;=&nbsp; <strong>Definition 2, Alternate Form</strong></li>
+        <li>$h \to 0$ with a fixed number in the expression &nbsp;=&nbsp; <strong>Definition 3, Alternate Form</strong></li>
+      </ul>
+    </div>
+
+    <div class="note">The AP exam will sometimes tell you which form to use. But for "identify the function" problems, you need to recognize the form yourself first. That recognition is the skill.</div>
+  </div>
+
+  <!-- Section 4: Worked Example 1 -->
+  <div class="sec" id="example-1">
+    <h2>Worked Example 1 — General Form (Foundational)</h2>
+    <div class="prob">
+      <div class="plbl">Problem</div>
+      <p>Use the general form of the definition of the derivative to find $f'(x)$ if $f(x) = x^2$.</p>
+    </div>
+    <div class="step"><div class="snum">1</div><div class="scontent">
+      <div class="slbl">Write the general form formula</div>
+      <p>I always tell my students: write the formula first before you touch the function. It saves you from algebra mistakes later.</p>
+      <div class="math-block">$$f'(x) = \lim_{h \to 0} \frac{f(x + h) - f(x)}{h}$$</div>
+    </div></div>
+    <div class="step"><div class="snum">2</div><div class="scontent">
+      <div class="slbl">Substitute your function</div>
+      <p>Wherever you see $x$ in $f(x) = x^2$, replace it with $(x + h)$. Every $x$ in the function gets swapped out:</p>
+      <div class="math-block">$$f'(x) = \lim_{h \to 0} \frac{(x + h)^2 - x^2}{h}$$</div>
+    </div></div>
+    <div class="step"><div class="snum">3</div><div class="scontent">
+      <div class="slbl">Expand the numerator</div>
+      <div class="math-block">$$f'(x) = \lim_{h \to 0} \frac{x^2 + 2xh + h^2 - x^2}{h}$$</div>
+    </div></div>
+    <div class="step"><div class="snum">4</div><div class="scontent">
+      <div class="slbl">Cancel what cancels</div>
+      <p>The $x^2$ terms cancel. Here is a tip I give all my students: everything in the numerator that does NOT have an $h$ attached to it should cancel. If something without an $h$ is left over, go back and check your algebra.</p>
+      <div class="math-block">$$f'(x) = \lim_{h \to 0} \frac{2xh + h^2}{h}$$</div>
+    </div></div>
+    <div class="step"><div class="snum">5</div><div class="scontent">
+      <div class="slbl">Factor $h$ from the entire numerator</div>
+      <div class="math-block">$$f'(x) = \lim_{h \to 0} \frac{h(2x + h)}{h}$$</div>
+    </div></div>
+    <div class="step"><div class="snum">6</div><div class="scontent">
+      <div class="slbl">Cancel the $h$ and apply the limit</div>
+      <div class="math-block">$$f'(x) = \lim_{h \to 0} (2x + h) = 2x$$</div>
+      <div class="math-block">$$\boxed{f'(x) = 2x}$$</div>
+    </div></div>
+    <div class="rubric">
+      <div class="rubric-ttl">Here is exactly how the AP exam scores this type of problem</div>
+      <ul>
+        <li>Set up the correct limit definition with $f(x+h)$ and $f(x)$ in the right positions</li>
+        <li>Correctly expand $(x+h)^2$ — squaring the binomial is one of the most common algebra errors I see</li>
+        <li>Show the cancellation of $x^2$ terms explicitly</li>
+        <li>Factor and cancel the $h$ from numerator and denominator before applying the limit</li>
+        <li>Apply the limit by direct substitution after the $h$ cancels</li>
+        <li>State the final derivative clearly — write it out, do not just circle a number</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Mid CTA -->
+  <div id="mid-cta">
+    <div class="cta">
+      <h3>Grab the Free "Before AP Calculus" Guide</h3>
+      <p>Not sure what you need to have solid before Unit 2 actually clicks? I put together a free guide that walks you through exactly what concepts need to be locked in before derivatives start making sense. Zero fluff. Download it free below.</p>
+      <a class="btn" href="https://www.aceapcalculus.com/freeguide" target="_blank">Get the Free Guide →</a>
+      <div class="sub">Parents: this is a great starting point to see where your student stands before the school year gets moving.</div>
+    </div>
+  </div>
+
+  <!-- Section 5: Worked Example 2 -->
+  <div class="sec" id="example-2">
+    <h2>Worked Example 2 — The MCQ Problem Type That Shows Up Every Year</h2>
+    <p>This is the problem type I just warned you about. It shows up in multiple choice almost every single year. The AP exam hands you a limit. You have to identify the definition, the function, and the value of a — then pick the right answer. If you know the form, this takes under 60 seconds. If you do not, you will spend 3 minutes staring at it and still probably guess. Do not be that student.</p>
+    <div class="prob">
+      <div class="plbl">Problem</div>
+      <p>For each limit expression below, identify the function $f(x)$ and the value of $a$. Then confirm your answer.</p>
+    </div>
+    <h3>Part (a)</h3>
+    <div class="math-block">$$\lim_{x \to 6} \frac{-2x^2 + x - (-66)}{x - 6}$$</div>
+    <p>First thing I do: look at what variable the limit is in. This one is as $x \to 6$, not $h \to 0$. That tells me immediately — Definition 2, Alternate Form.</p>
+    <p>Our formula is $\displaystyle\lim_{x \to a} \frac{f(x) - f(a)}{x - a}$. Now I just match pieces:</p>
+    <ul class="body-list">
+      <li>$a = 6$ — that is what $x$ is approaching</li>
+      <li>$f(a) = -66$, so $f(6) = -66$</li>
+      <li>$f(x) = -2x^2 + x$ — the expression not pinned to a specific value</li>
+    </ul>
+    <p>Check: $f(6) = -2(36) + 6 = -72 + 6 = -66$. Confirmed.</p>
+    <div class="math-block">$$\boxed{f(x) = -2x^2 + x, \quad a = 6}$$</div>
+    <h3>Part (b)</h3>
+    <div class="math-block">$$\lim_{h \to 0} \frac{3(2 + h)^4 - 3(2)^4}{h}$$</div>
+    <p>The limit is as $h \to 0$ — but look at the expression. There is a fixed number, 2, sitting right where you would expect $x$ to be. That is the tell. Definition 3.</p>
+    <p>Our formula is $\displaystyle\lim_{h \to 0} \frac{f(a + h) - f(a)}{h}$. Matching pieces:</p>
+    <ul class="body-list">
+      <li>$a = 2$ — the fixed number in the expression</li>
+      <li>$f(a+h) = 3(2+h)^4$ tells me $f(x) = 3x^4$</li>
+      <li>$f(a) = 3(2)^4 = 48$</li>
+    </ul>
+    <p>Check: $f(2) = 3(16) = 48$. Confirmed.</p>
+    <div class="math-block">$$\boxed{f(x) = 3x^4, \quad a = 2}$$</div>
+    <h3>Part (c)</h3>
+    <div class="math-block">$$\lim_{x \to -\pi/2} \frac{\sin(x) - (-1)}{x - (-\pi/2)}$$</div>
+    <p>$x$ is approaching a specific value again. Back to Definition 2.</p>
+    <ul class="body-list">
+      <li>$a = -\dfrac{\pi}{2}$</li>
+      <li>$f(a) = -1$, so $f\!\left(-\dfrac{\pi}{2}\right) = -1$</li>
+      <li>$f(x) = \sin(x)$</li>
+    </ul>
+    <p>Check: $\sin\!\left(-\dfrac{\pi}{2}\right) = -1$. Confirmed. That is the bottom of the unit circle — you should have that one memorized cold.</p>
+    <div class="math-block">$$\boxed{f(x) = \sin(x), \quad a = -\frac{\pi}{2}}$$</div>
+    <div class="mcq-check">
+      <div class="mcq-ttl">Here is exactly what the AP exam is checking on this problem type</div>
+      <ul>
+        <li>Recognize which definition is being used before you do anything else — the limit variable tells you which form</li>
+        <li>Correctly identify $f(x)$ — the function, not the value at a</li>
+        <li>Correctly identify $a$ — the specific point, separate from $f(x)$</li>
+        <li>Check your answer by substituting $a$ back into $f(x)$ — if $f(a)$ does not match what is in the limit, you have the wrong function</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Section 6: Mistakes -->
+  <div class="sec" id="mistakes">
+    <h2>The 3 Mistakes That Cost My Students Points</h2>
+    <div class="mk">
+      <div class="mk-n">Mistake 1: Forcing every problem into one definition</div>
+      <div class="mk-w">Why it happens: My students memorize the general form because it shows up first, then try to use it on everything. I get it — it is the first one they learn. But it is also the most dangerous assumption they can make walking into the AP exam.</div>
+      <div class="mk-f"><strong>How to fix it:</strong> Before you write anything, look at the limit variable. $h \to 0$ with $x$ in the expression? General Form. $x \to a$? Definition 2. $h \to 0$ with a fixed number sitting there? Definition 3. Identify the form first. Then solve.</div>
+    </div>
+    <div class="mk">
+      <div class="mk-n">Mistake 2: Canceling $h$ before factoring it from the whole numerator</div>
+      <div class="mk-w">Why it happens: My students try to cancel $h$ from individual terms in the numerator instead of the whole factored expression. The algebra looks right in the moment. It is not.</div>
+      <div class="mk-f"><strong>How to fix it:</strong> Expand fully, combine like terms, factor $h$ from the entire numerator, then cancel with the denominator. The $h$ has to come out as a factor of the whole numerator, not just one term. If you cancel $h$ early, you will get the wrong answer and not know why.</div>
+    </div>
+    <div class="mk">
+      <div class="mk-n">Mistake 3: Writing the answer without derivative notation</div>
+      <div class="mk-w">Why it happens: My students do all the algebra correctly, get the right number, and write it down without labeling what it is. They worked hard for that answer and then left a point on the table.</div>
+      <div class="mk-f"><strong>How to fix it:</strong> Write $f'(x) =$ or $f'(a) =$ in front of your answer every single time. It keeps your work organized and prevents the mistake where you solve the problem correctly, lose track of what you were finding, and second-guess your own answer. On free response, an unlabeled answer costs you a point. On multiple choice, losing track of what you solved for sends you to the wrong answer choice even when your math was right.</div>
+    </div>
+  </div>
+
+  <!-- Section 7: Practice -->
+  <div class="sec" id="practice">
+    <h2>Practice Problems</h2>
+    <p>Try these on your own before checking the answers. If you get stuck, go back to the definition section and identify the form first.</p>
+    <div class="prob">
+      <div class="plbl">Problem 1 — Single-Step Application</div>
+      <p>Use the general form of the derivative definition to find $f'(x)$ if $f(x) = 8x$.</p>
+    </div>
+    <div class="prob">
+      <div class="plbl">Problem 2 — Multi-Step</div>
+      <p>The following limit is given:</p>
+      <div class="math-block">$$\lim_{h \to 0} \frac{4(x+h)^3 + 7(x+h) - (4x^3 + 7x)}{h}$$</div>
+      <p>(a) Identify which definition of the derivative this represents.</p>
+      <p>(b) What is the function $f(x)$?</p>
+      <p>(c) Set up (do not solve) what this would look like using Definition 3 if $a = 1$.</p>
+    </div>
+    <div class="prob">
+      <div class="plbl">Problem 3 — Conceptual (Write Out Your Reasoning)</div>
+      <p>Given:</p>
+      <div class="math-block">$$\lim_{x \to 3} \frac{\sqrt{x} - \sqrt{3}}{x - 3}$$</div>
+      <p>(a) Identify the function $f(x)$ and the value $a$.</p>
+      <p>(b) Explain what this limit represents in terms of the derivative. Use the words "tangent line" and "derivative" in your justification.</p>
+      <p>(c) What is the numerical value of this limit? Show your work.</p>
+      <p><em>Full-credit justification for Part (b): "This limit represents $f'(3)$, the derivative of $f(x) = \sqrt{x}$ at $x = 3$. The derivative at a point equals the slope of the tangent line to the graph of $f(x)$ at that point. Therefore, this limit gives the slope of the tangent line to $f(x) = \sqrt{x}$ at $x = 3$."</em></p>
+    </div>
+    <div class="answers">
+      <div class="ans-ttl">Answers</div>
+      <div class="ans-item"><strong style="color:var(--accent)">Problem 1:</strong> &nbsp;$f'(x) = 8$</div>
+      <div class="ans-item">
+        <strong style="color:var(--accent)">Problem 2:</strong><br>
+        <span style="font-size:12px;line-height:1.8">
+          (a) General Form (Definition 1) — limit as $h \to 0$ with $x$ in the expression<br>
+          (b) $f(x) = 4x^3 + 7x$<br>
+          (c) $\displaystyle\lim_{h \to 0} \frac{4(1+h)^3 + 7(1+h) - (4(1)^3 + 7(1))}{h}$
+        </span>
+      </div>
+      <div class="ans-item">
+        <strong style="color:var(--accent)">Problem 3:</strong><br>
+        <span style="font-size:12px;line-height:1.8">
+          (a) $f(x) = \sqrt{x}$, $a = 3$<br>
+          (b) See full-credit justification above<br>
+          (c) $f'(x) = \dfrac{1}{2\sqrt{x}}$, so $f'(3) = \dfrac{1}{2\sqrt{3}} = \dfrac{\sqrt{3}}{6}$
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 8: FAQ -->
+  <div class="sec" id="faq">
+    <h2>FAQ</h2>
+    <div class="faq-item">
+      <div class="faq-q">What is a derivative in AP Calculus?</div>
+      <div class="faq-a">A derivative tells you how fast a function is changing at one specific point. Graphically, it is the slope of the tangent line to the curve at that point. On the AP exam you are going to see derivatives written in limit notation, in function notation like $f'(x)$, and in Leibniz notation like $\frac{dy}{dx}$. You need to recognize all three and know they mean the same thing. I tell my students: if you see any of those three, someone is asking you to take a derivative.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Do I really need to memorize all three limit definitions of the derivative?</div>
+      <div class="faq-a">Yes — and I say this every single year to every single student I work with. The AP exam uses all 3 forms. Multiple choice questions will hand you a limit expression and ask you to identify the function, the value of a, or both. These are automatic points if you know the forms and free misses if you do not. I have watched students finish that section and immediately know they got those wrong. All 3 definitions are in scope for both AB and BC. No exceptions.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">What is the difference between the general form and the alternate form of the derivative?</div>
+      <div class="faq-a">The general form gives you the derivative as a function — $x$ is still in the result. The alternate forms give you the derivative at one specific point. The fastest way to tell them apart on an exam: look at whether you see $x$ or a fixed number in the limit expression, and whether the limit variable is $h$ or $x$. That single check will point you to the right definition every time.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">How is a derivative related to a tangent line?</div>
+      <div class="faq-a">The derivative at a point and the slope of the tangent line at that point are the same number. Not similar. The same. When you compute $f'(2)$, you are finding the slope of the line that just touches the curve at $x = 2$. That connection between the limit definition, the derivative, and the tangent line slope is tested directly on the AP exam, and I want you to have it down cold before exam day.</div>
+    </div>
+  </div>
+
+  <!-- Section 9: Quick Reference -->
+  <div class="sec" id="quick-reference">
+    <h2>Save This For Exam Day</h2>
+    <div class="qr">
+      <div class="qr-ttl">The 3 Limit Definitions of the Derivative</div>
+      <div class="qrf">
+        <div class="qrf-lbl">Definition 1 — General Form</div>
+        $$f'(x) = \lim_{h \to 0} \frac{f(x+h) - f(x)}{h}$$
+      </div>
+      <div class="qrf">
+        <div class="qrf-lbl">Definition 2 — Alternate Form (x → a)</div>
+        $$f'(a) = \lim_{x \to a} \frac{f(x) - f(a)}{x - a}$$
+      </div>
+      <div class="qrf">
+        <div class="qrf-lbl">Definition 3 — Alternate Form (h → 0 at a point)</div>
+        $$f'(a) = \lim_{h \to 0} \frac{f(a+h) - f(a)}{h}$$
+      </div>
+      <ul class="qrb">
+        <li>Derivative = slope of tangent line at a point</li>
+        <li>Everything without $h$ attached should cancel in the numerator</li>
+        <li>Check: does $f(a)$ match what is in the expression?</li>
+        <li class="nv">Cancel $h$ from individual terms before factoring from the whole numerator</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Section 10: Related Posts -->
+  <div class="sec" id="related">
+    <h2>Related Posts</h2>
+    <p>Ready to move forward? Here's the path:</p>
+    <div style="margin-top:14px;">
+      <div style="font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:8px;">Read next — apply what you just learned:</div>
+      <a href="https://enginearu.com/ap-calculus-prep/unit-2-differentiation-basics/derivative-rules-ap-calculus/" class="ext-link" target="_blank" rel="noopener">Derivative Rules in AP Calculus 2026 (Power, Product, Quotient, Chain)</a>
+      <p style="font-size:12px;color:var(--muted);font-style:italic;margin-top:6px;">Why: Now that you understand what a derivative IS, learn the four rules that let you take them in 8 seconds instead of 12 minutes.</p>
+    </div>
+  </div>
+
+  <!-- End CTA -->
+  <div id="end-cta">
+    <div class="cta">
+      <h3>Get the Free Guide — Then Come Back Ready</h3>
+      <p>The derivative is the foundation. Everything in AP Calculus AB and BC is going to build on what you just read. Before you move to derivative rules, make sure the conceptual piece is locked in — because if this is shaky, everything after it gets harder than it needs to be.</p>
+      <p>I put together a free guide at EngiNearU that walks your student through exactly what needs to be solid before Unit 2 clicks. It is free. It takes about 10 minutes to read. And it will show you exactly where the gaps are before they show up on a test or quiz.</p>
+      <a class="btn" href="https://www.aceapcalculus.com/freeguide" target="_blank">Download the Free Guide →</a>
+      <div class="sub">Parents: this is a great resource to send your student right now if they are in the middle of the course and feeling lost.</div>
+    </div>
+    <div class="sea">
+      <h3>Summer Program — July &amp; August 2026</h3>
+      <p>If you want your student to walk into AP Calculus next year already ahead of the class, my summer program runs in July and August. Small groups. Real practice. Structured plan. Proven results. Spots fill fast.</p>
+      <a class="btn-w" href="#" target="_blank">See Summer Program Details →</a>
+    </div>
+  </div>
+
+</div>
+<!-- End post content div -->
+
+<!-- Desmos graph initialization — runs after the page loads -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var elt = document.getElementById('desmos-tangent');
+  if (!elt || typeof Desmos === 'undefined') return;
+  var calc = Desmos.GraphingCalculator(elt, {
+    expressions: false, settingsMenu: false, zoomButtons: false,
+    lockViewport: true, border: false
+  });
+  calc.setMathBounds({ left: -2, right: 3, bottom: -1, top: 6.5 });
+  calc.setExpression({ id: 'curve',   latex: 'y=x^{2}', color: '#1a3a6b', lineWidth: 2.5 });
+  calc.setExpression({ id: 'tangent', latex: 'y=2x-1',  color: '#e8a020', lineWidth: 2 });
+  calc.setExpression({ id: 'pt', latex: '(1,1)', color: '#e8a020', pointSize: 10,
+                       showLabel: true, label: 'slope = 2  (the derivative)',
+                       labelSize: Desmos.LabelSizes.MEDIUM });
+});
+</script>
+
+<!-- ===================================================================
+     ▲▲▲ END: WORDPRESS CUSTOM HTML BLOCK ▲▲▲
+     Stop selecting here. Do not paste anything below this line.
+     =================================================================== -->
+
+
+</div><!-- /page — preview wrapper, not part of WordPress paste -->
+
+</body>
+</html>

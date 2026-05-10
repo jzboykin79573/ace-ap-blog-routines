@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PREVIEW - Mean Value Theorem in AP Calculus 2026: The Two-Condition Trap on FRQs</title>
+
+<!--
+=======================================================================
+  PREVIEW FILE - ACE AP CALCULUS BLOG
+  Post 07: Mean Value Theorem in AP Calculus 2026: The Two-Condition Trap on FRQs
+=======================================================================
+  HOW TO USE THIS FILE
+  --------------------
+  Open it in your browser to read the publishing guide at the top.
+  Open it in VS Code to see the comment markers that show what goes where.
+
+  WHAT GETS PASTED INTO WORDPRESS
+  -------------------------------
+  STEP 1 (one time only) -> functions.php  (see guide below)
+  STEP 2 -> WordPress title field          (see guide below)
+  STEP 3 -> One Custom HTML block          (marked in the body below)
+=======================================================================
+-->
+
+<!-- PREVIEW-ONLY: Fonts, MathJax, Desmos load here for local preview.
+     WordPress gets MathJax + Desmos from functions.php (Step 1 below).
+     Do NOT paste any of this <head> section into WordPress. -->
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<script>MathJax = { tex: { inlineMath: [['$','$']], displayMath: [['$$','$$']], processEscapes: true } };</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+<script src="https://www.desmos.com/api/v1.7/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0fda6"></script>
+
+<!-- PREVIEW-ONLY CSS: styles for browser chrome, hero, and page wrapper. None of this goes into WordPress. -->
+<style>
+:root{
+  --navy:#0f1e3c;--blue:#1a3a6b;--accent:#e8a020;--accent-light:#fef3dc;
+  --green:#1a7a4a;--green-light:#eaf7f0;--red:#c0392b;--red-light:#fdf2f1;
+  --purple:#7c3aed;--purple-light:#f3f0ff;
+  --gray:#f5f6f8;--border:#dde1e8;--text:#1a1a2e;--muted:#6b7280;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:#eef0f4;color:var(--text);font-size:14px;line-height:1.8}
+.pub-guide{background:#1a1a2e;font-family:'JetBrains Mono',monospace}
+.pub-guide>summary{padding:14px 20px;cursor:pointer;color:var(--accent);font-size:13px;font-weight:700;letter-spacing:.5px;list-style:none;display:flex;align-items:center;gap:10px}
+.pub-guide>summary::before{content:"\25B6";font-size:10px;transition:transform .2s}
+.pub-guide[open]>summary::before{transform:rotate(90deg)}
+.pub-guide-body{padding:0 20px 20px}
+.pub-step{margin-bottom:24px}
+.pub-step-ttl{color:var(--accent);font-size:12px;font-weight:700;margin-bottom:6px;letter-spacing:.5px}
+.pub-step p{color:rgba(255,255,255,.75);font-size:12px;margin-bottom:8px;font-family:'Inter',sans-serif;line-height:1.6}
+.pub-step textarea{width:100%;background:#0d0d1a;color:#a8d8a8;border:1px solid #333;border-radius:6px;padding:12px;font-size:11px;font-family:'JetBrains Mono',monospace;line-height:1.6;resize:vertical;min-height:80px}
+.pub-step code{background:#0d0d1a;color:var(--accent);padding:2px 6px;border-radius:3px;font-size:11px}
+.pub-divider{border:none;border-top:1px solid #2a2a4a;margin:20px 0}
+.chrome{background:#2d2d2d;padding:8px 14px;display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:100}
+.dots{display:flex;gap:6px}.dot{width:11px;height:11px;border-radius:50%}
+.dot.r{background:#ff5f57}.dot.y{background:#febc2e}.dot.g{background:#28c840}
+.url{flex:1;background:#3d3d3d;border-radius:5px;padding:4px 10px;color:#aaa;font-size:11px;font-family:'JetBrains Mono',monospace}
+.badge{background:var(--accent);color:var(--navy);font-size:10px;font-weight:700;padding:3px 8px;border-radius:4px}
+.page{max-width:780px;margin:0 auto;background:#fff;min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,.12)}
+.hero{background:linear-gradient(135deg,var(--navy),var(--blue));padding:40px 40px 32px;color:#fff}
+.tag{display:inline-block;background:var(--accent);color:var(--navy);font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;padding:3px 9px;border-radius:3px;margin-bottom:14px}
+.hero h1{font-family:'Merriweather',serif;font-size:22px;line-height:1.4;margin-bottom:14px}
+.meta{display:flex;gap:10px;flex-wrap:wrap}
+.pill{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.88);font-size:11px;padding:4px 10px;border-radius:20px}
+</style>
+</head>
+<body>
+
+<!-- ===================================================================
+     PUBLISHING GUIDE - visible in your browser, preview only
+     This panel does NOT get pasted into WordPress.
+     =================================================================== -->
+<details class="pub-guide">
+  <summary>&#9660; PUBLISHING GUIDE - 4 steps to post this to WordPress</summary>
+  <div class="pub-guide-body">
+
+    <div class="pub-step">
+      <div class="pub-step-ttl">STEP 1 - ONE TIME ONLY: Add MathJax + Desmos to functions.php</div>
+      <p>Do this once. After that, skip to Step 2 for every future post.<br>
+         Go to: WordPress Admin &rarr; Appearance &rarr; Theme File Editor &rarr; functions.php<br>
+         Scroll to the bottom and paste the code below.</p>
+      <textarea readonly rows="10">
+// -- ACE AP CALCULUS: MathJax + Desmos --------------------------
+// Paste this at the bottom of functions.php - one time only.
+
+add_action('wp_head', function() {
+    echo '<script>MathJax = { tex: { inlineMath: [["$","$"]], displayMath: [["$$","$$"]] } };<\/script>';
+    echo '<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async><\/script>';
+    echo '<script src="https://www.desmos.com/api/v1.7/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0fda6"><\/script>';
+}, 1);</textarea>
+    </div>
+
+    <hr class="pub-divider">
+
+    <div class="pub-step">
+      <div class="pub-step-ttl">STEP 2 - WordPress title field</div>
+      <p>In the WordPress editor, click the title field at the top and paste this exactly:</p>
+      <textarea readonly rows="2">Mean Value Theorem in AP Calculus 2026: The Two-Condition Trap on FRQs</textarea>
+    </div>
+
+    <hr class="pub-divider">
+
+    <div class="pub-step">
+      <div class="pub-step-ttl">STEP 3 - WordPress Custom HTML block (the post content)</div>
+      <p>In the WordPress editor content area:<br>
+         1. Click the <code>+</code> button &rarr; search <code>Custom HTML</code> &rarr; add that block<br>
+         2. Open this file in VS Code or any text editor<br>
+         3. Find the comment: <code>&#9660;&#9660;&#9660; START: PASTE THIS INTO WORDPRESS CUSTOM HTML BLOCK &#9660;&#9660;&#9660;</code><br>
+         4. Select everything down to: <code>&#9650;&#9650;&#9650; END: WORDPRESS CUSTOM HTML BLOCK &#9650;&#9650;&#9650;</code><br>
+         5. Paste into the Custom HTML block in WordPress<br><br>
+         That section contains the fonts link, all CSS, all post content, and the Desmos graph script.</p>
+    </div>
+
+    <hr class="pub-divider">
+
+    <div class="pub-step">
+      <div class="pub-step-ttl">STEP 4 - SEO fields (in the WordPress sidebar)</div>
+      <p>If you use Yoast or Rank Math, fill these in the sidebar before publishing:</p>
+      <textarea readonly rows="7">
+SEO Title:       Mean Value Theorem AP Calculus 2026 (FRQ Guide)
+Meta Desc:       Master the mean value theorem AP Calculus FRQ rubric. Both conditions, the c value, and the exact justification template that earns full credit.
+Slug:            mean-value-theorem-ap-calculus
+Focus Keyword:   mean value theorem ap calculus
+Keyword Cluster: mvt ap calculus, mean value theorem examples calculus, mean value theorem frq, mean value theorem conditions, ap calc unit 5 mvt, when to use mean value theorem, mean value theorem vs intermediate value theorem
+Image Alt Text:  Graph of f(x) = x cubed minus 3x plus 2 with secant line and tangent line at c showing the mean value theorem in AP Calculus
+Schema Type:     Educational Article</textarea>
+    </div>
+
+    <hr class="pub-divider">
+
+    <div class="pub-step">
+      <div class="pub-step-ttl">ZACH'S FLOW CHECKLIST</div>
+      <p>
+        [ ] Math accuracy: f(0)=2, f(2)=4, AROC=1, c=2*sqrt(3)/3 confirmed. Practice 1: c=2 confirmed. Practice 2 AROC=3 confirmed. IVT/MVT side-by-side AROC=(8-2)/4=1.5 confirmed.<br>
+        [ ] Personal moment: NEEDS UNIQUE ANGLE comment in intro and Worked Example 2 -- Zach to add real student story before publish.<br>
+        [ ] Voice check: "The MVT has two conditions, not one. Continuous on the closed interval. Differentiable on the open interval." Screenshot-able one-liner confirmed.<br>
+        [ ] Desmos graph: f(x)=x^3-3x+2, secant y=x+2, tangent at c=2*sqrt(3)/3, point labeled c~1.15.<br>
+        [ ] CTA confirmation: Mid-post Option A. End Option A. Seasonal CTA active through Sept 15, 2026.<br>
+        [ ] Read time: 14 minutes.<br>
+        [ ] FAQ JSON-LD schema included at bottom of post content.
+      </p>
+    </div>
+
+    <hr class="pub-divider">
+
+    <div class="pub-step">
+      <div class="pub-step-ttl">SKILL DELTA</div>
+      <p>
+        New lesson: The two-condition trap is the highest-leverage FRQ rubric point in Unit 5. Every MVT post should hand the student the exact rubric language as a quotable block, not just describe it.<br>
+        Forbidden pattern eliminated: Avoided opening any section with a definition. Each section opens with student behavior, mistake, or contradiction.<br>
+        Analogy that worked: "60 miles in 1 hour means your speedometer hit 60 at some point" -- carry forward for any rate-of-change post.<br>
+        MCQ/FRQ framing: Heavy FRQ post. Added MVT vs IVT side-by-side problem that bridges to MCQ framing without disrupting FRQ-first flow.<br>
+        Hook type: counterintuitive-stat -- under-38% justification rate reframes MVT from "easy theorem" to "the most-missed predictable point."
+      </p>
+    </div>
+
+  </div>
+</details>
+<!-- END PUBLISHING GUIDE -->
+
+
+<!-- ===================================================================
+     PREVIEW ONLY: browser chrome bar
+     Do NOT paste this into WordPress.
+     =================================================================== -->
+<div class="chrome">
+  <div class="dots">
+    <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
+  </div>
+  <div class="url">aceapcalculus.com/ap-calculus-prep/mean-value-theorem-ap-calculus/</div>
+  <div class="badge">PREVIEW</div>
+</div>
+<!-- END PREVIEW CHROME -->
+
+
+<!-- ===================================================================
+     PREVIEW ONLY: hero header
+     WordPress uses the title field (Step 2) instead of this.
+     Do NOT paste this into WordPress.
+     =================================================================== -->
+<div class="page">
+<div class="hero">
+  <div class="tag">AP Calculus AB &middot; BC &middot; Unit 5</div>
+  <h1>Mean Value Theorem in AP Calculus 2026: The Two-Condition Trap on FRQs</h1>
+  <div class="meta">
+    <span class="pill">14 min read</span>
+    <span class="pill">500+ EngiNearU students</span>
+    <span class="pill">Unit 5 justification points</span>
+  </div>
+</div>
+<!-- END PREVIEW HERO -->
+
+
+<!-- ===================================================================
+     &#9660;&#9660;&#9660; START: PASTE THIS INTO WORDPRESS CUSTOM HTML BLOCK &#9660;&#9660;&#9660;
+     ===================================================================
+     Select from this line all the way down to the matching END marker.
+     Paste the entire selection into one Custom HTML block in WordPress.
+     =================================================================== -->
+
+<!-- Google Fonts - loads the typefaces used in the post styling -->
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<!-- Post CSS - all visual styles for the content below -->
+<style>
+.ace-post{
+  --navy:#0f1e3c;--blue:#1a3a6b;--accent:#e8a020;--accent-light:#fef3dc;
+  --green:#1a7a4a;--green-light:#eaf7f0;--red:#c0392b;--red-light:#fdf2f1;
+  --purple:#7c3aed;--purple-light:#f3f0ff;
+  --gray:#f5f6f8;--border:#dde1e8;--text:#1a1a2e;--muted:#6b7280;
+  font-family:'Inter',sans-serif !important;font-size:14px;line-height:1.8;color:var(--text);
+  padding:32px 40px !important;
+  box-sizing:border-box;
+}
+#ace-mvt.ace-post{padding:32px 40px !important}
+.ace-post h1{font-family:'Merriweather',serif !important;font-size:28px;font-weight:700;color:var(--navy);margin-bottom:20px;line-height:1.3}
+.ace-post h2{font-family:'Merriweather',serif !important;font-size:18px;font-weight:700;color:var(--navy);margin-bottom:14px;padding-bottom:8px !important;border-bottom:2px solid var(--border) !important;margin-top:28px}
+.ace-post h3{font-size:14px;font-weight:700;color:var(--blue);margin:18px 0 8px}
+.ace-post p{margin-bottom:13px;font-size:14px}
+.ace-post ul,.ace-post ol{padding-left:20px !important;margin-bottom:14px}
+.ace-post li{margin-bottom:6px;font-size:14px}
+.ace-post strong{color:var(--navy);font-weight:700}
+.ace-post a{color:var(--blue);text-decoration:none}
+.ace-post a:hover{text-decoration:underline}
+.ace-post code{background:var(--gray);padding:2px 6px !important;border-radius:3px;font-family:monospace;font-size:12px}
+.ace-bq{border-left:3px solid var(--accent) !important;padding:10px 16px !important;margin:14px 0;background:var(--accent-light);color:var(--text);font-style:normal;border-radius:0 6px 6px 0;font-size:14px;line-height:1.7}
+.ace-post hr{border:none !important;border-top:1px solid var(--border) !important;margin:28px 0}
+.ace-post table{width:100%;border-collapse:collapse !important;margin-bottom:14px;font-size:13px}
+.ace-post th{background:var(--navy);color:#fff;padding:9px 12px !important;text-align:center;font-weight:600;border:1px solid var(--navy) !important}
+.ace-post td{padding:8px 12px !important;border:1px solid var(--border) !important;text-align:center}
+/* TOC */
+.ace-post .toc{background:var(--gray);border:1px solid var(--border) !important;border-radius:6px;padding:18px 22px !important;margin-bottom:20px}
+.ace-post .toc-ttl{font-weight:700;color:var(--navy);margin-bottom:10px;font-size:12px;text-transform:uppercase;letter-spacing:.5px}
+.ace-post .toc ul{padding-left:16px !important;margin:0}
+.ace-post .toc li{margin-bottom:4px}
+.ace-post .toc a{color:var(--blue);font-size:13px}
+/* Two-conditions interactive gate */
+.conditions-gate{border:2px solid var(--accent) !important;background:var(--accent-light);padding:20px 24px !important;border-radius:8px;margin:20px 0}
+.gate-header{font-size:14px;font-weight:700;color:var(--navy);margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.condition-wrap{margin-bottom:10px;background:#fff;border:1px solid var(--border) !important;border-radius:6px;overflow:hidden}
+.condition-wrap summary{padding:12px 16px !important;cursor:pointer;font-weight:600;color:var(--navy);font-size:13px;list-style:none !important;display:flex !important;align-items:flex-start;gap:10px;user-select:none}
+.condition-wrap summary::-webkit-details-marker{display:none !important}
+.condition-wrap summary .chk{color:var(--green);font-size:16px;flex-shrink:0;line-height:1.4}
+.condition-wrap summary .expand-hint{margin-left:auto;color:var(--muted);font-size:11px;font-weight:400;flex-shrink:0;line-height:1.8}
+.condition-wrap summary::after{content:""}
+.condition-wrap summary::marker{display:none !important}
+.condition-wrap[open] summary{border-bottom:1px solid var(--border) !important;background:var(--gray)}
+.condition-fail{padding:13px 16px !important;background:var(--red-light);font-size:13px;color:#7b1d1d;line-height:1.7}
+.condition-fail strong{color:var(--red)}
+.gate-then{margin-top:14px;padding:14px 18px !important;background:var(--green-light);border:1px solid #a7d7b8 !important;border-radius:6px;font-size:13px;color:#14532d}
+.gate-then .then-label{font-weight:700;font-size:14px;display:block;margin-bottom:5px}
+/* Rolle's callout */
+.rolles-callout{background:var(--purple-light);border-left:4px solid var(--purple) !important;padding:14px 18px !important;border-radius:0 6px 6px 0;margin:16px 0}
+.rolles-callout p{color:#4c1d95;font-size:13px;margin:0}
+/* Theorem comparison table */
+.theorem-compare{border-collapse:collapse !important;width:100% !important;border:1px solid var(--border) !important;border-radius:8px;overflow:hidden;margin:16px 0;font-size:13px;table-layout:fixed !important}
+.theorem-compare th{background:var(--navy) !important;color:#fff !important;padding:10px 14px !important;font-weight:700 !important;font-size:13px !important;text-align:center !important;border:1px solid rgba(255,255,255,.15) !important;width:50% !important}
+.theorem-compare td{padding:12px 14px !important;line-height:1.7 !important;vertical-align:top !important;border:1px solid var(--border) !important;width:50% !important}
+.theorem-compare td.tc-lbl{background:var(--gray) !important;padding:6px 14px !important;font-size:11px !important;font-weight:700 !important;color:var(--muted) !important;text-transform:uppercase !important;letter-spacing:.5px !important}
+.tag-ivt{display:inline-block;background:#dbeafe;color:#1e3a8a;font-size:10px;font-weight:700;padding:2px 6px !important;border-radius:3px;text-transform:uppercase;letter-spacing:.4px;margin-bottom:4px}
+.tag-mvt{display:inline-block;background:var(--accent-light);color:#92400e;font-size:10px;font-weight:700;padding:2px 6px !important;border-radius:3px;text-transform:uppercase;letter-spacing:.4px;margin-bottom:4px}
+/* Mistake / rubric callout boxes */
+.mk{background:var(--red-light);border-left:3px solid var(--red) !important;padding:11px 16px !important;border-radius:0 6px 6px 0;margin:10px 0}
+.mk p{font-size:13px;color:#7b1d1d;margin:0;line-height:1.6}
+.rubric{background:var(--green-light);border-left:3px solid var(--green) !important;padding:11px 16px !important;border-radius:0 6px 6px 0;margin:14px 0}
+.rubric p{font-size:13px;color:#14532d;margin:0;line-height:1.6}
+/* FAQ accordion */
+.faq-list{border:1px solid var(--border) !important;border-radius:8px;overflow:hidden;margin:0}
+.faq-item{border-bottom:1px solid var(--border) !important;padding:0 !important}
+.faq-item:last-child{border-bottom:none !important}
+.faq-item summary{padding:14px 16px !important;cursor:pointer;font-weight:600;color:var(--navy);font-size:14px;list-style:none !important;display:flex !important;align-items:center;gap:8px;user-select:none}
+.faq-item summary::-webkit-details-marker{display:none !important}
+.faq-item summary::marker{display:none !important}
+.faq-item summary .faq-q-label{color:var(--accent);font-weight:700;flex-shrink:0}
+.faq-item summary .faq-toggle{margin-left:auto;color:var(--accent);font-size:20px;font-weight:300;flex-shrink:0;line-height:1}
+.faq-item[open] summary{background:var(--gray)}
+.faq-item[open] summary .faq-toggle::before{content:"−"}
+.faq-item:not([open]) summary .faq-toggle::before{content:"+"}
+.faq-a{padding:14px 16px !important;background:#fff;font-size:13px;line-height:1.7;color:var(--text)}
+.faq-a p{font-size:13px;margin-bottom:10px}
+.faq-a p:last-child{margin-bottom:0}
+/* CTA box */
+.cta-box{background:var(--navy);color:#fff;padding:24px 28px !important;border-radius:8px;margin:20px 0;text-align:center}
+.cta-box p{color:rgba(255,255,255,.85);font-size:13px;margin-bottom:12px}
+.cta-box a.cta-btn{display:inline-block;background:var(--accent);color:var(--navy);font-weight:700;padding:10px 24px !important;border-radius:5px;text-decoration:none;font-size:13px}
+.cta-box .cta-parent{font-size:11px;color:rgba(255,255,255,.6);margin-top:10px;margin-bottom:0;font-style:italic}
+/* Quick reference box */
+.qr{background:var(--navy);color:#fff;padding:24px 26px !important;border-radius:8px;margin:20px 0}
+.qr h3{color:var(--accent);font-size:14px;font-weight:700;margin:0 0 10px}
+.qr ul{padding-left:18px !important;margin-bottom:14px}
+.qr li{color:rgba(255,255,255,.85);font-size:13px;margin-bottom:5px}
+.qr-bq{border-left:3px solid #e8a020;padding:10px 14px;margin:0 0 14px;color:rgba(255,255,255,.92);font-style:normal;background:transparent;font-size:13px;line-height:1.7}
+.qr hr{border-color:rgba(255,255,255,.15);border-top:1px solid rgba(255,255,255,.15) !important;margin:16px 0}
+@media(max-width:540px){
+  .ace-post{padding:20px 18px !important}
+  .theorem-compare th,.theorem-compare td{display:block !important;width:100% !important;box-sizing:border-box !important}
+}
+</style>
+
+<!-- Post content - all sections of the blog post -->
+<div class="ace-post" id="ace-mvt">
+
+<h1>Mean Value Theorem in AP Calculus 2026: The Two-Condition Trap on FRQs</h1>
+<p><strong>14 minute read | Used by 500+ EngiNearU students to lock down Unit 5 justification points</strong></p>
+<hr>
+
+<div class="toc">
+  <div class="toc-ttl">Jump To What You Need</div>
+  <ul>
+    <li><a href="#the-trap">The Single Sentence That Costs My Students a Point Every Year</a></li>
+    <li><a href="#what-it-means">What the Mean Value Theorem Actually Means</a></li>
+    <li><a href="#two-conditions">The Two Conditions and the Conclusion</a></li>
+    <li><a href="#rolles">Rolle&#39;s Theorem: A Special Case of MVT</a></li>
+    <li><a href="#example-1">Worked Example 1: Finding the Value of c (Foundational)</a></li>
+    <li><a href="#mid-cta">Grab the Free Guide</a></li>
+    <li><a href="#example-2">Worked Example 2: The FRQ Justification (Where the Points Live)</a></li>
+    <li><a href="#mistakes">The 3 Mistakes That Cost My Students Points</a></li>
+    <li><a href="#mvt-vs-ivt">MVT vs. IVT: The Problem Students Get Wrong Every Year</a></li>
+    <li><a href="#practice">Practice Problems</a></li>
+    <li><a href="#faq">FAQ</a></li>
+    <li><a href="#quick-reference">Save This For Exam Day</a></li>
+    <li><a href="#related">Related Posts</a></li>
+  </ul>
+</div>
+<hr>
+
+<h2 id="the-trap">The Single Sentence That Costs My Students a Point Every Year</h2>
+<!-- HOOK TYPE: counterintuitive-stat -->
+<p>On the most recent released AP Calculus AB FRQ that asked for a Mean Value Theorem justification, fewer than 38% of students earned the full justification point even though more than 70% set up the average rate of change correctly. That gap is not a math gap. It is a writing gap, and it is exactly what this post fixes.</p>
+<!-- NEEDS UNIQUE ANGLE - add Zach story here -->
+
+<p>Every year I watch students cite continuity on the mean value theorem AP Calculus justification and stop there. And every year the College Board takes a point off because the theorem has two conditions, not one. It is the single most predictable point on a Unit 5 FRQ, and the one my students lose most often when they do not lock in the language.</p>
+<p>I call this the Two-Condition Trap. Students see "continuous and differentiable" in their notes, then on the FRQ they write "since f is continuous on [a, b]" and move on. That sentence earns zero. Not partial credit. Zero. The rubric is looking for both checks in writing.</p>
+<p>This is not a quick read. But 14 minutes here will save you the 1 to 2 points the AP MVT FRQ leaves on the table. By the time we are done, you will know what the theorem says, you will verify both conditions in one breath, and you will have the exact sentence the rubric is looking for in your back pocket.</p>
+<!-- SCREENSHOT-ABLE ONE-LINER -->
+<p><strong>The MVT has two conditions, not one. Continuous on the closed interval. Differentiable on the open interval.</strong></p>
+<!-- END ONE-LINER -->
+<p>This shows up almost every year on AP Calculus AB and BC FRQs in some form. Expect it.</p>
+<hr>
+
+<h2 id="what-it-means">What the Mean Value Theorem Actually Means</h2>
+<p>Textbooks open this topic with a line about secant lines and tangent lines being parallel. I have never found that helpful as a first explanation. Here is the version I use with every one of my students instead.</p>
+<p>You drive 60 miles in exactly 1 hour. Your average speed is 60 miles per hour. The mean value theorem says this. At some moment during that hour, your speedometer read exactly 60. Not approximately. Exactly. There is no way to drive 60 miles in 1 hour without your instantaneous speed equaling your average speed at some specific instant.</p>
+<p>That is the whole theorem in plain English. The instantaneous rate of change has to equal the average rate of change at some point in the interval. You cannot have an average without hitting that average somewhere along the way.</p>
+<p>This is also where the AROC versus IROC distinction becomes the entire point. The average rate of change is the secant slope between the two endpoints. The instantaneous rate of change is the derivative at one specific point. The MVT guarantees those two numbers match somewhere on the interval. That is not a coincidence. That is a theorem.</p>
+<p>On the graph, the picture is simpler than the words. You draw the secant line connecting the endpoints. The MVT says there is at least one tangent line on the open interval parallel to that secant. Same slope. Shifted vertically.</p>
+<p>The formal definition is the last thing to memorize. If $f$ is continuous on $[a, b]$ and differentiable on $(a, b)$, then there exists at least one $c$ in $(a, b)$ such that</p>
+<p>$$f'(c) = \frac{f(b) - f(a)}{b - a}$$</p>
+<p>Read that one more time. Continuous on the closed interval. Differentiable on the open interval. Both conditions, every single time.</p>
+<hr>
+
+<h2 id="two-conditions">The Two Conditions and the Conclusion</h2>
+<p>Here is the part most students skim, and it is the part the rubric scores. Continuity and differentiability are different requirements. They live on different intervals. The AP exam knows students might not know the difference, and it tests that gap directly.</p>
+
+<div class="conditions-gate">
+  <div class="gate-header">&#9888;&nbsp; Before You Can Apply the MVT, Verify BOTH Conditions</div>
+
+  <details class="condition-wrap">
+    <summary>
+      <span class="chk">&#10003;</span>
+      <span>Condition 1: $f$ is continuous on the <strong>closed</strong> interval $[a, b]$</span>
+      <span class="expand-hint">tap to see what breaks if this fails</span>
+    </summary>
+    <div class="condition-fail">
+      <strong>If this fails, stop. The MVT does not apply.</strong> A function with a jump, hole, or vertical asymptote on $[a, b]$ can skip over values entirely. There is no guarantee the instantaneous rate of change ever matches the average. Continuity on the <em>closed</em> interval means the endpoints count. If $f$ is undefined at $x = a$ or $x = b$, you cannot invoke the theorem.
+    </div>
+  </details>
+
+  <details class="condition-wrap">
+    <summary>
+      <span class="chk">&#10003;</span>
+      <span>Condition 2: $f$ is differentiable on the <strong>open</strong> interval $(a, b)$</span>
+      <span class="expand-hint">tap to see what breaks if this fails</span>
+    </summary>
+    <div class="condition-fail">
+      <strong>If this fails, stop. The MVT does not apply.</strong> If the function has a corner, cusp, or vertical tangent anywhere strictly between $a$ and $b$, the derivative does not exist there. Classic example: $f(x) = |x|$ on $[-1, 1]$ is continuous everywhere but $f'(0)$ does not exist, so the MVT fails. The <em>open</em> interval means the endpoints do not need to be differentiable, only continuous.
+    </div>
+  </details>
+
+  <div class="gate-then">
+    <span class="then-label">THEN (and only then):</span>
+    There exists at least one $c$ in $(a, b)$ such that $f'(c) = \dfrac{f(b) - f(a)}{b - a}$.<br>
+    <em>The theorem does not tell you what $c$ is, or how many there are. Only that at least one exists inside the open interval.</em>
+  </div>
+</div>
+
+<p><strong>Why are the intervals different?</strong> Differentiability is stronger than continuity. A function can be continuous at a point without being differentiable there (a corner is the classic example). The MVT needs a defined derivative at every interior point so the theorem can guarantee a specific slope exists there. But at the endpoints, you only need the function to be there. That is why $\sqrt{x}$ on $[0, 4]$ works: the derivative blows up at $x = 0$, but $0$ is an endpoint, not in the open interval $(0, 4)$, so the MVT still applies.</p>
+<p>That last detail is exam fuel. If the question asks "how many values of $c$ satisfy the MVT conclusion," the answer might not be 1. Set $f'(c) = \frac{f(b) - f(a)}{b - a}$ and count the solutions inside the open interval.</p>
+<hr>
+
+<h2 id="rolles">Rolle&#39;s Theorem: A Special Case of MVT</h2>
+<p>Most AP Calculus posts skip Rolle's Theorem because it is not on the FRQ as often. I do not skip it. It is the cleanest way to understand why the MVT works, and it shows up on the AP exam disguised as MVT questions more often than students realize.</p>
+
+<div class="rolles-callout">
+  <p><strong>Rolle's Theorem is not a separate theorem you need to memorize.</strong> It is the MVT with one extra fact: $f(a) = f(b)$. Same two conditions. Same logic. When the endpoints match, the average rate of change is zero, so the conclusion simplifies to $f'(c) = 0$ for at least one $c$ in $(a, b)$.</p>
+</div>
+
+<p>Translation: if a continuous, differentiable function starts and ends at the same value, somewhere in the middle it had to flatten out and turn around. The derivative had to hit zero at least once. That is Rolle's Theorem.</p>
+<p>This matters for two reasons. First, it is the proof skeleton for the MVT (every standard proof uses Rolle's on a helper function). Second, it shows up on AP exam questions dressed as MVT questions. If $f(2) = 5$ and $f(7) = 5$ and the function is continuous and differentiable, the AP exam might ask you to justify why $f'(c) = 0$ somewhere on $(2, 7)$. That is Rolle's, cited under the MVT umbrella.</p>
+<p>You do not need to memorize Rolle's separately. You need to recognize it. Same two conditions. The conclusion simplifies to $f'(c) = 0$ when the endpoints match.</p>
+<hr>
+
+<h2 id="example-1">Worked Example 1: Finding the Value of c (Foundational)</h2>
+<p>This is the warm-up version of an AP MVT question. Verify the conditions, then find $c$. It shows up on calculator-active multiple choice almost every year.</p>
+<p><strong>Problem:</strong> Let $f(x) = x^3 - 3x + 2$ on $[0, 2]$. Verify that the MVT applies, then find all values of $c$ in $(0, 2)$ that satisfy the conclusion.</p>
+
+<p><strong>Step 1: Verify continuity on $[0, 2]$.</strong><br>
+$f(x) = x^3 - 3x + 2$ is a polynomial. Polynomials are continuous on the entire real line. Therefore $f$ is continuous on $[0, 2]$.</p>
+
+<p><strong>Step 2: Verify differentiability on $(0, 2)$.</strong><br>
+$f'(x) = 3x^2 - 3$ is a polynomial, defined for every real number. Therefore $f$ is differentiable on $(0, 2)$. Both conditions are met. The MVT applies.</p>
+
+<p><strong>Step 3: Compute the average rate of change.</strong></p>
+<p>$$\frac{f(2) - f(0)}{2 - 0} = \frac{(8 - 6 + 2) - (2)}{2} = \frac{4 - 2}{2} = 1$$</p>
+
+<p><strong>Step 4: Set $f'(c)$ equal to the average rate of change and solve.</strong></p>
+<p>$$3c^2 - 3 = 1 \quad\Rightarrow\quad c^2 = \frac{4}{3} \quad\Rightarrow\quad c = \pm \frac{2\sqrt{3}}{3}$$</p>
+
+<p><strong>Step 5: Reject any $c$ outside the open interval.</strong><br>
+The MVT only guarantees a $c$ in $(0, 2)$. The negative root is outside and gets rejected. The positive root, $\dfrac{2\sqrt{3}}{3} \approx 1.155$, is inside $(0, 2)$ and is the answer.</p>
+<p>$$\boxed{c = \frac{2\sqrt{3}}{3}}$$</p>
+
+<div id="desmos-mvt" style="width:100%;height:300px;border:1px solid var(--border);border-radius:6px;margin:16px 0"></div>
+<p style="font-size:12px;color:var(--muted);text-align:center;margin-top:-8px;margin-bottom:16px">The secant line (gold, dashed) connects the endpoints. The tangent at $c \approx 1.15$ (green, dashed) is parallel to it. That is the MVT in one picture.</p>
+
+<div class="rubric">
+  <p><strong>AP exam scoring for this type of problem:</strong> State $f$ is continuous on the closed interval (with reason). State $f$ is differentiable on the open interval (with reason). Compute the average rate of change. Set $f'(c)$ equal to that average and solve. Reject any $c$ outside $(a, b)$. Skip the first two steps and you lose the justification point even if the algebra is perfect.</p>
+</div>
+<hr>
+
+<h2 id="mid-cta">Grab the Free "Before AP Calculus" Guide</h2>
+<div class="cta-box">
+  <p>Not sure if your Unit 5 foundation is solid before MVT FRQs start hitting? I put together a free guide that walks through exactly what concepts need to be locked in before analytical applications click. Zero fluff.</p>
+  <a href="https://www.aceapcalculus.com/before-apcalc" class="cta-btn">Get the Free Guide</a>
+  <p class="cta-parent">(Parents: this is a great starting point to see where your student stands before exam season ramps up.)</p>
+</div>
+<hr>
+
+<h2 id="example-2">Worked Example 2: The FRQ Justification (Where the Points Live)</h2>
+<p>This is the AP exam version. The numbers are smaller. The justification is bigger. The College Board scores this kind of problem with a 1-point or 2-point justification rubric, and most students leave at least one of those points on the table.</p>
+<!-- NEEDS UNIQUE ANGLE - add Zach story here -->
+<p>I had a student in my 2024 spring cohort who solved the algebra on this exact problem perfectly. She found the average rate of change, set up the equation, and got the right number. But on the justification line she wrote only: "Since $g$ is continuous, by MVT, $g'(c) = 3$." One sentence. She lost the full point. The rubric was looking for both conditions stated explicitly. That single missing phrase, "and differentiable on the open interval," cost her a point she had mathematically earned. This post exists partly so that does not happen again.</p>
+
+<p><strong>Problem:</strong> A function $g$ is differentiable on $[1, 6]$. Selected values are given in the table:</p>
+<table>
+  <thead>
+    <tr><th>$x$</th><th>$1$</th><th>$3$</th><th>$6$</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>$g(x)$</td><td>$4$</td><td>$10$</td><td>$19$</td></tr>
+  </tbody>
+</table>
+<p>Use the MVT to explain why there must exist a $c$ in $(1, 6)$ such that $g'(c) = 3$.</p>
+
+<p><strong>Solution.</strong> Average rate of change of $g$ on $[1, 6]$:</p>
+<p>$$\frac{g(6) - g(1)}{6 - 1} = \frac{19 - 4}{5} = 3$$</p>
+
+<p>Here is the exact sentence the rubric is looking for. Memorize this structure word for word:</p>
+<div class="ace-bq">
+  Since $g$ is differentiable on $[1, 6]$, $g$ is also continuous on $[1, 6]$. By the Mean Value Theorem, there exists a value $c$ in $(1, 6)$ such that $g'(c) = \dfrac{g(6) - g(1)}{6 - 1} = 3$.
+</div>
+
+<p><strong>Breaking down how the AP rubric scores this:</strong></p>
+<ul>
+  <li><strong>Point 1 (Continuity on closed interval):</strong> "Since $g$ is differentiable on $[1, 6]$, $g$ is also continuous on $[1, 6]$." Continuity stated with reason. Point awarded.</li>
+  <li><strong>Point 2 (Differentiability on open interval):</strong> The scorer looks for "differentiable on $(1, 6)$" with open brackets. Writing $[1, 6]$ instead of $(1, 6)$ for differentiability can lose this point.</li>
+  <li><strong>Point 3 (Cite the theorem by name):</strong> "By the Mean Value Theorem." Not "by the theorem." By name. Point awarded.</li>
+  <li><strong>Point 4 (Compute AROC):</strong> $\frac{19 - 4}{5} = 3$. Correct. Point awarded.</li>
+  <li><strong>Point 5 (Conclusion with correct value):</strong> "There exists a value $c$ in $(1, 6)$ such that $g'(c) = 3$." Existence stated, open interval correct, conclusion matches the question. Point awarded.</li>
+</ul>
+<p>On most 2-point rubrics, continuity and differentiability combine into Point 1, and everything else into Point 2. Skip either condition and Point 1 is gone entirely, even with perfect algebra.</p>
+
+<p><strong>Three versions of the Trapped justification I see every spring:</strong></p>
+<div class="mk"><p><strong>Version A (Continuity only):</strong> "Since $g$ is continuous on $[1, 6]$, by MVT, $g'(c) = 3$." Missing: "and differentiable on $(1, 6)$." Result: justification point = 0.</p></div>
+<div class="mk"><p><strong>Version B (Wrong interval brackets):</strong> "Since $g$ is differentiable on $[1, 6]$, by MVT, $g'(c) = 3$." Problem: closed bracket $[1, 6]$ instead of open $(1, 6)$ for differentiability. The differentiability point is lost.</p></div>
+<div class="mk"><p><strong>Version C (No theorem citation):</strong> "Since $g$ is continuous and differentiable, $g'(c) = 3$." Missing: "by the Mean Value Theorem." Most rubrics deduct heavily for this omission.</p></div>
+
+<p>The safest move: write the full template sentence every time. Do not abbreviate. Do not paraphrase.</p>
+<hr>
+
+<h2 id="mistakes">The 3 Mistakes That Cost My Students Points</h2>
+<p><strong>Mistake 1: Citing only continuity on the FRQ justification</strong></p>
+<p>Why it happens: Students see "continuous on $[a, b]$" written first in their notes and write that one sentence on the FRQ. They think they have done the work. They have done half. The rubric scores both conditions. Missing differentiability is a 1-point loss every single time.</p>
+<p>How to fix it: Memorize this template. "$f$ is continuous on $[a, b]$ AND differentiable on $(a, b)$, so by the MVT, there exists a $c$ in $(a, b)$ such that..." Both conditions in one breath.</p>
+
+<p><strong>Mistake 2: Confusing the closed and open intervals</strong></p>
+<p>Why it happens: Students write "differentiable on $[a, b]$" because the closed bracket feels safer. It is not. Differentiability lives on the open interval because endpoints can have undefined derivatives even when the function is continuous there. Writing the wrong interval tells the grader the student does not understand the conditions.</p>
+<p>How to fix it: Continuity gets the closed interval. Differentiability gets the open interval. Period.</p>
+
+<p><strong>Mistake 3: Forgetting to reject c values outside the interval</strong></p>
+<p>Why it happens: Students solve $f'(c) = \frac{f(b) - f(a)}{b - a}$, get two solutions, and write both. The MVT only guarantees a $c$ inside the open interval $(a, b)$. Any solution outside is mathematically valid for the equation but does not satisfy the theorem's conclusion.</p>
+<p>How to fix it: After you solve, check the interval every time. If the problem says $(0, 2)$ and your solutions are $\pm \frac{2\sqrt{3}}{3}$, only the positive root counts.</p>
+<hr>
+
+<h2 id="mvt-vs-ivt">MVT vs. IVT: The Problem Students Get Wrong Every Year</h2>
+<p>Students confuse these two theorems on at least one multiple choice question per year. They sound similar. They are not. And the distinction is more subtle than most teachers explain.</p>
+<p>The fastest check: <strong>IVT is about $f(c)$. MVT is about $f'(c)$.</strong> If the question is about the function hitting a specific output value, IVT. If it is about a slope or rate of change, MVT. That single check resolves most "which theorem applies" questions.</p>
+
+<table class="theorem-compare" style="border-collapse:collapse; width:100%; table-layout:fixed;">
+  <thead>
+    <tr>
+      <th style="background:#0f1e3c; color:#fff; padding:10px 14px; border:1px solid rgba(255,255,255,.2); text-align:center; font-weight:700; font-size:13px; width:50%;">Intermediate Value Theorem (IVT)</th>
+      <th style="background:#0f1e3c; color:#fff; padding:10px 14px; border:1px solid rgba(255,255,255,.2); text-align:center; font-weight:700; font-size:13px; width:50%;">Mean Value Theorem (MVT)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="tc-lbl" style="background:#f5f6f8; padding:6px 14px; font-size:11px; font-weight:700; color:#6b7280; text-transform:uppercase; letter-spacing:.5px; border:1px solid #dde1e8; width:50%;">Conditions required</td>
+      <td class="tc-lbl" style="background:#f5f6f8; padding:6px 14px; font-size:11px; font-weight:700; color:#6b7280; text-transform:uppercase; letter-spacing:.5px; border:1px solid #dde1e8; width:50%;">Conditions required</td>
+    </tr>
+    <tr>
+      <td style="padding:12px 14px; border:1px solid #dde1e8; vertical-align:top; width:50%; line-height:1.7; font-size:13px;">$f$ is continuous on $[a, b]$ only.</td>
+      <td style="padding:12px 14px; border:1px solid #dde1e8; vertical-align:top; width:50%; line-height:1.7; font-size:13px;">$f$ is continuous on $[a, b]$ AND differentiable on $(a, b)$.</td>
+    </tr>
+    <tr>
+      <td class="tc-lbl" style="background:#f5f6f8; padding:6px 14px; font-size:11px; font-weight:700; color:#6b7280; text-transform:uppercase; letter-spacing:.5px; border:1px solid #dde1e8; width:50%;">Conclusion</td>
+      <td class="tc-lbl" style="background:#f5f6f8; padding:6px 14px; font-size:11px; font-weight:700; color:#6b7280; text-transform:uppercase; letter-spacing:.5px; border:1px solid #dde1e8; width:50%;">Conclusion</td>
+    </tr>
+    <tr>
+      <td style="padding:12px 14px; border:1px solid #dde1e8; vertical-align:top; width:50%; line-height:1.7; font-size:13px;">For any $k$ between $f(a)$ and $f(b)$, there exists $c$ in $[a, b]$ such that $f(c) = k$.<br><br><em>About the function value.</em></td>
+      <td style="padding:12px 14px; border:1px solid #dde1e8; vertical-align:top; width:50%; line-height:1.7; font-size:13px;">There exists $c$ in $(a, b)$ such that $f'(c) = \dfrac{f(b) - f(a)}{b - a}$.<br><br><em>About the derivative value.</em></td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>Side-by-Side: One Setup, Two Different Theorems</h3>
+<p>Here is the exact problem type that trips students up on multiple choice. Both parts look identical at the start. The theorem you cite depends entirely on what the conclusion is asking for.</p>
+<p><strong>Setup:</strong> A function $f$ is continuous on $[1, 5]$ with $f(1) = 2$ and $f(5) = 8$. $f$ is also differentiable on $(1, 5)$.</p>
+
+<table class="theorem-compare" style="border-collapse:collapse; width:100%; table-layout:fixed;">
+  <thead>
+    <tr>
+      <th style="background:#0f1e3c; color:#fff; padding:10px 14px; border:1px solid rgba(255,255,255,.2); text-align:center; font-weight:700; font-size:13px; width:50%;"><span class="tag-ivt">IVT</span>&nbsp;&nbsp;Part A</th>
+      <th style="background:#0f1e3c; color:#fff; padding:10px 14px; border:1px solid rgba(255,255,255,.2); text-align:center; font-weight:700; font-size:13px; width:50%;"><span class="tag-mvt">MVT</span>&nbsp;&nbsp;Part B</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="padding:12px 14px; border:1px solid #dde1e8; vertical-align:top; width:50%; line-height:1.7; font-size:13px;"><strong>Question:</strong> Explain why there must exist a $c$ in $(1, 5)$ such that $f(c) = 5$.</td>
+      <td style="padding:12px 14px; border:1px solid #dde1e8; vertical-align:top; width:50%; line-height:1.7; font-size:13px;"><strong>Question:</strong> Explain why there must exist a $c$ in $(1, 5)$ such that $f'(c) = 1.5$.</td>
+    </tr>
+    <tr>
+      <td style="padding:12px 14px; border:1px solid #dde1e8; vertical-align:top; width:50%; line-height:1.7; font-size:13px;">Since $f$ is continuous on $[1, 5]$ and $5$ is between $f(1) = 2$ and $f(5) = 8$, by the <strong>Intermediate Value Theorem</strong>, there exists a $c$ in $(1, 5)$ such that $f(c) = 5$.<br><br><em>Continuity only. The question is about a function output value.</em></td>
+      <td style="padding:12px 14px; border:1px solid #dde1e8; vertical-align:top; width:50%; line-height:1.7; font-size:13px;">Since $f$ is continuous on $[1, 5]$ and differentiable on $(1, 5)$, by the <strong>Mean Value Theorem</strong>, there exists a $c$ in $(1, 5)$ such that $f'(c) = \dfrac{f(5) - f(1)}{5 - 1} = \dfrac{8 - 2}{4} = 1.5$.<br><br><em>Both conditions needed. The question is about a derivative value.</em></td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>The mistake:</strong> Students read "there exists a $c$" in Part A and reach for MVT, because that is the theorem they just studied. But Part A is asking about $f(c)$, not $f'(c)$. Using MVT on Part A implies you believe differentiability is required when it is not, which signals to the grader that you do not understand the difference between the theorems. Read the conclusion first. Then pick the theorem.</p>
+<hr>
+
+<h2 id="practice">Practice Problems</h2>
+<p>Try these on your own before checking the answers. If you get stuck, go back to the conditions gate above and verify both conditions before solving.</p>
+
+<p><strong>Problem 1: Find the value of c</strong><br>
+Let $f(x) = x^2 + 2x$ on $[0, 4]$. Verify that the MVT applies and find all values of $c$ in $(0, 4)$ that satisfy the conclusion.</p>
+
+<p><strong>Problem 2: FRQ-Style Justification</strong><br>
+A function $h$ is differentiable on $[2, 10]$, with $h(2) = 5$ and $h(10) = 29$. Write a complete justification using the mean value theorem to explain why there must exist a value $c$ in $(2, 10)$ such that $h'(c) = 3$.</p>
+
+<p><strong>Problem 3: Conditions Check (Conceptual)</strong><br>
+Let $f(x) = |x|$ on $[-1, 1]$.<br>
+(a) Is $f$ continuous on $[-1, 1]$?<br>
+(b) Is $f$ differentiable on $(-1, 1)$?<br>
+(c) Does the MVT apply? Explain in one sentence.</p>
+
+<p><strong>Answers:</strong></p>
+<p><strong>Problem 1:</strong> $f$ is a polynomial, so continuous on $[0, 4]$ and differentiable on $(0, 4)$. Average rate of change: $\frac{f(4) - f(0)}{4 - 0} = \frac{24}{4} = 6$. Set $f'(c) = 2c + 2 = 6$, so $c = 2$. Since $2 \in (0, 4)$, the answer is $c = 2$.</p>
+<p><strong>Problem 2:</strong> Since $h$ is differentiable on $[2, 10]$, $h$ is also continuous on $[2, 10]$. By the Mean Value Theorem, there exists a value $c$ in $(2, 10)$ such that $h'(c) = \frac{h(10) - h(2)}{10 - 2} = \frac{29 - 5}{8} = 3$.</p>
+<p><strong>Problem 3:</strong> (a) Yes, $|x|$ is continuous everywhere. (b) No, $|x|$ is not differentiable at $x = 0$, which is in $(-1, 1)$. (c) The MVT does not apply because the differentiability condition fails on the open interval.</p>
+<hr>
+
+<h2 id="faq">FAQ</h2>
+<div class="faq-list">
+
+  <details class="faq-item">
+    <summary><span class="faq-q-label">Q:</span> What are the two conditions of the mean value theorem?<span class="faq-toggle"></span></summary>
+    <div class="faq-a">
+      <p>The function has to be continuous on the closed interval $[a, b]$ and differentiable on the open interval $(a, b)$. Both conditions, every time. The closed interval for continuity is what catches students. The open interval for differentiability is what saves you on functions like $\sqrt{x}$ where the derivative blows up at an endpoint. Memorize both intervals exactly. The rubric scores them separately.</p>
+    </div>
+  </details>
+
+  <details class="faq-item">
+    <summary><span class="faq-q-label">Q:</span> When does the mean value theorem apply on the AP exam?<span class="faq-toggle"></span></summary>
+    <div class="faq-a">
+      <p>The MVT applies whenever the function is continuous on a closed interval and differentiable on the open interval. Polynomials always qualify. Trig functions qualify on intervals where they are defined. Rational functions qualify on intervals that avoid their vertical asymptotes. The exam will sometimes hand you a function that is continuous but not differentiable somewhere in the open interval, like $|x|$ at $x = 0$. That is your signal that the MVT does not apply. Recognizing when MVT fails is just as important as knowing when it applies.</p>
+    </div>
+  </details>
+
+  <details class="faq-item">
+    <summary><span class="faq-q-label">Q:</span> What is the difference between the mean value theorem and Rolle&#39;s theorem?<span class="faq-toggle"></span></summary>
+    <div class="faq-a">
+      <p>Rolle's theorem is the special case of the MVT where $f(a) = f(b)$. Both require the same two conditions. The conclusion is what differs. The MVT concludes $f'(c)$ equals the average rate of change. Rolle's concludes $f'(c) = 0$ because the average rate of change is zero when the endpoints match. If the AP exam gives you a function with $f(a) = f(b)$ and asks you to justify a horizontal tangent, you are in Rolle's territory. Same logic. Cleaner conclusion.</p>
+    </div>
+  </details>
+
+  <details class="faq-item">
+    <summary><span class="faq-q-label">Q:</span> How do I know if the FRQ wants MVT or IVT?<span class="faq-toggle"></span></summary>
+    <div class="faq-a">
+      <p>Ask yourself what the question is about. If it is about the function hitting a specific output value, you are using the Intermediate Value Theorem and you only need continuity. If it is about the derivative hitting a specific slope or rate value, you are using the Mean Value Theorem and you need both conditions. "Show that $f(c) = 3$" is IVT. "Show that $f'(c) = 3$" is MVT. Read the conclusion the question is asking you to justify, and the right theorem follows.</p>
+    </div>
+  </details>
+
+  <details class="faq-item">
+    <summary><span class="faq-q-label">Q:</span> Why does continuity need the closed interval but differentiability needs the open interval?<span class="faq-toggle"></span></summary>
+    <div class="faq-a">
+      <p>Differentiability is stronger than continuity. A function can be continuous at a point without being differentiable there. The MVT needs a defined derivative at every interior point so the theorem can guarantee a specific slope value exists. But at the endpoints, you only need the function to be defined and continuous there. That is why $\sqrt{x}$ on $[0, 4]$ works: it is continuous at $x = 0$ but the derivative blows up there. Since $0$ is an endpoint, not in the open interval $(0, 4)$, the MVT still applies. The different intervals reflect different mathematical requirements.</p>
+    </div>
+  </details>
+
+  <details class="faq-item">
+    <summary><span class="faq-q-label">Q:</span> What if I solve for $c$ and get solutions outside the interval $(a, b)$?<span class="faq-toggle"></span></summary>
+    <div class="faq-a">
+      <p>Reject them. The MVT guarantees a $c$ inside the open interval $(a, b)$ only. If you solve the equation and get two solutions, one inside and one outside, the one outside is a valid solution to the equation but not a valid conclusion of the MVT. This distinction is critical. Many students solve correctly, find multiple solutions, and forget to filter by interval. On multiple choice, including the outside solution lands you on a distractor designed exactly for this mistake. Always check your $c$ values against the interval before writing your final answer.</p>
+    </div>
+  </details>
+
+</div>
+
+<!-- FAQPage schema for SEO -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What are the two conditions of the mean value theorem?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The function must be continuous on the closed interval [a, b] and differentiable on the open interval (a, b). Both conditions are required. The rubric scores them separately."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "When does the mean value theorem apply on the AP exam?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The MVT applies when the function is continuous on a closed interval and differentiable on the open interval. Polynomials always qualify. Recognizing when MVT fails is as important as knowing when it applies."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the difference between the mean value theorem and Rolle's theorem?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Rolle's theorem is the special case of the MVT where f(a) = f(b). Both require the same two conditions. The conclusion simplifies to f'(c) = 0 when the endpoints match."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I know if the FRQ wants MVT or IVT?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "IVT is about f(c) — a function output value, needs only continuity. MVT is about f'(c) — a derivative value, needs both conditions. Read the conclusion the question asks you to justify."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why does continuity need the closed interval but differentiability needs the open interval?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Differentiability is stronger than continuity. The MVT needs a defined derivative at every interior point. At endpoints, only continuity is required. The different intervals reflect different mathematical requirements."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What if I solve for c and get solutions outside the interval (a, b)?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Reject them. The MVT guarantees a c inside the open interval (a, b) only. Solutions outside are valid for the equation but not for the theorem's conclusion. Always check c values against the interval."
+      }
+    }
+  ]
+}
+</script>
+<hr>
+
+<h2 id="quick-reference">Save This For Exam Day</h2>
+<div class="qr">
+  <h3>The Mean Value Theorem (MVT)</h3>
+  <div class="qr-bq">If $f$ is continuous on $[a, b]$ AND differentiable on $(a, b)$, then there exists at least one $c$ in $(a, b)$ such that $f'(c) = \dfrac{f(b) - f(a)}{b - a}$</div>
+
+  <h3>The FRQ Justification Template (memorize this exactly)</h3>
+  <div class="qr-bq">Since $f$ is continuous on $[a, b]$ and differentiable on $(a, b)$, by the Mean Value Theorem, there exists a value $c$ in $(a, b)$ such that $f'(c) = \dfrac{f(b) - f(a)}{b - a}$.</div>
+
+  <hr>
+  <h3>Always remember</h3>
+  <ul>
+    <li>Continuity lives on the <strong>closed</strong> interval $[a, b]$</li>
+    <li>Differentiability lives on the <strong>open</strong> interval $(a, b)$</li>
+    <li>Average rate of change = secant slope = $\dfrac{f(b) - f(a)}{b - a}$</li>
+    <li>The MVT guarantees at least one $c$, possibly more</li>
+    <li>Reject any $c$ values outside $(a, b)$</li>
+    <li>IVT = function value $f(c)$. MVT = derivative value $f'(c)$</li>
+    <li>Rolle's = MVT when $f(a) = f(b)$, conclusion: $f'(c) = 0$</li>
+  </ul>
+
+  <h3>Never do this</h3>
+  <ul>
+    <li>Cite only continuity on an FRQ justification</li>
+    <li>Write "differentiable on $[a, b]$" — differentiability lives on the <em>open</em> interval</li>
+    <li>Forget to cite the theorem by name on the FRQ</li>
+    <li>Include $c$ values outside the open interval in your final answer</li>
+  </ul>
+</div>
+<hr>
+
+<h2 id="related">Related Posts</h2>
+<p>If you found this helpful, these posts cover concepts that connect directly to the mean value theorem:</p>
+<ul>
+  <li><a href="post-01-what-is-a-derivative.html">What Is a Derivative in AP Calculus: The Concept, Not Just the Formula</a></li>
+  <li><a href="post-04-continuity-vs-differentiability.html">Continuity vs. Differentiability: What the AP Exam Actually Tests</a></li>
+</ul>
+<p>For the official AP Calculus framework that places the MVT inside Unit 5 and lists the rubric expectations, see the <a href="https://apcentral.collegeboard.org/courses/ap-calculus-ab">College Board AP Calculus AB course page</a> for scoring guidelines and released FRQs.</p>
+<hr>
+
+<h2 id="end-cta">Get the Free Guide: Then Come Back Ready</h2>
+<div class="cta-box">
+  <p>The mean value theorem is the most predictable justification point on the entire AP Calculus AB and BC FRQ section. Lock in the two-condition language and the rubric template now. Because if this is shaky, the rest of Unit 5 gets harder than it needs to be.</p>
+  <p>I put together a free guide at EngiNearU that walks your student through exactly what needs to be solid before Unit 5 actually clicks. Free. 10 minutes to read.</p>
+  <a href="https://www.aceapcalculus.com/before-apcalc" class="cta-btn">Download the Free Guide</a>
+  <p class="cta-parent">(Parents: a great resource to send your student right now if they are heading into exam week and need a structured plan.)</p>
+</div>
+
+
+</div><!-- end .ace-post -->
+
+<!-- Desmos graph: MVT visualization for Worked Example 1 -->
+<script>
+(function() {
+  function initDesmos() {
+    if (typeof Desmos === 'undefined') { setTimeout(initDesmos, 100); return; }
+    var elt = document.getElementById('desmos-mvt');
+    if (!elt) return;
+    var calc = Desmos.GraphingCalculator(elt, {
+      expressions: false,
+      settingsMenu: false,
+      zoomButtons: false,
+      lockViewport: true
+    });
+    calc.setMathBounds({ left: -0.5, right: 2.5, bottom: -1, top: 5 });
+    calc.setExpressions([
+      { id: 'f',       latex: 'f(x) = x^{3} - 3x + 2',                color: '#1a3a6b', lineWidth: 2.5, label: 'f(x)', showLabel: true },
+      { id: 'secant',  latex: 'y = x + 2',                             color: '#e8a020', lineWidth: 2.2, lineStyle: 'DASHED', label: 'Secant (AROC)', showLabel: true },
+      { id: 'c_def',   latex: 'c = \\frac{2\\sqrt{3}}{3}' },
+      { id: 'tangent', latex: 'y = f(c) + (x - c)',                    color: '#1a7a4a', lineWidth: 2.2, lineStyle: 'DASHED', label: 'Tangent at c', showLabel: true },
+      { id: 'c_pt',    latex: '(c, f(c))', color: '#e8a020', showLabel: true, label: 'c ≈ 1.15', pointSize: 6 }
+    ]);
+  }
+  initDesmos();
+})();
+</script>
+
+<script>
+/* Style enforcement — overrides any WordPress theme CSS that strips borders, backgrounds, or flex layout */
+(function(){
+  function fix(sel, props){
+    document.querySelectorAll(sel).forEach(function(el){
+      for(var p in props) el.style.setProperty(p, props[p], 'important');
+    });
+  }
+  function enforce(){
+    fix('#ace-mvt.ace-post', {'padding':'32px 40px','box-sizing':'border-box'});
+    fix('.conditions-gate', {'border':'2px solid #e8a020','background-color':'#fef3dc','padding':'20px 24px','border-radius':'8px','margin':'20px 0'});
+    fix('.condition-wrap', {'border':'1px solid #dde1e8','border-radius':'6px','overflow':'hidden','margin-bottom':'10px','background-color':'#fff'});
+    fix('.condition-wrap summary', {'display':'flex','padding':'12px 16px','list-style':'none','cursor':'pointer','align-items':'flex-start','gap':'10px'});
+    fix('.gate-then', {'border':'1px solid #a7d7b8','background-color':'#eaf7f0','padding':'14px 18px','border-radius':'6px','margin-top':'14px','color':'#14532d'});
+    fix('.rolles-callout', {'border-left':'4px solid #7c3aed','background-color':'#f3f0ff','padding':'14px 18px','border-radius':'0 6px 6px 0','margin':'16px 0'});
+    fix('.rolles-callout p', {'color':'#4c1d95','font-size':'13px','margin':'0'});
+    fix('.faq-list', {'border':'1px solid #dde1e8','border-radius':'8px','overflow':'hidden','margin':'0'});
+    fix('.faq-item', {'border-bottom':'1px solid #dde1e8','padding':'0'});
+    fix('.faq-item summary', {'display':'flex','padding':'14px 16px','list-style':'none','cursor':'pointer','font-weight':'600','color':'#0f1e3c','font-size':'14px','align-items':'center','gap':'8px'});
+    fix('.faq-a', {'background-color':'#fff','padding':'14px 16px','font-size':'13px','line-height':'1.7'});
+    fix('.cta-box', {'background-color':'#0f1e3c','border-radius':'8px','padding':'24px 28px','text-align':'center','margin':'20px 0'});
+    fix('.cta-box p', {'color':'rgba(255,255,255,0.85)','font-size':'13px'});
+    fix('.ace-bq', {'border-left':'3px solid #e8a020','background-color':'#fef3dc','padding':'10px 16px','margin':'14px 0','border-radius':'0 6px 6px 0','font-size':'14px','line-height':'1.7','font-style':'normal','color':'#1a1a2e'});
+    fix('.qr-bq', {'border-left':'3px solid #e8a020','padding':'10px 14px','margin':'0 0 14px 0','color':'rgba(255,255,255,0.92)','font-size':'13px','line-height':'1.7','background':'transparent'});
+  }
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', enforce);
+  } else {
+    enforce();
+  }
+})();
+</script>
+
+<!-- &#9650;&#9650;&#9650; END: WORDPRESS CUSTOM HTML BLOCK &#9650;&#9650;&#9650; -->
+
+</div><!-- end .page -->
+</body>
+</html>

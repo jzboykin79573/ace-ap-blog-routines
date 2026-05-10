@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PREVIEW - Derivative Rules in AP Calculus 2026</title>
+
+<!--
+=======================================================================
+  PREVIEW FILE - ACE AP CALCULUS BLOG
+  Post 05: Derivative Rules in AP Calculus 2026 (Power, Product, Chain)
+=======================================================================
+  This file has three jobs:
+  1. Let you preview the post in your browser before publishing
+  2. Show you a publishing guide at the top of the page
+  3. Mark exactly what to copy into each part of WordPress
+
+  HOW TO USE THIS FILE
+  --------------------
+  Open it in your browser to read the publishing guide at the top.
+  Open it in VS Code to see the comment markers that show what goes where.
+
+  WHAT GETS PASTED INTO WORDPRESS
+  -------------------------------
+  STEP 1 (one time only) -> functions.php  (see guide below)
+  STEP 2 -> WordPress title field          (see guide below)
+  STEP 3 -> One Custom HTML block          (marked in the body below)
+=======================================================================
+-->
+
+<!-- PREVIEW-ONLY: Fonts, MathJax, Desmos load here for local preview.
+     WordPress gets MathJax + Desmos from functions.php (Step 1 below).
+     Do NOT paste any of this <head> section into WordPress. -->
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<script>MathJax = { tex: { inlineMath: [['$','$']], displayMath: [['$$','$$']], processEscapes: true } };</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+<script src="https://www.desmos.com/api/v1.7/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0fda6"></script>
+
+<!-- PREVIEW-ONLY CSS: styles for the browser chrome, hero, and page
+     wrapper below. None of this goes into WordPress. -->
+<style>
+:root{
+  --navy:#0f1e3c;--blue:#1a3a6b;--accent:#e8a020;--accent-light:#fef3dc;
+  --green:#1a7a4a;--green-light:#eaf7f0;--red:#c0392b;--red-light:#fdf2f1;
+  --purple:#7c3aed;--purple-light:#f3f0ff;
+  --gray:#f5f6f8;--border:#dde1e8;--text:#1a1a2e;--muted:#6b7280;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:#eef0f4;color:var(--text);font-size:14px;line-height:1.8}
+/* Publishing guide panel */
+.pub-guide{background:#1a1a2e;font-family:'JetBrains Mono',monospace}
+.pub-guide summary{padding:14px 20px;cursor:pointer;color:var(--accent);font-size:13px;font-weight:700;letter-spacing:.5px;list-style:none;display:flex;align-items:center;gap:10px}
+.pub-guide summary::before{content:"\25B6";font-size:10px;transition:transform .2s}
+.pub-guide[open] summary::before{transform:rotate(90deg)}
+.pub-guide-body{padding:0 20px 20px}
+.pub-step{margin-bottom:24px}
+.pub-step-ttl{color:var(--accent);font-size:12px;font-weight:700;margin-bottom:6px;letter-spacing:.5px}
+.pub-step p{color:rgba(255,255,255,.75);font-size:12px;margin-bottom:8px;font-family:'Inter',sans-serif;line-height:1.6}
+.pub-step textarea{width:100%;background:#0d0d1a;color:#a8d8a8;border:1px solid #333;border-radius:6px;padding:12px;font-size:11px;font-family:'JetBrains Mono',monospace;line-height:1.6;resize:vertical;min-height:80px}
+.pub-step code{background:#0d0d1a;color:var(--accent);padding:2px 6px;border-radius:3px;font-size:11px}
+.pub-divider{border:none;border-top:1px solid #2a2a4a;margin:20px 0}
+/* Preview chrome bar */
+.chrome{background:#2d2d2d;padding:8px 14px;display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:100}
+.dots{display:flex;gap:6px}.dot{width:11px;height:11px;border-radius:50%}
+.dot.r{background:#ff5f57}.dot.y{background:#febc2e}.dot.g{background:#28c840}
+.url{flex:1;background:#3d3d3d;border-radius:5px;padding:4px 10px;color:#aaa;font-size:11px;font-family:'JetBrains Mono',monospace}
+.badge{background:var(--accent);color:var(--navy);font-size:10px;font-weight:700;padding:3px 8px;border-radius:4px}
+/* Preview page wrapper + hero */
+.page{max-width:780px;margin:0 auto;background:#fff;min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,.12)}
+.hero{background:linear-gradient(135deg,var(--navy),var(--blue));padding:40px 40px 32px;color:#fff}
+.tag{display:inline-block;background:var(--accent);color:var(--navy);font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;padding:3px 9px;border-radius:3px;margin-bottom:14px}
+.hero h1{font-family:'Merriweather',serif;font-size:22px;line-height:1.4;margin-bottom:14px}
+.meta{display:flex;gap:10px;flex-wrap:wrap}
+.pill{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.88);font-size:11px;padding:4px 10px;border-radius:20px}
+</style>
+</head>
+<body>
+
+<!-- ===================================================================
+     PUBLISHING GUIDE - visible in your browser, preview only
+     This panel does NOT get pasted into WordPress.
+     =================================================================== -->
+<details class="pub-guide" open>
+  <summary>PUBLISHING GUIDE - 4 steps to post this to WordPress</summary>
+  <div class="pub-guide-body">
+
+    <div class="pub-step">
+      <div class="pub-step-ttl">STEP 1 - ONE TIME ONLY: Add MathJax + Desmos to functions.php</div>
+      <p>Do this once. After that, skip to Step 2 for every future post.<br>
+         Go to: WordPress Admin -> Appearance -> Theme File Editor -> functions.php<br>
+         Scroll to the bottom and paste the code below.</p>
+      <textarea readonly rows="10">
+// -- ACE AP CALCULUS: MathJax + Desmos --------------------------
+// Paste this at the bottom of functions.php - one time only.
+
+add_action('wp_head', function() {
+    echo '<script>MathJax = { tex: { inlineMath: [["$","$"]], displayMath: [["$$","$$"]] } };</script>';
+    echo '<script src="https://www.desmos.com/api/v1.7/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0fda6"></script>';
+}, 1);
+
+add_action('wp_enqueue_scripts', function() {
+    wp_enqueue_script('mathjax', 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js', [], null, false);
+});
+// ---------------------------------------------------------------</textarea>
+    </div>
+
+    <hr class="pub-divider">
+
+    <div class="pub-step">
+      <div class="pub-step-ttl">STEP 2 - WordPress title field</div>
+      <p>In the WordPress editor, click the title field at the top and paste this exactly:</p>
+      <textarea readonly rows="2">Derivative Rules in AP Calculus 2026: Power, Product, Quotient, and Chain Without the Mess</textarea>
+    </div>
+
+    <hr class="pub-divider">
+
+    <div class="pub-step">
+      <div class="pub-step-ttl">STEP 3 - WordPress Custom HTML block (the post content)</div>
+      <p>In the WordPress editor content area:<br>
+         1. Click the <code>+</code> button -> search <code>Custom HTML</code> -> add that block<br>
+         2. Open this file in VS Code or any text editor<br>
+         3. Find the comment that says: <code>&#9660;&#9660;&#9660; START: PASTE THIS INTO WORDPRESS CUSTOM HTML BLOCK &#9660;&#9660;&#9660;</code><br>
+         4. Select everything from that line down to: <code>&#9650;&#9650;&#9650; END: WORDPRESS CUSTOM HTML BLOCK &#9650;&#9650;&#9650;</code><br>
+         5. Paste into the Custom HTML block in WordPress<br><br>
+         That section contains the fonts link, all the CSS, all the post content, and the Desmos graph script (if any).</p>
+    </div>
+
+    <hr class="pub-divider">
+
+    <div class="pub-step">
+      <div class="pub-step-ttl">STEP 4 - SEO fields (in the WordPress sidebar)</div>
+      <p>If you use Yoast or Rank Math, fill these in the sidebar before publishing:</p>
+      <textarea readonly rows="5">
+SEO Title:       Derivative Rules in AP Calculus 2026 (Power, Product, Chain)
+Meta Description: Learn the power rule, product rule, and chain rule for AP Calculus AB and BC. FRQ-style worked examples, a decision framework, and the mistakes that cost a 5.
+Slug:            derivative-rules-ap-calculus
+Focus Keyword:   derivative rules AP Calculus</textarea>
+    </div>
+
+  </div>
+</details>
+<!-- END PUBLISHING GUIDE -->
+
+
+<!-- ===================================================================
+     PREVIEW ONLY: browser chrome bar
+     Do NOT paste this into WordPress.
+     =================================================================== -->
+<div class="chrome">
+  <div class="dots">
+    <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
+  </div>
+  <div class="url">enginearu.com/ap-calculus-prep/derivative-rules-ap-calculus/</div>
+  <div class="badge">PREVIEW</div>
+</div>
+<!-- END PREVIEW CHROME -->
+
+
+<!-- ===================================================================
+     PREVIEW ONLY: hero header
+     WordPress uses the title field (Step 2) instead of this.
+     Do NOT paste this into WordPress.
+     =================================================================== -->
+<div class="page">
+<div class="hero">
+  <div class="tag">AP Calculus AB &middot; BC &middot; Units 2 &amp; 3</div>
+  <h1>Derivative Rules in AP Calculus 2026<br>(Power, Product, Quotient, and Chain Without the Mess)</h1>
+  <div class="meta">
+    <span class="pill">13 min read</span>
+    <span class="pill">500+ EngiNearU students</span>
+    <span class="pill">3 to 5 score improvement</span>
+  </div>
+</div>
+<!-- END PREVIEW HERO -->
+
+
+<!-- ===================================================================
+     &#9660;&#9660;&#9660; START: PASTE THIS INTO WORDPRESS CUSTOM HTML BLOCK &#9660;&#9660;&#9660;
+     ===================================================================
+     Select from this line all the way down to the matching END marker.
+     Paste the entire selection into one Custom HTML block in WordPress.
+     =================================================================== -->
+
+<!-- Google Fonts - loads the typefaces used in the post styling -->
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<!-- Post CSS - all visual styles for the content below -->
+<style>
+.ace-post{
+  --navy:#0f1e3c;--blue:#1a3a6b;--accent:#e8a020;--accent-light:#fef3dc;
+  --green:#1a7a4a;--green-light:#eaf7f0;--red:#c0392b;--red-light:#fdf2f1;
+  --purple:#7c3aed;--purple-light:#f3f0ff;
+  --gray:#f5f6f8;--border:#dde1e8;--text:#1a1a2e;--muted:#6b7280;
+  font-family:'Inter',sans-serif;font-size:14px;line-height:1.8;color:var(--text);
+  padding:32px 0;
+}
+.ace-post .toc{background:var(--gray);border-left:4px solid var(--navy);border-radius:0 8px 8px 0;padding:18px 20px;margin-bottom:36px}
+.ace-post .toc-ttl{font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.ace-post .toc ol{padding-left:18px}.ace-post .toc li{margin-bottom:6px}
+.ace-post .toc a{color:var(--blue);text-decoration:none;font-size:13px;font-weight:500}
+.ace-post .sec{margin-bottom:40px}
+.ace-post h2{font-family:'Merriweather',serif;font-size:18px;font-weight:700;color:var(--navy);margin-bottom:14px;padding-bottom:8px;border-bottom:2px solid var(--border)}
+.ace-post h3{font-size:14px;font-weight:700;color:var(--blue);margin:18px 0 8px}
+.ace-post p{margin-bottom:13px;font-size:14px}
+.ace-post .math-block{background:var(--gray);border-radius:8px;padding:16px 20px;margin:14px 0;text-align:center;overflow-x:auto;font-size:15px}
+.ace-post .compare{display:grid !important;grid-template-columns:1fr 1fr !important;gap:1px !important;background:var(--border) !important;border-radius:10px !important;overflow:hidden !important;margin:18px 0 !important;}
+.ace-post .compare-side{padding:18px 20px !important;background:#fff !important;}
+.ace-post .compare-side.left{background:var(--gray) !important;}
+.ace-post .compare-lbl{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px}
+.ace-post .compare-lbl.aroc{color:var(--muted)}
+.ace-post .compare-lbl.iroc{color:var(--blue)}
+.ace-post .compare-val{font-size:18px;font-weight:800;color:var(--navy);margin-bottom:4px}
+.ace-post .compare-sub{font-size:12px;color:var(--muted);line-height:1.5}
+.ace-post .compare-badge{display:inline-block;margin-top:8px;font-size:10px;font-weight:700;padding:3px 8px;border-radius:4px}
+.ace-post .compare-badge.aroc{background:var(--gray);color:var(--muted);border:1px solid var(--border)}
+.ace-post .compare-badge.iroc{background:var(--blue);color:#fff}
+.ace-post .def-card{border-radius:8px !important;overflow:hidden !important;border:1px solid var(--border) !important;margin-bottom:14px !important;}
+.ace-post .def-hd{background:var(--navy) !important;color:#fff !important;padding:9px 14px !important;font-size:12px;font-weight:700;display:flex !important;align-items:center !important;gap:8px !important;}
+.ace-post .num{background:var(--accent) !important;color:var(--navy) !important;width:22px !important;height:22px !important;border-radius:50% !important;display:flex !important;align-items:center !important;justify-content:center !important;font-size:11px;font-weight:800;flex-shrink:0 !important;}
+.ace-post .def-bd{padding:14px 16px !important;background:#fff !important;}
+.ace-post .def-bd p{font-size:13px;margin-bottom:8px}
+.ace-post .def-bd p:last-child{margin-bottom:0}
+.ace-post .def-tag{display:inline-block;font-size:10px;font-weight:700;padding:2px 7px;border-radius:3px;margin-top:4px;background:var(--green-light);color:var(--green)}
+.ace-post .cheat{background:var(--accent-light) !important;border:1px solid var(--accent) !important;border-radius:8px !important;padding:14px 16px !important;margin:16px 0 !important;}
+.ace-post .cheat-ttl{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#8a5a00;margin-bottom:8px}
+.ace-post .cheat-list{padding-left:0;list-style:none}
+.ace-post .cheat-list li{font-size:13px;padding:4px 0;display:flex;align-items:flex-start;gap:8px;color:#5a3c00;overflow-wrap:break-word;min-width:0}
+.ace-post .cheat-list li>mjx-container,.ace-post .cheat-list li .MJX_Assistive_MathML{display:inline!important;vertical-align:middle}
+.ace-post .cheat-list li::before{content:"\2192";color:var(--accent);font-weight:700;flex-shrink:0;margin-top:2px}
+.ace-post .note{background:var(--purple-light) !important;border-left:3px solid var(--purple) !important;border-radius:0 6px 6px 0 !important;padding:10px 14px !important;margin:14px 0 !important;font-size:12px;color:#4c1d95 !important;}
+.ace-post .step{display:flex !important;gap:14px !important;margin-bottom:18px !important;align-items:flex-start !important;}
+.ace-post .snum{background:var(--navy);color:#fff;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;margin-top:2px}
+.ace-post .scontent{flex:1}
+.ace-post .slbl{font-weight:700;font-size:13px;color:var(--navy);margin-bottom:5px}
+.ace-post .scontent p{font-size:13px;margin-bottom:6px}
+.ace-post .rubric{background:var(--green-light) !important;border-left:4px solid var(--green) !important;border-radius:0 8px 8px 0 !important;padding:14px 18px !important;margin:16px 0 !important;}
+.ace-post .rubric-ttl{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--green);margin-bottom:8px}
+.ace-post .rubric ul{padding-left:18px}.ace-post .rubric li{font-size:13px;margin-bottom:5px;color:#1a4a32}
+.ace-post .mcq-check{background:#eef2ff;border-left:4px solid #4f46e5;border-radius:0 8px 8px 0;padding:14px 18px;margin:16px 0}
+.ace-post .mcq-ttl{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#4f46e5;margin-bottom:8px}
+.ace-post .mcq-check ul{padding-left:18px}.ace-post .mcq-check li{font-size:13px;margin-bottom:5px;color:#312e81}
+.ace-post .cta{background:linear-gradient(135deg,var(--navy),var(--blue)) !important;border-radius:12px !important;padding:24px 26px !important;margin:28px 0 !important;color:#fff !important;}
+.ace-post .cta h3{color:#fff;margin:0 0 8px;font-size:15px;font-family:'Merriweather',serif}
+.ace-post .cta p{color:rgba(255,255,255,.85);font-size:13px;margin-bottom:14px}
+.ace-post .btn{display:inline-block;background:var(--accent);color:var(--navy);font-weight:700;font-size:13px;padding:10px 20px;border-radius:6px;text-decoration:none}
+.ace-post .sub{font-size:11px;color:rgba(255,255,255,.6);margin-top:10px;font-style:italic}
+.ace-post .sea{background:var(--accent-light) !important;border:2px solid var(--accent) !important;border-radius:12px !important;padding:22px 26px !important;margin:20px 0 !important;}
+.ace-post .sea h3{color:var(--navy);font-size:14px;margin-bottom:8px;font-weight:700}
+.ace-post .sea p{font-size:13px;color:#5a4500;margin-bottom:12px}
+.ace-post .btn-w{display:inline-block;background:var(--navy);color:#fff;font-weight:700;font-size:13px;padding:10px 20px;border-radius:6px;text-decoration:none}
+.ace-post .mk{border-left:4px solid var(--red) !important;border-radius:0 8px 8px 0 !important;padding:14px 18px !important;background:var(--red-light) !important;margin-bottom:16px !important;}
+.ace-post .mk-n{font-weight:700;color:var(--red);font-size:13px;margin-bottom:5px}
+.ace-post .mk-w{font-size:12px;color:#7a2020;margin-bottom:6px;font-style:italic}
+.ace-post .mk-f{font-size:13px;color:var(--text)}
+.ace-post .prob{background:var(--gray) !important;border-radius:8px !important;padding:16px 18px !important;margin-bottom:14px !important;border:1px solid var(--border) !important;}
+.ace-post .plbl{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.ace-post .prob p{font-size:13px;margin-bottom:8px}
+.ace-post .answers{background:var(--navy) !important;border-radius:8px !important;padding:18px 20px !important;margin-top:20px !important;}
+.ace-post .ans-ttl{color:var(--accent);font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:12px}
+.ace-post .ans-item{font-size:13px;color:rgba(255,255,255,.9);margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid rgba(255,255,255,.1)}
+.ace-post .ans-item:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
+.ace-post .faq-item{border-bottom:1px solid var(--border);padding:16px 0}
+.ace-post .faq-q{font-weight:700;color:var(--navy);font-size:13px;margin-bottom:8px}
+.ace-post .faq-a{font-size:13px;line-height:1.7}
+.ace-post .qr{background:var(--navy) !important;color:#fff !important;border-radius:10px !important;padding:24px 26px !important;margin:20px 0 !important;}
+.ace-post .qr-ttl{color:var(--accent);font-size:12px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:16px}
+.ace-post .qrf{background:rgba(255,255,255,.07);border-radius:6px;padding:12px 16px;margin-bottom:10px;text-align:center}
+.ace-post .qrf-lbl{font-size:11px;color:rgba(255,255,255,.5);margin-bottom:6px}
+.ace-post .qrb{margin-top:14px;list-style:none;padding-left:0}
+.ace-post .qrb li{font-size:12px;color:rgba(255,255,255,.85);margin-bottom:6px;padding-left:20px;position:relative}
+.ace-post .qrb li::before{content:"\2713";color:#4ade80;position:absolute;left:0;font-weight:700}
+.ace-post .qrb .nv{color:#fca5a5!important}.ace-post .qrb .nv::before{content:"\2717"!important;color:#fca5a5!important}
+.ace-post .related-link{display:block;padding:12px 14px;background:var(--gray);border-radius:6px;border:1px solid var(--border);margin-bottom:8px;font-size:13px;color:var(--muted);font-style:italic}
+.ace-post .ext-link{display:block;padding:10px 14px;background:#fff;border-radius:6px;border:1px solid var(--border);margin-bottom:8px;font-size:12px;color:var(--blue);text-decoration:none}
+.ace-post .ext-link:hover{background:var(--gray)}
+.ace-post .body-list{padding-left:20px;margin-bottom:12px;font-size:13px}
+.ace-post .body-list li{margin-bottom:5px}
+.ace-post hr{border:none;border-top:1px solid var(--border);margin:28px 0}
+.ace-post .needs-input{background:#fffbe6;border:1px dashed #d4a017;border-radius:6px;padding:8px 12px;margin:12px 0;font-size:11px;color:#8a5a00;font-style:italic}
+</style>
+
+<!-- Post content - all sections of the blog post -->
+<div class="ace-post">
+
+  <!-- Table of contents -->
+  <div class="toc">
+    <div class="toc-ttl">Jump To What You Need</div>
+    <ol>
+      <li><a href="#mistake">The One Mistake That Costs a 5</a></li>
+      <li><a href="#what-it-means">What Derivative Rules Actually Do</a></li>
+      <li><a href="#framework">The Decision Framework (Which Rule, When)</a></li>
+      <li><a href="#example-1">Worked Example 1 - Power Rule on a Polynomial</a></li>
+      <li><a href="#mid-cta">Grab the Free Guide</a></li>
+      <li><a href="#example-2">Worked Example 2 - The Triple Chain Rule (FRQ Type)</a></li>
+      <li><a href="#mistakes">The 3 Mistakes That Cost My Students Points</a></li>
+      <li><a href="#practice">Practice Problems</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="#quick-reference">Save This For Exam Day</a></li>
+      <li><a href="#related">Related Posts</a></li>
+    </ol>
+  </div>
+
+  <!-- Section 1: The Mistake -->
+  <div class="sec" id="mistake">
+    <h2>The One Mistake That Costs a 5</h2>
+    <p>I have had students sit down with me after a differentiation test and walk me through their chain rule work step by step. They set up the structure correctly. They identified the outer function and the inner function. They wrote the outer derivative. They went back and double-checked everything. They still missed the question. Every time, it was the same thing: they forgot to multiply by the derivative of the inside function. Not a conceptual failure. They knew chain rule. The last multiplication just did not happen. That specific omission is the single most commonly missed thing in AP Calculus. Not the hardest concept on the exam. The most commonly missed. And it costs FRQ points every spring.</p>
+    <p>Every differentiation unit test I give, at least one student writes a perfect chain rule setup and then forgets to multiply by the inside derivative. That one missing factor is the difference between a 4 and a 5 on the FRQ. Not the difference between a 3 and a 5. The 5. And it happens to students who already understand the concept. The derivative rules AP Calculus tests are not hard to learn. They are hard to keep straight under pressure.</p>
+    <p>Here is what the actual exam moment looks like. The problem is $\frac{d}{dx}[\sin(3x^2)]$. The student writes $\cos(3x^2)$. They circle it. They move on. They lost the entire point. The correct answer is $\cos(3x^2) \cdot 6x$. That extra $6x$ is the inside derivative. On a 9-point FRQ, missing it on one part can drop you from a perfect 9 to a 7, which is exactly the gap between a 5 composite and a 4.</p>
+    <p>In my opinion, this is the most expensive habit in the differentiation units. Not because the concept is hard. Because students learn the rules separately and never build the decision-making skill that tells them which rule to use when, and how to layer them. The AP exam never asks you for a clean power rule problem on its own. It asks you for a power rule wrapped inside a product rule wrapped inside a chain rule. Every single year.</p>
+    <p>This post fixes that. By the end you will have a clean decision tree for power rule AP Calculus problems, product rule AP Calc problems, quotient rule problems, and chain rule AP Calculus problems. You will know how to take a derivative AP Calc style without freezing on the layered ones, and you will have a derivative rules cheat sheet built for actual exam pressure, not the textbook version.</p>
+    <p>This is not a quick read. But 13 minutes here saves you the differentiation test points that turn a B into an A and a 4 into a 5.</p>
+  </div>
+
+  <!-- Section 2: What it means -->
+  <div class="sec" id="what-it-means">
+    <h2>What Derivative Rules Actually Do</h2>
+    <p>Textbooks explain derivative rules as separate techniques you apply one at a time. That is not how the AP exam tests them. And it is not how I teach them. Here is what I tell every student when differentiation starts in AP Calc.</p>
+    <p>A derivative rule is a shortcut. That is the whole story. You already know how to take a derivative the long way. You set up the limit definition, expand the binomial, cancel the $h$, and apply the limit. It works for every function. But on a problem like $f(x) = 4x^7 - 3x^5 + 2x^2 - x + 9$, doing that limit by hand five times is going to take you 12 minutes and give the AP exam plenty of chances to score you wrong on algebra. The power rule does the same job in 8 seconds.</p>
+    <p>That is what derivative rules are. Trusted shortcuts that replace the limit definition for specific function shapes. Power rule replaces the limit definition for $x^n$. Product rule handles two functions multiplied together. Chain rule handles a function nested inside another function. Each rule covers one shape. The skill is matching the shape to the rule fast.</p>
+
+    <!-- AROC vs IROC reminder card -->
+    <div class="compare">
+      <div class="compare-side left">
+        <div class="compare-lbl aroc">Average Rate of Change</div>
+        <div class="compare-val">slope between two points</div>
+        <div class="compare-sub">Use the slope formula on $f(a)$ and $f(b)$. <strong>Not a derivative.</strong></div>
+        <span class="compare-badge aroc">Interval - no rules below apply</span>
+      </div>
+      <div class="compare-side">
+        <div class="compare-lbl iroc">Instantaneous Rate of Change</div>
+        <div class="compare-val" style="color:var(--blue)">slope of tangent at one point</div>
+        <div class="compare-sub">This is what derivative rules give you.</div>
+        <span class="compare-badge iroc">Use power, product, chain</span>
+      </div>
+    </div>
+
+    <p>Quick reminder before we go further. Every derivative is an instantaneous rate of change, not an average rate of change. Average rate of change uses the slope between two points on the curve. Instantaneous rate of change is the slope of the tangent line at a single point. The AP exam tests both across Units 2 and 3, and it tests them as separate skills. The derivative rules below produce the instantaneous version. If a problem asks you for the average rate of change between $x = 1$ and $x = 4$, do not take a derivative. Use the slope formula on the function values. That distinction trips up at least 1 in 4 of my students on the first differentiation test.</p>
+    <p>Now here is the part most students miss. The rules are not interchangeable. You do not get to pick the one you like. The shape of the function tells you which rule applies. And on the AP exam, most functions have more than one shape happening at the same time. That is why the decision framework matters more than the rules themselves.</p>
+    <p>One thing before the formal rules. The four rules below assume you already know the basic derivatives: $\frac{d}{dx}[\sin(x)] = \cos(x)$, $\frac{d}{dx}[\cos(x)] = -\sin(x)$, $\frac{d}{dx}[e^x] = e^x$, $\frac{d}{dx}[\ln(x)] = \frac{1}{x}$, and $\frac{d}{dx}[x^n] = nx^{n-1}$ for simple polynomials. If any of those feel uncertain, lock them in first. A future post will cover those basic rules in full. Everything in this post builds on them.</p>
+
+    <p>Here is the formal version of the four rules you need cold for both AB and BC.</p>
+
+    <div class="def-card">
+      <div class="def-hd"><div class="num">1</div>Power Rule</div>
+      <div class="def-bd">
+        <p>If $f(x) = x^n$, then $f'(x) = nx^{n-1}$.</p>
+        <div class="math-block">$$\frac{d}{dx}[x^n] = nx^{n-1}$$</div>
+        <span class="def-tag">Use when: function is a single $x$ raised to a power, including negative and fractional exponents</span>
+      </div>
+    </div>
+
+    <div class="def-card">
+      <div class="def-hd"><div class="num">2</div>Product Rule</div>
+      <div class="def-bd">
+        <p>If $f(x) = u(x) \cdot v(x)$, then $f'(x) = u'(x) \cdot v(x) + u(x) \cdot v'(x)$.</p>
+        <div class="math-block">$$\frac{d}{dx}[u \cdot v] = u' v + u v'$$</div>
+        <span class="def-tag">Use when: two functions of $x$ are multiplied together</span>
+      </div>
+    </div>
+
+    <div class="def-card">
+      <div class="def-hd"><div class="num">3</div>Quotient Rule</div>
+      <div class="def-bd">
+        <p>If $f(x) = \frac{u(x)}{v(x)}$, then $f'(x) = \frac{u'(x) \cdot v(x) - u(x) \cdot v'(x)}{[v(x)]^2}$.</p>
+        <div class="math-block">$$\frac{d}{dx}\left[\frac{u}{v}\right] = \frac{u'v - uv'}{v^2}$$</div>
+        <span class="def-tag">Memory hook: "low d-high minus high d-low, over low squared." | Use when: one function of $x$ is divided by another</span>
+      </div>
+    </div>
+
+    <div class="def-card">
+      <div class="def-hd"><div class="num">4</div>Chain Rule</div>
+      <div class="def-bd">
+        <p>If $f(x) = g(h(x))$, then $f'(x) = g'(h(x)) \cdot h'(x)$.</p>
+        <div class="math-block">$$\frac{d}{dx}[g(h(x))] = g'(h(x)) \cdot h'(x)$$</div>
+        <span class="def-tag">Use when: one function is nested inside another</span>
+      </div>
+    </div>
+
+    <p>Memorize all four formulas. The next section is where the actual skill is.</p>
+  </div>
+
+  <!-- Section 3: Decision Framework -->
+  <div class="sec" id="framework">
+    <h2>The Decision Framework (Which Rule, When)</h2>
+    <p>Most students I work with can recite the four rules out loud. Most of them still freeze the first time they see $\sin(3x^2) \cdot e^{4x}$. The gap is not the rules. The gap is the decision tree. Here is the one I drill with every student when we hit differentiation.</p>
+    <h3>Step 1. Look at the structure first, not the variables.</h3>
+    <p>Before you write anything, ask: how is this function built? Is it one piece? Two pieces multiplied? One piece divided by another? One piece nested inside another?</p>
+    <h3>Step 2. Apply this exact order of questions.</h3>
+    <ol class="body-list">
+      <li>Is the function a sum or difference of terms? If yes, take the derivative term by term. The sum rule lets you split the work.</li>
+      <li>Is each term (or the whole function) a product of two functions of $x$? If yes, product rule.</li>
+      <li>Is the function one expression divided by another, both containing $x$? If yes, quotient rule.</li>
+      <li>Inside any term, is there a function nested inside another function? If yes, chain rule on that piece.</li>
+      <li>At the bottom of every chain, the simple piece gets handled by power rule, trig rule, exponential rule, or whatever applies to that single function.</li>
+    </ol>
+    <h3>Step 3. Work outside in.</h3>
+    <p>When you have layered rules, the outside structure decides the first move. Product rule outside means you set up product rule first, then handle each factor's derivative. Quotient rule outside means you set up low d-high minus high d-low first, then differentiate each piece. Chain rule outside means you write the outside derivative times the inside derivative, then break the inside derivative apart with whatever rule it needs.</p>
+
+    <div class="cheat">
+      <div class="cheat-ttl">Quick filter: which rule first?</div>
+      <ul class="cheat-list">
+        <li>$5x^3 + 2x$ is a <strong>sum</strong>. Sum rule, then power rule on each term.</li>
+        <li>$x^2 \sin(x)$ is a <strong>product</strong>. Product rule first.</li>
+        <li>$\frac{\sin(x)}{x^2}$ is a <strong>quotient</strong>. Quotient rule first.</li>
+        <li>$\sin(x^2)$ is a <strong>composition</strong>. Chain rule first.</li>
+        <li>$x^2 \sin(3x)$ is a <strong>product where one factor is a chain</strong>. Product rule first, then chain rule on the $\sin(3x)$ piece.</li>
+      </ul>
+    </div>
+
+    <p>That last one is the AP exam pattern. The product rule shows up with a chain rule hiding inside one of the factors. If you cannot spot the layering before you start, you will get half the problem right and lose the rest of the points to algebra you should never have written.</p>
+    <div class="note">The decision tree is the skill. The rules are the tools.</div>
+  </div>
+
+  <!-- Section 4: Worked Example 1 -->
+  <div class="sec" id="example-1">
+    <h2>Worked Example 1 - Power Rule on a Polynomial (Foundational)</h2>
+    <div class="prob">
+      <div class="plbl">Problem</div>
+      <p>Find $f'(x)$ if $f(x) = 4x^5 - 3x^3 + 7x^2 - 2x + 8$.</p>
+    </div>
+
+    <div class="step"><div class="snum">1</div><div class="scontent">
+      <div class="slbl">Recognize the structure</div>
+      <p>This is a sum and difference of terms. Sum rule lets me take the derivative term by term. No product rule. No chain rule. Just power rule applied five times.</p>
+    </div></div>
+
+    <div class="step"><div class="snum">2</div><div class="scontent">
+      <div class="slbl">Apply power rule to each term</div>
+      <p>For $x^n$, the derivative is $nx^{n-1}$. The coefficient stays. I bring down the exponent and subtract 1.</p>
+      <div class="math-block">$$\frac{d}{dx}[4x^5] = 4 \cdot 5x^{4} = 20x^{4}$$</div>
+      <div class="math-block">$$\frac{d}{dx}[-3x^3] = -3 \cdot 3x^{2} = -9x^{2}$$</div>
+      <div class="math-block">$$\frac{d}{dx}[7x^2] = 7 \cdot 2x^{1} = 14x$$</div>
+      <div class="math-block">$$\frac{d}{dx}[-2x] = -2$$</div>
+      <div class="math-block">$$\frac{d}{dx}[8] = 0$$</div>
+      <p>The constant 8 has derivative 0. Constants do not change, so their rate of change is zero.</p>
+    </div></div>
+
+    <div class="step"><div class="snum">3</div><div class="scontent">
+      <div class="slbl">Combine the pieces</div>
+      <div class="math-block">$$\boxed{f'(x) = 20x^4 - 9x^2 + 14x - 2}$$</div>
+    </div></div>
+
+    <div class="rubric">
+      <div class="rubric-ttl">Here is exactly how the AP exam scores this type of problem</div>
+      <ul>
+        <li>Apply power rule correctly to every term, including the linear term $-2x$ where the exponent goes from 1 to 0</li>
+        <li>State that the derivative of the constant is 0 (or simply omit it, which is also accepted)</li>
+        <li>Show each derivative term in your work, not just the final answer</li>
+        <li>Use correct notation: $f'(x)$ or $\frac{dy}{dx}$ at the front of the final answer</li>
+        <li>Sign errors on negative coefficients are the most common deduction I see on this problem type</li>
+      </ul>
+    </div>
+    <p>A clean polynomial derivative is the easiest 4 points on a Unit 3 FRQ. Do not give them away by skipping the work step. AP graders need to see the chain of derivatives, not just a final expression.</p>
+  </div>
+
+  <!-- Mid CTA -->
+  <div id="mid-cta">
+    <div class="cta">
+      <h3>Grab the Free "Before AP Calculus" Guide</h3>
+      <p>Not sure your student has the Unit 1 and Unit 2 foundation locked in before derivative rules show up in homework? I put together a free guide that walks through exactly what concepts need to be solid before the differentiation units click. Zero fluff. Download it free below.</p>
+      <a class="btn" href="https://www.aceapcalculus.com/before-apcalc" target="_blank">Get the Free Guide</a>
+      <div class="sub">Parents: this is the resource I send to families when their student is suddenly struggling with derivatives after acing Unit 1. Nine times out of ten, the gap is in the foundation, not the new material.</div>
+    </div>
+  </div>
+
+  <!-- Section 5: Worked Example 2 -->
+  <div class="sec" id="example-2">
+    <h2>Worked Example 2 - The Triple Chain Rule (FRQ Type)</h2>
+    <p>This is the problem shape that freezes even strong students. When three functions are nested inside each other, most students do not know where to start. They look at the full expression and try to hold all three layers in their head at once. That is the wrong approach. The right approach is identical to a single chain rule, applied three times from the outside in. These are the ones I see students freeze on most in sessions. Three layers looks intimidating. If you peel from the outside in, it is just the same rule applied three times.</p>
+    <div class="prob">
+      <div class="plbl">Problem</div>
+      <p>Find $f'(x)$ if $f(x) = e^{\cos(\sin(x))}$.</p>
+      <p><em>Basic derivatives required: $\frac{d}{dx}[e^x] = e^x$, $\frac{d}{dx}[\cos(x)] = -\sin(x)$, $\frac{d}{dx}[\sin(x)] = \cos(x)$.</em></p>
+    </div>
+
+    <div class="step"><div class="snum">1</div><div class="scontent">
+      <div class="slbl">Identify the three layers from the outside in</div>
+      <ul class="body-list">
+        <li>Outermost layer: $e^{(\cdot)}$ (exponential, wraps everything)</li>
+        <li>Middle layer: $\cos((\cdot))$ (cosine, wraps the innermost)</li>
+        <li>Innermost layer: $\sin(x)$ (the core function)</li>
+      </ul>
+      <p>Read the function from outside in: $e$ to the power of (cosine of (sine of $x$)).</p>
+    </div></div>
+
+    <div class="step"><div class="snum">2</div><div class="scontent">
+      <div class="slbl">Differentiate the outermost layer, keep everything inside untouched</div>
+      <p>The outside function is $e^{(\cdot)}$. The derivative of $e^u$ with respect to $u$ is $e^u$. Keep the full inside expression intact.</p>
+      <div class="math-block">$$\text{Layer 1 factor: } e^{\cos(\sin(x))}$$</div>
+    </div></div>
+
+    <div class="step"><div class="snum">3</div><div class="scontent">
+      <div class="slbl">Multiply by the derivative of the middle layer, keep the innermost untouched</div>
+      <p>The middle function is $\cos((\cdot))$. The derivative of $\cos(u)$ with respect to $u$ is $-\sin(u)$. Keep $\sin(x)$ inside untouched.</p>
+      <div class="math-block">$$\text{Layer 2 factor: } \cdot \left(-\sin(\sin(x))\right)$$</div>
+    </div></div>
+
+    <div class="step"><div class="snum">4</div><div class="scontent">
+      <div class="slbl">Multiply by the derivative of the innermost layer</div>
+      <p>The innermost function is $\sin(x)$. Its derivative is $\cos(x)$.</p>
+      <div class="math-block">$$\text{Layer 3 factor: } \cdot \cos(x)$$</div>
+    </div></div>
+
+    <div class="step"><div class="snum">5</div><div class="scontent">
+      <div class="slbl">Multiply all three factors together</div>
+      <div class="math-block">$$f'(x) = e^{\cos(\sin(x))} \cdot \left(-\sin(\sin(x))\right) \cdot \cos(x)$$</div>
+      <div class="math-block">$$\boxed{f'(x) = -\cos(x)\sin(\sin(x))\,e^{\cos(\sin(x))}}$$</div>
+    </div></div>
+
+    <div class="rubric">
+      <div class="rubric-ttl">Here is exactly how the AP exam scores this type of problem</div>
+      <ul>
+        <li>Identify the number of nested layers before writing anything (structural recognition earns the first point)</li>
+        <li>Differentiate the outermost layer correctly: $\frac{d}{dx}[e^u] = e^u$ with the full inside expression intact (1 point)</li>
+        <li>Differentiate the middle layer correctly: $\frac{d}{dx}[\cos(u)] = -\sin(u)$, including the negative sign (1 point)</li>
+        <li>Differentiate the innermost layer correctly: $\frac{d}{dx}[\sin(x)] = \cos(x)$ (1 point)</li>
+        <li>Multiply all three factors together in one clean expression (1 point)</li>
+      </ul>
+    </div>
+    <p>That is 4 to 5 points on a single layered FRQ part. Students who freeze at the visual complexity and start guessing lose all of them. Students who peel from the outside in collect every point. The method does not change when you add a third layer. The patience does.</p>
+  </div>
+
+  <!-- Section 6: Mistakes -->
+  <div class="sec" id="mistakes">
+    <h2>The 3 Mistakes That Cost My Students Points</h2>
+    <div class="mk">
+      <div class="mk-n">Mistake 1: Forgetting the inside derivative on a chain rule</div>
+      <div class="mk-w">Why it happens: My students learn chain rule as "derivative of the outside, leave the inside alone" and stop there. The "times the derivative of the inside" part gets cut off in their head because the outside derivative feels like the answer.</div>
+      <div class="mk-f"><strong>How to fix it:</strong> Every time you write a chain rule derivative, leave a blank dot at the end of the line before you finish the problem. That dot reminds you the inside derivative has to be there. On a 9-point FRQ, this single mistake costs you 1 to 2 points and is the difference between a 5 and a 4 composite.</div>
+    </div>
+    <div class="mk">
+      <div class="mk-n">Mistake 2: Treating $(f \cdot g)'$ as $f' \cdot g'$</div>
+      <div class="mk-w">Why it happens: My students see two functions multiplied together and assume the derivative is the product of the two derivatives. It is not. That is the most natural-feeling guess and it is wrong every time.</div>
+      <div class="mk-f"><strong>How to fix it:</strong> Burn the formula into your head. $(f \cdot g)' = f' \cdot g + f \cdot g'$. There are two terms. Not one. Two. If your product rule answer has only one term, you missed half of it. On the AP exam, this mistake on a single FRQ part costs you 2 to 3 points minimum.</div>
+    </div>
+    <div class="mk">
+      <div class="mk-n">Mistake 3: Skipping the structure check before writing</div>
+      <div class="mk-w">Why it happens: My students see a function and start taking the derivative immediately because the rules feel automatic in homework. The problem is the AP exam never gives you homework problems. It layers the rules so that "automatic" is the wrong move.</div>
+      <div class="mk-f"><strong>How to fix it:</strong> Spend 5 seconds before you write anything. Look at the function. Say out loud: "this is a sum of a product times a chain" or whatever it is. Identify the outside structure. Then start writing. That 5-second pause saves you 3 minutes of erasing later. On a timed exam, that is the difference between finishing the FRQ and leaving a blank.</div>
+    </div>
+  </div>
+
+  <!-- Section 7: Practice -->
+  <div class="sec" id="practice">
+    <h2>Practice Problems</h2>
+    <p>Try these on your own before checking the answers. If you get stuck, run the decision framework first. Identify the outside structure before you take a single derivative.</p>
+    <div class="prob">
+      <div class="plbl">Problem 1 - Single-Step Power Rule</div>
+      <p>Find $f'(x)$ if $f(x) = 6x^4 + 5x^2 - 9x + 11$.</p>
+    </div>
+    <div class="prob">
+      <div class="plbl">Problem 2 - Product Rule Application</div>
+      <p>Find $\frac{dy}{dx}$ if $y = (3x^2 + 1)(x^3 - 4x)$.</p>
+    </div>
+    <div class="prob">
+      <div class="plbl">Problem 3 - Chain Rule Inside Product Rule (FRQ Type)</div>
+      <p>Find $f'(x)$ if $f(x) = x^3 \cos(2x^2)$. Identify each rule you use and where.</p>
+    </div>
+
+    <div class="answers">
+      <div class="ans-ttl">Answers</div>
+      <div class="ans-item"><strong style="color:var(--accent)">Problem 1:</strong> &nbsp;$f'(x) = 24x^3 + 10x - 9$</div>
+      <div class="ans-item">
+        <strong style="color:var(--accent)">Problem 2:</strong><br>
+        <span style="font-size:12px;line-height:1.8">
+          Product rule with $u = 3x^2 + 1$ and $v = x^3 - 4x$. $u' = 6x$, $v' = 3x^2 - 4$.<br>
+          $\dfrac{dy}{dx} = 6x(x^3 - 4x) + (3x^2 + 1)(3x^2 - 4)$<br>
+          Expanded: $\dfrac{dy}{dx} = 15x^4 - 33x^2 - 4$
+        </span>
+      </div>
+      <div class="ans-item">
+        <strong style="color:var(--accent)">Problem 3:</strong><br>
+        <span style="font-size:12px;line-height:1.8">
+          Product rule on the outside (factors $x^3$ and $\cos(2x^2)$). Power rule on $x^3$ gives $3x^2$. Chain rule on $\cos(2x^2)$: outside derivative is $-\sin(2x^2)$, inside derivative is $4x$, combined is $-4x\sin(2x^2)$.<br>
+          $f'(x) = 3x^2 \cos(2x^2) - 4x^4 \sin(2x^2)$
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 8: FAQ -->
+  <div class="sec" id="faq">
+    <h2>FAQ</h2>
+    <div class="faq-item">
+      <div class="faq-q">When do I use product rule vs. chain rule?</div>
+      <div class="faq-a">Product rule when two functions of $x$ are multiplied together, like $x^2 \cdot \sin(x)$. Chain rule when one function is nested inside another, like $\sin(x^2)$. The cleanest test: if you can write the function as $u \cdot v$ where $u$ and $v$ both have $x$ in them, that is product rule. If you can write it as $g(h(x))$ where one function is fed into another, that is chain rule. Most AP exam problems combine both, and the outside structure decides which rule sets up first. Get the structure right and the rest is mechanical.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Do I need to memorize all of these for AP Calculus AB or just BC?</div>
+      <div class="faq-a">All four rules are required for both AB and BC. Power rule, product rule, and quotient rule are introduced in Unit 2. Chain rule bridges into Unit 3. From Unit 3 onward, every unit assumes all four rules are automatic. If you skip one, you will lose points in Unit 4 (related rates), Unit 5 (analyzing graphs), and on every FRQ that involves taking a derivative of anything that is not a clean polynomial. Lock all four in now.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Is there a derivative rules cheat sheet I can use during the exam?</div>
+      <div class="faq-a">No. The AP exam does not let you bring a cheat sheet. The College Board provides a list of approved trig identities and a few formulas at the front of the FRQ booklet, but derivative rules are not on it. You have to know power, product, quotient, and chain rule from memory. That is why I tell every student to write them out from scratch every day during the two weeks before the exam. Memorization beats notes here. You just have to know the rules. There are no shortcuts. You know them or you do not. And if you do not, you will clearly see how impactful that is on your grade. The two weeks before the exam are the right time to fix it.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">What is the fastest way to take a derivative on a multiple choice problem?</div>
+      <div class="faq-a">Identify the structure in 5 seconds before you do any algebra. Most MCQ derivative problems are designed to be done in under 90 seconds if you spot the rule. If you are spending 3 minutes on a single derivative, you missed the structure. Stop, re-read, and ask: is this a sum, a product, or a composition? That single question collapses most MCQ derivatives down to one rule. The chain rule problems are the slowest because they have two steps, but even those should not take more than 90 seconds with practice.</div>
+    </div>
+  </div>
+
+  <!-- Section 9: Quick Reference -->
+  <div class="sec" id="quick-reference">
+    <h2>Save This For Exam Day</h2>
+    <div class="qr">
+      <div class="qr-ttl">The 4 Core Derivative Rules</div>
+      <div class="qrf">
+        <div class="qrf-lbl">Power Rule</div>
+        $$\frac{d}{dx}[x^n] = nx^{n-1}$$
+      </div>
+      <div class="qrf">
+        <div class="qrf-lbl">Product Rule</div>
+        $$\frac{d}{dx}[u \cdot v] = u' \cdot v + u \cdot v'$$
+      </div>
+      <div class="qrf">
+        <div class="qrf-lbl">Quotient Rule</div>
+        $$\frac{d}{dx}\left[\frac{u}{v}\right] = \frac{u'v - uv'}{v^2}$$
+      </div>
+      <div class="qrf">
+        <div class="qrf-lbl">Chain Rule</div>
+        $$\frac{d}{dx}[g(h(x))] = g'(h(x)) \cdot h'(x)$$
+      </div>
+      <ul class="qrb">
+        <li>Sum of terms? Take derivative term by term.</li>
+        <li>Two functions multiplied? Product rule first.</li>
+        <li>One function divided by another? Quotient rule first.</li>
+        <li>Function inside a function? Chain rule first.</li>
+        <li>Always identify outside structure before you write.</li>
+        <li>Chain rule has TWO factors: outside derivative AND inside derivative</li>
+        <li>Product rule has TWO terms: $u'v$ AND $uv'$</li>
+        <li>Constant has derivative 0</li>
+        <li class="nv">Treat $(fg)'$ as $f' \cdot g'$</li>
+        <li class="nv">Forget the inside derivative on a chain rule</li>
+        <li class="nv">Start writing derivatives before identifying the outside structure</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Section 10: Related Posts -->
+  <div class="sec" id="related">
+    <h2>Related Posts</h2>
+    <p>These posts build the foundation for derivative rules:</p>
+    <div style="margin-top:14px;">
+      <div style="font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:8px;">Read first — the foundation concepts:</div>
+      <a href="https://enginearu.com/ap-calculus-prep/what-is-a-derivative-ap-calculus/" class="ext-link" target="_blank" rel="noopener">What Is a Derivative in AP Calculus? (The Concept, Not Just the Formula)</a>
+      <p style="font-size:12px;color:var(--muted);font-style:italic;margin-top:6px;">Why: Derivative rules are shortcuts for the limit definition. If the concept isn't locked in, the rules feel random.</p>
+      <div style="margin-top:14px;">
+        <a href="https://enginearu.com/ap-calculus-prep/continuity-vs-differentiability-ap-exam/" class="ext-link" target="_blank" rel="noopener">Continuity vs. Differentiability — What the AP Exam Actually Tests</a>
+        <p style="font-size:12px;color:var(--muted);font-style:italic;margin-top:6px;">Why: Before you take a derivative, you need to check if a function is even differentiable. This post shows you how.</p>
+      </div>
+    </div>
+    <p style="margin-top:18px;font-size:13px;color:var(--muted);font-style:italic;">If chain rule still feels shaky after this post, the issue is usually upstream in the limit definition of the derivative. Go back to the first post and run the framework there first.</p>
+    <h3 style="margin-top:20px;">External resources I trust</h3>
+    <a class="ext-link" href="https://apcentral.collegeboard.org/courses/ap-calculus-ab" target="_blank" rel="noopener">College Board AP Calculus AB Course and Exam Description</a>
+    <a class="ext-link" href="https://www.khanacademy.org/math/ap-calculus-ab/ab-differentiation-1-new" target="_blank" rel="noopener">Khan Academy AP Calculus AB Differentiation Unit</a>
+    <a class="ext-link" href="https://tutorial.math.lamar.edu/Classes/CalcI/DerivativeIntro.aspx" target="_blank" rel="noopener">Paul's Online Math Notes Derivatives chapter</a>
+  </div>
+
+  <!-- End CTA -->
+  <div id="end-cta">
+    <div class="cta">
+      <h3>Lock In Derivative Rules With the Review Sheet</h3>
+      <p>Derivative rules are the foundation for every unit after differentiation. If you can take a power rule, product rule, and chain rule derivative cleanly under pressure, you will earn easy points on every FRQ from Unit 3 through Unit 8. If you cannot, every later unit will feel harder than it needs to be, because every later unit assumes you have these rules cold.</p>
+      <p>The review sheet I built for AP Calculus students gives you 50 worked derivative problems with full solutions, including every layered rule combination the AP exam loves to test. It is the same sheet I use with my own students in the two weeks before the exam.</p>
+      <a class="btn" href="https://www.aceapcalculus.com/reviewsheet50" target="_blank">Get the Review Sheet</a>
+      <div class="sub">Parents: this is the resource that turns a B student into an A student in the two weeks before the AP exam. It is built for exam prep, not for learning the material from scratch.</div>
+    </div>
+    <div class="sea">
+      <h3>Summer Program &amp; Free Pre-Assessment - Active through September 15, 2026</h3>
+      <p>If you want your student to walk into AP Calculus next year already comfortable with derivative rules, my summer program runs in July and August. Small groups. Real FRQ practice. Structured plan. Proven results. Spots fill fast.</p>
+      <a class="btn-w" href="#" target="_blank">See Summer Program Details</a>
+      &nbsp;
+      <a class="btn-w" href="https://www.aceapcalculus.com/summer-diagnostic-page" target="_blank" rel="noopener">Take the Free Pre-Assessment</a>
+      <p style="margin-top:14px;font-size:12px;color:#5a4500;font-style:italic">Parents: the pre-assessment shows you exactly where your student stands before the summer program begins. It is free and takes about 15 minutes.</p>
+    </div>
+  </div>
+
+</div>
+<!-- End post content div -->
+
+<!-- ===================================================================
+     &#9650;&#9650;&#9650; END: WORDPRESS CUSTOM HTML BLOCK &#9650;&#9650;&#9650;
+     Stop selecting here. Do not paste anything below this line.
+     =================================================================== -->
+
+
+</div><!-- /page - preview wrapper, not part of WordPress paste -->
+
+</body>
+</html>

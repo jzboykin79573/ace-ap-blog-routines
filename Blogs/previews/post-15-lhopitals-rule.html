@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PREVIEW: L'Hopital's Rule in AP Calculus 2026</title>
+
+<!--
+=======================================================================
+  PREVIEW FILE: ACE AP CALCULUS BLOG
+  Post 15: L'Hopital's Rule in AP Calculus: How to Solve Indeterminate
+           Limits Without Guessing
+=======================================================================
+  This file has three jobs:
+  1. Let you preview the post in your browser before publishing
+  2. Show you a publishing guide at the top of the page
+  3. Mark exactly what to copy into each part of WordPress
+
+  HOW TO USE THIS FILE
+  Open it in your browser, read the publishing guide at the top.
+  Open it in VS Code, the comment markers show you what goes where.
+
+  WHAT GETS PASTED INTO WORDPRESS
+  STEP 1 (one time only): functions.php  (see guide below)
+  STEP 2: WordPress title field          (see guide below)
+  STEP 3: One Custom HTML block          (marked in the body below)
+  STEP 4: Yoast / Rank Math SEO fields   (see guide below)
+=======================================================================
+-->
+
+<!-- PREVIEW-ONLY: Fonts, MathJax, Desmos load here for local preview.
+     WordPress gets MathJax + Desmos from functions.php (Step 1 below).
+     Do NOT paste any of this head section into WordPress. -->
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Nunito+Sans:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<script>MathJax = { tex: { inlineMath: [['$','$']], displayMath: [['$$','$$']], processEscapes: true } };</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+<script src="https://www.desmos.com/api/v1.7/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0fda6"></script>
+
+<!-- PREVIEW-ONLY CSS -->
+<style>
+:root{
+  --navy:#1a3a6b;--gold:#e8a020;--gold-light:#fef3dc;
+  --green:#1a7a4a;--green-light:#eaf7f0;--red:#c0392b;--red-light:#fdf2f1;
+  --purple:#7c3aed;--purple-light:#f3f0ff;
+  --gray:#f5f6f8;--border:#dde1e8;--text:#1a1a2e;--muted:#6b7280;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Nunito Sans',sans-serif;background:#eef0f4;color:var(--text);font-size:14px;line-height:1.8}
+/* Publishing guide panel */
+.pub-guide{background:#1a1a2e;font-family:'JetBrains Mono',monospace}
+.pub-guide summary{padding:14px 20px;cursor:pointer;color:var(--gold);font-size:13px;font-weight:700;letter-spacing:.5px;list-style:none;display:flex;align-items:center;gap:10px}
+.pub-guide summary::before{content:"▶";font-size:10px;transition:transform .2s}
+.pub-guide[open] summary::before{transform:rotate(90deg)}
+.pub-guide-body{padding:0 20px 20px}
+.pub-step{margin-bottom:24px}
+.pub-step-ttl{color:var(--gold);font-size:12px;font-weight:700;margin-bottom:6px;letter-spacing:.5px}
+.pub-step p{color:rgba(255,255,255,.75);font-size:12px;margin-bottom:8px;font-family:'Nunito Sans',sans-serif;line-height:1.6}
+.pub-step textarea{width:100%;background:#0d0d1a;color:#a8d8a8;border:1px solid #333;border-radius:6px;padding:12px;font-size:11px;font-family:'JetBrains Mono',monospace;line-height:1.6;resize:vertical;min-height:80px}
+.pub-step code{background:#0d0d1a;color:var(--gold);padding:2px 6px;border-radius:3px;font-size:11px}
+.pub-divider{border:none;border-top:1px solid #2a2a4a;margin:20px 0}
+/* Preview chrome bar */
+.chrome{background:#2d2d2d;padding:8px 14px;display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:100}
+.dots{display:flex;gap:6px}.dot{width:11px;height:11px;border-radius:50%}
+.dot.r{background:#ff5f57}.dot.y{background:#febc2e}.dot.g{background:#28c840}
+.url{flex:1;background:#3d3d3d;border-radius:5px;padding:4px 10px;color:#aaa;font-size:11px;font-family:'JetBrains Mono',monospace}
+.badge{background:var(--gold);color:var(--navy);font-size:10px;font-weight:700;padding:3px 8px;border-radius:4px}
+/* Preview page wrapper + hero */
+.page{max-width:780px;margin:0 auto;background:#fff;min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,.12)}
+.hero{background:linear-gradient(135deg,#0f1e3c,var(--navy));padding:40px 40px 32px;color:#fff}
+.tag{display:inline-block;background:var(--gold);color:var(--navy);font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;padding:3px 9px;border-radius:3px;margin-bottom:14px;font-family:'Montserrat',sans-serif}
+.hero h1{font-family:'Montserrat',sans-serif;font-size:22px;line-height:1.4;margin-bottom:14px;font-weight:800}
+.meta{display:flex;gap:10px;flex-wrap:wrap}
+.pill{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.88);font-size:11px;padding:4px 10px;border-radius:20px}
+</style>
+</head>
+<body>
+
+<!-- ===================================================================
+     PUBLISHING GUIDE: visible in your browser, preview only.
+     This panel does NOT get pasted into WordPress.
+     =================================================================== -->
+<details class="pub-guide" open>
+  <summary>PUBLISHING GUIDE: 4 steps to post this to WordPress</summary>
+  <div class="pub-guide-body">
+
+    <div class="pub-step">
+      <div class="pub-step-ttl">STEP 1: ONE TIME ONLY: Add MathJax + Desmos to functions.php</div>
+      <p>Do this once. After that, skip to Step 2 for every future post.<br>
+         Go to: WordPress Admin &rarr; Appearance &rarr; Theme File Editor &rarr; functions.php<br>
+         Scroll to the bottom and paste the code below.</p>
+      <textarea readonly rows="10">
+// ACE AP CALCULUS: MathJax + Desmos
+// Paste this at the bottom of functions.php, one time only.
+
+add_action('wp_head', function() {
+    echo '<script>MathJax = { tex: { inlineMath: [["$","$"]], displayMath: [["$$","$$"]] } };</script>';
+    echo '<script src="https://www.desmos.com/api/v1.7/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0fda6"></script>';
+}, 1);
+
+add_action('wp_enqueue_scripts', function() {
+    wp_enqueue_script('mathjax', 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js', [], null, false);
+});</textarea>
+    </div>
+
+    <hr class="pub-divider">
+
+    <div class="pub-step">
+      <div class="pub-step-ttl">STEP 2: WordPress title field</div>
+      <p>In the WordPress editor, click the title field at the top and paste this exactly:</p>
+      <textarea readonly rows="2">L'Hopital's Rule in AP Calculus: How to Solve Indeterminate Limits Without Guessing</textarea>
+    </div>
+
+    <hr class="pub-divider">
+
+    <div class="pub-step">
+      <div class="pub-step-ttl">STEP 3: WordPress Custom HTML block (the post content)</div>
+      <p>In the WordPress editor content area:<br>
+         1. Click the <code>+</code> button, search <code>Custom HTML</code>, add that block<br>
+         2. Open this file in VS Code or any text editor<br>
+         3. Find the comment: <code>START: PASTE THIS INTO WORDPRESS CUSTOM HTML BLOCK</code><br>
+         4. Select everything from that line down to: <code>END: WORDPRESS CUSTOM HTML BLOCK</code><br>
+         5. Paste into the Custom HTML block in WordPress</p>
+    </div>
+
+    <hr class="pub-divider">
+
+    <div class="pub-step">
+      <div class="pub-step-ttl">STEP 4: SEO fields (in the WordPress sidebar)</div>
+      <p>If you use Yoast or Rank Math, fill these in the sidebar before publishing:</p>
+      <textarea readonly rows="5">
+SEO Title:       L'Hopital's Rule AP Calculus: Indeterminate Limits Made Simple (2026)
+Meta Description: Learn exactly how to use L'Hopital's Rule in AP Calculus. 4-step method, worked examples, the #1 misuse that costs students the problem. Unit 4 AB and BC.
+Slug:            lhopitals-rule-ap-calculus
+Focus Keyword:   L'Hopital's rule AP calculus</textarea>
+    </div>
+
+  </div>
+</details>
+<!-- END PUBLISHING GUIDE -->
+
+
+<!-- ===================================================================
+     PREVIEW ONLY: browser chrome bar.
+     Do NOT paste this into WordPress.
+     =================================================================== -->
+<div class="chrome">
+  <div class="dots">
+    <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
+  </div>
+  <div class="url">enginearu.com/ap-calculus-prep/lhopitals-rule-ap-calculus/</div>
+  <div class="badge">PREVIEW</div>
+</div>
+<!-- END PREVIEW CHROME -->
+
+
+<!-- ===================================================================
+     PREVIEW ONLY: hero header.
+     WordPress uses the title field (Step 2) instead of this.
+     Do NOT paste this into WordPress.
+     =================================================================== -->
+<div class="page">
+<div class="hero">
+  <div class="tag">AP Calculus AB &middot; BC &middot; Unit 4</div>
+  <h1>L'H&ocirc;pital's Rule in AP Calculus:<br>How to Solve Indeterminate Limits Without Guessing</h1>
+  <div class="meta">
+    <span class="pill">&#x23F1; 6 min read</span>
+    <span class="pill">&#x2713; 500+ EngiNearU students</span>
+    <span class="pill">Unit 4 &middot; AB and BC</span>
+  </div>
+</div>
+<!-- END PREVIEW HERO -->
+
+
+<!-- ===================================================================
+     &#9660;&#9660;&#9660; START: PASTE THIS INTO WORDPRESS CUSTOM HTML BLOCK &#9660;&#9660;&#9660;
+     ===================================================================
+     Select from this line all the way down to the matching END marker.
+     Paste the entire selection into one Custom HTML block in WordPress.
+     =================================================================== -->
+
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+
+<!-- Post CSS -->
+<style>
+.ace-post{
+  --navy:#1a3a6b;--gold:#e8a020;--gold-light:#fef3dc;
+  --green:#1a7a4a;--green-light:#eaf7f0;--red:#c0392b;--red-light:#fdf2f1;
+  --purple:#7c3aed;--purple-light:#f3f0ff;
+  --gray:#f5f6f8;--border:#dde1e8;--text:#1a1a2e;--muted:#6b7280;
+  font-family:'Nunito Sans',sans-serif;font-size:14px;line-height:1.8;color:var(--text);
+  padding:32px 0;
+}
+.ace-post .toc{background:var(--gray);border-left:4px solid var(--navy);border-radius:0 8px 8px 0;padding:18px 20px 18px 32px;margin-bottom:36px}
+.ace-post .toc-ttl{font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.ace-post .toc ol{padding-left:18px}.ace-post .toc li{margin-bottom:6px}
+.ace-post .toc a{color:var(--navy);text-decoration:none;font-size:13px;font-weight:600}
+.ace-post .sec{margin-bottom:40px;padding:0 32px}
+.ace-post h2{font-family:'Montserrat',sans-serif;font-size:18px;font-weight:800;color:var(--navy);margin-bottom:14px;padding-bottom:8px;border-bottom:2px solid var(--border)}
+.ace-post h3{font-size:14px;font-weight:700;color:var(--navy);margin:18px 0 8px}
+.ace-post p{margin-bottom:13px;font-size:14px}
+.ace-post strong{color:var(--navy)}
+.ace-post a{color:var(--navy);font-weight:600}
+.ace-post .math-block{background:var(--gray);border-radius:8px;padding:16px 20px;margin:14px 0;text-align:center;overflow-x:auto;font-size:15px}
+.ace-post .oneliner{background:linear-gradient(135deg,var(--navy),#2a5298);border-radius:10px;padding:18px 22px;margin:20px 0;color:#fff;font-size:14px;font-weight:700;font-family:'Montserrat',sans-serif;line-height:1.5}
+.ace-post .step-list{list-style:none;padding-left:0;margin-bottom:14px}
+.ace-post .step-list li{display:flex;gap:14px;margin-bottom:14px;align-items:flex-start;font-size:13px}
+.ace-post .step-num{background:var(--navy);color:#fff;width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;flex-shrink:0;margin-top:1px;font-family:'Montserrat',sans-serif}
+.ace-post .step-body{flex:1}
+.ace-post .step-lbl{font-weight:700;color:var(--navy);margin-bottom:3px;font-size:13px}
+.ace-post .rubric{background:var(--green-light);border-left:4px solid var(--green);border-radius:0 8px 8px 0;padding:14px 18px;margin:16px 0}
+.ace-post .rubric-ttl{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--green);margin-bottom:8px}
+.ace-post .rubric ul{padding-left:18px}.ace-post .rubric li{font-size:13px;margin-bottom:5px;color:#1a4a32}
+.ace-post .mcq-check{background:#eef2ff;border-left:4px solid #4f46e5;border-radius:0 8px 8px 0;padding:14px 18px;margin:16px 0}
+.ace-post .mcq-ttl{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#4f46e5;margin-bottom:8px}
+.ace-post .mcq-check ul{padding-left:18px}.ace-post .mcq-check li{font-size:13px;margin-bottom:5px;color:#312e81}
+.ace-post .cta{background:linear-gradient(135deg,#0f1e3c,var(--navy));border-radius:12px;padding:24px 26px;margin:28px 0;color:#fff}
+.ace-post .cta h3{color:#fff;margin:0 0 8px;font-size:15px;font-family:'Montserrat',sans-serif;font-weight:800}
+.ace-post .cta p{color:rgba(255,255,255,.85);font-size:13px;margin-bottom:14px}
+.ace-post .btn{display:inline-block;background:var(--gold);color:var(--navy);font-weight:700;font-size:13px;padding:10px 20px;border-radius:6px;text-decoration:none;font-family:'Montserrat',sans-serif}
+.ace-post .sub{font-size:11px;color:rgba(255,255,255,.6);margin-top:10px;font-style:italic}
+.ace-post .sea{background:var(--gold-light);border:2px solid var(--gold);border-radius:12px;padding:22px 26px;margin:20px 0}
+.ace-post .sea h3{color:var(--navy);font-size:14px;margin-bottom:8px;font-weight:700;font-family:'Montserrat',sans-serif}
+.ace-post .sea p{font-size:13px;color:#5a4500;margin-bottom:12px}
+.ace-post .btn-w{display:inline-block;background:var(--navy);color:#fff;font-weight:700;font-size:13px;padding:10px 20px;border-radius:6px;text-decoration:none;font-family:'Montserrat',sans-serif}
+.ace-post .mk{border-left:4px solid var(--red);border-radius:0 8px 8px 0;padding:14px 18px;background:var(--red-light);margin-bottom:16px}
+.ace-post .mk-n{font-weight:700;color:var(--red);font-size:13px;margin-bottom:5px;font-family:'Montserrat',sans-serif}
+.ace-post .mk-w{font-size:12px;color:#7a2020;margin-bottom:6px;font-style:italic}
+.ace-post .mk-f{font-size:13px;color:var(--text)}
+/* FAQ accordion */
+.ace-post .faq-list{border:1px solid var(--border,#dde3ed);border-radius:8px;overflow:hidden;margin:24px 0}
+.ace-post .faq-item{border-bottom:1px solid var(--border,#dde3ed);padding:0}
+.ace-post .faq-item:last-child{border-bottom:none}
+.ace-post .faq-item summary{padding:14px 16px;cursor:pointer;font-weight:600;color:var(--navy,#0f1e3c);font-size:14px;list-style:none;display:flex;align-items:center;gap:8px;user-select:none;background:#fff}
+.ace-post .faq-item summary::-webkit-details-marker{display:none}
+.ace-post .faq-item summary::marker{display:none}
+.ace-post .faq-item summary .faq-q-label{color:var(--accent,#e8a020);font-weight:700;flex-shrink:0}
+.ace-post .faq-item summary .faq-toggle{margin-left:auto;color:var(--accent,#e8a020);font-size:20px;font-weight:300;flex-shrink:0;line-height:1}
+.ace-post .faq-item[open] summary .faq-toggle{content:'-'}
+.ace-post .faq-a{padding:4px 16px 14px;color:var(--text-mid,#4a5568);line-height:1.7}
+.ace-post .faq-a p{margin:0}
+.ace-post .qr{background:var(--navy);color:#fff;border-radius:10px;padding:24px 26px;margin:20px 0}
+.ace-post .qr-ttl{color:var(--gold);font-size:12px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:16px;font-family:'Montserrat',sans-serif}
+.ace-post .qrf{background:rgba(255,255,255,.07);border-radius:6px;padding:12px 16px;margin-bottom:10px;text-align:center}
+.ace-post .qrb{margin-top:14px;list-style:none;padding-left:0}
+.ace-post .qrb li{font-size:12px;color:rgba(255,255,255,.85);margin-bottom:6px;padding-left:20px;position:relative}
+.ace-post .qrb li::before{content:"&#x2713;";color:#4ade80;position:absolute;left:0;font-weight:700}
+.ace-post .qrb .nv{color:#fca5a5!important}.ace-post .qrb .nv::before{content:"&#x2717;"!important;color:#fca5a5!important}
+.ace-post .related-link{display:block;padding:12px 14px;background:var(--gray);border-radius:6px;border:1px solid var(--border);margin-bottom:8px;font-size:13px;color:var(--navy);font-weight:600;text-decoration:none}
+.ace-post .desmos-wrap{border-radius:10px;overflow:hidden;margin:18px 0;border:1px solid var(--border)}
+.ace-post .desmos-label{background:var(--navy);color:#fff;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:8px 14px;display:flex;align-items:center;gap:6px;font-family:'Montserrat',sans-serif}
+.ace-post .desmos-dot{width:8px;height:8px;border-radius:50%;background:var(--gold)}
+.ace-post .choice-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:14px 0}
+.ace-post .choice{background:var(--gray);border:1px solid var(--border);border-radius:6px;padding:10px 14px;font-size:13px;font-weight:600;color:var(--text)}
+.ace-post .choice.correct{background:#eaf7f0;border-color:var(--green);color:var(--green)}
+.ace-post hr{border:none;border-top:1px solid var(--border);margin:28px 0}
+</style>
+
+<!-- Post content -->
+<div class="ace-post">
+
+  <!-- Table of contents -->
+  <div class="toc">
+    <div class="toc-ttl">Jump To What You Need</div>
+    <ol>
+      <li><a href="#intro">What That Sinking Feeling Actually Means</a></li>
+      <li><a href="#what-it-does">What L'H&ocirc;pital's Rule Actually Does</a></li>
+      <li><a href="#method">The 4-Step Method</a></li>
+      <li><a href="#example-1">Worked Example 1: The 0/0 Case</a></li>
+      <li><a href="#mid-cta">Grab the Free Summer Diagnostic</a></li>
+      <li><a href="#example-2">Worked Example 2: MCQ Recognition</a></li>
+      <li><a href="#mistakes">The 3 Mistakes That Cost Points</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="#quick-reference">Save This For Exam Day</a></li>
+      <li><a href="#related">Related Posts</a></li>
+    </ol>
+  </div>
+
+
+  <!-- Section 1: Intro -->
+  <div class="sec" id="intro">
+    <h2>What That Sinking Feeling Actually Means</h2>
+
+    <!-- HOOK TYPE: name-the-feeling -->
+    <p>You plug a value into a limit, get 0/0, and that sinking feeling hits. That specific moment of not knowing what to do is exactly what L'H&ocirc;pital's Rule is built to fix.</p>
+
+    <p>I call it the <strong>Indeterminate Freeze</strong>. It happens because most students treat 0/0 like an error signal. A sign that something went wrong in the algebra. But 0/0 is not an error. It is a signal that a specific tool is needed. Once you recognize that signal, you stop freezing and start solving.</p>
+
+    <p>Here is the uncomfortable truth about L'H&ocirc;pital's rule AP calculus problems: the rule is not hard. The misuse is hard to undo. Every year I watch students reach for this rule on limits that are NOT indeterminate. They plug in a value, get something like 3/0, and apply L'H&ocirc;pital anyway. That mistake costs the entire problem. Not part of it. All of it.</p>
+
+    <!-- SCREENSHOT-ABLE ONE-LINER -->
+    <!-- END ONE-LINER -->
+    <div class="oneliner">L'H&ocirc;pital's Rule only works when you get exactly 0/0 or &infin;/&infin; after plugging in. Anything else and the rule does not apply.</div>
+
+    <p>The rule has two conditions. Students who check both conditions before applying the rule get the problem right. Students who skip the check guess. This post removes the guessing.</p>
+  </div>
+
+
+  <!-- Section 2: What it does -->
+  <div class="sec" id="what-it-does">
+    <h2>What L'H&ocirc;pital's Rule Actually Does</h2>
+
+    <p>Most explanations start with the theorem statement. I am not doing that.</p>
+
+    <p>Think about what 0/0 actually means. You have a limit where the numerator and denominator are both racing toward zero at the same time. The value of the limit depends entirely on which one gets there faster. Direct substitution cannot tell you that. It just says "both hit zero" and leaves you stranded.</p>
+
+    <p>L'H&ocirc;pital's Rule fixes this by asking a different question: instead of comparing the functions themselves, compare their rates of change. If $f(x) \to 0$ and $g(x) \to 0$ as $x \to a$, then the ratio $f(x)/g(x)$ behaves like the ratio of their derivatives near that point.</p>
+
+    <p>That is it. You are not "taking the derivative of a fraction." You are taking the derivative of the numerator and the derivative of the denominator separately, then re-evaluating the limit.</p>
+
+    <p>The same logic applies to &infin;/&infin; forms. Two functions both blowing up toward infinity. The infinity over infinity limit calculus question is answered by comparing how fast each grows, which means comparing derivatives.</p>
+
+    <p>You would think this rule applies broadly to any messy limit. It does not. The only 2 indeterminate forms calculus students need for the AP exam are <strong>0/0</strong> and <strong>&infin;/&infin;</strong>. The other exotic forms like $0 \cdot \infty$, $1^\infty$, and $0^0$ exist but are beyond the AP scope. Focus on these 2.</p>
+  </div>
+
+
+  <!-- Section 3: Method -->
+  <div class="sec" id="method">
+    <h2>The 4-Step Method</h2>
+
+    <p>L'H&ocirc;pital's rule steps, in order. Do not skip Step 1.</p>
+
+    <ul class="step-list">
+      <li>
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <div class="step-lbl">Plug in the value and check the form.</div>
+          Substitute the limit value into the expression. If you get 0/0 or &infin;/&infin;, proceed. If you get anything else (including 3/0, 0/5, or a real number) stop. Either the limit does not exist, or it is already solved. L'H&ocirc;pital's Rule does NOT apply.
+        </div>
+      </li>
+      <li>
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <div class="step-lbl">Confirm both conditions are met.</div>
+          The limit must involve a ratio (fraction). And the form must be exactly 0/0 or &infin;/&infin; after substitution.
+        </div>
+      </li>
+      <li>
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <div class="step-lbl">Differentiate numerator and denominator separately.</div>
+          Take the derivative of the top. Take the derivative of the bottom. Do NOT use the quotient rule on the whole fraction. Differentiate each piece independently.
+        </div>
+      </li>
+      <li>
+        <div class="step-num">4</div>
+        <div class="step-body">
+          <div class="step-lbl">Evaluate the new limit.</div>
+          Plug the value back in. If you get a determinate answer, you are done. If you get 0/0 or &infin;/&infin; again, apply L'H&ocirc;pital's Rule a second time.
+        </div>
+      </li>
+    </ul>
+
+    <p>One coaching note: if you apply the rule and still get an indeterminate form after 2 applications, double-check your derivatives. More often than not, the issue is a differentiation error, not a need for a third application.</p>
+  </div>
+
+
+  <!-- Section 4: Example 1 -->
+  <div class="sec" id="example-1">
+    <h2>Worked Example 1: The 0/0 Case</h2>
+
+    <p><strong>Problem:</strong> Evaluate $\displaystyle\lim_{x \to 0} \dfrac{\sin(x)}{x}$.</p>
+
+    <p>This is the most famous 0/0 limit in calculus. Let's work through the method.</p>
+
+    <ul class="step-list">
+      <li>
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <div class="step-lbl">Plug in $x = 0$.</div>
+          <div class="math-block">$$\frac{\sin(0)}{0} = \frac{0}{0}$$</div>
+          Indeterminate form confirmed. Proceed.
+        </div>
+      </li>
+      <li>
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <div class="step-lbl">Both conditions met.</div>
+          We have a ratio and the form is 0/0.
+        </div>
+      </li>
+      <li>
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <div class="step-lbl">Differentiate numerator and denominator separately.</div>
+          <p style="margin-top:6px">Numerator: $\dfrac{d}{dx}[\sin(x)] = \cos(x)$</p>
+          <p>Denominator: $\dfrac{d}{dx}[x] = 1$</p>
+        </div>
+      </li>
+      <li>
+        <div class="step-num">4</div>
+        <div class="step-body">
+          <div class="step-lbl">Evaluate the new limit.</div>
+          <div class="math-block">$$\lim_{x \to 0} \frac{\cos(x)}{1} = \frac{\cos(0)}{1} = \frac{1}{1} = 1$$</div>
+          <div class="math-block">$$\boxed{\lim_{x \to 0} \frac{\sin(x)}{x} = 1}$$</div>
+        </div>
+      </li>
+    </ul>
+
+    <!-- Live Desmos graph -->
+    <div class="desmos-wrap">
+      <div class="desmos-label">
+        <div class="desmos-dot"></div>
+        Live Graph: sin(x)/x approaching 1 as x approaches 0
+      </div>
+      <div id="desmos-lhopital" style="width:100%;height:280px;"></div>
+    </div>
+
+    <div class="rubric">
+      <div class="rubric-ttl">Here is exactly how the AP exam scores this type of problem</div>
+      <ul>
+        <li>Correctly identifies 0/0 as the indeterminate form before applying the rule</li>
+        <li>Differentiates numerator and denominator separately (not using the quotient rule on the whole fraction)</li>
+        <li>Evaluates the resulting limit by direct substitution</li>
+        <li>States the final answer clearly with correct limit notation</li>
+      </ul>
+    </div>
+  </div>
+
+
+  <!-- Mid-post CTA -->
+  <div class="sec" id="mid-cta">
+    <div class="sea">
+      <h3>Not Sure Where Your Gaps Are Before Summer?</h3>
+      <p>Limits are Unit 1 but they show up in every unit after that. The free diagnostic takes under 10 minutes and tells you exactly where to focus before AP Calculus next year.</p>
+      <a class="btn-w" href="https://aceapcalculus.com/summer-diagnostic-page" target="_blank">Take the Free Diagnostic</a>
+      <p style="color:#5a4500;margin-top:10px;font-style:italic;font-size:11px">Parents: this is a free tool that gives your student a personalized list of topics to review before AP Calculus. Worth 10 minutes.</p>
+    </div>
+  </div>
+
+
+  <!-- Section 5: Example 2 -->
+  <div class="sec" id="example-2">
+    <h2>Worked Example 2: MCQ Recognition</h2>
+
+    <p>On the AP exam, L'H&ocirc;pital's Rule questions in multiple choice come in two forms. The first asks you to evaluate the limit outright. The second (and trickier) gives you a limit with answer choices designed to catch students who skip the indeterminate form check.</p>
+
+    <p><strong>Problem:</strong> Which of the following is equal to $\displaystyle\lim_{x \to 2} \dfrac{x^2 - 4}{x - 2}$?</p>
+
+    <div class="choice-grid">
+      <div class="choice">(A) 0</div>
+      <div class="choice">(B) 2</div>
+      <div class="choice correct">(C) 4 &#x2713;</div>
+      <div class="choice">(D) Does not exist</div>
+    </div>
+
+    <ul class="step-list">
+      <li>
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <div class="step-lbl">Plug in $x = 2$.</div>
+          <div class="math-block">$$\frac{(2)^2 - 4}{2 - 2} = \frac{4 - 4}{0} = \frac{0}{0}$$</div>
+          Indeterminate form. L'H&ocirc;pital applies.
+        </div>
+      </li>
+      <li>
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <div class="step-lbl">Conditions confirmed.</div>
+          Ratio, 0/0. Proceed.
+        </div>
+      </li>
+      <li>
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <div class="step-lbl">Differentiate numerator and denominator.</div>
+          <p style="margin-top:6px">Numerator: $\dfrac{d}{dx}[x^2 - 4] = 2x$</p>
+          <p>Denominator: $\dfrac{d}{dx}[x - 2] = 1$</p>
+        </div>
+      </li>
+      <li>
+        <div class="step-num">4</div>
+        <div class="step-body">
+          <div class="step-lbl">Evaluate.</div>
+          <div class="math-block">$$\lim_{x \to 2} \frac{2x}{1} = 2(2) = 4$$</div>
+        </div>
+      </li>
+    </ul>
+
+    <p>Note: this problem can also be solved by factoring. $x^2 - 4 = (x+2)(x-2)$, which cancels the $(x-2)$ in the denominator to give $\lim_{x \to 2}(x+2) = 4$. Both methods work. On AP calculus limits advanced problems, knowing both gives you a consistency check.</p>
+
+    <div class="mcq-check">
+      <div class="mcq-ttl">Here is exactly what the AP exam is checking on this problem type</div>
+      <ul>
+        <li>Whether you recognize 0/0 before doing anything else</li>
+        <li>Whether you differentiate the numerator and denominator separately (not apply the quotient rule)</li>
+        <li>Whether you evaluate correctly after differentiation</li>
+        <li>Whether you can distinguish 0/0 (indeterminate, rule applies) from 0/5 (equals zero, no rule needed) or 5/0 (limit does not exist, no rule needed)</li>
+      </ul>
+    </div>
+  </div>
+
+
+  <!-- Section 6: Mistakes -->
+  <div class="sec" id="mistakes">
+    <h2>The 3 Mistakes That Cost Points</h2>
+
+    <div class="mk">
+      <div class="mk-n">Mistake 1: Applying L'H&ocirc;pital's Rule when the form is not indeterminate</div>
+      <div class="mk-w">Why it happens: Students see a fraction with zero somewhere and reach for the rule automatically. If you plug in and get 3/0, that limit does not exist. No rule will fix it. If you get 0/5, the limit is just 0.</div>
+      <div class="mk-f"><strong>Fix it now:</strong> Check the form first. Every time. No exceptions. Applying how to use L'H&ocirc;pital's rule on a non-indeterminate form gives you the wrong answer and costs you the entire problem.</div>
+    </div>
+
+    <div class="mk">
+      <div class="mk-n">Mistake 2: Using the quotient rule instead of differentiating separately</div>
+      <div class="mk-w">Why it happens: Students have the quotient rule memorized and apply it reflexively to any fraction. The quotient rule finds the derivative of a rational function as a whole. L'H&ocirc;pital's Rule asks for the derivative of the top and the bottom as separate operations.</div>
+      <div class="mk-f"><strong>Fix it now:</strong> Write the numerator and denominator on two separate lines before you differentiate. That physical separation prevents the quotient rule reflex.</div>
+    </div>
+
+    <div class="mk">
+      <div class="mk-n">Mistake 3: Forgetting to re-check the form after the first application</div>
+      <div class="mk-w">Why it happens: Students apply the rule once, get something that still looks messy, and stop. Either declaring the limit does not exist or guessing. If the new limit is still 0/0 or &infin;/&infin;, you apply the rule again.</div>
+      <div class="mk-f"><strong>Fix it now:</strong> After every application, do Step 1 again. Plug in the value. Check what you get. Then decide.</div>
+    </div>
+  </div>
+
+
+  <!-- Section 7: FAQ -->
+  <div class="sec" id="faq">
+    <h2>FAQ</h2>
+
+    <div class="faq-list">
+      <details class="faq-item">
+        <summary><span class="faq-q-label">Q:</span> Does L'H&ocirc;pital's Rule work for &infin;/&infin; the same way as 0/0?<span class="faq-toggle">+</span></summary>
+        <div class="faq-a">
+          <p>Yes. The same 4 steps apply. Plug in, confirm you get &infin;/&infin; (or $-\infty/\infty$, any combination), differentiate numerator and denominator separately, re-evaluate. The infinity over infinity limit calculus case comes up most often with exponential and polynomial comparisons. For example, $\lim_{x \to \infty} \dfrac{x^2}{e^x}$. Apply the rule twice on that one and you will see why exponentials beat polynomials every time. That comparison shows up on the AP exam.</p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary><span class="faq-q-label">Q:</span> When should I use L'H&ocirc;pital's Rule versus factoring or rationalizing?<span class="faq-toggle">+</span></summary>
+        <div class="faq-a">
+          <p>Both methods work when the limit produces 0/0 from a rational function. My preference for AP calculus limits advanced problems: try factoring first if the numerator or denominator is a polynomial. It is faster and less error-prone on a timed exam. Use L'H&ocirc;pital's Rule when the expression involves a mix of polynomial, trig, exponential, or logarithmic functions. That is where factoring breaks down and L'H&ocirc;pital's is the clean tool.</p>
+          <p>If you want to go deeper on the factoring and rationalizing approach, the post on <a href="https://enginearu.com/ap-calculus-prep/unit-1-limits/hard-limits-ap-calculus-rationalizing-complex-fractions/" target="_blank">hard limits techniques</a> covers those methods in detail.</p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary><span class="faq-q-label">Q:</span> Is L'H&ocirc;pital's Rule on the AP Calculus AB exam or only BC?<span class="faq-toggle">+</span></summary>
+        <div class="faq-a">
+          <p>It is on both AB and BC. It falls under Unit 4: Contextual Applications of Differentiation on both exams. The AP exam will not ask you to prove the rule. It tests whether you can identify the indeterminate form and apply the steps correctly. Knowing the 4 steps cold is enough.</p>
+          <p>You can review how this topic connects to earlier limit-solving techniques in the post on <a href="https://enginearu.com/ap-calculus-prep/what-are-limits-ap-calculus/" target="_blank">limits foundations</a>.</p>
+        </div>
+      </details>
+    </div>
+  </div>
+
+
+  <!-- Section 8: Quick Reference -->
+  <div class="sec" id="quick-reference">
+    <h2>Save This For Exam Day</h2>
+
+    <div class="qr">
+      <div class="qr-ttl">L'H&ocirc;pital's Rule: AP Calculus Quick Reference</div>
+
+      <div class="qrf">
+        <p style="color:rgba(255,255,255,.6);font-size:11px;margin-bottom:8px">The Rule</p>
+        <p style="color:#fff;font-size:13px;margin-bottom:8px">If $\displaystyle\lim_{x \to a} \dfrac{f(x)}{g(x)}$ gives $\dfrac{0}{0}$ or $\dfrac{\infty}{\infty}$, then:</p>
+        $$\lim_{x \to a} \frac{f(x)}{g(x)} = \lim_{x \to a} \frac{f'(x)}{g'(x)}$$
+      </div>
+
+      <ul class="qrb">
+        <li>Step 1: Plug in. Get 0/0 or &infin;/&infin;? Proceed. Get anything else? Stop.</li>
+        <li>Step 2: Differentiate numerator and denominator separately. NOT the quotient rule.</li>
+        <li>Step 3: Evaluate the new limit. Still indeterminate? Apply once more.</li>
+        <li>AP scope: 0/0 and &infin;/&infin; only. Unit 4, AB and BC.</li>
+        <li class="nv">Do NOT apply when form is 0/5 or 3/0. Those are NOT indeterminate.</li>
+        <li class="nv">Do NOT use the quotient rule on the whole fraction.</li>
+      </ul>
+    </div>
+  </div>
+
+
+  <!-- Related Posts -->
+  <div class="sec" id="related">
+    <h2>Related Posts</h2>
+    <p>These posts cover limits and derivative applications that connect directly to this topic:</p>
+    <a class="related-link" href="https://enginearu.com/ap-calculus-prep/what-are-limits-ap-calculus/" target="_blank">What Are Limits in AP Calculus? The foundation before this rule makes sense</a>
+    <a class="related-link" href="https://enginearu.com/ap-calculus-prep/unit-1-limits/hard-limits-ap-calculus-rationalizing-complex-fractions/" target="_blank">Hard Limits in AP Calculus: Rationalizing and Complex Fractions</a>
+    <a class="related-link" href="https://enginearu.com/ap-calculus-prep/what-is-a-derivative-ap-calculus/" target="_blank">What Is a Derivative in AP Calculus? What L'H&ocirc;pital's Rule is actually differentiating</a>
+  </div>
+
+
+  <!-- End CTA -->
+  <div class="sec" id="end-cta">
+    <div class="cta">
+      <h3>Get Ahead This Summer</h3>
+      <p>L'H&ocirc;pital's Rule is one of the cleanest tools in AP Calculus. Two conditions, four steps, done. If this still feels shaky, the gap is usually earlier: limits fundamentals or derivative fluency. Both are fixable before the school year starts.</p>
+      <p>The summer diagnostic is free and takes 10 minutes. It will tell you exactly which Unit 4 skills need work before next year.</p>
+      <a class="btn" href="https://aceapcalculus.com/summer-diagnostic-page" target="_blank">Take the Free Diagnostic</a>
+      <div class="sub">Parents: if your student is heading into AP Calculus this fall and wants to start ahead, this is where I recommend starting. Free, targeted, and actionable.</div>
+    </div>
+
+    <div class="sea">
+      <h3>Summer Program: July and August 2026</h3>
+      <p>If you want structured prep with real exam problems and a coach who has taught this for years, my summer program runs in July and August. Small groups. AP Calculus AB and BC. Spots are limited.</p>
+      <a class="btn-w" href="https://aceapcalculus.com/summer-diagnostic-page" target="_blank">See Summer Program Details</a>
+    </div>
+  </div>
+
+</div>
+<!-- end .ace-post -->
+
+<!-- Desmos graph: sin(x)/x -->
+<script>
+(function() {
+  var elt = document.getElementById('desmos-lhopital');
+  if (!elt || typeof Desmos === 'undefined') return;
+  var calc = Desmos.GraphingCalculator(elt, {
+    expressions: false, settingsMenu: false, zoomButtons: false, lockViewport: true
+  });
+  calc.setMathBounds({ left: -5, right: 5, bottom: -0.5, top: 1.5 });
+  calc.setExpression({ id: 'curve', latex: 'y=\\frac{\\sin(x)}{x}', color: '#1a3a6b', lineWidth: 2.5 });
+  calc.setExpression({ id: 'point', latex: '(0,1)', color: '#e8a020', pointSize: 10 });
+  calc.setExpression({ id: 'label', latex: '(0,1)', label: "limit = 1", showLabel: true, color: '#e8a020' });
+  calc.setExpression({ id: 'hline', latex: 'y=1', color: '#e8a020', lineWidth: 1.5, lineStyle: 'DASHED' });
+})();
+</script>
+
+<!-- FAQPage schema for SEO -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Does L'Hopital's Rule work for infinity/infinity the same way as 0/0?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. The same 4 steps apply. Plug in, confirm you get infinity/infinity, differentiate numerator and denominator separately, re-evaluate. The infinity over infinity case comes up most often with exponential and polynomial comparisons. Apply the rule twice on limits like x^2/e^x and you will see why exponentials beat polynomials every time."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "When should I use L'Hopital's Rule versus factoring or rationalizing?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Both methods work when the limit produces 0/0 from a rational function. Try factoring first if the numerator or denominator is a polynomial — it is faster and less error-prone on a timed exam. Use L'Hopital's Rule when the expression involves a mix of polynomial, trig, exponential, or logarithmic functions. That is where factoring breaks down and L'Hopital's is the clean tool."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is L'Hopital's Rule on the AP Calculus AB exam or only BC?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "It is on both AB and BC. It falls under Unit 4: Contextual Applications of Differentiation on both exams. The AP exam will not ask you to prove the rule. It tests whether you can identify the indeterminate form and apply the steps correctly. Knowing the 4 steps cold is enough."
+      }
+    }
+  ]
+}
+</script>
+
+<!-- ===================================================================
+     &#9650;&#9650;&#9650; END: WORDPRESS CUSTOM HTML BLOCK &#9650;&#9650;&#9650;
+     =================================================================== -->
+
+</div>
+<!-- end .page wrapper -->
+
+</body>
+</html>

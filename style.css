@@ -1,0 +1,1445 @@
+/*
+ * Theme Name: EngiNearU — AP Calculus Prep
+ * Theme URI:  https://enginearu.com/ap-calculus-prep
+ * Author:     Zach Boykin
+ * Author URI: https://enginearu.com
+ * Description: Official blog theme for EngiNearU AP Calculus Prep — built on the
+ *              EngiNearU design system. Covers AP Calculus AB/BC and AP CS Prep.
+ * Version:    2.0.0
+ * License:    GNU General Public License v2 or later
+ * License URI: http://www.gnu.org/licenses/gpl-2.0.html
+ * Text Domain: ace-ap
+ * Tags: blog, education, calculus, ap-exam, tutoring, clean, responsive
+ *
+ * ─────────────────────────────────────────────────────────────────────────────
+ * HOW THIS FILE IS ORGANIZED
+ * ─────────────────────────────────────────────────────────────────────────────
+ *  1. DESIGN SYSTEM TOKENS   ← All CSS variables (colors, fonts, spacing, etc.)
+ *  2. RESET                  ← Zero out browser defaults
+ *  3. BASE TYPOGRAPHY        ← body, headings, links, blockquote, code
+ *  4. LAYOUT                 ← .container, .site-wrapper, grid helpers
+ *  5. HEADER & NAV           ← sticky header, logo, primary nav, mobile toggle
+ *  6. BREADCRUMBS            ← breadcrumb trail on archive/single pages
+ *  7. HERO                   ← .site-hero used on front-page.php
+ *  8. POST CARDS             ← .post-card used in blog grid (index + front-page)
+ *  9. POST HERO              ← .post-hero navy header on single.php + index.php
+ * 10. SIDEBAR                ← .sidebar, .widget, .widget--cta
+ * 11. PAGINATION             ← numbered page links
+ * 12. BUTTONS                ← all .btn-* variants
+ * 13. SECTION HEADERS        ← .section-header reusable heading block
+ * 14. TOPIC CARDS            ← .topic-card subject cards on front-page.php
+ * 15. CTA BAND               ← full-width navy CTA strip on front-page.php
+ * 16. FOOTER                 ← .site-footer, .footer-grid, .footer-bottom
+ * 17. UTILITY                ← helper classes (.text-center, .text-muted, etc.)
+ * 18. RESPONSIVE             ← media queries (1024px, 768px, 480px breakpoints)
+ *
+ * ─────────────────────────────────────────────────────────────────────────────
+ * EDITING RULES
+ * ─────────────────────────────────────────────────────────────────────────────
+ * - NEVER hard-code a color hex value outside of Section 1. Always use a token.
+ * - NEVER add gradients — this brand uses flat navy surfaces only.
+ * - NEVER use emoji in UI copy or CSS content values.
+ * - Shadows are tinted navy (rgba(16, 48, 89, ...)), never pure black rgba(0,0,0,...).
+ * - Motion: 120–320ms ease-out only. No bounce/spring animations.
+ * - Cards lift on hover via box-shadow only — no translate/scale.
+ */
+
+
+/* ============================================================
+   1. DESIGN SYSTEM TOKENS
+   ─────────────────────────────────────────────────────────
+   These CSS custom properties are the single source of truth
+   for every color, font, size, and spacing value on the site.
+   Change a value here and it propagates everywhere instantly.
+
+   HOW TO USE:
+     color: var(--navy-700);
+     padding: var(--s-5);
+     font-family: var(--font-display);
+   ============================================================ */
+:root {
+
+  /* ----------------------------------------------------------
+     BRAND PALETTE — Raw color scales
+     Use the semantic tokens below in components, not these
+     directly (unless you specifically need a shade).
+  ---------------------------------------------------------- */
+
+  /* Navy scale — primary brand color, used for hero, headings, navs */
+  --navy-900: #081A33;
+  --navy-800: #0C2344;
+  --navy-700: #103059;   /* Primary navy — hero surfaces, headings, buttons */
+  --navy-600: #1C4179;
+  --navy-500: #2B5A9D;
+  --navy-400: #4B7AB8;
+  --navy-300: #729AC9;
+  --navy-200: #9FBBDC;
+  --navy-100: #B7CFE9;
+  --navy-50:  #E6EEF7;   /* Very light navy tint — icon backgrounds, tags */
+
+  /* Gold scale — accent color for CTAs, eyebrows, focus rings */
+  --gold-900: #8A5F0B;
+  --gold-800: #B27B0F;
+  --gold-700: #D69916;   /* Eyebrow text, icon accents */
+  --gold-600: #F4B626;   /* Primary accent — CTAs, buttons, focus ring */
+  --gold-500: #F7C44E;
+  --gold-400: #FAD375;
+  --gold-300: #FCE2A0;
+  --gold-200: #FDEEC4;
+  --gold-100: #FEF7E2;
+
+  /* Ink scale — neutral tones for body text and borders */
+  --ink-900: #0F1623;
+  --ink-800: #1E2736;
+  --ink-700: #2F3A4D;    /* Body text */
+  --ink-600: #4A5568;
+  --ink-500: #6B7689;    /* Secondary/muted text */
+  --ink-400: #97A0B0;
+  --ink-300: #C5CBD5;
+  --ink-200: #E3E7EC;    /* Borders */
+  --ink-100: #F1F3F6;    /* Light backgrounds */
+  --ink-50:  #F8F9FB;    /* Tint backgrounds */
+  --white:   #FFFFFF;
+
+  /* ----------------------------------------------------------
+     SEMANTIC TOKENS — What each color DOES (use these in components)
+  ---------------------------------------------------------- */
+
+  /* Foreground / text */
+  --fg-1:       var(--navy-700);   /* Primary headings */
+  --fg-2:       var(--ink-700);    /* Body text */
+  --fg-3:       var(--ink-500);    /* Muted / secondary text */
+  --fg-4:       var(--ink-400);    /* Placeholder text */
+  --fg-inverse: var(--white);      /* Text on dark surfaces */
+  --fg-accent:  var(--gold-700);   /* Eyebrow labels */
+
+  /* Backgrounds */
+  --bg-1:         var(--white);        /* Primary white background */
+  --bg-2:         var(--ink-50);       /* Subtle tint (alternate sections) */
+  --bg-3:         var(--ink-100);      /* Slightly darker tint */
+  --bg-navy:      var(--navy-700);     /* Dark navy surface (hero, CTA) */
+  --bg-navy-deep: var(--navy-800);     /* Deeper navy (CTA band) */
+  --bg-tint:      var(--navy-50);      /* Very light navy tint */
+  --bg-gold-tint: var(--gold-100);     /* Gold-tinted surface */
+
+  /* Borders */
+  --border-1:      var(--ink-200);     /* Default card/input border */
+  --border-2:      var(--ink-300);     /* Slightly heavier border */
+  --border-strong: var(--navy-700);    /* Brand-colored border (post-hero top) */
+  --border-accent: var(--gold-600);    /* Gold accent border (hero card top) */
+
+  /* Interactive states */
+  --action-primary:         var(--navy-700);
+  --action-primary-hover:   var(--navy-800);
+  --action-primary-press:   var(--navy-900);
+  --action-secondary:       var(--gold-600);
+  --action-secondary-hover: var(--gold-700);
+  --focus-ring:             var(--gold-600);   /* Keyboard focus outline */
+
+  /* ----------------------------------------------------------
+     TYPOGRAPHY
+     Fonts are loaded via Google Fonts in functions.php.
+     - Montserrat   = display (headings, buttons, eyebrows, nav)
+     - Nunito Sans  = body text
+     - JetBrains Mono = code blocks only
+  ---------------------------------------------------------- */
+  --font-display: "Montserrat", "Inter", system-ui, -apple-system, sans-serif;
+  --font-body:    "Nunito Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono:    "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
+
+  /* Font sizes — use clamp() for display/h1 to scale with viewport */
+  --fs-display: clamp(40px, 6vw, 56px);
+  --fs-h1:      clamp(28px, 4vw, 40px);
+  --fs-h2:      clamp(22px, 3vw, 30px);
+  --fs-h3:      22px;
+  --fs-h4:      18px;
+  --fs-body:    16px;
+  --fs-small:   14px;
+  --fs-eyebrow: 12px;  /* Uppercase label text above headings */
+  --fs-code:    14px;
+
+  /* Line heights */
+  --lh-tight:  1.1;
+  --lh-snug:   1.25;
+  --lh-normal: 1.5;
+  --lh-loose:  1.7;   /* Body paragraphs — comfortable reading */
+
+  /* Letter spacing */
+  --lt-display: -0.02em;
+  --lt-heading: -0.01em;
+  --lt-eyebrow: 0.14em;  /* Wide tracking for uppercase eyebrow labels */
+
+  /* Font weights */
+  --fw-regular:   400;
+  --fw-medium:    500;
+  --fw-semibold:  600;
+  --fw-bold:      700;
+  --fw-extrabold: 800;
+  --fw-black:     900;
+
+  /* ----------------------------------------------------------
+     SPACING — 4px base unit
+     s-1 = 4px, s-2 = 8px, s-3 = 12px ... s-10 = 128px
+     Use these for margin, padding, and gap values.
+  ---------------------------------------------------------- */
+  --s-1:  4px;
+  --s-2:  8px;
+  --s-3:  12px;
+  --s-4:  16px;
+  --s-5:  24px;
+  --s-6:  32px;
+  --s-7:  48px;
+  --s-8:  64px;
+  --s-9:  96px;
+  --s-10: 128px;
+
+  /* ----------------------------------------------------------
+     BORDER RADII
+  ---------------------------------------------------------- */
+  --r-sm:   6px;
+  --r-md:   10px;
+  --r-lg:   14px;
+  --r-xl:   20px;
+  --r-pill: 999px;   /* Fully rounded — tags, badges */
+
+  /* ----------------------------------------------------------
+     SHADOWS — always tinted navy, never pure black
+     Format: offset-y blur spread color
+  ---------------------------------------------------------- */
+  --shadow-xs:    0 1px 2px rgba(16, 48, 89, 0.06);
+  --shadow-sm:    0 2px 6px rgba(16, 48, 89, 0.08);
+  --shadow-md:    0 6px 18px rgba(16, 48, 89, 0.10);
+  --shadow-lg:    0 16px 40px rgba(16, 48, 89, 0.14);
+  --shadow-focus: 0 0 0 3px rgba(244, 182, 38, 0.45);  /* Gold focus ring */
+
+  /* ----------------------------------------------------------
+     MOTION — ease-out only, no bounce/spring
+  ---------------------------------------------------------- */
+  --ease-out:    cubic-bezier(0.22, 0.61, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-fast:    120ms;   /* Hover color changes */
+  --dur-base:    200ms;   /* Most transitions */
+  --dur-slow:    320ms;   /* Larger layout shifts */
+
+  /* ----------------------------------------------------------
+     LAYOUT
+  ---------------------------------------------------------- */
+  --max-width: 1200px;   /* Max content width across all pages */
+  --gutter:    32px;     /* Horizontal padding on .container */
+}
+
+
+/* ============================================================
+   2. RESET
+   ─────────────────────────────────────────────────────────
+   Remove browser default margins/padding, normalize box model.
+   ============================================================ */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+ul, ol { list-style: none; }
+
+
+/* ============================================================
+   3. BASE TYPOGRAPHY
+   ─────────────────────────────────────────────────────────
+   Global text styles. These apply site-wide unless overridden
+   by a more specific selector.
+   ============================================================ */
+body {
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: var(--lh-normal);
+  color: var(--fg-2);
+  background: var(--bg-1);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* All headings use the display font (Montserrat) */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  color: var(--fg-1);
+  line-height: var(--lh-tight);
+  letter-spacing: var(--lt-heading);
+  margin: 0 0 var(--s-4);
+  text-wrap: balance;   /* Prevents awkward single-word last lines */
+}
+h1 { font-size: var(--fs-h1); font-weight: var(--fw-extrabold); }
+h2 { font-size: var(--fs-h2); font-weight: var(--fw-bold); }
+h3 { font-size: var(--fs-h3); font-weight: var(--fw-bold); }
+h4 { font-size: var(--fs-h4); font-weight: var(--fw-semibold); }
+
+p {
+  margin: 0 0 var(--s-4);
+  text-wrap: pretty;  /* Avoids orphaned words at line ends */
+}
+p:last-child { margin-bottom: 0; }
+
+/* ─── Eyebrow label ───
+   The signature brand move — uppercase gold label above headings.
+   Usage: <span class="eyebrow">AP Calculus Blog</span>
+   .eyebrow--light = gold-600, used on dark (navy) backgrounds */
+.eyebrow {
+  font-family: var(--font-display);
+  font-size: var(--fs-eyebrow);
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--lt-eyebrow);
+  text-transform: uppercase;
+  color: var(--fg-accent);
+  display: block;
+  margin-bottom: var(--s-3);
+}
+.eyebrow--light {
+  color: var(--gold-600);   /* Slightly brighter for dark backgrounds */
+}
+
+/* ─── Links ─── */
+a {
+  color: var(--navy-600);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1.5px;
+  text-decoration-color: var(--gold-600);  /* Gold underline on all links */
+  transition: color var(--dur-fast) var(--ease-out);
+}
+a:hover {
+  color: var(--navy-800);
+  text-decoration-thickness: 2px;
+}
+
+/* ─── Text selection ─── */
+::selection {
+  background: var(--gold-300);
+  color: var(--navy-900);
+}
+
+/* ─── Focus ring ─── (keyboard navigation accessibility)
+   Shows a gold glow on any focused interactive element. */
+:focus-visible {
+  outline: none;
+  box-shadow: var(--shadow-focus);
+  border-radius: var(--r-sm);
+}
+
+/* ─── Blockquote ─── */
+blockquote {
+  position: relative;
+  padding: var(--s-5) var(--s-6);
+  background: var(--navy-50);
+  border-radius: var(--r-md);
+  margin: var(--s-6) 0;
+  color: var(--navy-700);
+  font-family: var(--font-display);
+  font-weight: var(--fw-bold);
+  font-size: 1.1rem;
+  line-height: var(--lh-snug);
+}
+blockquote::before {
+  content: '"';
+  font-family: var(--font-display);
+  font-size: 5rem;
+  color: var(--gold-600);
+  font-weight: var(--fw-black);
+  position: absolute;
+  top: -10px;
+  left: 16px;
+  line-height: 1;
+}
+
+/* ─── Inline code & code blocks ─── */
+code {
+  font-family: var(--font-mono);
+  font-size: var(--fs-code);
+  background: var(--bg-2);
+  border: 1px solid var(--border-1);
+  border-radius: var(--r-sm);
+  padding: 2px 6px;
+  color: var(--navy-700);
+}
+pre {
+  background: var(--navy-900);
+  color: var(--bg-1);
+  padding: var(--s-5);
+  border-radius: var(--r-md);
+  overflow-x: auto;
+  line-height: var(--lh-snug);
+  margin: var(--s-5) 0;
+  font-family: var(--font-mono);
+  font-size: var(--fs-code);
+}
+pre code { background: transparent; border: none; color: inherit; padding: 0; }
+
+/* ─── Horizontal rule ─── */
+hr {
+  border: none;
+  border-top: 1px solid var(--border-1);
+  margin: var(--s-7) 0;
+}
+
+
+/* ============================================================
+   4. LAYOUT
+   ─────────────────────────────────────────────────────────
+   Core layout primitives used across all templates.
+   ============================================================ */
+
+/* ─── Container ───
+   Wraps page content to --max-width with horizontal padding.
+   Used in every section of every template. */
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+/* ─── Site wrapper ───
+   The outermost div. Flexbox column ensures footer stays at the bottom. */
+.site-wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ─── Site content ───
+   Wraps everything between header and footer. flex: 1 pushes footer down. */
+.site-content { flex: 1; }
+
+/* ─── Content grid ───
+   Two-column layout: main content + sidebar.
+   Used in index.php and single.php.
+   Falls to single-column on tablet (see responsive section). */
+.content-grid {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: var(--s-8);
+  align-items: start;
+}
+
+/* ─── Blog grid ───
+   Auto-filling card grid — used on homepage and archive pages.
+   Cards are at least 300px wide; more columns added as viewport grows. */
+.blog-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: var(--s-6);
+}
+
+/* ─── Section ───
+   Standard vertical padding for page sections.
+   .section--tint uses the light ink-50 background. */
+.section { padding: var(--s-9) 0; }
+.section--light { background: var(--bg-1); }
+.section--tint  { background: var(--bg-2); }
+
+
+/* ============================================================
+   5. HEADER & NAV
+   ─────────────────────────────────────────────────────────
+   Rendered by header.php on every page.
+   Sticky at top; gets a scroll shadow via JS in main.js.
+   ============================================================ */
+.site-header {
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(8px);              /* Frosted glass effect */
+  -webkit-backdrop-filter: blur(8px);
+  border-bottom: 2px solid var(--border-1);
+  position: sticky;
+  top: 0;
+  z-index: 100;                            /* Always above content */
+  height: 64px;
+  display: flex;
+  align-items: center;
+}
+
+.header-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: var(--s-7);
+}
+
+/* ─── Logo ─── */
+.site-logo {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  text-decoration: none;
+  flex-shrink: 0;
+}
+.logo-mark {
+  width: 36px;
+  height: 36px;
+  background: var(--navy-700);
+  border-radius: var(--r-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.logo-mark svg { display: block; }
+.logo-wordmark {
+  font-family: var(--font-display);
+  font-weight: var(--fw-extrabold);
+  font-size: 15px;
+  color: var(--navy-700);
+  letter-spacing: var(--lt-heading);
+  line-height: 1.1;
+}
+.logo-wordmark span { color: var(--gold-700); }  /* "AP Prep" in gold */
+
+/* ─── Primary nav ───
+   TO ADD A NAV LINK: Edit the fallback <ul> in header.php.
+   The first item in nav is the active class "current". */
+.main-nav { flex: 1; }
+.main-nav ul {
+  display: flex;
+  align-items: center;
+  gap: var(--s-1);
+}
+.main-nav a {
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: var(--fw-semibold);
+  color: var(--fg-2);
+  text-decoration: none;
+  padding: 8px 12px;
+  border-radius: var(--r-sm);
+  transition: color var(--dur-fast) var(--ease-out),
+              background var(--dur-fast) var(--ease-out);
+  white-space: nowrap;
+}
+.main-nav a:hover,
+.main-nav a.current {
+  color: var(--navy-700);
+  background: var(--navy-50);
+}
+
+/* ─── Nav CTA button ─── (the "Course Platform" link) */
+.btn-nav-cta {
+  background: var(--navy-700) !important;
+  color: var(--white) !important;
+  padding: 9px 18px !important;
+  border-radius: var(--r-md) !important;
+}
+.btn-nav-cta:hover {
+  background: var(--navy-800) !important;
+  color: var(--white) !important;
+}
+
+/* ─── Mobile hamburger toggle ───
+   Hidden on desktop; shown at 768px (see responsive section).
+   Toggle behavior is in assets/js/main.js. */
+.menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: var(--s-2);
+  color: var(--fg-1);
+  margin-left: auto;
+}
+.menu-toggle span {
+  display: block;
+  width: 20px;
+  height: 2px;
+  background: currentColor;
+  margin: 5px 0;
+  border-radius: 2px;
+  transition: transform var(--dur-base) var(--ease-out);
+}
+
+
+/* ============================================================
+   6. BREADCRUMBS
+   ─────────────────────────────────────────────────────────
+   Rendered by ace_breadcrumbs() helper in functions.php.
+   Appears on archive pages and single posts (not front page).
+   Example: Home / AP Calculus / Limits & Continuity
+   ============================================================ */
+.breadcrumbs {
+  background: var(--bg-2);
+  border-bottom: 1px solid var(--border-1);
+  padding: var(--s-3) 0;
+}
+.breadcrumb-list {
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+  font-size: var(--fs-small);
+  color: var(--fg-3);
+  flex-wrap: wrap;
+}
+.breadcrumb-list a {
+  color: var(--fg-3);
+  text-decoration: none;
+  font-family: var(--font-display);
+  font-weight: var(--fw-medium);
+}
+.breadcrumb-list a:hover { color: var(--navy-700); }
+/* Slash separator between crumbs */
+.breadcrumb-list li:not(:first-child)::before {
+  content: '/';
+  margin-right: var(--s-2);
+  opacity: 0.4;
+}
+
+
+/* ============================================================
+   7. HERO  (front-page.php homepage)
+   ─────────────────────────────────────────────────────────
+   Full-width navy section at the top of the homepage.
+   Pattern is an inline SVG grid (no external image needed).
+   TO EDIT HERO COPY: Edit front-page.php, the .site-hero section.
+   ============================================================ */
+.site-hero {
+  background-color: var(--navy-700);
+  /* Subtle 48px grid pattern at 8% opacity — signature brand texture */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 48 48'%3E%3Cdefs%3E%3Cpattern id='g' width='48' height='48' patternUnits='userSpaceOnUse'%3E%3Cpath d='M0 0 L48 0 M0 0 L0 48' stroke='%23ffffff' stroke-width='0.6' opacity='0.08'/%3E%3C/pattern%3E%3C/defs%3E%3Crect width='48' height='48' fill='url(%23g)'/%3E%3C/svg%3E");
+  background-size: 48px 48px;
+  color: var(--white);
+  padding: var(--s-9) var(--gutter);
+}
+
+.hero-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;  /* Text left, card right */
+  gap: var(--s-8);
+  align-items: center;
+}
+
+/* ─── Hero left column: headline + CTAs + stats ─── */
+.hero-content h1 {
+  color: var(--white);
+  font-size: var(--fs-display);
+  font-weight: var(--fw-black);
+  letter-spacing: var(--lt-display);
+  line-height: 1.02;
+  margin-bottom: var(--s-5);
+}
+.hero-content h1 span { color: var(--gold-600); }  /* Gold span in headline */
+
+.hero-content p {
+  font-size: 18px;
+  line-height: var(--lh-loose);
+  color: rgba(255,255,255,0.85);
+  max-width: 520px;
+  margin-bottom: var(--s-6);
+}
+
+.hero-actions {
+  display: flex;
+  gap: var(--s-3);
+  flex-wrap: wrap;
+}
+
+/* ─── Hero stats bar ─── (87% · 500+ · 2) */
+.hero-stats {
+  display: flex;
+  gap: var(--s-7);
+  margin-top: var(--s-7);
+  padding-top: var(--s-6);
+  border-top: 1px solid rgba(255,255,255,0.12);
+}
+.hero-stat-num {
+  font-family: var(--font-display);
+  font-weight: var(--fw-extrabold);
+  font-size: 22px;
+  color: var(--gold-600);
+  display: block;
+}
+.hero-stat-label {
+  font-size: 13px;
+  color: rgba(255,255,255,0.75);
+}
+
+/* ─── Hero card ─── (floating white card on navy background)
+   TO EDIT HERO CARD CONTENT: Edit the .hero-card div in front-page.php. */
+.hero-card {
+  background: var(--white);
+  border-radius: var(--r-lg);
+  padding: var(--s-6);
+  box-shadow: 0 30px 60px rgba(0,0,0,0.25);
+  border-top: 3px solid var(--gold-600);
+  color: var(--fg-1);
+}
+.hero-card .card-topic-label {
+  font-size: 13px;
+  color: var(--fg-3);
+  margin-bottom: var(--s-3);
+}
+.hero-card h3 {
+  font-size: var(--fs-h3);
+  font-weight: var(--fw-extrabold);
+  color: var(--navy-700);
+  margin-bottom: var(--s-2);
+  letter-spacing: var(--lt-heading);
+}
+
+
+/* ============================================================
+   8. POST CARDS  (.post-card)
+   ─────────────────────────────────────────────────────────
+   Used in blog grids on index.php and front-page.php.
+   Structure: .post-card > .post-card-thumb + .post-card-body
+   ============================================================ */
+.post-card {
+  background: var(--white);
+  border: 1px solid var(--border-1);
+  border-radius: var(--r-md);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--shadow-xs);
+  transition: box-shadow var(--dur-base) var(--ease-out);
+}
+/* Cards lift on hover via shadow only — no translate/scale per brand rules */
+.post-card:hover { box-shadow: var(--shadow-md); }
+
+/* ─── Thumbnail ─── */
+.post-card-thumb {
+  aspect-ratio: 16/9;
+  overflow: hidden;
+  background: var(--navy-50);
+  position: relative;
+}
+.post-card-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+/* Fallback when no featured image is set */
+.post-card-thumb .thumb-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--navy-50);
+  color: var(--navy-300);
+}
+.thumb-placeholder svg { width: 48px; height: 48px; opacity: 0.5; }
+
+/* ─── Subject badge ─── (AP Calc AB / AP Calc BC)
+   Generated by ace_subject_badge() in functions.php.
+   TO ADD A NEW SUBJECT: Edit the function in functions.php. */
+.post-subject-badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: var(--navy-700);
+  color: var(--white);
+  font-family: var(--font-display);
+  font-size: 10px;
+  font-weight: var(--fw-bold);
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: var(--r-pill);
+}
+.post-subject-badge--cs   { background: var(--navy-500); }
+.post-subject-badge--calc { background: var(--navy-700); }
+
+/* ─── Card body ─── */
+.post-card-body {
+  padding: var(--s-5);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Category label (gold, uppercase, small) */
+.post-card-cat {
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: var(--fw-bold);
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  color: var(--gold-700);
+  text-decoration: none;
+  margin-bottom: var(--s-2);
+  display: block;
+}
+.post-card-cat:hover { color: var(--gold-900); text-decoration: none; }
+
+.post-card-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-h4);
+  font-weight: var(--fw-bold);
+  color: var(--navy-700);
+  line-height: var(--lh-snug);
+  margin-bottom: var(--s-3);
+  flex: 1;
+  letter-spacing: var(--lt-heading);
+}
+.post-card-title a { color: inherit; text-decoration: none; }
+.post-card-title a:hover { color: var(--navy-600); text-decoration: none; }
+
+.post-card-excerpt {
+  color: var(--fg-3);
+  font-size: var(--fs-small);
+  line-height: var(--lh-loose);
+  margin-bottom: var(--s-4);
+  /* Clamp to 3 lines — prevents tall cards from uneven grid */
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ─── Post meta row ─── (avatar · author · date · read time) */
+.post-meta {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  font-size: 12px;
+  color: var(--fg-3);
+  padding-top: var(--s-4);
+  border-top: 1px solid var(--border-1);
+  margin-top: auto;
+  font-family: var(--font-display);
+  font-weight: var(--fw-medium);
+}
+.post-meta .sep { opacity: 0.4; }
+.post-meta .read-time { margin-left: auto; }
+
+/* Author avatar — navy circle with initials */
+.author-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--navy-300);
+  color: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: 10px;
+  font-weight: var(--fw-extrabold);
+  flex-shrink: 0;
+}
+
+
+/* ============================================================
+   9. POST HERO  (single.php and index.php)
+   ─────────────────────────────────────────────────────────
+   Navy header block at the top of archive and single post pages.
+   Same grid pattern as .site-hero but with less padding.
+   ============================================================ */
+.post-hero {
+  background-color: var(--navy-700);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 48 48'%3E%3Cdefs%3E%3Cpattern id='g' width='48' height='48' patternUnits='userSpaceOnUse'%3E%3Cpath d='M0 0 L48 0 M0 0 L0 48' stroke='%23ffffff' stroke-width='0.6' opacity='0.08'/%3E%3C/pattern%3E%3C/defs%3E%3Crect width='48' height='48' fill='url(%23g)'/%3E%3C/svg%3E");
+  background-size: 48px 48px;
+  padding: var(--s-8) var(--gutter) var(--s-7);
+  color: var(--white);
+}
+.post-hero-inner {
+  max-width: 800px;
+  margin: 0 auto;
+}
+.post-hero h1 {
+  color: var(--white);
+  font-size: var(--fs-h1);
+  font-weight: var(--fw-extrabold);
+  letter-spacing: var(--lt-heading);
+  margin: var(--s-3) 0 var(--s-5);
+  line-height: var(--lh-snug);
+}
+/* Post meta on dark background — lighter text */
+.post-hero .post-meta {
+  border-top-color: rgba(255,255,255,0.12);
+  color: rgba(255,255,255,0.70);
+  padding-top: var(--s-5);
+}
+.post-hero .author-avatar { background: rgba(255,255,255,0.18); }
+
+/* ─── Post body area ─── (single.php) */
+.post-body-wrapper { padding: var(--s-8) var(--gutter); }
+.post-content { max-width: 720px; }
+
+/* Inside post body, restore heading margins (WP resets these) */
+.post-content h2,
+.post-content h3,
+.post-content h4 {
+  margin-top: var(--s-7);
+  margin-bottom: var(--s-4);
+}
+.post-content h2 {
+  padding-bottom: var(--s-3);
+  border-bottom: 2px solid var(--border-1);
+}
+/* Restore list styles inside post content (WP strips them) */
+.post-content ul,
+.post-content ol {
+  list-style: revert;
+  padding-left: 1.5rem;
+  margin-bottom: var(--s-4);
+}
+.post-content li { margin-bottom: var(--s-2); }
+.post-content img {
+  border-radius: var(--r-md);
+  margin: var(--s-6) 0;
+  box-shadow: var(--shadow-sm);
+}
+.post-content a { color: var(--navy-600); }
+
+/* ─── Post tags ─── (pill badges at the bottom of post content) */
+.post-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+  align-items: center;
+  margin: var(--s-7) 0;
+  padding: var(--s-5) 0;
+  border-top: 1px solid var(--border-1);
+  border-bottom: 1px solid var(--border-1);
+}
+.post-tags .tag-label {
+  font-family: var(--font-display);
+  font-size: var(--fs-small);
+  color: var(--fg-3);
+  font-weight: var(--fw-medium);
+  margin-right: var(--s-1);
+}
+.post-tags a {
+  background: var(--navy-50);
+  color: var(--navy-700);
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: var(--fw-semibold);
+  padding: 5px 12px;
+  border-radius: var(--r-pill);
+  text-decoration: none;
+  transition: background var(--dur-fast) var(--ease-out);
+}
+.post-tags a:hover { background: var(--navy-100); text-decoration: none; }
+
+/* ─── Author box ─── (shown at bottom of every post) */
+.author-box {
+  background: var(--bg-2);
+  border: 1px solid var(--border-1);
+  border-radius: var(--r-md);
+  padding: var(--s-5);
+  display: flex;
+  gap: var(--s-4);
+  align-items: flex-start;
+  margin: var(--s-7) 0;
+}
+.author-box-avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--navy-300);
+  color: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: var(--fw-extrabold);
+  flex-shrink: 0;
+}
+.author-box h4 { font-size: var(--fs-body); margin-bottom: var(--s-2); }
+.author-box p { font-size: var(--fs-small); color: var(--fg-3); }
+
+/* ─── Post navigation ─── (Prev / Next post links) */
+.post-nav {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--s-4);
+  margin: var(--s-7) 0;
+  padding: var(--s-6) 0;
+  border-top: 1px solid var(--border-1);
+}
+.post-nav-link {
+  background: var(--bg-1);
+  border: 1px solid var(--border-1);
+  border-radius: var(--r-md);
+  padding: var(--s-4);
+  text-decoration: none;
+  transition: box-shadow var(--dur-base) var(--ease-out);
+}
+.post-nav-link:hover { box-shadow: var(--shadow-md); text-decoration: none; }
+.post-nav-link--next { text-align: right; }
+.post-nav-dir {
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: var(--fw-bold);
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  color: var(--fg-3);
+  display: block;
+  margin-bottom: var(--s-1);
+}
+.post-nav-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-small);
+  font-weight: var(--fw-bold);
+  color: var(--navy-700);
+}
+
+
+/* ============================================================
+   10. SIDEBAR
+   ─────────────────────────────────────────────────────────
+   Rendered by sidebar.php. Sticky so it scrolls with you.
+   TO ADD A SIDEBAR WIDGET: Add a new <div class="widget"> in sidebar.php.
+   ============================================================ */
+.sidebar {
+  position: sticky;
+  top: 80px;  /* 64px header + 16px breathing room */
+}
+.widget {
+  background: var(--bg-1);
+  border: 1px solid var(--border-1);
+  border-radius: var(--r-md);
+  padding: var(--s-5);
+  margin-bottom: var(--s-5);
+  box-shadow: var(--shadow-xs);
+}
+.widget-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-eyebrow);
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--lt-eyebrow);
+  text-transform: uppercase;
+  color: var(--fg-3);
+  margin-bottom: var(--s-4);
+  padding-bottom: var(--s-3);
+  border-bottom: 1px solid var(--border-1);
+}
+
+/* ─── CTA widget ─── (navy background, white text) */
+.widget--cta {
+  background: var(--navy-700);
+  border-color: var(--navy-700);
+  text-align: center;
+}
+.widget--cta .widget-title {
+  color: rgba(255,255,255,0.55);
+  border-bottom-color: rgba(255,255,255,0.12);
+}
+.widget--cta h3 { color: var(--white); font-size: var(--fs-h4); margin-bottom: var(--s-3); }
+.widget--cta p  { color: rgba(255,255,255,0.75); font-size: var(--fs-small); margin-bottom: var(--s-5); }
+
+/* ─── Category list ─── (sidebar topics) */
+.category-list li { border-bottom: 1px solid var(--border-1); }
+.category-list li:last-child { border-bottom: none; }
+.category-list a {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  font-family: var(--font-display);
+  font-size: var(--fs-small);
+  font-weight: var(--fw-medium);
+  color: var(--fg-2);
+  text-decoration: none;
+}
+.category-list a:hover { color: var(--navy-700); text-decoration: none; }
+.cat-count {
+  background: var(--navy-50);
+  color: var(--navy-700);
+  font-size: 11px;
+  font-weight: var(--fw-bold);
+  padding: 2px 8px;
+  border-radius: var(--r-pill);
+}
+
+/* ─── Search form ─── */
+.search-form { display: flex; gap: var(--s-2); }
+.search-form input {
+  flex: 1;
+  padding: 10px var(--s-4);
+  border: 1px solid var(--border-1);
+  border-radius: var(--r-md);
+  font-family: var(--font-body);
+  font-size: var(--fs-small);
+  color: var(--fg-2);
+  background: var(--bg-1);
+  outline: none;
+  transition: border-color var(--dur-fast) var(--ease-out);
+}
+.search-form input::placeholder { color: var(--fg-4); }
+.search-form input:focus {
+  border-color: var(--navy-400);
+  box-shadow: var(--shadow-focus);
+}
+
+
+/* ============================================================
+   11. PAGINATION
+   ─────────────────────────────────────────────────────────
+   Rendered by the_posts_pagination() in index.php.
+   ============================================================ */
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: var(--s-2);
+  margin-top: var(--s-8);
+}
+.pagination a,
+.pagination span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 40px;
+  height: 40px;
+  padding: 0 var(--s-3);
+  border-radius: var(--r-md);
+  border: 1px solid var(--border-1);
+  font-family: var(--font-display);
+  font-size: var(--fs-small);
+  font-weight: var(--fw-semibold);
+  color: var(--fg-2);
+  text-decoration: none;
+  transition: background var(--dur-fast) var(--ease-out),
+              color var(--dur-fast) var(--ease-out),
+              border-color var(--dur-fast) var(--ease-out);
+}
+.pagination a:hover,
+.pagination .current {
+  background: var(--navy-700);
+  color: var(--white);
+  border-color: var(--navy-700);
+  text-decoration: none;
+}
+
+
+/* ============================================================
+   12. BUTTONS
+   ─────────────────────────────────────────────────────────
+   All buttons use the base .btn class + a modifier.
+   MODIFIERS:
+     .btn-primary      — navy (most common CTA)
+     .btn-secondary    — gold (high-emphasis CTA)
+     .btn-outline      — transparent, navy border (light backgrounds)
+     .btn-outline-light — transparent, white border (dark/navy backgrounds)
+     .btn-sm           — smaller padding
+     .btn-full         — full width
+   ============================================================ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s-2);
+  font-family: var(--font-display);
+  font-weight: var(--fw-bold);
+  font-size: 14px;
+  padding: 12px 22px;
+  border-radius: var(--r-md);
+  border: 2px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background   var(--dur-fast) var(--ease-out),
+              color        var(--dur-fast) var(--ease-out),
+              border-color var(--dur-fast) var(--ease-out),
+              transform    var(--dur-fast) var(--ease-out);
+}
+.btn:hover  { transform: translateY(-1px); text-decoration: none; }
+.btn:active { transform: translateY(0); }
+
+/* Navy primary */
+.btn-primary { background: var(--navy-700); color: var(--white); border-color: var(--navy-700); }
+.btn-primary:hover { background: var(--navy-800); border-color: var(--navy-800); color: var(--white); }
+
+/* Gold secondary */
+.btn-secondary { background: var(--gold-600); color: var(--navy-900); border-color: var(--gold-600); }
+.btn-secondary:hover { background: var(--gold-700); border-color: var(--gold-700); color: var(--navy-900); }
+
+/* Outlined — light backgrounds */
+.btn-outline { background: transparent; color: var(--navy-700); border-color: var(--navy-300); }
+.btn-outline:hover { background: var(--navy-50); border-color: var(--navy-500); color: var(--navy-800); }
+
+/* Outlined — dark/navy backgrounds */
+.btn-outline-light { background: transparent; color: var(--white); border-color: rgba(255,255,255,0.4); }
+.btn-outline-light:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.7); color: var(--white); }
+
+.btn-sm   { padding: 8px 16px; font-size: 13px; }
+.btn-full { width: 100%; }
+
+
+/* ============================================================
+   13. SECTION HEADERS
+   ─────────────────────────────────────────────────────────
+   Reusable heading block: eyebrow + h2 + description paragraph.
+   Used at the top of every major section.
+   .section-header--center centers the text (used in CTA band).
+   ============================================================ */
+.section-header { margin-bottom: var(--s-8); }
+.section-header h2 { margin-bottom: var(--s-3); }
+.section-header p {
+  color: var(--fg-3);
+  font-size: 17px;
+  max-width: 560px;
+  line-height: var(--lh-loose);
+}
+.section-header--center { text-align: center; }
+.section-header--center p { margin-left: auto; margin-right: auto; }
+
+
+/* ============================================================
+   14. TOPIC CARDS  (.topic-card)
+   ─────────────────────────────────────────────────────────
+   Subject/category link cards with icon, name, description, badge.
+   Used on front-page.php in the "Choose your subject" section.
+   ============================================================ */
+.topic-card {
+  background: var(--bg-1);
+  border: 1px solid var(--border-1);
+  border-radius: var(--r-md);
+  padding: var(--s-5);
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+  box-shadow: var(--shadow-xs);
+  transition: box-shadow var(--dur-base) var(--ease-out),
+              border-color var(--dur-base) var(--ease-out);
+}
+.topic-card:hover {
+  box-shadow: var(--shadow-md);
+  border-color: var(--navy-200);
+  text-decoration: none;
+}
+.topic-card-icon {
+  width: 40px;
+  height: 40px;
+  background: var(--navy-50);
+  border-radius: var(--r-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: var(--s-2);
+}
+.topic-card-icon svg { width: 20px; height: 20px; color: var(--navy-700); }
+.topic-card-name {
+  font-family: var(--font-display);
+  font-weight: var(--fw-bold);
+  font-size: var(--fs-small);
+  color: var(--navy-700);
+}
+.topic-card-desc { font-size: 12px; color: var(--fg-3); line-height: var(--lh-normal); }
+.topic-card-badge {
+  font-family: var(--font-display);
+  font-size: 10px;
+  font-weight: var(--fw-bold);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: var(--r-pill);
+  background: var(--navy-50);
+  color: var(--navy-700);
+  width: fit-content;
+  margin-top: var(--s-2);
+}
+.topic-card-badge--cs { background: var(--navy-700); color: var(--white); }
+
+
+/* ============================================================
+   15. CTA BAND
+   ─────────────────────────────────────────────────────────
+   Full-width deep navy strip. Used on front-page.php for the
+   "Go deeper with our course platform" section.
+   TO EDIT: Change the text in the .cta-band div in front-page.php.
+   ============================================================ */
+.cta-band {
+  background: var(--navy-800);
+  padding: var(--s-9) var(--gutter);
+  text-align: center;
+  color: var(--white);
+}
+.cta-band h2 {
+  color: var(--white);
+  font-weight: var(--fw-black);
+  font-size: var(--fs-h1);
+  letter-spacing: var(--lt-display);
+  margin-bottom: var(--s-5);
+}
+.cta-band h2 span { color: var(--gold-600); }
+.cta-band p {
+  color: rgba(255,255,255,0.75);
+  font-size: 17px;
+  max-width: 500px;
+  margin: 0 auto var(--s-7);
+  line-height: var(--lh-loose);
+}
+.cta-band-actions { display: flex; gap: var(--s-3); justify-content: center; }
+
+
+/* ============================================================
+   16. FOOTER
+   ─────────────────────────────────────────────────────────
+   Rendered by footer.php. Four-column grid:
+   col 1: brand + tagline  |  col 2: AP Calculus links
+   col 3: AP CS links      |  col 4: EngiNearU links
+   TO EDIT FOOTER LINKS: Edit footer.php, the <ul> lists.
+   ============================================================ */
+.site-footer {
+  background: var(--navy-900);
+  color: rgba(255,255,255,0.75);
+  padding: var(--s-9) 0 var(--s-6);
+  margin-top: auto;
+}
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: var(--s-8);
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--gutter) var(--s-8);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.footer-brand p {
+  font-size: 14px;
+  color: rgba(255,255,255,0.55);
+  margin-top: var(--s-4);
+  line-height: var(--lh-loose);
+  max-width: 280px;
+}
+.footer-col h4 {
+  font-family: var(--font-display);
+  font-size: var(--fs-eyebrow);
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--lt-eyebrow);
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+  margin-bottom: var(--s-4);
+}
+.footer-col ul li { margin-bottom: var(--s-3); }
+.footer-col a {
+  font-size: 14px;
+  color: rgba(255,255,255,0.65);
+  text-decoration: none;
+  font-family: var(--font-display);
+  font-weight: var(--fw-medium);
+  transition: color var(--dur-fast) var(--ease-out);
+}
+.footer-col a:hover { color: var(--gold-600); text-decoration: none; }
+
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: var(--s-6) var(--gutter) 0;
+  font-family: var(--font-display);
+  font-size: 13px;
+  color: rgba(255,255,255,0.35);
+}
+.footer-bottom a { color: rgba(255,255,255,0.55); text-decoration: none; }
+.footer-bottom a:hover { color: var(--gold-600); text-decoration: none; }
+
+
+/* ============================================================
+   17. UTILITY
+   ─────────────────────────────────────────────────────────
+   Single-purpose helper classes.
+   ============================================================ */
+.text-center { text-align: center; }
+.text-muted  { color: var(--fg-3); }
+
+/* Empty state — shown when no posts exist yet */
+.no-posts {
+  text-align: center;
+  padding: var(--s-10) var(--s-5);
+  color: var(--fg-3);
+}
+.no-posts h3 { color: var(--navy-700); margin-bottom: var(--s-3); }
+
+
+/* ============================================================
+   18. RESPONSIVE
+   ─────────────────────────────────────────────────────────
+   Three breakpoints:
+     1024px — tablet landscape / small desktop
+      768px — tablet portrait / large phone
+      480px — mobile
+   ============================================================ */
+
+/* ─── Tablet landscape (1024px and below) ─── */
+@media (max-width: 1024px) {
+  :root { --gutter: 24px; }
+
+  /* Content grid drops sidebar below main content */
+  .content-grid { grid-template-columns: 1fr; }
+  .sidebar { position: static; }  /* No more sticky — inline with content */
+
+  /* Footer collapses to 2 columns */
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: var(--s-6); }
+
+  /* Hero drops to single column (hero card hidden at this size) */
+  .hero-inner { grid-template-columns: 1fr; }
+  .hero-card { display: none; }
+}
+
+/* ─── Tablet portrait / large phone (768px and below) ─── */
+@media (max-width: 768px) {
+  :root { --gutter: 16px; }
+
+  /* Mobile nav: toggle button shown, nav hidden until .open */
+  .menu-toggle { display: block; }
+  .main-nav {
+    display: none;
+    position: absolute;
+    top: 64px;
+    left: 0;
+    right: 0;
+    background: var(--white);
+    border-bottom: 1px solid var(--border-1);
+    padding: var(--s-4) var(--gutter);
+    box-shadow: var(--shadow-md);
+    z-index: 99;
+  }
+  .main-nav.open { display: block; }  /* Added by main.js on toggle click */
+  .main-nav ul { flex-direction: column; align-items: stretch; gap: var(--s-1); }
+  .main-nav a  { display: block; }
+
+  /* Stack hero stats vertically */
+  .hero-stats  { flex-direction: column; gap: var(--s-4); }
+  .hero-actions { flex-direction: column; }
+
+  /* Single-column blog grid */
+  .blog-grid { grid-template-columns: 1fr; }
+
+  /* Footer collapses to single column */
+  .footer-grid { grid-template-columns: 1fr; gap: var(--s-5); }
+  .footer-bottom { flex-direction: column; gap: var(--s-2); text-align: center; }
+
+  /* CTA band buttons stack */
+  .cta-band-actions { flex-direction: column; align-items: center; }
+
+  /* Post navigation stacks */
+  .post-nav { grid-template-columns: 1fr; }
+
+  /* Author box stacks */
+  .author-box { flex-direction: column; }
+
+  /* Reduce section padding */
+  .section { padding: var(--s-7) 0; }
+}
+
+/* ─── Mobile (480px and below) ─── */
+@media (max-width: 480px) {
+  /* Reduce hero vertical padding on small screens */
+  .site-hero { padding: var(--s-8) var(--gutter); }
+  .post-hero  { padding: var(--s-7) var(--gutter) var(--s-6); }
+}

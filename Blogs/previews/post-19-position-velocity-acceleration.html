@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PREVIEW: Position, Velocity, and Acceleration in AP Calculus: The Particle Motion FRQ Guide</title>
+
+<!--
+=======================================================================
+  PREVIEW FILE: ACE AP CALCULUS BLOG
+  Post 19: Position, Velocity, and Acceleration — The Particle Motion FRQ Guide
+=======================================================================
+  This file has three jobs:
+  1. Let you preview the post in your browser before publishing
+  2. Show you a publishing guide at the top of the page
+  3. Mark exactly what to copy into each part of WordPress
+
+  HOW TO USE THIS FILE
+  ─────────────────────
+  Open it in your browser → read the publishing guide at the top
+  Open it in VS Code → the comment markers show you what goes where
+
+  WHAT GETS PASTED INTO WORDPRESS
+  ─────────────────────────────────
+  STEP 1 (one time only) → functions.php  (see guide below)
+  STEP 2 → WordPress title field          (see guide below)
+  STEP 3 → Two Custom HTML blocks         (see guide below)
+  STEP 4 → Yoast / Rank Math SEO fields   (see guide below)
+=======================================================================
+-->
+
+<!-- PREVIEW-ONLY: Fonts, MathJax, Desmos load here for local preview.
+     WordPress gets MathJax + Desmos from functions.php (Step 1 below).
+     Do NOT paste any of this <head> section into WordPress. -->
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<script>MathJax = { tex: { inlineMath: [['$','$']], displayMath: [['$$','$$']], processEscapes: true } };</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+<script src="https://www.desmos.com/api/v1.7/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0fda6"></script>
+
+<!-- PREVIEW-ONLY CSS -->
+<style>
+:root{
+  --navy:#0f1e3c;--blue:#1a3a6b;--accent:#e8a020;--accent-light:#fef3dc;
+  --green:#1a7a4a;--green-light:#eaf7f0;--red:#c0392b;--red-light:#fdf2f1;
+  --purple:#7c3aed;--purple-light:#f3f0ff;
+  --gray:#f5f6f8;--border:#dde3ed;--text:#1a1a2e;--muted:#6b7280;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:#eef0f4;color:var(--text);font-size:14px;line-height:1.8}
+.pub-guide{background:#1a1a2e;font-family:'JetBrains Mono',monospace}
+.pub-guide summary{padding:14px 20px;cursor:pointer;color:var(--accent);font-size:13px;font-weight:700;letter-spacing:.5px;list-style:none;display:flex;align-items:center;gap:10px}
+.pub-guide summary::before{content:"▶";font-size:10px;transition:transform .2s}
+.pub-guide[open] summary::before{transform:rotate(90deg)}
+.pub-guide-body{padding:0 20px 20px}
+.pub-step{margin-bottom:24px}
+.pub-step-ttl{color:var(--accent);font-size:12px;font-weight:700;margin-bottom:6px;letter-spacing:.5px}
+.pub-step p{color:rgba(255,255,255,.75);font-size:12px;margin-bottom:8px;font-family:'Inter',sans-serif;line-height:1.6}
+.pub-step textarea{width:100%;background:#0d0d1a;color:#a8d8a8;border:1px solid #333;border-radius:6px;padding:12px;font-size:11px;font-family:'JetBrains Mono',monospace;line-height:1.6;resize:vertical;min-height:80px}
+.pub-step code{background:#0d0d1a;color:var(--accent);padding:2px 6px;border-radius:3px;font-size:11px}
+.pub-divider{border:none;border-top:1px solid #2a2a4a;margin:20px 0}
+.chrome{background:#2d2d2d;padding:8px 14px;display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:100}
+.dots{display:flex;gap:6px}.dot{width:11px;height:11px;border-radius:50%}
+.dot.r{background:#ff5f57}.dot.y{background:#febc2e}.dot.g{background:#28c840}
+.url{flex:1;background:#3d3d3d;border-radius:5px;padding:4px 10px;color:#aaa;font-size:11px;font-family:'JetBrains Mono',monospace}
+.badge{background:var(--accent);color:var(--navy);font-size:10px;font-weight:700;padding:3px 8px;border-radius:4px}
+.page{max-width:780px;margin:0 auto;background:#fff;min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,.12)}
+.hero{background:linear-gradient(135deg,var(--navy),var(--blue));padding:40px 40px 32px;color:#fff}
+.tag{display:inline-block;background:var(--accent);color:var(--navy);font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;padding:3px 9px;border-radius:3px;margin-bottom:14px}
+.hero h1{font-family:'Merriweather',serif;font-size:22px;line-height:1.4;margin-bottom:14px}
+.meta{display:flex;gap:10px;flex-wrap:wrap}
+.pill{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.88);font-size:11px;padding:4px 10px;border-radius:20px}
+</style>
+</head>
+<body>
+
+<!-- ===================================================================
+     PUBLISHING GUIDE: visible in your browser, preview only
+     This panel does NOT get pasted into WordPress.
+     =================================================================== -->
+<details class="pub-guide" open>
+  <summary>PUBLISHING GUIDE: 4 steps to post this to WordPress</summary>
+  <div class="pub-guide-body">
+
+    <div class="pub-step">
+      <div class="pub-step-ttl">STEP 1 (ONE TIME ONLY): Add MathJax + Desmos to functions.php</div>
+      <p>Do this once. After that, skip to Step 2 for every future post.<br>
+         Go to: WordPress Admin → Appearance → Theme File Editor → functions.php<br>
+         Scroll to the bottom and paste the code below.</p>
+      <textarea readonly rows="10">
+// ── ACE AP CALCULUS: MathJax + Desmos ─────────────────────────────
+// Paste this at the bottom of functions.php (one time only).
+
+add_action('wp_head', function() {
+    echo '<script>MathJax = { tex: { inlineMath: [["$","$"]], displayMath: [["$$","$$"]] } };</script>';
+    echo '<script src="https://www.desmos.com/api/v1.7/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0fda6"></script>';
+}, 1);
+
+add_action('wp_enqueue_scripts', function() {
+    wp_enqueue_script('mathjax', 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js', [], null, false);
+});
+// ──────────────────────────────────────────────────────────────────</textarea>
+    </div>
+
+    <hr class="pub-divider">
+
+    <div class="pub-step">
+      <div class="pub-step-ttl">STEP 2: WordPress title field</div>
+      <p>In the WordPress editor, click the title field at the top and paste this exactly:</p>
+      <textarea readonly rows="2">Position, Velocity, and Acceleration in AP Calculus: The Particle Motion FRQ Guide</textarea>
+    </div>
+
+    <hr class="pub-divider">
+
+    <div class="pub-step">
+      <div class="pub-step-ttl">STEP 3: WordPress Custom HTML blocks (TWO blocks required)</div>
+      <p><strong>Block 1 — Main post content:</strong><br>
+         In the WordPress editor content area:<br>
+         1. Click the <code>+</code> button → search <code>Custom HTML</code> → add that block<br>
+         2. Open this file in VS Code or any text editor<br>
+         3. Find the comment: <code>▼▼▼ START: PASTE THIS INTO WORDPRESS CUSTOM HTML BLOCK ▼▼▼</code><br>
+         4. Select everything from that line down to: <code>▲▲▲ END: WORDPRESS CUSTOM HTML BLOCK ▲▲▲</code><br>
+         5. Paste into the Custom HTML block in WordPress<br><br>
+         <strong>Block 2 — Particle Motion Widget:</strong><br>
+         PARTICLE MOTION WIDGET: The <code>.particle-widget</code> div and its associated <code>&lt;script&gt;</code> tag
+         (found between the START WIDGET and END WIDGET comment markers in this file) must be copied into a
+         <strong>separate WordPress Custom HTML block immediately below the main content block</strong>.
+         Test in WordPress Preview mode before scheduling to confirm the slider and readout render correctly.</p>
+    </div>
+
+    <hr class="pub-divider">
+
+    <div class="pub-step">
+      <div class="pub-step-ttl">STEP 4: SEO fields (in the WordPress sidebar)</div>
+      <p>If you use Yoast or Rank Math, fill these in the sidebar before publishing:</p>
+      <textarea readonly rows="5">
+SEO Title:       Position, Velocity, and Acceleration in AP Calculus (2026 FRQ Guide)
+Meta Description: Master particle motion for the AP Calculus FRQ. Position, velocity, acceleration, speed vs. velocity, and total distance with full rubric — built for exam day.
+Slug:            position-velocity-acceleration-ap-calculus
+Focus Keyword:   position velocity acceleration AP Calculus</textarea>
+    </div>
+
+  </div>
+</details>
+<!-- END PUBLISHING GUIDE -->
+
+
+<!-- ===================================================================
+     PREVIEW ONLY: browser chrome bar
+     Do NOT paste this into WordPress.
+     =================================================================== -->
+<div class="chrome">
+  <div class="dots">
+    <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
+  </div>
+  <div class="url">enginearu.com/ap-calculus-prep/position-velocity-acceleration-ap-calculus/</div>
+  <div class="badge">PREVIEW</div>
+</div>
+<!-- END PREVIEW CHROME -->
+
+
+<!-- ===================================================================
+     PREVIEW ONLY: hero header
+     WordPress uses the title field (Step 2) instead of this.
+     Do NOT paste this into WordPress.
+     =================================================================== -->
+<div class="page">
+<div class="hero">
+  <div class="tag">AP Calculus AB · BC · Unit 4: Contextual Applications</div>
+  <h1>Position, Velocity, and Acceleration in AP Calculus<br>The Particle Motion FRQ Guide</h1>
+  <div class="meta">
+    <span class="pill">16 min read</span>
+    <span class="pill">FRQ, full rubric included</span>
+    <span class="pill">Interactive widget</span>
+  </div>
+</div>
+<!-- END PREVIEW HERO -->
+
+
+<!-- ===================================================================
+     ▼▼▼ START: PASTE THIS INTO WORDPRESS CUSTOM HTML BLOCK ▼▼▼
+     ===================================================================
+     Select from this line all the way down to the matching END marker.
+     Paste the entire selection into one Custom HTML block in WordPress.
+     =================================================================== -->
+
+<!-- Google Fonts: loads the typefaces used in the post styling -->
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<!-- Post CSS: all visual styles for the content below -->
+<style>
+.ace-post{
+  --navy:#0f1e3c;--blue:#1a3a6b;--accent:#e8a020;--accent-light:#fef3dc;
+  --green:#1a7a4a;--green-light:#eaf7f0;--red:#c0392b;--red-light:#fdf2f1;
+  --purple:#7c3aed;--purple-light:#f3f0ff;
+  --gray:#f5f6f8;--border:#dde3ed;--text:#1a1a2e;--muted:#6b7280;
+  font-family:'Inter',sans-serif;font-size:14px;line-height:1.8;color:var(--text);
+  padding:32px 0;
+}
+.ace-post .toc{background:var(--gray);border-left:4px solid var(--navy);border-radius:0 8px 8px 0;padding:18px 20px;margin-bottom:36px}
+.ace-post .toc-ttl{font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.ace-post .toc ol{padding-left:18px;margin:0}
+.ace-post .toc li{font-size:13px;margin-bottom:4px}
+.ace-post .toc a{color:var(--blue);text-decoration:none}
+.ace-post .toc a:hover{text-decoration:underline}
+.ace-post h2{font-family:'Merriweather',serif;font-size:19px;color:var(--navy);margin:36px 0 14px;padding-bottom:6px;border-bottom:2px solid var(--border);line-height:1.35}
+.ace-post h3{font-family:'Merriweather',serif;font-size:15px;color:var(--blue);margin:24px 0 10px;line-height:1.4}
+.ace-post p{margin-bottom:14px;max-width:680px}
+.ace-post ul,
+.ace-post ol{padding-left:22px;margin-bottom:14px}
+.ace-post li{margin-bottom:6px}
+.ace-post a{color:var(--blue)}
+.ace-post strong{color:var(--navy)}
+.ace-post .callout{background:var(--accent-light);border-left:4px solid var(--accent);border-radius:0 8px 8px 0;padding:14px 18px;margin:20px 0;font-size:13.5px}
+.ace-post .callout-ttl{font-weight:700;color:var(--navy);font-size:11px;letter-spacing:.8px;text-transform:uppercase;margin-bottom:6px}
+.ace-post .rubric{background:var(--green-light);border:1px solid #b7dfc8;border-radius:8px;padding:16px 20px;margin:20px 0}
+.ace-post .rubric-ttl{font-weight:700;color:var(--green);font-size:11px;letter-spacing:.8px;text-transform:uppercase;margin-bottom:10px}
+.ace-post .rubric ul{margin:0;padding-left:20px}
+.ace-post .rubric li{font-size:13px;margin-bottom:6px;color:#0f4028}
+.ace-post .step-box{background:#fff;border:1px solid var(--border);border-radius:8px;padding:14px 18px;margin:12px 0}
+.ace-post .step-num{display:inline-block;background:var(--blue);color:#fff;font-size:10px;font-weight:700;border-radius:4px;padding:2px 7px;margin-right:8px;vertical-align:middle;letter-spacing:.5px}
+.ace-post .math-block{background:var(--gray);border-radius:8px;padding:16px 20px;margin:16px 0;text-align:center;overflow-x:auto}
+.ace-post .cta-box{background:linear-gradient(135deg,var(--navy),var(--blue));color:#fff;border-radius:10px;padding:24px 28px;margin:32px 0;text-align:center}
+.ace-post .cta-box h3{font-family:'Merriweather',serif;font-size:16px;color:#fff;margin-bottom:10px;border:none}
+.ace-post .cta-box p{color:rgba(255,255,255,.82);margin-bottom:16px;max-width:100%}
+.ace-post .cta-btn{display:inline-block;background:var(--accent);color:var(--navy);font-weight:700;font-size:13px;padding:10px 24px;border-radius:6px;text-decoration:none;letter-spacing:.3px}
+.ace-post .cta-parent{font-size:12px;color:rgba(255,255,255,.65);font-style:italic;margin-top:10px}
+.ace-post .seasonal-cta{background:var(--accent-light);border:1px solid var(--accent);border-radius:10px;padding:20px 24px;margin:24px 0;text-align:center}
+.ace-post .seasonal-cta h3{color:var(--navy);font-family:'Merriweather',serif;font-size:15px;margin-bottom:8px;border:none}
+.ace-post .qr-box{background:var(--gray);border:1px solid var(--border);border-radius:10px;padding:20px 24px;margin:28px 0}
+.ace-post .qr-box h2{border:none;margin-top:0}
+.ace-post table{width:100%;border-collapse:collapse;margin:16px 0;font-size:13px}
+.ace-post th{background:var(--blue);color:#fff;padding:8px 12px;text-align:left}
+.ace-post td{padding:7px 12px;border-bottom:1px solid var(--border)}
+.ace-post tr:nth-child(even) td{background:var(--gray)}
+.ace-post .speed-table th{background:var(--navy)}
+.ace-post .speed-table td:last-child{font-weight:700}
+.ace-post .speed-table tr:has(td:last-child:contains("Speeding up")) td{background:#eaf7f0}
+.ace-post .related{background:var(--gray);border-radius:10px;padding:20px 24px;margin:28px 0}
+.ace-post .related h2{border:none;margin-top:0;font-size:16px}
+.ace-post .related ul{margin:0;padding-left:20px}
+.ace-post .related li{margin-bottom:8px}
+.ace-post .mistake{border-left:4px solid var(--red);background:var(--red-light);border-radius:0 8px 8px 0;padding:14px 18px;margin:16px 0}
+.ace-post .mistake-ttl{font-weight:700;color:var(--red);font-size:12px;letter-spacing:.5px;text-transform:uppercase;margin-bottom:6px}
+.ace-post .practice-ans{background:var(--gray);border-radius:6px;padding:12px 16px;margin-top:10px;font-size:13px}
+
+/* FAQ accordion */
+.faq-list{border:1px solid var(--border,#dde3ed);border-radius:8px;overflow:hidden;margin:24px 0}
+.faq-item{border-bottom:1px solid var(--border,#dde3ed);padding:0}
+.faq-item:last-child{border-bottom:none}
+.faq-item summary{padding:14px 16px;cursor:pointer;font-weight:600;color:var(--navy,#0f1e3c);font-size:14px;list-style:none;display:flex;align-items:center;gap:8px;user-select:none;background:#fff}
+.faq-item summary::-webkit-details-marker{display:none}
+.faq-item summary::marker{display:none}
+.faq-item summary .faq-q-label{color:var(--accent,#e8a020);font-weight:700;flex-shrink:0}
+.faq-item summary .faq-toggle{margin-left:auto;color:var(--accent,#e8a020);font-size:20px;font-weight:300;flex-shrink:0;line-height:1;content:'+'}
+.faq-item[open] summary .faq-toggle{content:'-'}
+.faq-a{padding:4px 16px 14px;color:var(--text-mid,#4a5568);line-height:1.7}
+.faq-a p{margin:0}
+
+/* Particle widget styles */
+.particle-widget{
+  background:#f5f6f8;
+  border:1px solid #dde3ed;
+  border-radius:10px;
+  padding:20px 16px 12px;
+  margin:24px 0;
+}
+.particle-widget h4{
+  font-family:'Merriweather',serif;
+  font-size:13px;
+  color:#1a3a6b;
+  text-transform:uppercase;
+  letter-spacing:0.06em;
+  margin:0 0 12px;
+}
+.pm-stack{display:flex;flex-direction:column;gap:6px;margin-bottom:10px}
+.pm-panel{position:relative;background:#f5f6f8;border-radius:6px;overflow:hidden}
+.pm-tag{position:absolute;top:4px;left:46px;font-size:10px;font-weight:700;color:#1a3a6b;letter-spacing:.04em;text-transform:uppercase;background:rgba(245,246,248,.85);padding:1px 5px;border-radius:3px}
+.pm-panel svg{display:block;width:100%;height:auto}
+.pm-slider-row{display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#0f1e3c;margin:4px 0 2px;font-weight:600}
+#pm-time-slider{width:100%;margin:4px 0 8px;accent-color:#1a3a6b;cursor:pointer}
+.pm-readout{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:8px 0 6px}
+.ro-cell{background:#fff;border:1px solid #dde3ed;border-radius:6px;padding:7px 10px;text-align:center}
+.ro-lbl{font-size:10px;color:#6b7280;text-transform:uppercase;letter-spacing:.04em;margin-bottom:2px}
+.ro-val{font-size:14px;font-weight:700;color:#0f1e3c;font-family:'JetBrains Mono','Courier New',monospace}
+.pm-state{text-align:center;font-size:13px;color:#0f1e3c;background:#fff;border:1px solid #dde3ed;border-radius:6px;padding:7px 12px;margin-top:4px}
+.pm-caption{text-align:center;font-size:12px;color:#6b7280;margin:6px 0 0;font-style:italic}
+</style>
+
+<div class="ace-post" id="post-19">
+
+  <!-- Table of Contents -->
+  <div class="toc">
+    <div class="toc-ttl">Jump To What You Need</div>
+    <ol>
+      <li><a href="#mistake">The Mistake That Connects Three Functions</a></li>
+      <li><a href="#what-it-means">What This Topic Actually Means</a></li>
+      <li><a href="#aroc-iroc">AROC vs. IROC: The Distinction That Costs Points</a></li>
+      <li><a href="#speed-vs-velocity">Speed vs. Velocity: Not the Same Thing</a></li>
+      <li><a href="#method">The Method: Reading the Particle Motion Chain</a></li>
+      <li><a href="#widget">Interactive Particle Motion Widget</a></li>
+      <li><a href="#example-1">Worked Example 1: Foundational</a></li>
+      <li><a href="#mid-cta">Grab the Free Review Sheet</a></li>
+      <li><a href="#example-2">Worked Example 2: Full AP Particle Motion FRQ</a></li>
+      <li><a href="#mistakes">The 3 Mistakes That Cost My Students Points</a></li>
+      <li><a href="#practice">Practice Problems</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="#quick-reference">Save This For Exam Day</a></li>
+      <li><a href="#related">Related Posts</a></li>
+    </ol>
+  </div>
+
+  <!-- INTRO -->
+  <h2 id="mistake">The Mistake That Connects Three Functions</h2>
+
+  <!-- HOOK TYPE: name-the-feeling -->
+  <p>I have had students who could differentiate any function I put in front of them and still miss every single particle motion question on the free response, because they treat position, velocity, and acceleration as three separate ideas instead of one connected chain.</p>
+
+  <!-- NEEDS UNIQUE ANGLE — add Zach story here -->
+
+  <p>There is a specific kind of freeze I see on particle motion FRQs. Not the panicked freeze where a student does not recognize the topic at all. The more expensive freeze: a student who knows all three functions, knows how to differentiate, and still cannot answer "is the particle speeding up or slowing down at $t = 2$?" They stare at the numbers they just calculated and cannot connect them to the question. I call it the Disconnect. The math is there. The interpretation is not.</p>
+
+  <p>This is not a skill gap. It is a framing gap. Position, velocity, and acceleration are not three separate functions you happen to take derivatives of. They are one chain: $s(t)$ tells you where the particle is, $v(t) = s'(t)$ tells you how fast and in what direction, and $a(t) = v'(t)$ tells you how that direction is changing. The relationships run in both directions. Differentiate to go from position to velocity to acceleration. Integrate to go back.</p>
+
+  <p>Position, velocity, and acceleration in AP Calculus shows up on nearly every AP Calculus AB free response exam, often as Part A of a multi-part problem worth 8 or 9 points. It is one of the highest-yield skills you can build before May. This post teaches you the chain, the common traps, and exactly how the AP exam scores each part.</p>
+
+  <div class="callout">
+    <div class="callout-ttl">Screenshot-able one-liner</div>
+    <!-- SCREENSHOT-ABLE ONE-LINER -->
+    If you know where a particle is but not how fast it is changing direction, you do not know enough to answer the AP question.
+    <!-- END ONE-LINER -->
+  </div>
+
+  <!-- WHAT IT MEANS -->
+  <h2 id="what-it-means">What This Topic Actually Means</h2>
+
+  <p>Your textbook introduces position, velocity, and acceleration as physics concepts that happen to use calculus. I have never found that framing useful for AP prep.</p>
+
+  <p>Here is the framing that actually helps. Imagine a point moving along a number line. Not a car on a road, not an object in space. Just a point on a line. The position function $s(t)$ tells you where that point is at any given moment $t$. It gives you a coordinate: $s(2) = 4$ means the point is 4 units to the right of the origin when $t = 2$.</p>
+
+  <p>The velocity function $v(t)$ tells you how fast that coordinate is changing at each instant. Positive velocity means the particle is moving right (position increasing). Negative velocity means the particle is moving left (position decreasing). Zero velocity means the particle is stopped at that exact moment.</p>
+
+  <p>The acceleration function $a(t)$ tells you how fast the velocity is changing. Positive acceleration means velocity is increasing. Negative acceleration means velocity is decreasing.</p>
+
+  <p>That chain of relationships is the whole topic.</p>
+
+  <div class="math-block">
+    $$v(t) = s'(t) \qquad a(t) = v'(t) = s''(t)$$
+  </div>
+
+  <!-- AROC vs. IROC -->
+  <h2 id="aroc-iroc">AROC vs. IROC: The Distinction That Costs Points</h2>
+
+  <p>This distinction comes up on every particle motion FRQ. Students lose points not because their math is wrong, but because they set up the wrong calculation.</p>
+
+  <div class="callout">
+    <div class="callout-ttl">Average Velocity = AROC</div>
+    <p style="margin:0"><strong>Average velocity</strong> over $[a, b]$: the average rate of change of position. A subtraction-and-division problem.</p>
+    $$\text{Average velocity} = \frac{s(b) - s(a)}{b - a} = \frac{\Delta s}{\Delta t}$$
+  </div>
+
+  <div class="callout" style="background:#eaf7f0;border-color:#1a7a4a">
+    <div class="callout-ttl" style="color:#1a7a4a">Instantaneous Velocity = IROC</div>
+    <p style="margin:0"><strong>Instantaneous velocity</strong> at $t$: the instantaneous rate of change of position. A derivative problem.</p>
+    $$v(t) = s'(t) = \lim_{h \to 0} \frac{s(t + h) - s(t)}{h}$$
+  </div>
+
+  <p>If a particle moves from $s(1) = 4$ to $s(3) = 0$, the average velocity is $\frac{0 - 4}{3 - 1} = -2$ units per second. That is AROC. But $v(2) = s'(2)$ for the specific function is a different number entirely. That is IROC.</p>
+
+  <p>The AP exam will ask for both. "Find the average velocity over $[0, 4]$" is a subtraction problem. "Find the velocity at $t = 2$" is a derivative problem. Students who treat these as the same question lose the setup point every time. This connects directly back to the core distinction in <a href="post-01-what-is-a-derivative">What Is a Derivative in AP Calculus</a>: average rate of change looks at an interval, instantaneous rate of change collapses to a single point. Particle motion is where that distinction costs real exam points.</p>
+
+  <!-- SPEED vs. VELOCITY -->
+  <h2 id="speed-vs-velocity">Speed vs. Velocity: Not the Same Thing</h2>
+
+  <p>This is a dedicated FRQ question type. It shows up almost every year. Most students mix these up, and that costs them points.</p>
+
+  <div class="callout">
+    <div class="callout-ttl">The Definitions</div>
+    <p><strong>Velocity</strong> $= v(t)$. Can be positive, negative, or zero. The sign encodes direction.</p>
+    <p style="margin:0"><strong>Speed</strong> $= |v(t)|$. Always non-negative. Direction information is gone.</p>
+  </div>
+
+  <p>The AP exam does not just test whether you know the definition. It asks you to determine whether the particle is <strong>speeding up</strong> or <strong>slowing down</strong>. Here is the rule that earns full credit every time:</p>
+
+  <div class="callout" style="background:#f3f0ff;border-color:#7c3aed">
+    <div class="callout-ttl" style="color:#7c3aed">Speeding Up vs. Slowing Down</div>
+    <p><strong>Speeding up:</strong> $v(t)$ and $a(t)$ have the <strong>same sign</strong>. Both positive or both negative.</p>
+    <p style="margin:0"><strong>Slowing down:</strong> $v(t)$ and $a(t)$ have <strong>opposite signs</strong>. One positive, one negative.</p>
+  </div>
+
+  <p>Using $s(t) = t^3 - 6t^2 + 9t$, here is the full sign chart for $v(t) = 3t^2 - 12t + 9$ and $a(t) = 6t - 12$:</p>
+
+  <table class="speed-table">
+    <tr><th>Interval</th><th>Sign of $v(t)$</th><th>Sign of $a(t)$</th><th>Status</th></tr>
+    <tr><td>$(0, 1)$</td><td>$+$</td><td>$-$</td><td>Slowing down</td></tr>
+    <tr><td>$(1, 2)$</td><td>$-$</td><td>$-$</td><td>Speeding up</td></tr>
+    <tr><td>$(2, 3)$</td><td>$-$</td><td>$+$</td><td>Slowing down</td></tr>
+    <tr><td>$(3, 5)$</td><td>$+$</td><td>$+$</td><td>Speeding up</td></tr>
+  </table>
+
+  <p>On the FRQ, your justification must include both signs: "At $t = 1.5$, $v(1.5) &lt; 0$ and $a(1.5) &lt; 0$, so the particle is speeding up because velocity and acceleration have the same sign." That is a full-credit justification. "The speed is increasing" without the sign analysis earns zero on the justification line.</p>
+
+  <!-- METHOD -->
+  <h2 id="method">The Method: Reading the Particle Motion Chain</h2>
+
+  <p>Every particle motion FRQ follows the same set of question types. Know these five and you will recognize every variant the AP throws at you.</p>
+
+  <div class="step-box"><span class="step-num">STEP 1</span> <strong>Find $v(t)$</strong> by differentiating $s(t)$. Apply power rule, product rule, or chain rule as needed.</div>
+  <div class="step-box"><span class="step-num">STEP 2</span> <strong>Find $a(t)$</strong> by differentiating $v(t)$. Write it completely.</div>
+  <div class="step-box"><span class="step-num">STEP 3</span> <strong>Find when the particle is at rest.</strong> Set $v(t) = 0$ and solve. These are the critical moments where direction potentially changes.</div>
+  <div class="step-box"><span class="step-num">STEP 4</span> <strong>Determine direction and speed status.</strong> Build a sign chart for $v(t)$ and $a(t)$. Same signs = speeding up. Opposite signs = slowing down.</div>
+  <div class="step-box"><span class="step-num">STEP 5</span> <strong>Find total distance traveled.</strong> Find zeros of $v(t)$ in the interval. Evaluate $s$ at each turning point. Add the absolute values of each leg. Do NOT use $s(b) - s(a)$ for total distance.</div>
+
+  <p>For $s(t) = t^3 - 6t^2 + 9t$ on $[0, 4]$: particle starts at $s(0) = 0$, moves right to $s(1) = 4$ (4 units), moves left to $s(3) = 0$ (4 units), moves right to $s(4) = 4$ (4 units). Total distance $= 4 + 4 + 4 = 12$ units. Displacement $= s(4) - s(0) = 4$ units. Different numbers. The AP asks for both.</p>
+
+  <!-- WIDGET SECTION -->
+  <h2 id="widget">Interactive Particle Motion Widget</h2>
+
+  <p>Before we go through the steps, I want you to see what these three functions look like relative to each other. This is the picture most textbooks skip.</p>
+
+  <!-- ===================================================================
+       ▲▲▲ END: WORDPRESS CUSTOM HTML BLOCK ▲▲▲
+       The particle widget below goes in its own separate Custom HTML block
+       in WordPress. See the Publishing Guide Step 3 above.
+       =================================================================== -->
+
+  <!-- ===================================================================
+       ▼▼▼ START WIDGET: PASTE THIS INTO A SECOND CUSTOM HTML BLOCK ▼▼▼
+       =================================================================== -->
+
+  <div class="particle-widget">
+    <h4>Position, Velocity, and Acceleration — Interactive</h4>
+    <div class="pm-stack">
+      <div class="pm-panel">
+        <span class="pm-tag">Position s(t)</span>
+        <svg id="pm-svg-s" viewBox="0 0 600 130" role="img" aria-label="Position graph s(t) = t cubed minus 6t squared plus 9t"></svg>
+      </div>
+      <div class="pm-panel">
+        <span class="pm-tag">Velocity v(t)</span>
+        <svg id="pm-svg-v" viewBox="0 0 600 130" role="img" aria-label="Velocity graph v(t) = 3t squared minus 12t plus 9"></svg>
+      </div>
+      <div class="pm-panel">
+        <span class="pm-tag">Acceleration a(t)</span>
+        <svg id="pm-svg-a" viewBox="0 0 600 130" role="img" aria-label="Acceleration graph a(t) = 6t minus 12"></svg>
+      </div>
+    </div>
+    <div class="pm-slider-row">
+      <span>t = 0</span>
+      <span id="pm-t-label">t = 1.00</span>
+      <span>t = 5</span>
+    </div>
+    <input id="pm-time-slider" type="range" min="0" max="5" step="0.05" value="1">
+    <div class="pm-readout">
+      <div class="ro-cell"><div class="ro-lbl">t</div><div class="ro-val" id="pm-t">1.00</div></div>
+      <div class="ro-cell"><div class="ro-lbl">s(t) — position</div><div class="ro-val" id="pm-s">4.00</div></div>
+      <div class="ro-cell"><div class="ro-lbl">v(t) — velocity</div><div class="ro-val" id="pm-v">0.00</div></div>
+      <div class="ro-cell"><div class="ro-lbl">a(t) — accel.</div><div class="ro-val" id="pm-a">-6.00</div></div>
+    </div>
+    <div class="pm-state" id="pm-state"><strong>At rest</strong> — possible direction change.</div>
+    <div class="pm-caption">Drag the slider to move through time. Watch what happens at t = 1 and t = 3.</div>
+  </div>
+
+  <script>
+  // ── Particle Motion Widget (adapted from ACE AP Calculus review.html) ──
+  (function(){
+    var slider = document.getElementById('pm-time-slider');
+    if (!slider) return;
+    var tLabel = document.getElementById('pm-t-label');
+    var tOut   = document.getElementById('pm-t');
+    var sOut   = document.getElementById('pm-s');
+    var vOut   = document.getElementById('pm-v');
+    var aOut   = document.getElementById('pm-a');
+    var stateEl = document.getElementById('pm-state');
+
+    // s(t) = t^3 - 6t^2 + 9t  ·  v(t) = 3t^2 - 12t + 9  ·  a(t) = 6t - 12
+    function s(t){ return t*t*t - 6*t*t + 9*t; }
+    function v(t){ return 3*t*t - 12*t + 9; }
+    function a(t){ return 6*t - 12; }
+
+    // Colors adapted for blog design system (per DIRECTIVE 4):
+    //   Curve:        #1a3a6b  (blog navy, was #103059)
+    //   Highlight/dot: #e8a020 (blog gold, was #F4B626)
+    //   Dot stroke:   #1a3a6b  (blog navy, was #103059)
+    //   Cursor:       #c0392b  (unchanged)
+    //   Axis lines:   #1a3a6b  (blog navy, was #103059)
+    //   SVG bg:       #f5f6f8  (was white/transparent)
+    //   Readout text: #0f1e3c  (blog dark navy)
+
+    var panels = [
+      { id: 'pm-svg-s', f: s, label: 's(t)', color: '#1a3a6b' },
+      { id: 'pm-svg-v', f: v, label: 'v(t)', color: '#1a3a6b' },
+      { id: 'pm-svg-a', f: a, label: 'a(t)', color: '#1a3a6b' }
+    ];
+
+    panels.forEach(function(p){
+      // Sample range for auto-scale
+      var yMin = Infinity, yMax = -Infinity;
+      var N = 200;
+      var samples = [];
+      for (var i = 0; i <= N; i++){
+        var t = i * 5 / N;
+        var y = p.f(t);
+        samples.push({t: t, y: y});
+        if (y < yMin) yMin = y;
+        if (y > yMax) yMax = y;
+      }
+      // 25% padding for breathing room
+      var pad = (yMax - yMin) * 0.25 || 1;
+      yMin -= pad; yMax += pad;
+      p.yMin = yMin; p.yMax = yMax;
+
+      var svg = document.getElementById(p.id);
+      svg.setAttribute('viewBox', '0 0 600 130');
+
+      // Coordinate transforms: t in [0,5] → x in [40,580]; y → y in [20,110]
+      function tx(t){ return 40 + t * 108; }
+      function ty(y){ return 110 - (y - yMin) / (yMax - yMin) * 90; }
+      p.tx = tx;
+      p.ty = ty;
+      p.svg = svg;
+
+      // Build curve path
+      var d = '';
+      for (var i = 0; i <= N; i++){
+        d += (i === 0 ? 'M ' : ' L ') + tx(samples[i].t).toFixed(2) + ' ' + ty(samples[i].y).toFixed(2);
+      }
+
+      // Y = 0 axis line
+      var yZero = ty(0);
+
+      // Build SVG innerHTML
+      svg.innerHTML = [
+        '<rect x="0" y="0" width="600" height="130" fill="#f5f6f8"/>',
+        '<line x1="40" y1="' + yZero + '" x2="580" y2="' + yZero + '" stroke="#9ca3af" stroke-width="1" stroke-dasharray="3 3"/>',
+        '<line x1="40" y1="20" x2="40" y2="115" stroke="#1a3a6b" stroke-width="1"/>',
+        '<line x1="40" y1="115" x2="580" y2="115" stroke="#1a3a6b" stroke-width="1"/>',
+        '<path d="' + d + '" fill="none" stroke="' + p.color + '" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>',
+        '<line class="pm-cursor" x1="40" y1="20" x2="40" y2="115" stroke="#c0392b" stroke-width="2"/>',
+        '<circle class="pm-dot" cx="40" cy="' + yZero + '" r="6" fill="#e8a020" stroke="#1a3a6b" stroke-width="2"/>'
+      ].join('');
+    });
+
+    function fmt(n){
+      var r = (Math.abs(n) < 0.005 ? 0 : n).toFixed(2);
+      return r;
+    }
+
+    function update(){
+      var t = parseFloat(slider.value);
+      panels.forEach(function(p){
+        var cx = p.tx(t);
+        var cy = p.ty(p.f(t));
+        var cursor = p.svg.querySelector('.pm-cursor');
+        var dot    = p.svg.querySelector('.pm-dot');
+        cursor.setAttribute('x1', cx.toFixed(2));
+        cursor.setAttribute('x2', cx.toFixed(2));
+        dot.setAttribute('cx', cx.toFixed(2));
+        dot.setAttribute('cy', cy.toFixed(2));
+      });
+      var sv = s(t), vv = v(t), av = a(t);
+      tLabel.textContent = 't = ' + fmt(t);
+      tOut.textContent   = fmt(t);
+      sOut.textContent   = fmt(sv);
+      vOut.textContent   = fmt(vv);
+      aOut.textContent   = fmt(av);
+      // Motion state interpretation
+      var msg;
+      if (Math.abs(vv) < 0.05){
+        msg = '<strong>At rest</strong> — possible direction change.';
+      } else if (vv * av > 0){
+        msg = '<strong>Speeding up</strong> (v and a have the same sign).';
+      } else if (vv * av < 0){
+        msg = '<strong>Slowing down</strong> (v and a have opposite signs).';
+      } else {
+        msg = (vv > 0 ? '<strong>Moving in + direction</strong>' : '<strong>Moving in − direction</strong>') + ' at constant speed (a = 0).';
+      }
+      stateEl.innerHTML = msg;
+    }
+
+    slider.addEventListener('input', update);
+    update();
+  })();
+  </script>
+
+  <!-- ===================================================================
+       ▲▲▲ END WIDGET: END OF SECOND CUSTOM HTML BLOCK ▲▲▲
+       Continue pasting the post content below as a new block, or simply
+       keep it in the same block as the widget above if your theme allows.
+       =================================================================== -->
+
+  <!-- ===================================================================
+       (Resume paste into main Custom HTML block, or continue after widget block)
+       =================================================================== -->
+
+  <!-- WORKED EXAMPLE 1 -->
+  <h2 id="example-1">Worked Example 1: Foundational</h2>
+
+  <p>The setup: a particle moves along a horizontal line with position given by $s(t) = t^3 - 6t^2 + 9t$ for $t \geq 0$, where $t$ is measured in seconds and $s$ is measured in meters.</p>
+
+  <p>Find $v(t)$, find $a(t)$, determine when the particle is at rest, and state the direction of motion on $(0, 1)$.</p>
+
+  <h3>Step 1 — Find v(t)</h3>
+  <p>Differentiate $s(t)$ using the power rule:</p>
+  <div class="math-block">$$v(t) = s'(t) = 3t^2 - 12t + 9$$</div>
+
+  <h3>Step 2 — Find a(t)</h3>
+  <div class="math-block">$$a(t) = v'(t) = 6t - 12$$</div>
+
+  <h3>Step 3 — When is the particle at rest?</h3>
+  <p>Set $v(t) = 0$:</p>
+  <div class="math-block">
+    $$3t^2 - 12t + 9 = 0 \implies 3(t-1)(t-3) = 0 \implies t = 1 \text{ and } t = 3$$
+  </div>
+  <p>The particle is at rest at $t = 1$ second and at $t = 3$ seconds.</p>
+
+  <h3>Step 4 — Direction of motion on (0, 1)</h3>
+  <p>Test $t = 0.5$: $v(0.5) = 3(0.25) - 12(0.5) + 9 = 0.75 - 6 + 9 = 3.75 > 0$.</p>
+  <p>Velocity is positive on $(0, 1)$: the particle is moving in the <strong>positive direction (right)</strong> on that interval.</p>
+
+  <div class="rubric">
+    <div class="rubric-ttl">Here is exactly how the AP exam scores this type of problem</div>
+    <ul>
+      <li>Find $v(t)$ by differentiating $s(t)$ correctly — 1 point</li>
+      <li>Find $a(t)$ by differentiating $v(t)$ correctly — 1 point</li>
+      <li>Set $v(t) = 0$, factor correctly, identify both $t = 1$ and $t = 3$ — 1 point</li>
+      <li>Test sign of $v(t)$ on $(0, 1)$ and state direction with justification — 1 point</li>
+    </ul>
+    <p style="margin-top:10px;font-size:13px;color:#0f4028"><strong>Common error:</strong> stating "the particle is at rest at $t = 1$" without showing $v(1) = 0$ explicitly. Write the substitution. The grader awards points for shown work, not conclusions.</p>
+  </div>
+
+  <!-- MID-POST CTA -->
+  <div id="mid-cta" class="cta-box">
+    <h3>Grab the Free Review Sheet</h3>
+    <p>Every particle motion formula, the sign chart template, and the distance vs. displacement checklist — all in one place. Free, no email required.</p>
+    <a class="cta-btn" href="https://aceapcalculus.com/reviewsheet50">Get the Free Review Sheet</a>
+    <div class="cta-parent"><em>Parents: this is what your student should have memorized before they walk into exam day. A 60-second review the morning of can be the difference between confident and panicked.</em></div>
+  </div>
+
+  <!-- WORKED EXAMPLE 2 -->
+  <h2 id="example-2">Worked Example 2: Full AP Particle Motion FRQ</h2>
+
+  <p>This is the format you will see on the AP exam. Multi-part, scored rubric, explicit justification required on every part. Work through each part completely before checking the scoring.</p>
+
+  <div class="callout">
+    <div class="callout-ttl">Problem</div>
+    <p>A particle moves along the x-axis. The position of the particle at time $t$ is given by $s(t) = t^3 - 6t^2 + 9t$ for $0 \leq t \leq 5$.</p>
+    <p>(a) Find $v(t)$. Find all values of $t$ in $[0, 5]$ for which the particle is at rest.</p>
+    <p>(b) Find $a(t)$. Is the particle speeding up or slowing down at $t = 0.5$? Give a reason for your answer.</p>
+    <p>(c) Find all intervals in $[0, 5]$ on which the particle is speeding up. Justify your answer.</p>
+    <p style="margin:0">(d) Find the total distance traveled by the particle from $t = 0$ to $t = 4$.</p>
+  </div>
+
+  <h3>Solution — Part (a)</h3>
+  <div class="math-block">$$v(t) = 3t^2 - 12t + 9 = 3(t-1)(t-3)$$</div>
+  <p>Set $v(t) = 0$: the particle is at rest at $\mathbf{t = 1}$ and $\mathbf{t = 3}$.</p>
+
+  <h3>Solution — Part (b)</h3>
+  <div class="math-block">$$a(t) = v'(t) = 6t - 12$$</div>
+  <p>At $t = 0.5$:</p>
+  <div class="math-block">$$v(0.5) = 3(0.25) - 6 + 9 = 3.75 > 0$$</div>
+  <div class="math-block">$$a(0.5) = 6(0.5) - 12 = -9 < 0$$</div>
+  <p>Since $v(0.5) > 0$ and $a(0.5) &lt; 0$, the signs are opposite. The particle is <strong>slowing down</strong> at $t = 0.5$.</p>
+
+  <h3>Solution — Part (c)</h3>
+  <p>The particle speeds up when $v(t)$ and $a(t)$ have the same sign.</p>
+  <p><strong>Sign of $v(t) = 3(t-1)(t-3)$:</strong></p>
+  <ul>
+    <li>$v(t) > 0$ on $(0, 1) \cup (3, 5)$</li>
+    <li>$v(t) &lt; 0$ on $(1, 3)$</li>
+  </ul>
+  <p><strong>Sign of $a(t) = 6(t - 2)$:</strong></p>
+  <ul>
+    <li>$a(t) &lt; 0$ on $(0, 2)$</li>
+    <li>$a(t) > 0$ on $(2, 5)$</li>
+  </ul>
+
+  <table>
+    <tr><th>Interval</th><th>$v(t)$</th><th>$a(t)$</th><th>Status</th></tr>
+    <tr><td>$(0, 1)$</td><td>$+$</td><td>$-$</td><td>Slowing down</td></tr>
+    <tr><td>$(1, 2)$</td><td>$-$</td><td>$-$</td><td><strong>Speeding up</strong></td></tr>
+    <tr><td>$(2, 3)$</td><td>$-$</td><td>$+$</td><td>Slowing down</td></tr>
+    <tr><td>$(3, 5)$</td><td>$+$</td><td>$+$</td><td><strong>Speeding up</strong></td></tr>
+  </table>
+
+  <p>The particle is speeding up on $(1, 2)$ and $(3, 5)$.</p>
+
+  <div class="callout" style="background:#f3f0ff;border-color:#7c3aed">
+    <div class="callout-ttl" style="color:#7c3aed">Required justification (write this verbatim)</div>
+    <p style="margin:0">"On $(1, 2)$, $v(t) &lt; 0$ and $a(t) &lt; 0$, so the particle is speeding up because velocity and acceleration have the same sign. On $(3, 5)$, $v(t) > 0$ and $a(t) > 0$, so the particle is speeding up because velocity and acceleration have the same sign."</p>
+  </div>
+
+  <h3>Solution — Part (d)</h3>
+  <p>Turning points of $v(t)$ in $[0, 4]$: $t = 1$ and $t = 3$. Evaluate $s$ at each:</p>
+  <div class="math-block">$$s(0) = 0 \qquad s(1) = 1 - 6 + 9 = 4 \qquad s(3) = 27 - 54 + 27 = 0 \qquad s(4) = 64 - 96 + 36 = 4$$</div>
+
+  <p>Leg 1: $s(0) = 0$ to $s(1) = 4$ → distance $= |4 - 0| = 4$ meters<br>
+     Leg 2: $s(1) = 4$ to $s(3) = 0$ → distance $= |0 - 4| = 4$ meters<br>
+     Leg 3: $s(3) = 0$ to $s(4) = 4$ → distance $= |4 - 0| = 4$ meters</p>
+
+  <div class="math-block">$$\text{Total distance} = 4 + 4 + 4 = \boxed{12 \text{ meters}}$$</div>
+
+  <p><strong>Displacement</strong> (not the same): $s(4) - s(0) = 4 - 0 = 4$ meters.</p>
+
+  <div class="rubric">
+    <div class="rubric-ttl">Here is exactly how the AP exam scores this type of problem</div>
+    <ul>
+      <li><strong>Part (a) — 2 pts:</strong> 1 for correct $v(t)$; 1 for both $t = 1$ and $t = 3$ with work shown</li>
+      <li><strong>Part (b) — 2 pts:</strong> 1 for correct $a(t)$; 1 for correct sign analysis with both $v$ and $a$ signs stated explicitly</li>
+      <li><strong>Part (c) — 3 pts:</strong> 1 for identifying critical values of $v$ and $a$; 1 for correct intervals; 1 for complete justification naming both signs in each interval</li>
+      <li><strong>Part (d) — 3 pts:</strong> 1 for identifying turning points $t = 1$ and $t = 3$; 1 for correctly evaluating $s$ at each; 1 for summing absolute values of each leg</li>
+    </ul>
+    <p style="margin-top:10px;font-size:13px;color:#0f4028"><strong>The most common way to lose points on Part (d):</strong> computing $s(4) - s(0) = 4$ and writing that as the answer. That is displacement. The AP makes this distinction on purpose. Using net change instead of absolute leg-by-leg sums leaves 2 points on the table.</p>
+  </div>
+
+  <!-- THE 3 MISTAKES -->
+  <h2 id="mistakes">The 3 Mistakes That Cost My Students Points</h2>
+
+  <div class="mistake">
+    <div class="mistake-ttl">Mistake 1: Writing "speeding up" without a sign justification</div>
+    <p><strong>Why it happens:</strong> students identify that speed is increasing intuitively and write the conclusion. The AP rubric awards a separate point for the justification. "Speeding up" without sign analysis earns zero on that line, even when the answer is correct.</p>
+    <p><strong>The fix:</strong> every time you state speeding up or slowing down, write both signs. "$v(t) = -3 &lt; 0$ and $a(t) = -6 &lt; 0$; same sign; therefore speeding up." That is the full-credit structure. It takes five seconds and earns one point.</p>
+  </div>
+
+  <div class="mistake">
+    <div class="mistake-ttl">Mistake 2: Confusing total distance with displacement</div>
+    <p><strong>Why it happens:</strong> $s(b) - s(a)$ is the first calculation that comes to mind. It feels right. It is wrong for total distance whenever the particle changes direction.</p>
+    <p><strong>The fix:</strong> check for direction changes first. Find $v(t) = 0$ in the interval. If there are zeros, the particle reversed. Add up each leg separately using absolute values. Assume there are direction changes until you have verified otherwise.</p>
+  </div>
+
+  <div class="mistake">
+    <div class="mistake-ttl">Mistake 3: Treating every zero of velocity as a direction change</div>
+    <p><strong>Why it happens:</strong> $v(t) = 0$ looks like a direction change. Sometimes it is. Sometimes it is just a momentary pause. Students mark every velocity zero as a reversal and get the distance calculation wrong.</p>
+    <p><strong>The fix:</strong> when $v(t) = 0$ at time $t_0$, check the sign of $v(t)$ on both sides of $t_0$. If the sign changes, there is a direction reversal. If the sign stays the same on both sides, the particle paused and kept going. A sign chart is the cleanest tool here.</p>
+  </div>
+
+  <!-- PRACTICE PROBLEMS -->
+  <h2 id="practice">Practice Problems</h2>
+
+  <p>Try these on your own before checking the answers. Set up the sign chart for $v(t)$ before you answer any question about direction or speed.</p>
+
+  <h3>Problem 1 — Direction at a specific time</h3>
+  <p>A particle has position $s(t) = t^3 - 6t^2 + 9t$. Is the particle moving left or right at $t = 2$? At $t = 4$?</p>
+  <div class="practice-ans">
+    <strong>Answer:</strong> $v(t) = 3t^2 - 12t + 9$.
+    $v(2) = 12 - 24 + 9 = -3 &lt; 0$: moving <strong>left</strong> at $t = 2$.
+    $v(4) = 48 - 48 + 9 = 9 > 0$: moving <strong>right</strong> at $t = 4$.
+  </div>
+
+  <h3>Problem 2 — Speeding up or slowing down</h3>
+  <p>Using the same function, is the particle speeding up or slowing down at $t = 2.5$? Write the complete justification.</p>
+  <div class="practice-ans">
+    <strong>Answer:</strong> $v(2.5) = 3(6.25) - 30 + 9 = -2.25 &lt; 0$. $a(2.5) = 6(2.5) - 12 = 3 > 0$. Opposite signs. The particle is <strong>slowing down</strong> at $t = 2.5$ because $v(2.5) &lt; 0$ and $a(2.5) > 0$.
+  </div>
+
+  <h3>Problem 3 — Total distance</h3>
+  <p>A particle has position $s(t) = t^2 - 4t + 3$ on $[0, 5]$. Find the total distance traveled.</p>
+  <div class="practice-ans">
+    <strong>Answer:</strong> $v(t) = 2t - 4 = 0$ at $t = 2$.
+    $s(0) = 3$. $s(2) = 4 - 8 + 3 = -1$. $s(5) = 25 - 20 + 3 = 8$.
+    Distance $[0, 2]$: $|-1 - 3| = 4$ units.
+    Distance $[2, 5]$: $|8 - (-1)| = 9$ units.
+    Total distance $= 4 + 9 = \mathbf{13}$ units.
+  </div>
+
+  <!-- FAQ -->
+  <h2 id="faq">FAQ</h2>
+  <div class="faq-list">
+    <details class="faq-item">
+      <summary><span class="faq-q-label">Q:</span> What is the difference between velocity and speed on the AP exam?<span class="faq-toggle">+</span></summary>
+      <div class="faq-a"><p>Velocity is $v(t)$ — it carries a sign that encodes direction. Speed is $|v(t)|$ — always non-negative, direction information gone. When the AP asks "find the speed at $t = 2$," take the absolute value of $v(2)$. When it asks for velocity, keep the sign. These are not interchangeable, and the AP has asked both in the same problem.</p></div>
+    </details>
+    <details class="faq-item">
+      <summary><span class="faq-q-label">Q:</span> What does it mean when $v(t) = 0$?<span class="faq-toggle">+</span></summary>
+      <div class="faq-a"><p>The particle is instantaneously at rest. It is not necessarily changing direction. Check whether $v(t)$ changes sign across that point. If it does, the particle reverses. If it does not, the particle paused and kept going the same direction. Always check both sides with a sign chart or test value. This is a direct FRQ scoring point — do not skip it.</p></div>
+    </details>
+    <details class="faq-item">
+      <summary><span class="faq-q-label">Q:</span> Why do I add absolute values for total distance instead of using $s(b) - s(a)$?<span class="faq-toggle">+</span></summary>
+      <div class="faq-a"><p>$s(b) - s(a)$ gives displacement: the net change in position. If the particle moved 5 right, then 5 left, and ended where it started, displacement is 0 but total distance is 10. The AP distinguishes these every year. Use displacement for net change, absolute values per leg for total travel. Getting these mixed up costs 2 points in a common exam configuration.</p></div>
+    </details>
+    <details class="faq-item">
+      <summary><span class="faq-q-label">Q:</span> How does particle motion connect to integrals?<span class="faq-toggle">+</span></summary>
+      <div class="faq-a"><p>Position, velocity, and acceleration form a chain that works in both directions. Differentiate to go down the chain. Integrate to go back up. $\int_a^b v(t)\,dt$ gives displacement. $\int_a^b |v(t)|\,dt$ gives total distance. You will see this connection again in Unit 6 and it is one of the most tested cross-unit relationships on the AP exam.</p></div>
+    </details>
+  </div>
+
+  <!-- QUICK REFERENCE -->
+  <div id="quick-reference" class="qr-box">
+    <h2>Save This For Exam Day</h2>
+
+    <h3>The chain</h3>
+    <div class="math-block">$$s(t) \xrightarrow{\;d/dt\;} v(t) \xrightarrow{\;d/dt\;} a(t)$$</div>
+
+    <h3>Velocity sign rules</h3>
+    <ul>
+      <li>$v(t) > 0$: moving in positive direction</li>
+      <li>$v(t) &lt; 0$: moving in negative direction</li>
+      <li>$v(t) = 0$: at rest (check for direction change)</li>
+    </ul>
+
+    <h3>Speed and acceleration</h3>
+    <ul>
+      <li>$v(t)$ and $a(t)$ same sign: speeding up</li>
+      <li>$v(t)$ and $a(t)$ opposite signs: slowing down</li>
+      <li>Speed $= |v(t)|$</li>
+    </ul>
+
+    <h3>AROC vs. IROC</h3>
+    <div class="math-block">$$\text{Average velocity} = \frac{s(b) - s(a)}{b - a} \qquad \text{Instantaneous velocity} = v(t) = s'(t)$$</div>
+
+    <h3>Distance vs. displacement</h3>
+    <ul>
+      <li>Displacement: $s(b) - s(a)$</li>
+      <li>Total distance: sum of $|s(t_i) - s(t_{i-1})|$ for each leg (split at zeros of $v$)</li>
+    </ul>
+
+    <h3>Justification template</h3>
+    <div class="callout">
+      "At $t = c$, $v(c) = $ ___ [sign] and $a(c) = $ ___ [sign]. Since they have [same / opposite] sign(s), the particle is [speeding up / slowing down]."
+    </div>
+  </div>
+
+  <!-- RELATED POSTS -->
+  <div id="related" class="related">
+    <h2>Related Posts</h2>
+    <ul>
+      <li><a href="post-01-what-is-a-derivative">What Is a Derivative in AP Calculus</a> — the limit definition and AROC/IROC distinction that this post builds on</li>
+      <li><a href="post-02-limits-intro">Limits in AP Calculus</a> — the foundation underneath every derivative calculation</li>
+      <li>For all of Unit 4 in one place, Zach's full AP Calculus review sheet is at <a href="https://aceapcalculus.com/reviewsheet50">aceapcalculus.com/reviewsheet50</a></li>
+    </ul>
+    <p style="margin-top:14px"><strong>External resources:</strong></p>
+    <ul>
+      <li><a href="https://apcentral.collegeboard.org/courses/ap-calculus-ab/course" target="_blank" rel="noopener">College Board AP Calculus AB Course Description</a> — official exam content and FRQ specifications</li>
+      <li><a href="https://www.khanacademy.org/math/ap-calculus-ab/ab-differentiation-2-new/ab-4-1" target="_blank" rel="noopener">Khan Academy: Particle Motion</a> — video walkthroughs for every problem type</li>
+      <li><a href="https://tutorial.math.lamar.edu/Classes/CalcI/RateOfChange.aspx" target="_blank" rel="noopener">Paul's Online Math Notes: Rates of Change</a> — supplementary examples with full solutions</li>
+    </ul>
+    <p style="margin-top:14px;font-size:13px"><strong>Drill Theorems for Unit 4:</strong> <a href="https://enginearu.com/ap-calculus-theorem-drill/?unit=4" target="_blank" rel="noopener">Drill these until you can name what $v(t) = 0$ means versus what $a(t) = 0$ means without thinking. That is the level the AP exam requires.</a></p>
+  </div>
+
+  <!-- END CTA -->
+  <div class="cta-box" id="end-cta">
+    <h3>Own This Before May</h3>
+    <p>Particle motion is not a hard topic. The math is derivatives and sign charts. But it costs points every year because students handle the three functions separately instead of reading the chain. You now know the chain. The only thing left is repetition.</p>
+    <a class="cta-btn" href="https://aceapcalculus.com/reviewsheet50">Get the Free Review Sheet</a>
+    <div class="cta-parent"><em>Parents: particle motion appears on nearly every AP Calculus AB free response exam. If your student can work through one full particle motion problem from start to finish with justifications, they have recovered every point this topic could cost them.</em></div>
+  </div>
+
+  <div class="seasonal-cta">
+    <h3>Summer Program — July and August 2026</h3>
+    <p>If your student wants to spend the summer building exactly this kind of problem-solving fluency before the school year starts, my summer program runs in July and August. Particle motion, FRQ strategy, small groups, and a structured plan from day one. Spots are limited.</p>
+    <a class="cta-btn" href="https://aceapcalculus.com/summer-diagnostic-page">See the Summer Program and Reserve a Spot</a>
+  </div>
+
+</div><!-- /.ace-post -->
+
+<!-- FAQPage schema for SEO -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is the difference between velocity and speed on the AP exam?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Velocity is v(t) — it carries a sign that encodes direction. Speed is |v(t)| — always non-negative, direction information gone. When the AP asks \"find the speed at t = 2,\" take the absolute value of v(2). When it asks for velocity, keep the sign. These are not interchangeable, and the AP has asked both in the same problem."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does it mean when v(t) = 0?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The particle is instantaneously at rest. It is not necessarily changing direction. Check whether v(t) changes sign across that point. If it does, the particle reverses. If it does not, the particle paused and kept going the same direction. Always check both sides with a sign chart or test value. This is a direct FRQ scoring point — do not skip it."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why do I add absolute values for total distance instead of using s(b) - s(a)?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "s(b) - s(a) gives displacement: the net change in position. If the particle moved 5 right, then 5 left, and ended where it started, displacement is 0 but total distance is 10. The AP distinguishes these every year. Use displacement for net change, absolute values per leg for total travel. Getting these mixed up costs 2 points in a common exam configuration."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How does particle motion connect to integrals?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Position, velocity, and acceleration form a chain that works in both directions. Differentiate to go down the chain. Integrate to go back up. The integral from a to b of v(t) dt gives displacement. The integral from a to b of |v(t)| dt gives total distance. You will see this connection again in Unit 6 and it is one of the most tested cross-unit relationships on the AP exam."
+      }
+    }
+  ]
+}
+</script>
+
+<!-- ===================================================================
+     ▲▲▲ END: WORDPRESS CUSTOM HTML BLOCK ▲▲▲
+     (This marker is placed here for reference; the widget block ends
+     at the END WIDGET marker above. For a single-block paste, paste
+     everything from START to this marker.)
+     =================================================================== -->
+
+</div><!-- /.page -->
+
+</body>
+</html>

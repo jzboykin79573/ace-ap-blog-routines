@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PREVIEW: Implicit Differentiation AP Calculus — ACE AP Calculus</title>
+
+<!--
+=======================================================================
+  PREVIEW FILE: ACE AP CALCULUS BLOG
+  Post 14: Implicit Differentiation AP Calculus
+=======================================================================
+  This file has three jobs:
+  1. Let you preview the post in your browser before publishing
+  2. Show you a publishing guide at the top of the page
+  3. Mark exactly what to copy into each part of WordPress
+
+  HOW TO USE THIS FILE
+  ─────────────────────
+  Open it in your browser → read the publishing guide at the top
+  Open it in VS Code → the comment markers show you what goes where
+
+  WHAT GETS PASTED INTO WORDPRESS
+  ─────────────────────────────────
+  STEP 1 (one time only) → functions.php  (see guide below)
+  STEP 2 → WordPress title field          (see guide below)
+  STEP 3 → One Custom HTML block          (marked in the body below)
+  STEP 4 → SEO fields in the sidebar      (see guide below)
+=======================================================================
+-->
+
+<!-- PREVIEW-ONLY: Fonts, MathJax, Desmos load here for local preview.
+     WordPress gets MathJax + Desmos from functions.php (Step 1 below).
+     Do NOT paste any of this <head> section into WordPress. -->
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Nunito+Sans:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<script>MathJax = { tex: { inlineMath: [['$','$']], displayMath: [['$$','$$']], processEscapes: true } };</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+<script src="https://www.desmos.com/api/v1.7/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0fda6"></script>
+
+<!-- PREVIEW-ONLY CSS -->
+<style>
+:root{
+  --navy:#1a3a6b;--gold:#e8a020;--gold-light:#fef3dc;
+  --green:#1a7a4a;--green-light:#eaf7f0;--red:#c0392b;--red-light:#fdf2f1;
+  --gray:#f5f6f8;--border:#dde1e8;--text:#1a1a2e;--muted:#6b7280;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Nunito Sans',sans-serif;background:#eef0f4;color:var(--text);font-size:14px;line-height:1.8}
+.pub-guide{background:#1a1a2e;font-family:'Courier New',monospace}
+.pub-guide summary{padding:14px 20px;cursor:pointer;color:var(--gold);font-size:13px;font-weight:700;letter-spacing:.5px;list-style:none;display:flex;align-items:center;gap:10px}
+.pub-guide summary::before{content:"▶";font-size:10px;transition:transform .2s}
+.pub-guide[open] summary::before{transform:rotate(90deg)}
+.pub-guide-body{padding:0 20px 20px}
+.pub-step{margin-bottom:24px}
+.pub-step-ttl{color:var(--gold);font-size:12px;font-weight:700;margin-bottom:6px;letter-spacing:.5px}
+.pub-step p{color:rgba(255,255,255,.75);font-size:12px;margin-bottom:8px;font-family:'Nunito Sans',sans-serif;line-height:1.6}
+.pub-step textarea{width:100%;background:#0d0d1a;color:#a8d8a8;border:1px solid #333;border-radius:6px;padding:12px;font-size:11px;font-family:'Courier New',monospace;line-height:1.6;resize:vertical;min-height:80px}
+.pub-step code{background:#0d0d1a;color:var(--gold);padding:2px 6px;border-radius:3px;font-size:11px}
+.pub-divider{border:none;border-top:1px solid #2a2a4a;margin:20px 0}
+.chrome{background:#2d2d2d;padding:8px 14px;display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:100}
+.dots{display:flex;gap:6px}.dot{width:11px;height:11px;border-radius:50%}
+.dot.r{background:#ff5f57}.dot.y{background:#febc2e}.dot.g{background:#28c840}
+.url{flex:1;background:#3d3d3d;border-radius:5px;padding:4px 10px;color:#aaa;font-size:11px;font-family:'Courier New',monospace}
+.badge{background:var(--gold);color:var(--navy);font-size:10px;font-weight:700;padding:3px 8px;border-radius:4px}
+.page{max-width:780px;margin:0 auto;background:#fff;min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,.12)}
+.hero{background:linear-gradient(135deg,#0f1e3c,var(--navy));padding:40px 40px 32px;color:#fff}
+.tag{display:inline-block;background:var(--gold);color:var(--navy);font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;padding:3px 9px;border-radius:3px;margin-bottom:14px}
+.hero h1{font-family:'Montserrat',sans-serif;font-size:22px;line-height:1.35;margin-bottom:14px;font-weight:800}
+.meta{display:flex;gap:10px;flex-wrap:wrap}
+.pill{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.88);font-size:11px;padding:4px 10px;border-radius:20px}
+</style>
+</head>
+<body>
+
+<!-- ===================================================================
+     PUBLISHING GUIDE: visible in your browser, preview only
+     This panel does NOT get pasted into WordPress.
+     =================================================================== -->
+<details class="pub-guide" open>
+  <summary>PUBLISHING GUIDE: Post 14 — Implicit Differentiation AP Calculus. 4 steps to publish</summary>
+  <div class="pub-guide-body">
+
+    <div class="pub-step">
+      <div class="pub-step-ttl">STEP 1: ONE TIME ONLY — Add MathJax + Desmos to functions.php</div>
+      <p>Do this once. After that, skip to Step 2 for every future post.<br>
+         Go to: WordPress Admin → Appearance → Theme File Editor → functions.php<br>
+         Scroll to the bottom and paste the code below.</p>
+      <textarea readonly rows="10">
+// ── ACE AP CALCULUS: MathJax + Desmos ─────────────────────────────
+// Paste this at the bottom of functions.php. One time only.
+
+add_action('wp_head', function() {
+    echo '<script>MathJax = { tex: { inlineMath: [["$","$"]], displayMath: [["$$","$$"]] } };</script>';
+    echo '<script src="https://www.desmos.com/api/v1.7/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0fda6"></script>';
+}, 1);
+
+add_action('wp_enqueue_scripts', function() {
+    wp_enqueue_script('mathjax', 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js', [], null, false);
+});
+// ──────────────────────────────────────────────────────────────────</textarea>
+    </div>
+
+    <hr class="pub-divider">
+
+    <div class="pub-step">
+      <div class="pub-step-ttl">STEP 2: WordPress title field</div>
+      <p>In the WordPress editor, click the title field at the top and paste this exactly:</p>
+      <textarea readonly rows="2">Implicit Differentiation AP Calculus: How to Find dy/dx When y Is Not Isolated</textarea>
+    </div>
+
+    <hr class="pub-divider">
+
+    <div class="pub-step">
+      <div class="pub-step-ttl">STEP 3: WordPress Custom HTML block (the post content)</div>
+      <p>In the WordPress editor content area:<br>
+         1. Click the <code>+</code> button → search <code>Custom HTML</code> → add that block<br>
+         2. Open this file in VS Code or any text editor<br>
+         3. Find the comment that says: <code>▼▼▼ START: PASTE THIS INTO WORDPRESS CUSTOM HTML BLOCK ▼▼▼</code><br>
+         4. Select everything from that line down to: <code>▲▲▲ END: WORDPRESS CUSTOM HTML BLOCK ▲▲▲</code><br>
+         5. Paste into the Custom HTML block in WordPress<br><br>
+         That section contains the fonts link, all the CSS, all the post content, MathJax config, and the Desmos graph script.</p>
+    </div>
+
+    <hr class="pub-divider">
+
+    <div class="pub-step">
+      <div class="pub-step-ttl">STEP 4: SEO fields (in the WordPress sidebar)</div>
+      <p>If you use Yoast or Rank Math, fill these in the sidebar before publishing:</p>
+      <textarea readonly rows="5">
+SEO Title:       Implicit Differentiation AP Calculus: How to Find dy/dx (2026)
+Meta Description: Learn implicit differentiation step by step for AP Calculus. Worked FRQ example with AP rubric, the 3 mistakes that drop points, and a quick reference for exam day.
+Slug:            implicit-differentiation-ap-calculus
+Focus Keyword:   implicit differentiation AP calculus</textarea>
+    </div>
+
+  </div>
+</details>
+<!-- END PUBLISHING GUIDE -->
+
+
+<!-- ===================================================================
+     PREVIEW ONLY: browser chrome bar
+     Do NOT paste this into WordPress.
+     =================================================================== -->
+<div class="chrome">
+  <div class="dots">
+    <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
+  </div>
+  <div class="url">enginearu.com/ap-calculus-prep/implicit-differentiation-ap-calculus/</div>
+  <div class="badge">PREVIEW</div>
+</div>
+<!-- END PREVIEW CHROME -->
+
+
+<!-- ===================================================================
+     PREVIEW ONLY: hero header
+     WordPress uses the title field (Step 2) instead of this.
+     Do NOT paste this into WordPress.
+     =================================================================== -->
+<div class="page">
+<div class="hero">
+  <div class="tag">AP Calculus AB/BC &middot; Unit 3: Differentiation</div>
+  <h1>Implicit Differentiation AP Calculus<br>How to Find dy/dx When y Is Not Isolated</h1>
+  <div class="meta">
+    <span class="pill">&#9201; 6 min read</span>
+    <span class="pill">&#10003; 500+ EngiNearU students</span>
+    <span class="pill">FRQ: Unit 3</span>
+  </div>
+</div>
+<!-- END PREVIEW HERO -->
+
+
+<!-- ===================================================================
+     ▼▼▼ START: PASTE THIS INTO WORDPRESS CUSTOM HTML BLOCK ▼▼▼
+     ===================================================================
+     Select from this line all the way down to the matching END marker.
+     Paste the entire selection into one Custom HTML block in WordPress.
+     =================================================================== -->
+
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Nunito+Sans:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+
+<!-- Post CSS -->
+<style>
+.ace-post{
+  --navy:#1a3a6b;--gold:#e8a020;--gold-light:#fef3dc;
+  --green:#1a7a4a;--green-light:#eaf7f0;--red:#c0392b;--red-light:#fdf2f1;
+  --gray:#f5f6f8;--border:#dde1e8;--text:#1a1a2e;--muted:#6b7280;
+  font-family:'Nunito Sans',sans-serif;font-size:14px;line-height:1.8;color:var(--text);
+  padding:32px 0;
+}
+.ace-post .toc{background:var(--gray);border-left:4px solid var(--navy);border-radius:0 8px 8px 0;padding:18px 20px;margin-bottom:36px}
+.ace-post .toc-ttl{font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.ace-post .toc ol{padding-left:18px}.ace-post .toc li{margin-bottom:6px}
+.ace-post .toc a{color:var(--navy);text-decoration:none;font-size:13px;font-weight:600}
+.ace-post .sec{margin-bottom:40px}
+.ace-post h2{font-family:'Montserrat',sans-serif;font-size:18px;font-weight:800;color:var(--navy);margin-bottom:14px;padding-bottom:8px;border-bottom:2px solid var(--border)}
+.ace-post h3{font-family:'Montserrat',sans-serif;font-size:14px;font-weight:700;color:var(--navy);margin:18px 0 8px}
+.ace-post p{margin-bottom:13px;font-size:14px}
+.ace-post .math-block{background:var(--gray);border-radius:8px;padding:16px 20px;margin:14px 0;text-align:center;overflow-x:auto;font-size:15px}
+.ace-post .step{display:flex;gap:14px;margin-bottom:18px;align-items:flex-start}
+.ace-post .snum{background:var(--navy);color:#fff;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;margin-top:2px;font-family:'Montserrat',sans-serif}
+.ace-post .scontent{flex:1}
+.ace-post .slbl{font-family:'Montserrat',sans-serif;font-weight:700;font-size:13px;color:var(--navy);margin-bottom:5px}
+.ace-post .scontent p{font-size:13px;margin-bottom:6px}
+.ace-post .rubric{background:var(--green-light);border-left:4px solid var(--green);border-radius:0 8px 8px 0;padding:14px 18px;margin:16px 0}
+.ace-post .rubric-ttl{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--green);margin-bottom:8px;font-family:'Montserrat',sans-serif}
+.ace-post .rubric ul{padding-left:18px}.ace-post .rubric li{font-size:13px;margin-bottom:5px;color:#1a4a32}
+.ace-post .cta{background:linear-gradient(135deg,#0f1e3c,var(--navy));border-radius:12px;padding:24px 26px;margin:28px 0;color:#fff}
+.ace-post .cta h3{color:#fff;margin:0 0 8px;font-size:15px;font-family:'Montserrat',sans-serif;font-weight:800}
+.ace-post .cta p{color:rgba(255,255,255,.85);font-size:13px;margin-bottom:14px}
+.ace-post .btn{display:inline-block;background:var(--gold);color:var(--navy);font-weight:700;font-size:13px;padding:10px 20px;border-radius:6px;text-decoration:none;font-family:'Montserrat',sans-serif}
+.ace-post .sub{font-size:11px;color:rgba(255,255,255,.6);margin-top:10px;font-style:italic}
+.ace-post .sea{background:var(--gold-light);border:2px solid var(--gold);border-radius:12px;padding:22px 26px;margin:20px 0}
+.ace-post .sea h3{color:var(--navy);font-size:14px;margin-bottom:8px;font-weight:700;font-family:'Montserrat',sans-serif}
+.ace-post .sea p{font-size:13px;color:#5a4500;margin-bottom:12px}
+.ace-post .btn-w{display:inline-block;background:var(--navy);color:#fff;font-weight:700;font-size:13px;padding:10px 20px;border-radius:6px;text-decoration:none;font-family:'Montserrat',sans-serif}
+.ace-post .mk{border-left:4px solid var(--red);border-radius:0 8px 8px 0;padding:14px 18px;background:var(--red-light);margin-bottom:16px}
+.ace-post .mk-n{font-weight:700;color:var(--red);font-size:13px;margin-bottom:5px;font-family:'Montserrat',sans-serif}
+.ace-post .mk-w{font-size:12px;color:#7a2020;margin-bottom:6px;font-style:italic}
+.ace-post .mk-f{font-size:13px;color:var(--text)}
+.ace-post .mk-c{font-size:12px;color:#7a2020;margin-top:6px;padding-top:6px;border-top:1px solid rgba(192,57,43,.2)}
+.ace-post .qr{background:var(--navy);color:#fff;border-radius:10px;padding:24px 26px;margin:20px 0}
+.ace-post .qr-ttl{color:var(--gold);font-size:12px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:16px;font-family:'Montserrat',sans-serif}
+.ace-post .qrf{background:rgba(255,255,255,.07);border-radius:6px;padding:12px 16px;margin-bottom:10px;text-align:center}
+.ace-post .qr-row{margin-bottom:14px}
+.ace-post .qr-row-ttl{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:8px;font-family:'Montserrat',sans-serif}
+.ace-post .qrb{margin-top:6px;list-style:none;padding-left:0}
+.ace-post .qrb li{font-size:12px;color:rgba(255,255,255,.85);margin-bottom:6px;padding-left:20px;position:relative}
+.ace-post .qrb li::before{content:"→";color:var(--gold);position:absolute;left:0;font-weight:700}
+/* FAQ accordion */
+.ace-post .faq-list{border:1px solid var(--border,#dde3ed);border-radius:8px;overflow:hidden;margin:24px 0}
+.ace-post .faq-item{border-bottom:1px solid var(--border,#dde3ed);padding:0}
+.ace-post .faq-item:last-child{border-bottom:none}
+.ace-post .faq-item summary{padding:14px 16px;cursor:pointer;font-weight:600;color:var(--navy,#0f1e3c);font-size:14px;list-style:none;display:flex;align-items:center;gap:8px;user-select:none;background:#fff}
+.ace-post .faq-item summary::-webkit-details-marker{display:none}
+.ace-post .faq-item summary::marker{display:none}
+.ace-post .faq-item summary .faq-q-label{color:var(--accent,#e8a020);font-weight:700;flex-shrink:0}
+.ace-post .faq-item summary .faq-toggle{margin-left:auto;color:var(--accent,#e8a020);font-size:20px;font-weight:300;flex-shrink:0;line-height:1}
+.ace-post .faq-item[open] summary .faq-toggle{content:'-'}
+.ace-post .faq-a{padding:4px 16px 14px;color:var(--text-mid,#4a5568);line-height:1.7}
+.ace-post .faq-a p{margin:0}
+.ace-post .one-liner{background:var(--gold-light);border:2px solid var(--gold);border-radius:8px;padding:14px 18px;margin:20px 0;text-align:center}
+.ace-post .one-liner p{font-size:15px;font-weight:700;color:var(--navy);margin:0;font-style:italic;font-family:'Montserrat',sans-serif}
+.ace-post .desmos-wrap{border-radius:10px;overflow:hidden;margin:18px 0;border:1px solid var(--border)}
+.ace-post .desmos-label{background:var(--navy);color:#fff;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:8px 14px;display:flex;align-items:center;gap:6px;font-family:'Montserrat',sans-serif}
+.ace-post .desmos-dot{width:8px;height:8px;border-radius:50%;background:var(--gold)}
+.ace-post hr{border:none;border-top:1px solid var(--border);margin:28px 0}
+.ace-post .related-link{display:block;padding:12px 14px;background:var(--gray);border-radius:6px;border:1px solid var(--border);margin-bottom:8px;font-size:13px;color:var(--navy);text-decoration:none}
+.ace-post .related-link:hover{background:var(--gold-light);border-color:var(--gold)}
+.ace-post .step-box{background:var(--gray);border:1px solid var(--border);border-radius:8px;padding:16px 20px;margin:14px 0}
+.ace-post .step-box h3{margin-top:0}
+.ace-post table{width:100%;border-collapse:collapse;margin:14px 0;font-size:13px}
+.ace-post th{background:var(--navy);color:#fff;padding:8px 12px;text-align:left;font-size:11px;font-weight:700;letter-spacing:.5px;font-family:'Montserrat',sans-serif}
+.ace-post td{padding:8px 12px;border-bottom:1px solid var(--border)}
+.ace-post tr:nth-child(even) td{background:var(--gray)}
+.ace-post .note{background:#f0f4ff;border-left:3px solid var(--navy);border-radius:0 6px 6px 0;padding:10px 14px;margin:14px 0;font-size:12px;color:#1a1a2e}
+</style>
+
+<div class="ace-post">
+
+<!-- TABLE OF CONTENTS -->
+<div class="sec">
+  <div class="toc">
+    <div class="toc-ttl">Jump To What You Need</div>
+    <ol>
+      <li><a href="#freeze">The Freeze That Costs You Points</a></li>
+      <li><a href="#what-it-means">What Implicit Differentiation Actually Is</a></li>
+      <li><a href="#method">The Step-by-Step Method</a></li>
+      <li><a href="#example-1">Worked Example: FRQ-Style with Rubric</a></li>
+      <li><a href="#mistakes">The 3 Mistakes That Cost My Students Points</a></li>
+      <li><a href="#quick-reference">Save This For Exam Day</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="#related">Related Posts</a></li>
+      <li><a href="#end-cta">Keep Building</a></li>
+    </ol>
+  </div>
+</div>
+
+<!-- INTRO -->
+<div class="sec" id="freeze">
+  <h2>The Freeze That Costs You Points</h2>
+
+  <!-- HOOK TYPE: name-the-feeling -->
+  <p>That moment when you stare at an equation with x and y tangled together and realize you cannot just solve for y &mdash; that is exactly where most students freeze on the AP exam.</p>
+
+  <p>The equation looks like $x^2 + y^2 = 25$. You know you need $\dfrac{dy}{dx}$. You try to isolate y, get $y = \sqrt{25 - x^2}$, and then you have a square root to differentiate and a chain rule to apply and suddenly the problem feels three times harder than it needed to be. Here is what most AP Calculus courses do not tell you clearly enough: you do not need to solve for y. That is the whole point of implicit differentiation.</p>
+
+  <p>When I correct student work on implicit differentiation AP calculus FRQs, I see the same error every single time. A student sets up the problem correctly, differentiates the x terms correctly, and then differentiates a y term without attaching the required $\dfrac{dy}{dx}$ factor. That one missing factor. Every single time. The chain rule applies to every y term because y is a function of x. If you forget that, the AP grader marks it wrong from that line forward.</p>
+
+  <p>This post is narrow on purpose. I am going to show you exactly what implicit differentiation is, give you a clean step-by-step method, walk through one FRQ-level example with the full AP rubric, and show you the 3 mistakes that drop points. That is everything you need for this skill.</p>
+</div>
+
+<!-- WHAT IMPLICIT DIFFERENTIATION ACTUALLY IS -->
+<div class="sec" id="what-it-means">
+  <h2>What Implicit Differentiation Actually Is</h2>
+
+  <p>Here is how I explain calculus implicit vs explicit differentiation to every student I work with.</p>
+
+  <p>Explicit differentiation is easy: $y = x^3 + 2x$. Differentiate both sides with respect to x. Done. $\dfrac{dy}{dx} = 3x^2 + 2$. You can see y alone on the left and you just take the derivative directly.</p>
+
+  <p>Implicit differentiation is what you use when the equation does not give you y alone. Things like $x^2 + y^2 = 25$ or $x^3y + y^2 = 7$. You could try to solve for y in some of these, but in most AP exam problems you either cannot, or solving for y turns the problem into a chain rule nightmare. Implicit differentiation skips all that. You differentiate both sides with respect to x exactly as-is.</p>
+
+  <p>The key insight is this: y is still a function of x, even when the equation does not say so explicitly. So any time you differentiate a y term, the chain rule requires you to multiply by $\dfrac{dy}{dx}$. That $\dfrac{dy}{dx}$ factor is not optional. It is the chain rule doing its job.</p>
+
+  <!-- SCREENSHOT-ABLE ONE-LINER -->
+  <div class="one-liner">
+    <p>Every y term you differentiate must be followed by a $\dfrac{dy}{dx}$ factor &mdash; no exceptions, no shortcuts.</p>
+  </div>
+  <!-- END ONE-LINER -->
+
+  <p>The AROC vs. IROC distinction matters here too. When you compute $\dfrac{dy}{dx}$ through implicit differentiation, you are finding the instantaneous rate of change of y with respect to x at a specific point on the curve. Not the average rate over an interval. The slope of the tangent line at exactly one point. That is the instantaneous rate of change, and it is what the AP exam is testing every time it asks you to write a tangent line equation from an implicitly defined curve.</p>
+</div>
+
+<!-- THE STEP-BY-STEP METHOD -->
+<div class="sec" id="method">
+  <h2>The Step-by-Step Method</h2>
+
+  <p>Here are the implicit differentiation steps for any AP exam problem. Use these in order, every time.</p>
+
+  <div class="step">
+    <div class="snum">1</div>
+    <div class="scontent">
+      <div class="slbl">Differentiate both sides with respect to x</div>
+      <p>Every term on both sides gets differentiated. No exceptions.</p>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="snum">2</div>
+    <div class="scontent">
+      <div class="slbl">Apply the chain rule to every y term</div>
+      <p>For any term with y in it, multiply its derivative by $\dfrac{dy}{dx}$.</p>
+      <div class="math-block">
+        $\dfrac{d}{dx}[y^2] = 2y \cdot \dfrac{dy}{dx}$
+      </div>
+      <div class="math-block">
+        $\dfrac{d}{dx}[\sin(y)] = \cos(y) \cdot \dfrac{dy}{dx}$
+      </div>
+      <div class="math-block">
+        $\dfrac{d}{dx}[xy] = x \cdot \dfrac{dy}{dx} + y \quad \text{(product rule + chain rule)}$
+      </div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="snum">3</div>
+    <div class="scontent">
+      <div class="slbl">Collect all dy/dx terms on one side</div>
+      <p>Move every term containing $\dfrac{dy}{dx}$ to the left side. Everything else goes right.</p>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="snum">4</div>
+    <div class="scontent">
+      <div class="slbl">Factor out dy/dx and solve</div>
+      <p>Once factored, divide both sides to isolate $\dfrac{dy}{dx}$.</p>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="snum">5</div>
+    <div class="scontent">
+      <div class="slbl">Substitute x and y if a specific point is given</div>
+      <p>If the problem asks for the slope at a specific point, plug in the coordinates after solving for $\dfrac{dy}{dx}$.</p>
+    </div>
+  </div>
+</div>
+
+<!-- WORKED EXAMPLE -->
+<div class="sec" id="example-1">
+  <h2>Worked Example: FRQ-Style with Rubric</h2>
+
+  <p>This type of implicit differentiation AP calculus problem appears on the FRQ section most often as part of a multi-part problem. You might be asked to find the tangent line, identify horizontal tangents, or show that $\dfrac{dy}{dx}$ exists at a given point.</p>
+
+  <div class="step-box">
+    <h3>Problem</h3>
+    <p>Consider the curve defined by $x^3 + 3xy + y^2 = 7$. Find $\dfrac{dy}{dx}$. Then find the slope of the tangent line at the point $(1, 1)$.</p>
+  </div>
+
+  <h3>Step 1 &mdash; Differentiate both sides with respect to x</h3>
+  <div class="math-block">
+    $$\frac{d}{dx}\left[x^3 + 3xy + y^2\right] = \frac{d}{dx}[7]$$
+  </div>
+
+  <h3>Step 2 &mdash; Apply derivative rules term by term</h3>
+  <p>The $x^3$ term is straightforward. The $3xy$ term needs the product rule. The $y^2$ term needs the chain rule.</p>
+  <div class="math-block">
+    $$3x^2 + 3\left(x \cdot \frac{dy}{dx} + y \cdot 1\right) + 2y\frac{dy}{dx} = 0$$
+  </div>
+  <div class="math-block">
+    $$3x^2 + 3x\frac{dy}{dx} + 3y + 2y\frac{dy}{dx} = 0$$
+  </div>
+
+  <h3>Step 3 &mdash; Collect dy/dx terms on the left</h3>
+  <div class="math-block">
+    $$3x\frac{dy}{dx} + 2y\frac{dy}{dx} = -3x^2 - 3y$$
+  </div>
+
+  <h3>Step 4 &mdash; Factor and solve</h3>
+  <div class="math-block">
+    $$\frac{dy}{dx}(3x + 2y) = -3x^2 - 3y$$
+  </div>
+  <div class="math-block">
+    $$\boxed{\frac{dy}{dx} = \frac{-3x^2 - 3y}{3x + 2y}}$$
+  </div>
+
+  <h3>Step 5 &mdash; Substitute (1, 1)</h3>
+  <div class="math-block">
+    $$\frac{dy}{dx}\bigg|_{(1,1)} = \frac{-3(1)^2 - 3(1)}{3(1) + 2(1)} = \frac{-3 - 3}{3 + 2} = \frac{-6}{5}$$
+  </div>
+  <p>The slope of the tangent line at $(1, 1)$ is $-\dfrac{6}{5}$.</p>
+
+  <!-- Desmos: implicit curve x^3 + 3xy + y^2 = 7 with point (1,1) -->
+  <div class="desmos-wrap">
+    <div class="desmos-label">
+      <div class="desmos-dot"></div>
+      Implicit Curve: $x^3 + 3xy + y^2 = 7$ with tangent point $(1,1)$
+    </div>
+    <div id="desmos-implicit" style="width:100%;height:320px;"></div>
+  </div>
+
+  <div class="rubric">
+    <div class="rubric-ttl">Here is exactly how the AP exam scores this type of problem</div>
+    <ul>
+      <li>Correct setup: differentiating both sides with respect to x, with all three terms present</li>
+      <li>Product rule applied correctly to the $3xy$ term (both $x \cdot \dfrac{dy}{dx}$ and $y$ terms present)</li>
+      <li>Chain rule applied correctly to $y^2$ (the $2y \cdot \dfrac{dy}{dx}$ factor must appear)</li>
+      <li>Algebraic isolation of $\dfrac{dy}{dx}$ shown explicitly — do not skip steps</li>
+      <li>Correct numerical answer at the given point with substitution shown</li>
+    </ul>
+    <p style="font-size:12px;color:#1a4a32;margin-top:8px;">On a typical FRQ this spans 3 to 4 points. Losing the $\dfrac{dy}{dx}$ factor on the chain rule step costs you every downstream point because the algebra after that point is built on the wrong expression.</p>
+  </div>
+</div>
+
+<!-- THE 3 MISTAKES -->
+<div class="sec" id="mistakes">
+  <h2>The 3 Mistakes That Cost My Students Points</h2>
+
+  <div class="mk">
+    <div class="mk-n">Mistake 1: Forgetting dy/dx on y terms</div>
+    <div class="mk-w">Why it happens: Students get into a rhythm differentiating x terms and apply the same move to y terms without thinking. They write $\frac{d}{dx}[y^2] = 2y$ and move on.</div>
+    <div class="mk-f">How to fix it: Before you write any derivative involving y, say out loud: "chain rule on y." If you practice that habit in every implicit differentiation practice problem, it becomes automatic by exam day.</div>
+    <div class="mk-c">Missing this on the AP exam costs you every point earned after that line.</div>
+  </div>
+
+  <div class="mk">
+    <div class="mk-n">Mistake 2: Product rule error on mixed xy terms</div>
+    <div class="mk-w">Why it happens: Students freeze when they see something like $3xy$ because they are not sure which part is the "function of x." Both x and y are functions of x here.</div>
+    <div class="mk-f">How to fix it: Write the product rule formula before you differentiate: $\frac{d}{dx}[3xy] = 3\left(1 \cdot y + x \cdot \frac{dy}{dx}\right) = 3y + 3x\frac{dy}{dx}$. Both terms must be present.</div>
+    <div class="mk-c">A missing term here produces a wrong $\frac{dy}{dx}$ expression that fails every subsequent part of the FRQ.</div>
+  </div>
+
+  <div class="mk">
+    <div class="mk-n">Mistake 3: Assuming the right side always differentiates to zero</div>
+    <div class="mk-w">Why it happens: Most implicit differentiation examples have a constant on the right side (like $= 7$ or $= 25$), so students assume the right side always gives zero. It does not.</div>
+    <div class="mk-f">How to fix it: Always check the right side before writing zero. If it contains x, differentiate it. Then solve for $\frac{dy}{dx}$ the same way.</div>
+    <div class="mk-c">This mistake is rare but it shows up in harder AP problems. When it happens, students who auto-write zero lose every subsequent point.</div>
+  </div>
+</div>
+
+<!-- QUICK REFERENCE -->
+<div class="sec" id="quick-reference">
+  <div class="qr">
+    <div class="qr-ttl">Save This For Exam Day</div>
+
+    <div class="qr-row">
+      <div class="qr-row-ttl">The dy/dx implicit differentiation process</div>
+      <div class="qrf">
+        <table style="color:rgba(255,255,255,.9);background:transparent;font-size:12px;">
+          <thead>
+            <tr><th style="background:rgba(255,255,255,.1);color:#e8a020;">Step</th><th style="background:rgba(255,255,255,.1);color:#e8a020;">Action</th></tr>
+          </thead>
+          <tbody>
+            <tr><td style="border-bottom:1px solid rgba(255,255,255,.1);background:transparent;">1</td><td style="border-bottom:1px solid rgba(255,255,255,.1);background:transparent;">Differentiate both sides with respect to x</td></tr>
+            <tr><td style="border-bottom:1px solid rgba(255,255,255,.1);background:transparent;">2</td><td style="border-bottom:1px solid rgba(255,255,255,.1);background:transparent;">Multiply every y term's derivative by $\frac{dy}{dx}$</td></tr>
+            <tr><td style="border-bottom:1px solid rgba(255,255,255,.1);background:transparent;">3</td><td style="border-bottom:1px solid rgba(255,255,255,.1);background:transparent;">Collect $\frac{dy}{dx}$ terms on one side</td></tr>
+            <tr><td style="border-bottom:1px solid rgba(255,255,255,.1);background:transparent;">4</td><td style="border-bottom:1px solid rgba(255,255,255,.1);background:transparent;">Factor and solve for $\frac{dy}{dx}$</td></tr>
+            <tr><td style="background:transparent;">5</td><td style="background:transparent;">Substitute point coordinates if asked</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="qr-row">
+      <div class="qr-row-ttl">Key chain rule reminders</div>
+      <div class="qrf">$$\frac{d}{dx}[y^n] = ny^{n-1} \cdot \frac{dy}{dx}$$</div>
+      <div class="qrf">$$\frac{d}{dx}[xy] = x\frac{dy}{dx} + y \quad \text{(product rule)}$$</div>
+      <div class="qrf">$$\frac{d}{dx}[\sin(y)] = \cos(y)\frac{dy}{dx}$$</div>
+    </div>
+
+    <div class="qr-row">
+      <div class="qr-row-ttl">Never do this</div>
+      <ul class="qrb">
+        <li>Write $\frac{d}{dx}[y^2] = 2y$ without the $\frac{dy}{dx}$ factor</li>
+        <li>Cancel $\frac{dy}{dx}$ from both sides before isolating it</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- FAQ -->
+<div class="sec" id="faq">
+  <h2>FAQ</h2>
+
+  <div class="faq-list">
+    <details class="faq-item">
+      <summary><span class="faq-q-label">Q:</span> How do I know when to use implicit differentiation instead of solving for y first?<span class="faq-toggle">+</span></summary>
+      <div class="faq-a"><p>Use implicit differentiation when solving for y is messy, impossible, or produces a $\pm$ (like with circles). If the equation has y in a power, inside a trig function, or multiplied by x, go implicit. The AP exam almost never gives you a problem where solving for y first is the better path.</p><p>I tell my students to default to implicit differentiation the moment they see x and y mixed in the same equation. It is faster and safer than fighting to isolate y.</p></div>
+    </details>
+
+    <details class="faq-item">
+      <summary><span class="faq-q-label">Q:</span> Why does the answer for dy/dx still have y in it?<span class="faq-toggle">+</span></summary>
+      <div class="faq-a"><p>Because implicit differentiation gives you the slope at a specific point on the curve, not a universal function of x alone. The answer contains both x and y. That is correct and expected. When the problem asks for the slope at a specific point, you substitute both the x and y coordinates to get a number.</p><p>This trips students up every year. If your answer has y in it, that is not a mistake. It is what an implicit derivative looks like.</p></div>
+    </details>
+
+    <details class="faq-item">
+      <summary><span class="faq-q-label">Q:</span> Does implicit differentiation show up on both the MCQ and FRQ sections?<span class="faq-toggle">+</span></summary>
+      <div class="faq-a"><p>Both, but the FRQ is where students lose the most points. In MCQ, implicit differentiation examples tend to be one-step recognition problems. In FRQ, you often need to find $\frac{dy}{dx}$, then use it to write a tangent line, identify extrema, or justify behavior. That chain of steps is where the missing $\frac{dy}{dx}$ factor becomes a multi-point error.</p><p>Lock in the method now. FRQ implicit differentiation problems are multi-part — every correct step builds on the previous one.</p></div>
+    </details>
+  </div>
+</div>
+
+<!-- RELATED POSTS -->
+<div class="sec" id="related">
+  <h2>Related Posts</h2>
+  <a href="https://enginearu.com/ap-calculus-prep/what-is-a-derivative-ap-calculus/" class="related-link">What Is a Derivative in AP Calculus? — the conceptual foundation before you differentiate implicitly</a>
+  <a href="/ap-calculus-prep/derivative-rules-ap-calculus/" class="related-link">Derivative Rules in AP Calculus — chain rule and product rule reviewed; both are essential for implicit differentiation</a>
+  <a href="https://enginearu.com/ap-calculus-prep/what-are-limits-ap-calculus/" class="related-link">What Are Limits in AP Calculus? — the foundation that makes derivatives make sense</a>
+  <a href="https://tutorial.math.lamar.edu/classes/calci/implicitdiff.aspx" class="related-link" target="_blank" rel="noopener">Paul's Online Math Notes: Implicit Differentiation — solid worked examples for extra practice</a>
+  <a href="https://apstudents.collegeboard.org/courses/ap-calculus-ab" class="related-link" target="_blank" rel="noopener">College Board AP Calculus AB Course Description — official topic list for Unit 3</a>
+</div>
+
+<!-- END CTA -->
+<div class="sec" id="end-cta">
+  <div class="cta">
+    <h3>Keep Building</h3>
+    <p>Implicit differentiation is one of the highest-leverage skills in Unit 3. Once you have it, every problem that involves a curve defined by a mixed equation — related rates, tangent lines to implicitly defined curves, finding where $\frac{dy}{dx}$ is undefined — becomes manageable. If this is shaky, those problems stay hard every time.</p>
+    <p>I built a free pre-assessment that shows you exactly where your Unit 3 skills stand right now, before an exam or quiz forces the issue. It takes about 10 minutes and gives you a clear list of what to fix.</p>
+    <a href="https://aceapcalculus.com/summer-diagnostic-page" class="btn">Take the Free Pre-Assessment</a>
+    <p class="sub">Parents: if your student is heading into AP Calculus next year or working through Unit 3 right now, this assessment takes 10 minutes and shows exactly where the gaps are.</p>
+  </div>
+
+  <div class="sea">
+    <h3>Summer Program &mdash; July &amp; August 2026</h3>
+    <p>If you want real FRQ practice before the school year starts, my summer program runs in July and August. We work through implicit differentiation, related rates, and every Unit 3 FRQ type in small groups with live feedback. Spots are limited.</p>
+    <a href="https://aceapcalculus.com/summer-diagnostic-page" class="btn-w">See Summer Program Details</a>
+  </div>
+</div>
+
+</div><!-- end .ace-post -->
+
+<!-- Desmos: implicit curve x^3 + 3xy + y^2 = 7 -->
+<script src="https://www.desmos.com/api/v1.7/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0fda6"></script>
+<script>
+(function() {
+  var elt = document.getElementById('desmos-implicit');
+  if (!elt) return;
+  var calc = Desmos.GraphingCalculator(elt, {
+    expressions: false,
+    settingsMenu: false,
+    zoomButtons: false,
+    lockViewport: true
+  });
+  calc.setMathBounds({ left: -3, right: 3, bottom: -3, top: 4 });
+  // Implicit curve: x^3 + 3xy + y^2 = 7
+  calc.setExpression({ id: 'curve', latex: 'x^3 + 3xy + y^2 = 7', color: '#1a3a6b', lineWidth: 2.5 });
+  // Tangent point (1,1)
+  calc.setExpression({ id: 'pt', latex: '(1,1)', color: '#e8a020', pointSize: 10 });
+  calc.setExpression({ id: 'label', latex: '(1,1)', label: 'slope = -6/5', showLabel: true, color: '#e8a020' });
+  // Tangent line through (1,1) with slope -6/5: y - 1 = -6/5(x - 1) → y = -6x/5 + 11/5
+  calc.setExpression({ id: 'tangent', latex: 'y = -\\frac{6}{5}x + \\frac{11}{5}', color: '#e8a020', lineWidth: 1.8, lineStyle: Desmos.Styles.DASHED });
+})();
+</script>
+
+<!-- FAQPage schema for SEO -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How do I know when to use implicit differentiation instead of solving for y first?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use implicit differentiation when solving for y is messy, impossible, or produces a plus/minus (like with circles). If the equation has y in a power, inside a trig function, or multiplied by x, go implicit. The AP exam almost never gives you a problem where solving for y first is the better path."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why does the answer for dy/dx still have y in it?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Because implicit differentiation gives you the slope at a specific point on the curve, not a universal function of x alone. The answer contains both x and y. That is correct and expected. When the problem asks for the slope at a specific point, you substitute both the x and y coordinates to get a number."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does implicit differentiation show up on both the MCQ and FRQ sections?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Both, but the FRQ is where students lose the most points. In MCQ, implicit differentiation examples tend to be one-step recognition problems. In FRQ, you often need to find dy/dx, then use it to write a tangent line, identify extrema, or justify behavior. That chain of steps is where the missing dy/dx factor becomes a multi-point error."
+      }
+    }
+  ]
+}
+</script>
+
+<!-- ▲▲▲ END: WORDPRESS CUSTOM HTML BLOCK ▲▲▲ -->
+
+</div><!-- end .page -->
+</body>
+</html>

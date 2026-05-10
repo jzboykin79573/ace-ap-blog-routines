@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PREVIEW — Area Between Curves in AP Calculus: Top Minus Bottom, Right Minus Left</title>
+
+<!--
+=======================================================================
+  PREVIEW FILE — ACE AP CALCULUS BLOG
+  Post 11: Area Between Curves in AP Calculus: Top Minus Bottom, Right Minus Left
+=======================================================================
+  This file has three jobs:
+  1. Let you preview the post in your browser before publishing
+  2. Show you a publishing guide at the top of the page
+  3. Mark exactly what to copy into each part of WordPress
+
+  HOW TO USE THIS FILE
+  ─────────────────────
+  Open it in your browser → read the publishing guide at the top
+  Open it in VS Code → the comment markers show you what goes where
+
+  WHAT GETS PASTED INTO WORDPRESS
+  ─────────────────────────────────
+  STEP 1 (one time only) → functions.php  (see guide below)
+  STEP 2 → WordPress title field          (see guide below)
+  STEP 3 → One Custom HTML block          (marked in the body below)
+=======================================================================
+-->
+
+<!-- PREVIEW-ONLY: Fonts, MathJax, Desmos load here for local preview.
+     WordPress gets MathJax + Desmos from functions.php (Step 1 below).
+     Do NOT paste any of this <head> section into WordPress. -->
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<script>MathJax = { tex: { inlineMath: [['$','$']], displayMath: [['$$','$$']], processEscapes: true } };</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+<script src="https://www.desmos.com/api/v1.7/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0fda6"></script>
+
+<!-- PREVIEW-ONLY CSS: styles for the browser chrome, hero, and page
+     wrapper below. None of this goes into WordPress. -->
+<style>
+:root{
+  --navy:#0f1e3c;--blue:#1a3a6b;--accent:#e8a020;--accent-light:#fef3dc;
+  --green:#1a7a4a;--green-light:#eaf7f0;--red:#c0392b;--red-light:#fdf2f1;
+  --purple:#7c3aed;--purple-light:#f3f0ff;
+  --gray:#f5f6f8;--border:#dde1e8;--text:#1a1a2e;--muted:#6b7280;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:#eef0f4;color:var(--text);font-size:14px;line-height:1.8}
+/* Publishing guide panel */
+.pub-guide{background:#1a1a2e;font-family:'JetBrains Mono',monospace}
+.pub-guide summary{padding:14px 20px;cursor:pointer;color:var(--accent);font-size:13px;font-weight:700;letter-spacing:.5px;list-style:none;display:flex;align-items:center;gap:10px}
+.pub-guide summary::before{content:"▶";font-size:10px;transition:transform .2s}
+.pub-guide[open] summary::before{transform:rotate(90deg)}
+.pub-guide-body{padding:0 20px 20px}
+.pub-step{margin-bottom:24px}
+.pub-step-ttl{color:var(--accent);font-size:12px;font-weight:700;margin-bottom:6px;letter-spacing:.5px}
+.pub-step p{color:rgba(255,255,255,.75);font-size:12px;margin-bottom:8px;font-family:'Inter',sans-serif;line-height:1.6}
+.pub-step textarea{width:100%;background:#0d0d1a;color:#a8d8a8;border:1px solid #333;border-radius:6px;padding:12px;font-size:11px;font-family:'JetBrains Mono',monospace;line-height:1.6;resize:vertical;min-height:80px}
+.pub-step code{background:#0d0d1a;color:var(--accent);padding:2px 6px;border-radius:3px;font-size:11px}
+.pub-divider{border:none;border-top:1px solid #2a2a4a;margin:20px 0}
+/* Preview chrome bar */
+.chrome{background:#2d2d2d;padding:8px 14px;display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:100}
+.dots{display:flex;gap:6px}.dot{width:11px;height:11px;border-radius:50%}
+.dot.r{background:#ff5f57}.dot.y{background:#febc2e}.dot.g{background:#28c840}
+.url{flex:1;background:#3d3d3d;border-radius:5px;padding:4px 10px;color:#aaa;font-size:11px;font-family:'JetBrains Mono',monospace}
+.badge{background:var(--accent);color:var(--navy);font-size:10px;font-weight:700;padding:3px 8px;border-radius:4px}
+/* Preview page wrapper + hero */
+.page{max-width:780px;margin:0 auto;background:#fff;min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,.12)}
+.hero{background:linear-gradient(135deg,var(--navy),var(--blue));padding:40px 40px 32px;color:#fff}
+.tag{display:inline-block;background:var(--accent);color:var(--navy);font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;padding:3px 9px;border-radius:3px;margin-bottom:14px}
+.hero h1{font-family:'Merriweather',serif;font-size:22px;line-height:1.4;margin-bottom:14px}
+.meta{display:flex;gap:10px;flex-wrap:wrap}
+.pill{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.88);font-size:11px;padding:4px 10px;border-radius:20px}
+</style>
+</head>
+<body>
+
+<!-- ===================================================================
+     PUBLISHING GUIDE — visible in your browser, preview only
+     This panel does NOT get pasted into WordPress.
+     =================================================================== -->
+<details class="pub-guide" open>
+  <summary>PUBLISHING GUIDE — 3 steps to post this to WordPress</summary>
+  <div class="pub-guide-body">
+
+    <div class="pub-step">
+      <div class="pub-step-ttl">STEP 1 — ONE TIME ONLY: Add MathJax + Desmos to functions.php</div>
+      <p>Do this once. After that, skip to Step 2 for every future post.<br>
+         Go to: WordPress Admin → Appearance → Theme File Editor → functions.php<br>
+         Scroll to the bottom and paste the code below.</p>
+      <textarea readonly rows="10">
+// ── ACE AP CALCULUS: MathJax + Desmos ─────────────────────────────
+// Paste this at the bottom of functions.php — one time only.
+
+add_action('wp_head', function() {
+    echo '<script>MathJax = { tex: { inlineMath: [["$","$"]], displayMath: [["$$","$$"]] } };</script>';
+    echo '<script src="https://www.desmos.com/api/v1.7/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0fda6"></script>';
+}, 1);
+
+add_action('wp_enqueue_scripts', function() {
+    wp_enqueue_script('mathjax', 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js', [], null, false);
+});
+// ──────────────────────────────────────────────────────────────────</textarea>
+    </div>
+
+    <hr class="pub-divider">
+
+    <div class="pub-step">
+      <div class="pub-step-ttl">STEP 2 — WordPress title field</div>
+      <p>In the WordPress editor, click the title field at the top and paste this exactly:</p>
+      <textarea readonly rows="2">Area Between Curves in AP Calculus: Top Minus Bottom, Right Minus Left (2026)</textarea>
+    </div>
+
+    <hr class="pub-divider">
+
+    <div class="pub-step">
+      <div class="pub-step-ttl">STEP 3 — WordPress Custom HTML block (the post content)</div>
+      <p>In the WordPress editor content area:<br>
+         1. Click the <code>+</code> button → search <code>Custom HTML</code> → add that block<br>
+         2. Open this file in VS Code or any text editor<br>
+         3. Find the comment that says: <code>▼▼▼ START: PASTE THIS INTO WORDPRESS CUSTOM HTML BLOCK ▼▼▼</code><br>
+         4. Select everything from that line down to: <code>▲▲▲ END: WORDPRESS CUSTOM HTML BLOCK ▲▲▲</code><br>
+         5. Paste into the Custom HTML block in WordPress<br><br>
+         That section contains the fonts link, all the CSS, all the post content, and the Desmos graph script.</p>
+    </div>
+
+    <hr class="pub-divider">
+
+    <div class="pub-step">
+      <div class="pub-step-ttl">STEP 4 — SEO fields (in the WordPress sidebar)</div>
+      <p>If you use Yoast or Rank Math, fill these in the sidebar before publishing:</p>
+      <textarea readonly rows="5">
+SEO Title:       Area Between Curves AP Calculus: Top Minus Bottom (2026)
+Meta Description: Learn how to find area between curves in AP Calculus using top minus bottom and right minus left. Setup steps, common mistakes, and exam reference.
+Slug:            area-between-curves-ap-calculus
+Focus Keyword:   area between curves ap calculus</textarea>
+    </div>
+
+  </div>
+</details>
+<!-- END PUBLISHING GUIDE -->
+
+
+<!-- ===================================================================
+     PREVIEW ONLY: browser chrome bar
+     Do NOT paste this into WordPress.
+     =================================================================== -->
+<div class="chrome">
+  <div class="dots">
+    <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
+  </div>
+  <div class="url">enginearu.com/ap-calculus-prep/area-between-curves-ap-calculus/</div>
+  <div class="badge">PREVIEW</div>
+</div>
+<!-- END PREVIEW CHROME -->
+
+
+<!-- ===================================================================
+     PREVIEW ONLY: hero header
+     WordPress uses the title field (Step 2) instead of this.
+     Do NOT paste this into WordPress.
+     =================================================================== -->
+<div class="page">
+<div class="hero">
+  <div class="tag">AP Calculus AB · BC · Unit 8</div>
+  <h1>Area Between Curves in AP Calculus: Top Minus Bottom, Right Minus Left</h1>
+  <div class="meta">
+    <span class="pill">6 min read</span>
+    <span class="pill">The two rules that make Unit 8 FRQs manageable</span>
+  </div>
+</div>
+<!-- END PREVIEW HERO -->
+
+
+<!-- ===================================================================
+     ▼▼▼ START: PASTE THIS INTO WORDPRESS CUSTOM HTML BLOCK ▼▼▼
+     ===================================================================
+     Select from this line all the way down to the matching END marker.
+     Paste the entire selection into one Custom HTML block in WordPress.
+     =================================================================== -->
+
+<!-- Google Fonts — loads the typefaces used in the post styling -->
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<!-- Post CSS — all visual styles for the content below -->
+<style>
+.ace-post{
+  --navy:#0f1e3c;--blue:#1a3a6b;--accent:#e8a020;--accent-light:#fef3dc;
+  --green:#1a7a4a;--green-light:#eaf7f0;--red:#c0392b;--red-light:#fdf2f1;
+  --purple:#7c3aed;--purple-light:#f3f0ff;
+  --gray:#f5f6f8;--border:#dde1e8;--text:#1a1a2e;--muted:#6b7280;
+  font-family:'Inter',sans-serif;font-size:14px;line-height:1.8;color:var(--text);
+  padding:32px 0;
+}
+.ace-post .toc{background:var(--gray);border-left:4px solid var(--navy);border-radius:0 8px 8px 0;padding:18px 20px;margin-bottom:36px}
+.ace-post .toc-ttl{font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.ace-post .toc ol{padding-left:18px}.ace-post .toc li{margin-bottom:6px}
+.ace-post .toc a{color:var(--blue);text-decoration:none;font-size:13px;font-weight:500}
+.ace-post .sec{margin-bottom:40px}
+.ace-post h2{font-family:'Merriweather',serif;font-size:18px;font-weight:700;color:var(--navy);margin-bottom:14px;padding-bottom:8px;border-bottom:2px solid var(--border)}
+.ace-post h3{font-size:14px;font-weight:700;color:var(--blue);margin:18px 0 8px}
+.ace-post p{margin-bottom:13px;font-size:14px}
+.ace-post .math-block{background:var(--gray);border-radius:8px;padding:16px 20px;margin:14px 0;text-align:center;overflow-x:auto;font-size:15px}
+.ace-post .compare{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);border-radius:10px;overflow:hidden;margin:18px 0}
+.ace-post .compare-side{padding:18px 20px;background:#fff}
+.ace-post .compare-side.left{background:var(--gray)}
+.ace-post .compare-lbl{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px}
+.ace-post .compare-lbl.aroc{color:var(--muted)}
+.ace-post .compare-lbl.iroc{color:var(--blue)}
+.ace-post .compare-val{font-size:22px;font-weight:800;color:var(--navy);margin-bottom:4px}
+.ace-post .compare-sub{font-size:12px;color:var(--muted);line-height:1.5}
+.ace-post .compare-badge{display:inline-block;margin-top:8px;font-size:10px;font-weight:700;padding:3px 8px;border-radius:4px}
+.ace-post .compare-badge.aroc{background:var(--gray);color:var(--muted);border:1px solid var(--border)}
+.ace-post .compare-badge.iroc{background:var(--blue);color:#fff}
+.ace-post .def-card{border-radius:8px;overflow:hidden;border:1px solid var(--border);margin-bottom:14px}
+.ace-post .def-hd{background:var(--navy);color:#fff;padding:9px 14px;font-size:12px;font-weight:700;display:flex;align-items:center;gap:8px}
+.ace-post .num{background:var(--accent);color:var(--navy);width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;flex-shrink:0}
+.ace-post .def-bd{padding:14px 16px;background:#fff}
+.ace-post .def-bd p{font-size:13px;margin-bottom:8px}
+.ace-post .def-bd p:last-child{margin-bottom:0}
+.ace-post .def-tag{display:inline-block;font-size:10px;font-weight:700;padding:2px 7px;border-radius:3px;margin-top:4px;background:var(--green-light);color:var(--green)}
+.ace-post .cheat{background:var(--accent-light);border:1px solid var(--accent);border-radius:8px;padding:14px 16px;margin:16px 0}
+.ace-post .cheat-ttl{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#8a5a00;margin-bottom:8px}
+.ace-post .cheat-list{padding-left:0;list-style:none}
+.ace-post .cheat-list li{font-size:13px;padding:4px 0;display:flex;align-items:flex-start;gap:8px;color:#5a3c00}
+.ace-post .cheat-list li::before{content:"→";color:var(--accent);font-weight:700;flex-shrink:0;margin-top:2px}
+.ace-post .note{background:var(--purple-light);border-left:3px solid var(--purple);border-radius:0 6px 6px 0;padding:10px 14px;margin:14px 0;font-size:12px;color:#4c1d95}
+.ace-post .step{display:flex;gap:14px;margin-bottom:18px;align-items:flex-start}
+.ace-post .snum{background:var(--navy);color:#fff;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;margin-top:2px}
+.ace-post .scontent{flex:1}
+.ace-post .slbl{font-weight:700;font-size:13px;color:var(--navy);margin-bottom:5px}
+.ace-post .scontent p{font-size:13px;margin-bottom:6px}
+.ace-post .rubric{background:var(--green-light);border-left:4px solid var(--green);border-radius:0 8px 8px 0;padding:14px 18px;margin:16px 0}
+.ace-post .rubric-ttl{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--green);margin-bottom:8px}
+.ace-post .rubric ul{padding-left:18px}.ace-post .rubric li{font-size:13px;margin-bottom:5px;color:#1a4a32}
+.ace-post .mcq-check{background:#eef2ff;border-left:4px solid #4f46e5;border-radius:0 8px 8px 0;padding:14px 18px;margin:16px 0}
+.ace-post .mcq-ttl{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#4f46e5;margin-bottom:8px}
+.ace-post .mcq-check ul{padding-left:18px}.ace-post .mcq-check li{font-size:13px;margin-bottom:5px;color:#312e81}
+.ace-post .cta{background:linear-gradient(135deg,var(--navy),var(--blue));border-radius:12px;padding:24px 26px;margin:28px 0;color:#fff}
+.ace-post .cta h3{color:#fff;margin:0 0 8px;font-size:15px;font-family:'Merriweather',serif}
+.ace-post .cta p{color:rgba(255,255,255,.85);font-size:13px;margin-bottom:14px}
+.ace-post .btn{display:inline-block;background:var(--accent);color:var(--navy);font-weight:700;font-size:13px;padding:10px 20px;border-radius:6px;text-decoration:none}
+.ace-post .sub{font-size:11px;color:rgba(255,255,255,.6);margin-top:10px;font-style:italic}
+.ace-post .sea{background:var(--accent-light);border:2px solid var(--accent);border-radius:12px;padding:22px 26px;margin:20px 0}
+.ace-post .sea h3{color:var(--navy);font-size:14px;margin-bottom:8px;font-weight:700}
+.ace-post .sea p{font-size:13px;color:#5a4500;margin-bottom:12px}
+.ace-post .btn-w{display:inline-block;background:var(--navy);color:#fff;font-weight:700;font-size:13px;padding:10px 20px;border-radius:6px;text-decoration:none}
+.ace-post .mk{border-left:4px solid var(--red);border-radius:0 8px 8px 0;padding:14px 18px;background:var(--red-light);margin-bottom:16px}
+.ace-post .mk-n{font-weight:700;color:var(--red);font-size:13px;margin-bottom:5px}
+.ace-post .mk-w{font-size:12px;color:#7a2020;margin-bottom:6px;font-style:italic}
+.ace-post .mk-f{font-size:13px;color:var(--text)}
+.ace-post .prob{background:var(--gray);border-radius:8px;padding:16px 18px;margin-bottom:14px;border:1px solid var(--border)}
+.ace-post .plbl{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.ace-post .prob p{font-size:13px;margin-bottom:8px}
+.ace-post .answers{background:var(--navy);border-radius:8px;padding:18px 20px;margin-top:20px}
+.ace-post .ans-ttl{color:var(--accent);font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:12px}
+.ace-post .ans-item{font-size:13px;color:rgba(255,255,255,.9);margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid rgba(255,255,255,.1)}
+.ace-post .ans-item:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
+.ace-post .faq-item{border-bottom:1px solid var(--border);padding:16px 0}
+.ace-post .faq-q{font-weight:700;color:var(--navy);font-size:13px;margin-bottom:8px}
+.ace-post .faq-a{font-size:13px;line-height:1.7}
+.ace-post .qr{background:var(--navy);color:#fff;border-radius:10px;padding:24px 26px;margin:20px 0}
+.ace-post .qr-ttl{color:var(--accent);font-size:12px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:16px}
+.ace-post .qrf{background:rgba(255,255,255,.07);border-radius:6px;padding:12px 16px;margin-bottom:10px;text-align:center}
+.ace-post .qrf-lbl{font-size:11px;color:rgba(255,255,255,.5);margin-bottom:6px}
+.ace-post .qrb{margin-top:14px;list-style:none;padding-left:0}
+.ace-post .qrb li{font-size:12px;color:rgba(255,255,255,.85);margin-bottom:6px;padding-left:20px;position:relative}
+.ace-post .qrb li::before{content:"✓";color:#4ade80;position:absolute;left:0;font-weight:700}
+.ace-post .qrb .nv{color:#fca5a5!important}.ace-post .qrb .nv::before{content:"✗"!important;color:#fca5a5!important}
+.ace-post .related-link{display:block;padding:12px 14px;background:var(--gray);border-radius:6px;border:1px solid var(--border);margin-bottom:8px;font-size:13px;color:var(--muted);font-style:italic}
+.ace-post .desmos-wrap{border-radius:10px;overflow:hidden;margin:18px 0;border:1px solid var(--border)}
+.ace-post .desmos-label{background:var(--navy);color:#fff;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:8px 14px;display:flex;align-items:center;gap:6px}
+.ace-post .desmos-dot{width:8px;height:8px;border-radius:50%;background:var(--accent)}
+.ace-post .body-list{padding-left:20px;margin-bottom:12px;font-size:13px}
+.ace-post .body-list li{margin-bottom:5px}
+.ace-post hr{border:none;border-top:1px solid var(--border);margin:28px 0}
+.ace-post .rule-card{background:var(--gray);border-radius:8px;padding:16px 18px;margin-bottom:16px;border-left:4px solid var(--accent)}
+.ace-post .rule-num{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--accent);margin-bottom:6px}
+.ace-post .rule-title{font-weight:700;color:var(--navy);font-size:13px;margin-bottom:8px}
+.ace-post .screenshot-liner{background:var(--navy);color:var(--accent);border-radius:8px;padding:14px 18px;margin:16px 0;font-size:14px;font-weight:700;font-style:italic;text-align:center}
+.ace-post table{width:100%;border-collapse:collapse;margin:14px 0;font-size:13px}
+.ace-post th{background:var(--navy);color:#fff;font-weight:700;text-align:left;padding:8px 12px;border:1px solid var(--border)}
+.ace-post td{padding:8px 12px;border:1px solid var(--border);vertical-align:top;font-size:13px}
+.ace-post tr:nth-child(even) td{background:var(--gray)}
+.ace-post .checklist{list-style:none;padding-left:0;margin-bottom:12px}
+.ace-post .checklist li{font-size:13px;padding:5px 0 5px 22px;position:relative;border-bottom:1px solid var(--border)}
+.ace-post .checklist li:last-child{border-bottom:none}
+.ace-post .checklist li::before{content:"✓";position:absolute;left:0;color:var(--green);font-weight:700}
+</style>
+
+<!-- Post content — all sections of the blog post -->
+<div class="ace-post">
+
+  <!-- Table of contents -->
+  <div class="toc">
+    <div class="toc-ttl">Jump To What You Need</div>
+    <ol>
+      <li><a href="#intro">The Relief That Disappears Fast</a></li>
+      <li><a href="#two-rules">The Two-Rule Framework: Top Minus Bottom, Right Minus Left</a></li>
+      <li><a href="#setup">How to Set Up the Integral Correctly Every Time</a></li>
+      <li><a href="#mistake">The One Mistake That Kills Your Setup</a></li>
+      <li><a href="#quick-reference">Save This For Exam Day</a></li>
+      <li><a href="#end-cta">What Comes Next</a></li>
+    </ol>
+  </div>
+
+  <!-- Section: Intro -->
+  <div class="sec" id="intro">
+    <h2>The Relief That Disappears Fast</h2>
+    <!-- HOOK TYPE: name-the-feeling -->
+    <p>By the time my students hit Unit 8, they are relieved derivatives are behind them. I watch it happen every year. There is a genuine exhale after Unit 5. Then they open their notes and see "find the area of the region bounded by the two curves" on an FRQ and that relief disappears fast.</p>
+    <p>Not because the concept is hard. It is not. The problem is that most students show up to this topic with no framework. Which function goes on top? Where do the limits come from? Why did the answer come out negative? These are not deep calculus questions. They are setup questions. And every point on this FRQ type is a setup point.</p>
+    <p>I call this the <strong>Setup Stall</strong>. You know you need an integral, you know it involves subtraction, and you have no idea where to go from there. It is the specific kind of pause that costs you 4 or 5 points on an FRQ because you spend 3 minutes circling the problem instead of writing.</p>
+    <p>Here is the framework I give every student before they touch a single problem. Two rules. That is all this is.</p>
+    <!-- SCREENSHOT-ABLE ONE-LINER -->
+    <div class="screenshot-liner">
+      In AP Calculus, area between curves is always top minus bottom in x, or right minus left in y. That is the whole framework.
+    </div>
+    <!-- END ONE-LINER -->
+  </div>
+
+  <!-- Section: Two-Rule Framework -->
+  <div class="sec" id="two-rules">
+    <h2>The Two-Rule Framework: Top Minus Bottom, Right Minus Left</h2>
+    <p>Every area between curves problem on the AP exam fits into one of two cases. You pick the case first. Then you set up the integral.</p>
+    <div class="rule-card">
+      <div class="rule-num">Rule 1</div>
+      <div class="rule-title">Top Minus Bottom (integrating in terms of x)</div>
+      <p>When your region is bounded above and below by two functions, integrate with respect to x:</p>
+      <div class="math-block">$$A = \int_{a}^{b} \bigl[f(x) - g(x)\bigr]\,dx$$</div>
+      <p>where $f(x)$ is the <strong>top function</strong> and $g(x)$ is the <strong>bottom function</strong>, and $a$ and $b$ are the <strong>x-values</strong> where the curves intersect.</p>
+      <p>The mental check is one question: "Which curve is higher on the graph?" That is $f(x)$. The lower one is $g(x)$. Subtract. Integrate from x-intersection to x-intersection.</p>
+    </div>
+    <div class="rule-card">
+      <div class="rule-num">Rule 2</div>
+      <div class="rule-title">Right Minus Left (integrating in terms of y)</div>
+      <p>When your region is bounded left and right by functions written in terms of y, integrate with respect to y:</p>
+      <div class="math-block">$$A = \int_{c}^{d} \bigl[R(y) - L(y)\bigr]\,dy$$</div>
+      <p>where $R(y)$ is the <strong>right function</strong> and $L(y)$ is the <strong>left function</strong>, and $c$ and $d$ are the <strong>y-values</strong> where the curves intersect.</p>
+      <p>Same logic, different axis. Instead of asking "which is higher," ask "which is further right." That function is $R(y)$. Integrate from the bottom y-intersection to the top y-intersection.</p>
+    </div>
+    <p>You would think Rule 2 is rarely tested. It is not. The AP exam uses it regularly on Part (b) of FRQ problems. Know both.</p>
+    <div class="desmos-wrap">
+      <div class="desmos-label"><span class="desmos-dot"></span> Interactive Graph: Drag to Explore the Shaded Region</div>
+      <div id="desmos-area" style="width:100%;height:380px;"></div>
+      <p style="font-size:12px;color:var(--muted);margin-top:8px;text-align:center;">Shaded region between $y = x + 2$ (top, gold) and $y = x^2$ (bottom, navy) from $x = -1$ to $x = 2$. This is a "top minus bottom" problem.</p>
+    </div>
+  </div>
+
+  <!-- Section: Setup -->
+  <div class="sec" id="setup">
+    <h2>How to Set Up the Integral Correctly Every Time</h2>
+    <p>The reason students set this up wrong is they skip the sketch. Every time. I have never seen a student who draws a clean sketch first get the setup wrong. Not once.</p>
+    <p>Here is the process:</p>
+    <div class="step"><div class="snum">1</div><div class="scontent"><div class="slbl">Sketch the region.</div><p>Draw the two functions. Label which is on top (or which is on the right). This is not optional. The sketch is the setup.</p></div></div>
+    <div class="step"><div class="snum">2</div><div class="scontent"><div class="slbl">Find the intersection points.</div><p>Set $f(x) = g(x)$ and solve. Those x-values (or y-values in a dy problem) are your limits of integration. Do not skip the algebra here. An assumed intersection is a missed point.</p></div></div>
+    <div class="step"><div class="snum">3</div><div class="scontent"><div class="slbl">Apply the correct rule.</div><p>Integrating in terms of x: $\int_{a}^{b} [\text{top} - \text{bottom}]\,dx$. Integrating in terms of y: $\int_{c}^{d} [\text{right} - \text{left}]\,dy$.</p></div></div>
+    <div class="step"><div class="snum">4</div><div class="scontent"><div class="slbl">Evaluate and state the answer with units if given.</div><p>The AP exam will sometimes provide units (square centimeters, square units). Write them. An answer without units when units are provided costs you the communication point.</p></div></div>
+    <p>Let's walk through a clean example. The region is bounded by $f(x) = x + 2$ and $g(x) = x^2$.</p>
+    <p>Set them equal to find intersections:</p>
+    <div class="math-block">$$x + 2 = x^2 \implies x^2 - x - 2 = 0 \implies (x-2)(x+1) = 0$$</div>
+    <p>So $x = -1$ and $x = 2$. Check the sketch: $x + 2$ sits above $x^2$ on the interval $[-1, 2]$.</p>
+    <div class="math-block">$$A = \int_{-1}^{2} \bigl[(x + 2) - x^2\bigr]\,dx$$</div>
+    <div class="math-block">$$= \left[\frac{x^2}{2} + 2x - \frac{x^3}{3}\right]_{-1}^{2}$$</div>
+    <div class="math-block">$$= \left(\frac{4}{2} + 4 - \frac{8}{3}\right) - \left(\frac{1}{2} - 2 + \frac{1}{3}\right)$$</div>
+    <div class="math-block">$$= \left(6 - \frac{8}{3}\right) - \left(-\frac{7}{6}\right) = \frac{10}{3} + \frac{7}{6} = \frac{20}{6} + \frac{7}{6} = \boxed{\dfrac{9}{2}}$$</div>
+    <p>The area of the bounded region is $\dfrac{9}{2}$ square units.</p>
+    <p>This is exactly the computation you will be asked to show on the FRQ. Set it up clearly. Show the antiderivative. Evaluate at both bounds. Box your answer.</p>
+  </div>
+
+  <!-- Section: The Mistake -->
+  <div class="sec" id="mistake">
+    <h2>The One Mistake That Kills Your Setup</h2>
+    <p>There is a specific error that shows up on FRQ grading every single year: variable inconsistency.</p>
+    <p>Here is what it looks like. A student sets up bounds in x. Then they write the integrand with a function in terms of y. Then they put $dx$ at the end. The AP grader sees that and marks the setup wrong. Not just the evaluation. The entire setup. That is up to 4 points gone before the algebra even starts.</p>
+    <div class="mk">
+      <div class="mk-n">Variable Inconsistency: The #1 Setup Error</div>
+      <p class="mk-w">Everything in the integral must match. Integrating in terms of x means bounds are x-values, integrand is a function of x, and the differential is $dx$. Integrating in terms of y means bounds are y-values, integrand is a function of y, and the differential is $dy$. If any one of those three does not match the other two, the setup is wrong.</p>
+    </div>
+    <p>The other mistake I see constantly: not subtracting in the right order. If you put $g(x) - f(x)$ when $f(x)$ is on top, you get a negative area. On the AP exam, area is always positive. If your answer comes out negative, you subtracted in the wrong order. Go back, fix it, and do not second-guess whether a negative area "makes sense." It does not. Area is positive.</p>
+    <p>This topic is the direct foundation for volumes of revolution and cross-sections, which come right after it in Unit 8. If the area setup is shaky, those problems will not click either. Getting this right now saves you hours later.</p>
+  </div>
+
+  <!-- Section: Quick Reference -->
+  <div class="sec" id="quick-reference">
+    <div class="qr">
+      <div class="qr-ttl">Save This For Exam Day</div>
+      <table>
+        <thead>
+          <tr>
+            <th>Case</th>
+            <th>Rule</th>
+            <th>Integral</th>
+            <th>Bounds</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Region bounded above and below</td>
+            <td><strong>Top Minus Bottom</strong></td>
+            <td>$\displaystyle\int_{a}^{b}[f(x) - g(x)]\,dx$</td>
+            <td>x-values of intersection</td>
+          </tr>
+          <tr>
+            <td>Region bounded left and right</td>
+            <td><strong>Right Minus Left</strong></td>
+            <td>$\displaystyle\int_{c}^{d}[R(y) - L(y)]\,dy$</td>
+            <td>y-values of intersection</td>
+          </tr>
+        </tbody>
+      </table>
+      <p style="font-size:12px;color:rgba(255,255,255,.7);margin-bottom:8px;font-weight:700;">Setup checklist before you write the integral:</p>
+      <ul class="qrb">
+        <li>Draw a sketch and label which curve is on top (or which is on the right)</li>
+        <li>Find intersection points by setting the functions equal</li>
+        <li>Choose the correct rule based on how the region is oriented</li>
+        <li>Confirm your differential ($dx$ or $dy$) matches your bounds and integrand</li>
+        <li>If the answer is negative, you subtracted in the wrong order</li>
+      </ul>
+      <p style="font-size:12px;color:rgba(255,255,255,.7);margin-top:14px;margin-bottom:8px;font-weight:700;">Notation the AP exam expects to see:</p>
+      <ul class="qrb">
+        <li>$\displaystyle\int_{a}^{b}[\text{top} - \text{bottom}]\,dx$ written explicitly, not just the antiderivative</li>
+        <li>Both bounds evaluated and subtracted (show the bracket notation)</li>
+        <li>Units stated if the problem provides them</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Section: End CTA -->
+  <div class="sec" id="end-cta">
+    <h2>What Comes Next</h2>
+    <p>Area between curves is the gateway to the rest of Unit 8. Once this is solid, volumes of revolution and cross-sections use the same "top minus bottom" and "right minus left" logic and extend it into three dimensions. If you have this framework locked in, that transition is clean. If you do not, you will be rebuilding it in the middle of a harder topic.</p>
+    <div class="cta">
+      <h3>Get the Free Guide</h3>
+      <p>Check where you stand before you move into volumes of revolution. Zero fluff.</p>
+      <a href="https://www.aceapcalculus.com/before-apcalc" class="btn" target="_blank">Get the Free Guide</a>
+      <div class="sub">Parents: if your student is working through Unit 8 right now, this is a good checkpoint. The area between curves FRQ is one of the highest-point-value problems on the AP exam and one of the most learnable.</div>
+    </div>
+    <div class="sea">
+      <h3>Summer Program: July &amp; August 2026</h3>
+      <p>If you want your student walking into AP Calculus next fall already ahead of Unit 8, my summer program runs in July and August. Small groups. Real FRQ practice. Structured weekly plan. Spots are limited.</p>
+      <a href="https://www.aceapcalculus.com/summer-diagnostic-page" class="btn-w" target="_blank">See Summer Program Details</a>
+    </div>
+  </div>
+
+  <hr>
+  <div style="background:var(--gray);border-radius:8px;padding:20px;font-size:12px;color:var(--muted);font-family:'JetBrains Mono',monospace;margin-top:32px">
+    <div style="color:var(--navy);font-weight:700;margin-bottom:12px;font-size:13px">SEO METADATA</div>
+    SEO Title: Area Between Curves AP Calculus: Top Minus Bottom (2026)<br>
+    Meta Description: Learn how to find area between curves in AP Calculus using top minus bottom and right minus left. Setup steps, common mistakes, and exam reference.<br>
+    Slug: area-between-curves-ap-calculus<br>
+    Primary Keyword: area between curves ap calculus<br>
+    Keyword Cluster: how to find area between two curves calculus, area between curves ap exam, bounded region area calculus, ap calculus unit 8 integration, area between functions ap calc, definite integral area application, ap calculus FRQ area problems<br>
+    Post Type: narrow-focus | Hook Type: name-the-feeling | Cluster Role: spoke | Pillar: TBD
+  </div>
+
+</div>
+<!-- End post content div -->
+
+<!-- ===================================================================
+     ▲▲▲ END: WORDPRESS CUSTOM HTML BLOCK ▲▲▲
+     Stop selecting here. Do not paste anything below this line.
+     =================================================================== -->
+
+<!-- Desmos graph initialization — runs after the page loads -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var elt = document.getElementById('desmos-area');
+  if (!elt || typeof Desmos === 'undefined') return;
+  var calc = Desmos.GraphingCalculator(elt, {
+    expressions: true,
+    settingsMenu: false,
+    zoomButtons: true,
+    lockViewport: false,
+    keypad: false,
+    border: false
+  });
+  calc.setMathBounds({ left: -2.5, right: 3.5, bottom: -1.2, top: 6.5 });
+  calc.setExpression({
+    id: 'parabola',
+    latex: 'y = x^2',
+    color: '#1a3a6b',
+    lineWidth: 2.5,
+    label: 'bottom: y = x²',
+    showLabel: true
+  });
+  calc.setExpression({
+    id: 'line',
+    latex: 'y = x + 2',
+    color: '#e8a020',
+    lineWidth: 2.5,
+    label: 'top: y = x + 2',
+    showLabel: true
+  });
+  calc.setExpression({
+    id: 'region',
+    latex: '-1 \\le x \\le 2 \\left\\{x^2 \\le y \\le x+2\\right\\}',
+    color: '#e8a020',
+    fillOpacity: 0.25,
+    lines: false
+  });
+  calc.setExpression({
+    id: 'pt1',
+    latex: '(-1, 1)',
+    color: '#8B5CF6',
+    pointSize: 10,
+    label: 'x = -1',
+    showLabel: true,
+    labelOrientation: Desmos.LabelOrientations.LEFT
+  });
+  calc.setExpression({
+    id: 'pt2',
+    latex: '(2, 4)',
+    color: '#8B5CF6',
+    pointSize: 10,
+    label: 'x = 2',
+    showLabel: true,
+    labelOrientation: Desmos.LabelOrientations.RIGHT
+  });
+  calc.setExpression({
+    id: 'area-label',
+    latex: '(0.5, 2)',
+    color: '#e8a020',
+    pointSize: 0,
+    label: 'Area = 9/2',
+    showLabel: true
+  });
+});
+</script>
+
+
+</div><!-- /page — preview wrapper, not part of WordPress paste -->
+
+</body>
+</html>

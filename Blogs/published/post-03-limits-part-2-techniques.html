@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PREVIEW — Hard Limits in AP Calculus: Rationalizing, Complex Fractions, and the Techniques That Save Your Score</title>
+
+<!--
+=======================================================================
+  PREVIEW FILE — ACE AP CALCULUS BLOG
+  Post 03: Hard Limits in AP Calculus: Rationalizing & Complex Fractions
+=======================================================================
+  This file has three jobs:
+  1. Let you preview the post in your browser before publishing
+  2. Show you a publishing guide at the top of the page
+  3. Mark exactly what to copy into each part of WordPress
+
+  HOW TO USE THIS FILE
+  ─────────────────────
+  Open it in your browser → read the publishing guide at the top
+  Open it in VS Code → the comment markers show you what goes where
+
+  WHAT GETS PASTED INTO WORDPRESS
+  ─────────────────────────────────
+  STEP 1 (one time only) → functions.php  (see guide below)
+  STEP 2 → WordPress title field          (see guide below)
+  STEP 3 → One Custom HTML block          (marked in the body below)
+  STEP 4 → Yoast / Rank Math SEO fields   (see guide below)
+=======================================================================
+-->
+
+<!-- PREVIEW-ONLY: Fonts, MathJax, Desmos load here for local preview.
+     WordPress gets MathJax + Desmos from functions.php (Step 1 below).
+     Do NOT paste any of this <head> section into WordPress. -->
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<script>MathJax = { tex: { inlineMath: [['$','$']], displayMath: [['$$','$$']], processEscapes: true } };</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+<script src="https://www.desmos.com/api/v1.7/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0fda6"></script>
+
+<!-- PREVIEW-ONLY CSS: styles for the browser chrome, hero, and page
+     wrapper below. None of this goes into WordPress. -->
+<style>
+:root{
+  --navy:#0f1e3c;--blue:#1a3a6b;--accent:#e8a020;--accent-light:#fef3dc;
+  --green:#1a7a4a;--green-light:#eaf7f0;--red:#c0392b;--red-light:#fdf2f1;
+  --purple:#7c3aed;--purple-light:#f3f0ff;
+  --gray:#f5f6f8;--border:#dde1e8;--text:#1a1a2e;--muted:#6b7280;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:#eef0f4;color:var(--text);font-size:14px;line-height:1.8}
+.pub-guide{background:#1a1a2e;font-family:'JetBrains Mono',monospace}
+.pub-guide summary{padding:14px 20px;cursor:pointer;color:var(--accent);font-size:13px;font-weight:700;letter-spacing:.5px;list-style:none;display:flex;align-items:center;gap:10px}
+.pub-guide summary::before{content:"▶";font-size:10px;transition:transform .2s}
+.pub-guide[open] summary::before{transform:rotate(90deg)}
+.pub-guide-body{padding:0 20px 20px}
+.pub-step{margin-bottom:24px}
+.pub-step-ttl{color:var(--accent);font-size:12px;font-weight:700;margin-bottom:6px;letter-spacing:.5px}
+.pub-step p{color:rgba(255,255,255,.75);font-size:12px;margin-bottom:8px;font-family:'Inter',sans-serif;line-height:1.6}
+.pub-step textarea{width:100%;background:#0d0d1a;color:#a8d8a8;border:1px solid #333;border-radius:6px;padding:12px;font-size:11px;font-family:'JetBrains Mono',monospace;line-height:1.6;resize:vertical;min-height:80px}
+.pub-step code{background:#0d0d1a;color:var(--accent);padding:2px 6px;border-radius:3px;font-size:11px}
+.pub-divider{border:none;border-top:1px solid #2a2a4a;margin:20px 0}
+.chrome{background:#2d2d2d;padding:8px 14px;display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:100}
+.dots{display:flex;gap:6px}.dot{width:11px;height:11px;border-radius:50%}
+.dot.r{background:#ff5f57}.dot.y{background:#febc2e}.dot.g{background:#28c840}
+.url{flex:1;background:#3d3d3d;border-radius:5px;padding:4px 10px;color:#aaa;font-size:11px;font-family:'JetBrains Mono',monospace}
+.badge{background:var(--accent);color:var(--navy);font-size:10px;font-weight:700;padding:3px 8px;border-radius:4px}
+.page{max-width:780px;margin:0 auto;background:#fff;min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,.12)}
+.hero{background:linear-gradient(135deg,var(--navy),var(--blue));padding:40px 40px 32px;color:#fff}
+.tag{display:inline-block;background:var(--accent);color:var(--navy);font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;padding:3px 9px;border-radius:3px;margin-bottom:14px}
+.hero h1{font-family:'Merriweather',serif;font-size:22px;line-height:1.4;margin-bottom:14px}
+.meta{display:flex;gap:10px;flex-wrap:wrap}
+.pill{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.88);font-size:11px;padding:4px 10px;border-radius:20px}
+</style>
+</head>
+<body>
+
+<!-- ===================================================================
+     PUBLISHING GUIDE — visible in your browser, preview only
+     This panel does NOT get pasted into WordPress.
+     =================================================================== -->
+<details class="pub-guide" open>
+  <summary>PUBLISHING GUIDE — 4 steps to post this to WordPress</summary>
+  <div class="pub-guide-body">
+
+    <div class="pub-step">
+      <div class="pub-step-ttl">STEP 1 — ONE TIME ONLY: Add MathJax + Desmos to functions.php</div>
+      <p>Do this once. After that, skip to Step 2 for every future post.<br>
+         Go to: WordPress Admin → Appearance → Theme File Editor → functions.php<br>
+         Scroll to the bottom and paste the code below.</p>
+      <textarea readonly rows="10">
+// ── ACE AP CALCULUS: MathJax + Desmos ─────────────────────────────
+// Paste this at the bottom of functions.php — one time only.
+
+add_action('wp_head', function() {
+    echo '<script>MathJax = { tex: { inlineMath: [["$","$"]], displayMath: [["$$","$$"]] } };</script>';
+    echo '<script src="https://www.desmos.com/api/v1.7/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0fda6"></script>';
+}, 1);
+
+add_action('wp_enqueue_scripts', function() {
+    wp_enqueue_script('mathjax', 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js', [], null, false);
+});
+// ──────────────────────────────────────────────────────────────────</textarea>
+    </div>
+
+    <hr class="pub-divider">
+
+    <div class="pub-step">
+      <div class="pub-step-ttl">STEP 2 — WordPress title field</div>
+      <p>In the WordPress editor, click the title field at the top and paste this exactly:</p>
+      <textarea readonly rows="2">Hard Limits in AP Calculus: Rationalizing, Complex Fractions, and the Techniques That Save Your Score</textarea>
+    </div>
+
+    <hr class="pub-divider">
+
+    <div class="pub-step">
+      <div class="pub-step-ttl">STEP 3 — WordPress Custom HTML block (the post content)</div>
+      <p>In the WordPress editor content area:<br>
+         1. Click the <code>+</code> button → search <code>Custom HTML</code> → add that block<br>
+         2. Open this file in VS Code or any text editor<br>
+         3. Find the comment that says: <code>▼▼▼ START: PASTE THIS INTO WORDPRESS CUSTOM HTML BLOCK ▼▼▼</code><br>
+         4. Select everything from that line down to: <code>▲▲▲ END: WORDPRESS CUSTOM HTML BLOCK ▲▲▲</code><br>
+         5. Paste into the Custom HTML block in WordPress<br><br>
+         That section contains the fonts link, all the CSS, all the post content, and the Desmos graph script.</p>
+    </div>
+
+    <hr class="pub-divider">
+
+    <div class="pub-step">
+      <div class="pub-step-ttl">STEP 4 — SEO fields (in the WordPress sidebar)</div>
+      <p>If you use Yoast or Rank Math, fill these in the sidebar before publishing:</p>
+      <textarea readonly rows="5">
+SEO Title:        Hard Limits in AP Calculus: Rationalizing & Complex Fractions (2026)
+Meta Description: Learn which technique to use for hard limits in AP Calculus — rationalizing the numerator, complex fractions, and the 3 mistakes that cost the most points.
+Slug:             hard-limits-ap-calculus-rationalizing-complex-fractions
+Focus Keyword:    hard limits ap calculus</textarea>
+    </div>
+
+  </div>
+</details>
+<!-- END PUBLISHING GUIDE -->
+
+
+<!-- ===================================================================
+     PREVIEW ONLY: browser chrome bar
+     Do NOT paste this into WordPress.
+     =================================================================== -->
+<div class="chrome">
+  <div class="dots">
+    <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
+  </div>
+  <div class="url">enginearu.com/ap-calculus-prep/hard-limits-ap-calculus-rationalizing-complex-fractions/</div>
+  <div class="badge">PREVIEW</div>
+</div>
+<!-- END PREVIEW CHROME -->
+
+
+<!-- ===================================================================
+     PREVIEW ONLY: hero header
+     WordPress uses the title field (Step 2) instead of this.
+     Do NOT paste this into WordPress.
+     =================================================================== -->
+<div class="page">
+<div class="hero">
+  <div class="tag">AP Calculus AB · BC · Unit 1: Limits and Continuity</div>
+  <h1>Hard Limits in AP Calculus:<br>Rationalizing, Complex Fractions, and the Techniques That Save Your Score</h1>
+  <div class="meta">
+    <span class="pill">⏱ 14 min read</span>
+    <span class="pill">✓ 500+ EngiNearU students</span>
+    <span class="pill">3 → 5 score improvement</span>
+  </div>
+</div>
+<!-- END PREVIEW HERO -->
+
+
+<!-- ===================================================================
+     ▼▼▼ START: PASTE THIS INTO WORDPRESS CUSTOM HTML BLOCK ▼▼▼
+     ===================================================================
+     Select from this line all the way down to the matching END marker.
+     Paste the entire selection into one Custom HTML block in WordPress.
+     =================================================================== -->
+
+<!-- Google Fonts — loads the typefaces used in the post styling -->
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<!-- Post CSS — all visual styles for the content below -->
+<style>
+.ace-post{
+  --navy:#0f1e3c;--blue:#1a3a6b;--accent:#e8a020;--accent-light:#fef3dc;
+  --green:#1a7a4a;--green-light:#eaf7f0;--red:#c0392b;--red-light:#fdf2f1;
+  --purple:#7c3aed;--purple-light:#f3f0ff;
+  --gray:#f5f6f8;--border:#dde1e8;--text:#1a1a2e;--muted:#6b7280;
+  font-family:'Inter',sans-serif;font-size:14px;line-height:1.8;color:var(--text);
+  padding:32px 0;
+}
+.ace-post .toc{background:var(--gray);border-left:4px solid var(--navy);border-radius:0 8px 8px 0;padding:18px 20px;margin-bottom:36px}
+.ace-post .toc-ttl{font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.ace-post .toc ol{padding-left:18px}.ace-post .toc li{margin-bottom:6px}
+.ace-post .toc a{color:var(--blue);text-decoration:none;font-size:13px;font-weight:500}
+.ace-post .sec{margin-bottom:40px}
+.ace-post h2{font-family:'Merriweather',serif;font-size:18px;font-weight:700;color:var(--navy);margin-bottom:14px;padding-bottom:8px;border-bottom:2px solid var(--border)}
+.ace-post h3{font-size:14px;font-weight:700;color:var(--blue);margin:18px 0 8px}
+.ace-post p{margin-bottom:13px;font-size:14px}
+.ace-post .math-block{background:var(--gray);border-radius:8px;padding:16px 20px;margin:14px 0;text-align:center;overflow-x:auto;font-size:15px}
+.ace-post .step-list{list-style:none;padding-left:0;margin-bottom:16px}
+.ace-post .step-list li{display:flex;gap:14px;margin-bottom:14px;align-items:flex-start}
+.ace-post .snum{background:var(--navy);color:#fff;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;margin-top:2px}
+.ace-post .scontent{flex:1;font-size:13px}
+.ace-post .scontent strong{color:var(--navy);display:block;margin-bottom:4px;font-size:13px}
+.ace-post .rubric{background:var(--green-light);border-left:4px solid var(--green);border-radius:0 8px 8px 0;padding:14px 18px;margin:16px 0}
+.ace-post .rubric-ttl{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--green);margin-bottom:8px}
+.ace-post .rubric ul{padding-left:18px}.ace-post .rubric li{font-size:13px;margin-bottom:5px;color:#1a4a32}
+.ace-post .mcq-check{background:#eef2ff;border-left:4px solid #4f46e5;border-radius:0 8px 8px 0;padding:14px 18px;margin:16px 0}
+.ace-post .mcq-ttl{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#4f46e5;margin-bottom:8px}
+.ace-post .mcq-check ul{padding-left:18px}.ace-post .mcq-check li{font-size:13px;margin-bottom:5px;color:#312e81}
+.ace-post .cta{background:linear-gradient(135deg,var(--navy),var(--blue));border-radius:12px;padding:24px 26px;margin:28px 0;color:#fff}
+.ace-post .cta h3{color:#fff;margin:0 0 8px;font-size:15px;font-family:'Merriweather',serif}
+.ace-post .cta p{color:rgba(255,255,255,.85);font-size:13px;margin-bottom:14px}
+.ace-post .btn{display:inline-block;background:var(--accent);color:var(--navy);font-weight:700;font-size:13px;padding:10px 20px;border-radius:6px;text-decoration:none}
+.ace-post .sub{font-size:11px;color:rgba(255,255,255,.6);margin-top:10px;font-style:italic}
+.ace-post .sea{background:var(--accent-light);border:2px solid var(--accent);border-radius:12px;padding:22px 26px;margin:20px 0}
+.ace-post .sea h3{color:var(--navy);font-size:14px;margin-bottom:8px;font-weight:700}
+.ace-post .sea p{font-size:13px;color:#5a4500;margin-bottom:12px}
+.ace-post .btn-w{display:inline-block;background:var(--navy);color:#fff;font-weight:700;font-size:13px;padding:10px 20px;border-radius:6px;text-decoration:none}
+.ace-post .mk{border-left:4px solid var(--red);border-radius:0 8px 8px 0;padding:14px 18px;background:var(--red-light);margin-bottom:16px}
+.ace-post .mk-n{font-weight:700;color:var(--red);font-size:13px;margin-bottom:5px}
+.ace-post .mk-w{font-size:12px;color:#7a2020;margin-bottom:6px;font-style:italic}
+.ace-post .mk-f{font-size:13px;color:var(--text);margin-bottom:6px}
+.ace-post .mk-c{font-size:12px;color:#7a2020;font-style:italic;margin-top:4px;border-top:1px solid rgba(192,57,43,.2);padding-top:6px}
+.ace-post .prob{background:var(--gray);border-radius:8px;padding:16px 18px;margin-bottom:14px;border:1px solid var(--border)}
+.ace-post .plbl{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.ace-post .prob p{font-size:13px;margin-bottom:8px}
+.ace-post .answers{background:var(--navy);border-radius:8px;padding:18px 20px;margin-top:20px}
+.ace-post .ans-ttl{color:var(--accent);font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:12px}
+.ace-post .ans-item{font-size:13px;color:rgba(255,255,255,.9);margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid rgba(255,255,255,.1)}
+.ace-post .ans-item:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
+.ace-post .faq-item{border-bottom:1px solid var(--border);padding:16px 0}
+.ace-post .faq-item:last-child{border-bottom:none}
+.ace-post .faq-q{font-weight:700;color:var(--navy);font-size:13px;margin-bottom:8px}
+.ace-post .faq-a{font-size:13px;line-height:1.7;margin-bottom:0}
+.ace-post .faq-close{font-size:13px;color:var(--blue);font-weight:600;margin-top:6px;font-style:italic}
+.ace-post .qr{background:var(--navy);color:#fff;border-radius:10px;padding:24px 26px;margin:20px 0}
+.ace-post .qr-ttl{color:var(--accent);font-size:12px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:16px}
+.ace-post .qrf{background:rgba(255,255,255,.07);border-radius:6px;padding:12px 16px;margin-bottom:10px;text-align:center}
+.ace-post .qrf-lbl{font-size:11px;color:rgba(255,255,255,.5);margin-bottom:6px}
+.ace-post .qrb{margin-top:14px;list-style:none;padding-left:0}
+.ace-post .qrb li{font-size:12px;color:rgba(255,255,255,.85);margin-bottom:6px;padding-left:20px;position:relative}
+.ace-post .qrb li::before{content:"→";color:var(--accent);position:absolute;left:0;font-weight:700}
+.ace-post .qrb .nv{color:#fca5a5!important}.ace-post .qrb .nv::before{content:"✗"!important;color:#fca5a5!important}
+.ace-post .qrb .ok::before{content:"✓";color:#4ade80}
+.ace-post .framework{background:var(--accent-light);border:1px solid var(--accent);border-radius:8px;padding:18px 20px;margin:16px 0}
+.ace-post .fw-ttl{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#8a5a00;margin-bottom:12px}
+.ace-post .fw-step{display:flex;gap:12px;margin-bottom:12px;align-items:flex-start}
+.ace-post .fw-num{background:var(--accent);color:var(--navy);width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;flex-shrink:0;margin-top:2px}
+.ace-post .fw-text{font-size:13px;color:#5a3c00;line-height:1.6}
+.ace-post .fw-text strong{color:#3a2000}
+.ace-post .related-link{display:block;padding:12px 14px;background:var(--gray);border-radius:6px;border:1px solid var(--border);margin-bottom:8px;font-size:13px;color:var(--muted);font-style:italic}
+.ace-post .desmos-wrap{border-radius:10px;overflow:hidden;margin:18px 0;border:1px solid var(--border)}
+.ace-post .desmos-label{background:var(--navy);color:#fff;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:8px 14px;display:flex;align-items:center;gap:6px}
+.ace-post .desmos-dot{width:8px;height:8px;border-radius:50%;background:var(--accent)}
+.ace-post .note{background:var(--purple-light);border-left:3px solid var(--purple);border-radius:0 6px 6px 0;padding:10px 14px;margin:14px 0;font-size:12px;color:#4c1d95}
+.ace-post .body-list{padding-left:20px;margin-bottom:12px;font-size:13px}
+.ace-post .body-list li{margin-bottom:5px}
+.ace-post hr{border:none;border-top:1px solid var(--border);margin:28px 0}
+</style>
+
+<!-- Post content — all sections of the blog post -->
+<div class="ace-post">
+
+  <!-- Table of contents -->
+  <div class="toc">
+    <div class="toc-ttl">Jump To What You Need</div>
+    <ol>
+      <li><a href="#panic">The Moment Most Students Panic</a></li>
+      <li><a href="#what-they-do">What These Techniques Actually Do</a></li>
+      <li><a href="#framework">The Decision Framework: Which Technique to Use When</a></li>
+      <li><a href="#example-1">Worked Example 1: Rationalizing the Numerator (Foundational)</a></li>
+      <li><a href="#mid-cta">Get the Free Guide</a></li>
+      <li><a href="#example-2">Worked Example 2: Complex Fractions, the MCQ Problem Type</a></li>
+      <li><a href="#mistakes">The 3 Mistakes That Cost My Students Points</a></li>
+      <li><a href="#practice">Practice Problems</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="#quick-reference">Save This For Exam Day</a></li>
+      <li><a href="#related">Related Posts</a></li>
+    </ol>
+  </div>
+
+  <!-- Section 1: Hook / Intro -->
+  <div class="sec" id="panic">
+    <h2>The Moment Most Students Panic</h2>
+    <p>Most students can handle a straightforward limit problem using direct substitution until the AP exam hands them a rational function that requires rationalizing the numerator or simplifying a complex fraction. That is where hard limits in AP Calculus start, and they panic because nobody taught them which technique to reach for when.</p>
+    <p>I have watched this happen in real time with students who scored in the 80s and 90s on every unit test. The problem is not that they are bad at math. The problem is that they have a toolkit with no labels. They know rationalizing exists. They know complex fractions are a thing. But the second they see one on a timed multiple choice section, they freeze trying to remember which method to start with, and they burn 4 minutes on a problem that should take 90 seconds.</p>
+    <p>Here is what I want you to take from this post before you read anything else: these algebraic limit techniques are, at their core, all doing the same thing. They are trying to cancel the factor that is causing the zero in the denominator. Once you see them that way, choosing a technique becomes a simple diagnostic instead of a guessing game.</p>
+    <p>The research backs up why this matters. Lamar University's calculus notes identify canceling terms instead of factors as the single most common error students make in algebraic limit problems. Fiveable flags the same issue. And the Vanderbilt error catalog adds two more that I see every year in my own sessions: students who write the simplified form after canceling without noting the $x \neq c$ restriction, and students who drop the $\lim$ notation mid-problem before the limit is actually evaluated. All three of those errors show up on hard limits in AP Calculus, and all three are fully preventable.</p>
+    <p>This post is specifically about those techniques. By the time we are done, you will have a decision flowchart, two fully worked examples with AP exam rubric framing, and the 3 mistakes that cost my students the most points on this topic.</p>
+  </div>
+
+  <!-- Section 2: What these techniques actually do -->
+  <div class="sec" id="what-they-do">
+    <h2>What These Techniques Actually Do</h2>
+    <p>Every algebraic limit technique exists because direct substitution failed. That is the only reason any of them exist. When you plug in $x = c$ and get $\dfrac{0}{0}$, the function has a removable discontinuity at that point. The numerator and denominator share a common factor. Your job is to find it and cancel it.</p>
+    <p><strong>Rationalizing the numerator</strong> works when you have a square root in the numerator and direct substitution gives $\dfrac{0}{0}$. The conjugate method multiplies top and bottom by the conjugate expression, which transforms the radical product into a difference of squares and reveals the cancellable factor.</p>
+    <p><strong>Complex fraction simplification</strong> works when the entire expression has a compound fraction: a fraction inside a fraction, usually built around a $\dfrac{1}{x}$ or $\dfrac{1}{x+h}$ term. The technique is to multiply the top and bottom of the whole expression by the LCD, which clears the nested fractions and exposes the factor you need to cancel.</p>
+    <p><strong>Factoring and canceling</strong> is the baseline. When both numerator and denominator are polynomials that give $\dfrac{0}{0}$, factor both, find the common binomial, and cancel. This is Unit 1 bread and butter and the skill that underpins everything else.</p>
+    <p>Here is the thing the textbook does not make obvious: all three methods produce the same result. You cancel the zero-causing factor, evaluate the limit by direct substitution on the simplified expression, and move on. The final answer is the same regardless of which algebraic path you took. The technique is just the vehicle for getting to the cancellation.</p>
+    <p>One more thing worth naming here. The simplified expression you end up with after canceling is not the same as the original function. The original is undefined at $x = c$. The simplified version is not. That distinction matters for the AP exam and I will come back to it in the Mistakes section.</p>
+  </div>
+
+  <!-- Section 3: Decision framework -->
+  <div class="sec" id="framework">
+    <h2>The Decision Framework: Which Technique to Use When</h2>
+    <p>When direct substitution gives $\dfrac{0}{0}$, run through this decision sequence before you write a single algebra step.</p>
+
+    <div class="framework">
+      <div class="fw-ttl">Decision flowchart: start here every time</div>
+
+      <div class="fw-step">
+        <div class="fw-num">1</div>
+        <div class="fw-text"><strong>Check for obvious polynomial factors.</strong> If the numerator and denominator are both polynomials, try factoring first. Quadratics, difference of squares, sum/difference of cubes. If you can factor and cancel, done in under 60 seconds.</div>
+      </div>
+
+      <div class="fw-step">
+        <div class="fw-num">2</div>
+        <div class="fw-text"><strong>Check for a square root in the numerator or denominator.</strong> Radical present? Reach for the conjugate. Multiply top and bottom by the conjugate of the radical expression. Expand using difference of squares. Factor and cancel.</div>
+      </div>
+
+      <div class="fw-step">
+        <div class="fw-num">3</div>
+        <div class="fw-text"><strong>Check for a fraction inside the expression.</strong> See $\dfrac{1}{x+h} - \dfrac{1}{x}$ in the numerator? Or any compound fraction? LCD technique. Find the LCD of all inner fractions, multiply the entire expression by it, simplify, cancel.</div>
+      </div>
+
+      <div class="fw-step">
+        <div class="fw-num">4</div>
+        <div class="fw-text"><strong>Write $\lim_{x \to c}$ in front of every line.</strong> Before your first algebra step. Every line. Until the final substitution. Not optional.</div>
+      </div>
+
+      <div class="fw-step">
+        <div class="fw-num">5</div>
+        <div class="fw-text"><strong>After canceling the common factor, state the restriction.</strong> The simplified expression is valid for $x \neq c$. Write it. The original function still has a hole there.</div>
+      </div>
+    </div>
+
+    <p>One thing I have found in practice: step 3 trips students up more than any other step. A complex fraction looks messy and students feel like they need to "simplify" it piece by piece. You do not. You multiply the entire thing by the LCD all at once, let everything cancel, and the algebra becomes clean immediately. Trust the process.</p>
+
+    <!-- Live Desmos graph — removable discontinuity -->
+    <div class="desmos-wrap">
+      <div class="desmos-label">
+        <div class="desmos-dot"></div>
+        Live Graph: Removable Discontinuity: hole at x = 4, limit = 1/4
+      </div>
+      <div id="desmos-hole" style="width:100%;height:320px;"></div>
+    </div>
+  </div>
+
+  <!-- Section 4: Worked Example 1 -->
+  <div class="sec" id="example-1">
+    <h2>Worked Example 1: Rationalizing the Numerator (Foundational)</h2>
+    <p>Here is a rationalizing limit that is exactly the style you will see in AP Calculus Unit 1.</p>
+
+    <p><strong>Problem:</strong> Find $\displaystyle\lim_{x \to 4} \dfrac{\sqrt{x} - 2}{x - 4}$</p>
+
+    <p>Direct substitution gives $\dfrac{\sqrt{4} - 2}{4 - 4} = \dfrac{0}{0}$. Indeterminate form. Proceed to rationalizing.</p>
+
+    <ul class="step-list">
+      <li>
+        <div class="snum">1</div>
+        <div class="scontent">
+          <strong>Multiply top and bottom by the conjugate of the numerator.</strong>
+          The conjugate of $\sqrt{x} - 2$ is $\sqrt{x} + 2$.
+          <div class="math-block">$$\lim_{x \to 4} \frac{\sqrt{x} - 2}{x - 4} \cdot \frac{\sqrt{x} + 2}{\sqrt{x} + 2}$$</div>
+        </div>
+      </li>
+      <li>
+        <div class="snum">2</div>
+        <div class="scontent">
+          <strong>Expand the numerator using difference of squares.</strong>
+          <div class="math-block">$$\lim_{x \to 4} \frac{(\sqrt{x})^2 - (2)^2}{(x - 4)(\sqrt{x} + 2)} = \lim_{x \to 4} \frac{x - 4}{(x - 4)(\sqrt{x} + 2)}$$</div>
+        </div>
+      </li>
+      <li>
+        <div class="snum">3</div>
+        <div class="scontent">
+          <strong>Cancel the common factor.</strong>
+          $(x - 4)$ appears in both numerator and denominator. Cancel it. This cancellation is valid for $x \neq 4$.
+          <div class="math-block">$$\lim_{x \to 4} \frac{1}{\sqrt{x} + 2}$$</div>
+        </div>
+      </li>
+      <li>
+        <div class="snum">4</div>
+        <div class="scontent">
+          <strong>Apply the limit by direct substitution.</strong>
+          <div class="math-block">$$\lim_{x \to 4} \frac{1}{\sqrt{x} + 2} = \frac{1}{\sqrt{4} + 2} = \frac{1}{4}$$</div>
+          <div class="math-block">$$\boxed{\lim_{x \to 4} \frac{\sqrt{x} - 2}{x - 4} = \frac{1}{4}}$$</div>
+        </div>
+      </li>
+    </ul>
+
+    <p>Notice that at each step above, the $\lim_{x \to 4}$ notation stayed in front of every expression until step 4. That is not decoration. That is the correct mathematical statement. The moment you drop it, you are no longer writing a limit. You are writing a value. Those are different claims.</p>
+
+    <div class="rubric">
+      <div class="rubric-ttl">Here is exactly how the AP exam scores this type of problem</div>
+      <ul>
+        <li>Correctly identifies $\frac{0}{0}$ indeterminate form and moves to the appropriate algebraic technique</li>
+        <li>Multiplies by the conjugate of the radical expression (conjugate must match the numerator, not the denominator)</li>
+        <li>Correctly expands using difference of squares to produce $(x - 4)$ in the numerator</li>
+        <li>Cancels the $(x - 4)$ factor before applying the limit (not after)</li>
+        <li>Applies the limit by direct substitution on the simplified expression</li>
+        <li>States the final answer as a simplified fraction</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Mid-post CTA -->
+  <div class="sec" id="mid-cta">
+    <div class="cta">
+      <h3>Get the Free "Before AP Calculus" Guide</h3>
+      <p>Not sure if your algebra skills are solid enough for Unit 1 limit problems? I put together a free guide that walks you through exactly what needs to be locked in before the limit techniques in this post start clicking fast. Zero fluff.</p>
+      <a href="https://www.aceapcalculus.com/before-apcalc" class="btn">Download the Free Guide</a>
+      <div class="sub"><em>Parents: this is a great starting point to see exactly where your student stands before limits become a real issue in their course.</em></div>
+    </div>
+  </div>
+
+  <!-- Section 5: Worked Example 2 -->
+  <div class="sec" id="example-2">
+    <h2>Worked Example 2: Complex Fractions, the MCQ Problem Type</h2>
+    <p>This is the one that shows up in multiple choice and slows students down the most. The expression looks messy. Students see a fraction inside a fraction and immediately start doing piece-by-piece simplification, which takes 4 minutes and usually produces an error. The right move takes 90 seconds.</p>
+
+    <p><strong>Problem:</strong> Find $\displaystyle\lim_{h \to 0} \dfrac{\dfrac{1}{x+h} - \dfrac{1}{x}}{h}$</p>
+
+    <p>Direct substitution gives $\dfrac{\frac{1}{x} - \frac{1}{x}}{0} = \dfrac{0}{0}$. Indeterminate form. Proceed to the LCD technique.</p>
+
+    <div class="mcq-check">
+      <div class="mcq-ttl">Here is exactly what the AP exam is checking on this problem type</div>
+      <ul>
+        <li>Identifies the LCD of the inner fractions and applies it to the entire expression (not just the numerator)</li>
+        <li>Correctly cancels the resulting factors in the numerator</li>
+        <li>Carries $\lim_{h \to 0}$ notation through every step until the substitution</li>
+        <li>Recognizes that this result is the derivative of $f(x) = \frac{1}{x}$ at a general point</li>
+      </ul>
+    </div>
+
+    <ul class="step-list">
+      <li>
+        <div class="snum">1</div>
+        <div class="scontent">
+          <strong>Identify the LCD of the inner fractions.</strong>
+          The inner fractions are $\dfrac{1}{x+h}$ and $\dfrac{1}{x}$. Their LCD is $x(x+h)$.
+        </div>
+      </li>
+      <li>
+        <div class="snum">2</div>
+        <div class="scontent">
+          <strong>Multiply the entire expression (top and bottom) by the LCD.</strong>
+          <div class="math-block">$$\lim_{h \to 0} \frac{\dfrac{1}{x+h} - \dfrac{1}{x}}{h} \cdot \frac{x(x+h)}{x(x+h)}$$</div>
+        </div>
+      </li>
+      <li>
+        <div class="snum">3</div>
+        <div class="scontent">
+          <strong>Distribute and cancel in the numerator.</strong>
+          <div class="math-block">$$\lim_{h \to 0} \frac{x - (x+h)}{h \cdot x(x+h)}$$</div>
+        </div>
+      </li>
+      <li>
+        <div class="snum">4</div>
+        <div class="scontent">
+          <strong>Simplify the numerator.</strong>
+          <div class="math-block">$$\lim_{h \to 0} \frac{-h}{h \cdot x(x+h)}$$</div>
+        </div>
+      </li>
+      <li>
+        <div class="snum">5</div>
+        <div class="scontent">
+          <strong>Cancel the common factor of $h$.</strong>
+          <div class="math-block">$$\lim_{h \to 0} \frac{-1}{x(x+h)}$$</div>
+        </div>
+      </li>
+      <li>
+        <div class="snum">6</div>
+        <div class="scontent">
+          <strong>Apply the limit by direct substitution ($h \to 0$).</strong>
+          <div class="math-block">$$\frac{-1}{x(x + 0)} = -\frac{1}{x^2}$$</div>
+          <div class="math-block">$$\boxed{\lim_{h \to 0} \frac{\dfrac{1}{x+h} - \dfrac{1}{x}}{h} = -\frac{1}{x^2}}$$</div>
+        </div>
+      </li>
+    </ul>
+
+    <div class="note">
+      <strong>Bonus connection the AP exam loves:</strong> Recognize this expression? It is the limit definition of the derivative (Definition 1, general form) applied to $f(x) = \frac{1}{x}$. So this limit is just $f'(x)$ for that function. Once you see complex fraction limits this way, a lot of them become instant recognitions instead of 4-minute algebra sessions. The three limit definitions of the derivative are covered in the derivative post linked below.
+    </div>
+  </div>
+
+  <!-- Section 6: The 3 Mistakes -->
+  <div class="sec" id="mistakes">
+    <h2>The 3 Mistakes That Cost My Students Points</h2>
+
+    <div class="mk">
+      <div class="mk-n">Mistake 1: Canceling terms instead of factors</div>
+      <div class="mk-w">Why it happens: Students see $\frac{(x-4) + 2}{x - 4}$ and want to cancel the $(x-4)$ from the first term of the numerator, leaving $\frac{2}{1}$. That is canceling a term. You can only cancel a factor that multiplies the entire numerator. Lamar University calls this the single most common error in algebraic limit problems, and I see it in my sessions constantly.</div>
+      <div class="mk-f"><strong>Fix:</strong> Before you cancel anything, factor the numerator completely. If the factor you want to cancel does not multiply the entire numerator as a single product, you cannot cancel it. Write it as a product first, always.</div>
+      <div class="mk-c">Consequence: You get a wrong numerical answer, pick a distractor on multiple choice, and lose the point. And because the arithmetic looks plausible, you usually do not go back to check it.</div>
+    </div>
+
+    <div class="mk">
+      <div class="mk-n">Mistake 2: Writing the simplified form without the $x \neq c$ restriction</div>
+      <div class="mk-w">Why it happens: After canceling $(x-4)$, students write $\frac{1}{\sqrt{x}+2}$ and treat it as the original function. It is not. The original function is undefined at $x = 4$. The simplified version is defined there. The AP exam knows the difference and so should you.</div>
+      <div class="mk-f"><strong>Fix:</strong> After canceling the common factor, note the restriction. "For $x \neq 4$, the expression simplifies to $\frac{1}{\sqrt{x}+2}$." Then evaluate the limit. The limit exists. But the function still has a hole at $x = 4$. Those are two separate facts and the exam tests both.</div>
+      <div class="mk-c">Consequence: On a free response asking you to justify continuity or describe behavior at the point, missing the restriction costs you the justification point. On multiple choice, it leads you to misidentify a hole as a point on the function.</div>
+    </div>
+
+    <div class="mk">
+      <div class="mk-n">Mistake 3: Dropping $\lim$ notation before the limit is evaluated</div>
+      <div class="mk-w">Why it happens: Students write three lines of algebra, the notation gets tedious, and they drop the $\lim$ from line 4 onward. The AP exam treats this as a conceptual error. Without the $\lim$ symbol, the expression is a value, not a limit. Writing $\frac{-1}{x(x+h)}$ without $\lim_{h \to 0}$ in front of it is writing the wrong mathematical claim.</div>
+      <div class="mk-f"><strong>Fix:</strong> Write $\lim$ in front of every line until the step where you substitute $h = 0$ (or $x = c$). That is the step where the $\lim$ goes away, because you have evaluated it. Not before.</div>
+      <div class="mk-c">Consequence: On free response, this costs a notation point. On multiple choice, it trains you to confuse intermediate expressions with final answers, which sends you to the wrong answer choice even when your math was right.</div>
+    </div>
+  </div>
+
+  <!-- Section 7: Practice Problems -->
+  <div class="sec" id="practice">
+    <h2>Practice Problems</h2>
+    <p>Try these on your own before checking the answers. If you get stuck on any of them, go back to the decision framework and identify which technique applies before touching any algebra.</p>
+
+    <div class="prob">
+      <div class="plbl">Problem 1: Rationalizing</div>
+      <div class="math-block">$$\lim_{x \to 9} \frac{\sqrt{x} - 3}{x - 9}$$</div>
+    </div>
+
+    <div class="prob">
+      <div class="plbl">Problem 2: Complex Fraction</div>
+      <div class="math-block">$$\lim_{h \to 0} \frac{\dfrac{1}{(x+h)^2} - \dfrac{1}{x^2}}{h}$$</div>
+    </div>
+
+    <div class="prob">
+      <div class="plbl">Problem 3: Factoring First, Then Recognizing the Connection</div>
+      <div class="math-block">$$\lim_{x \to 2} \frac{x^2 - 4}{x - 2}$$</div>
+      <p style="font-size:13px;margin-top:8px;margin-bottom:0">After solving, identify what $f(x)$ and $a$ would be if this were a limit definition of the derivative using Definition 2: $\displaystyle\lim_{x \to a} \frac{f(x) - f(a)}{x - a}$.</p>
+    </div>
+
+    <div class="answers">
+      <div class="ans-ttl">Answers</div>
+      <div class="ans-item">
+        <strong>Problem 1:</strong> Conjugate of $\sqrt{x} - 3$ is $\sqrt{x} + 3$.
+        $$\lim_{x \to 9} \frac{x - 9}{(x-9)(\sqrt{x} + 3)} = \lim_{x \to 9} \frac{1}{\sqrt{x} + 3} = \frac{1}{6}$$
+      </div>
+      <div class="ans-item">
+        <strong>Problem 2:</strong> LCD of inner fractions is $x^2(x+h)^2$.
+        $$\lim_{h \to 0} \frac{x^2 - (x+h)^2}{h \cdot x^2(x+h)^2} = \lim_{h \to 0} \frac{-2xh - h^2}{h \cdot x^2(x+h)^2} = \lim_{h \to 0} \frac{-2x - h}{x^2(x+h)^2} = \frac{-2x}{x^4} = -\frac{2}{x^3}$$
+        This is $f'(x)$ for $f(x) = \frac{1}{x^2}$.
+      </div>
+      <div class="ans-item">
+        <strong>Problem 3:</strong> $x^2 - 4 = (x-2)(x+2)$. Cancel $(x-2)$ for $x \neq 2$:
+        $$\lim_{x \to 2} (x + 2) = 4$$
+        Derivative connection: $f(x) = x^2$, $a = 2$. $f'(2) = 2(2) = 4$. Confirmed.
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 8: FAQ -->
+  <div class="sec" id="faq">
+    <h2>FAQ</h2>
+
+    <div class="faq-item">
+      <div class="faq-q">When should I use rationalizing versus factoring?</div>
+      <div class="faq-a">Look at the numerator first. If there is a square root in the numerator that gives $\frac{0}{0}$, the conjugate is almost always the move. If both numerator and denominator are polynomials giving $\frac{0}{0}$, try factoring first. The visual tell is the radical: no radical, go to factoring. Radical present, go to the conjugate.</div>
+      <div class="faq-close">I have never seen a case where both apply to the same expression, so this is a clean fork, not a judgment call.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">What does "removable discontinuity" mean and why does the AP exam care about it?</div>
+      <div class="faq-a">A removable discontinuity is a hole in the graph. It happens when the numerator and denominator share a factor that you can cancel, meaning the function is undefined at exactly one point but has a well-defined limit there. The AP exam tests two separate ideas: whether the limit exists (it does; the hole is irrelevant to the limit) and whether the function is continuous at that point (it is not, because $f(c)$ is undefined). Students who conflate "the limit exists" with "the function is defined there" miss the continuity questions.</div>
+      <div class="faq-close">Those are not the same claim. I walk through continuity in detail in the Limits Intro post if you need to revisit that before exam day.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">How do I know when direct substitution is enough versus when I need a technique?</div>
+      <div class="faq-a">Always try direct substitution first. Plug in $x = c$. If you get a real number, you are done. If you get $\frac{0}{0}$, that is your signal to pick a technique. If you get $\frac{k}{0}$ where $k \neq 0$, the limit does not exist (or is $\pm\infty$). The only indeterminate form you will see on the AP exam in Unit 1 that requires algebraic technique is $\frac{0}{0}$. Everything else either resolves by substitution or does not exist.</div>
+      <div class="faq-close">Direct substitution first, every time. The techniques only enter when substitution fails.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">Does the $x \neq c$ restriction actually get tested on the AP exam?</div>
+      <div class="faq-a">Yes. Not always explicitly, but the conceptual understanding behind it does. If the exam asks you to classify a discontinuity, determine whether a function is continuous at a point, or explain why a limit exists even though the function is undefined there, you are being tested on exactly this. The restriction $x \neq c$ is what separates the limit behavior from the function value.</div>
+      <div class="faq-close">Getting that distinction cold is worth at least 1 to 2 multiple choice points per exam in my experience. It shows up every year in some form.</div>
+    </div>
+  </div>
+
+  <!-- Section 9: Quick Reference -->
+  <div class="sec" id="quick-reference">
+    <div class="qr">
+      <div class="qr-ttl">Save This For Exam Day</div>
+
+      <div class="qrf">
+        <div class="qrf-lbl">When direct substitution gives 0/0: run this sequence</div>
+        <p style="color:rgba(255,255,255,.85);font-size:13px;text-align:left;margin-bottom:0">
+          Polynomials only? → Factor and cancel.<br>
+          Radical in numerator or denominator? → Conjugate method. Expand with difference of squares. Cancel.<br>
+          Fraction inside the expression? → Find LCD. Multiply top and bottom by LCD. Cancel.
+        </p>
+      </div>
+
+      <ul class="qrb">
+        <li class="ok">Write $\lim_{x \to c}$ on every line until the final substitution step</li>
+        <li class="ok">After canceling a factor, note the restriction: "for $x \neq c$"</li>
+        <li class="ok">After the cancel, evaluate the limit by direct substitution on the simplified expression</li>
+        <li class="ok">Canceling requires the factor to multiply the entire numerator as a product</li>
+        <li class="nv">Canceling terms instead of factors (this is the most common error on this topic)</li>
+        <li class="nv">Dropping $\lim$ notation before evaluating the limit</li>
+        <li class="nv">Writing the simplified form without the $x \neq c$ restriction</li>
+      </ul>
+
+      <div class="qrf">
+        <div class="qrf-lbl">Quick conjugate reminder</div>
+        <p style="color:rgba(255,255,255,.85);font-size:13px;text-align:left;margin-bottom:0">
+          Conjugate of $\sqrt{u} - v$ is $\sqrt{u} + v$.<br>
+          Product = $u - v^2$ (difference of squares). No radicals remain in the numerator after this step.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 10: Related Posts -->
+  <div class="sec" id="related">
+    <h2>Related Posts</h2>
+    <p>Continue through Unit 1 and into Unit 2:</p>
+    <div style="margin-top:14px;">
+      <div style="font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:8px;">Read next — are these functions continuous or differentiable?:</div>
+      <a href="https://enginearu.com/ap-calculus-prep/continuity-vs-differentiability-ap-exam/" class="ext-link" target="_blank" rel="noopener">Continuity vs. Differentiability — What the AP Exam Actually Tests</a>
+      <p style="font-size:12px;color:var(--muted);font-style:italic;margin-top:6px;">Why: This bridges the gap between limits and derivatives. You'll need both concepts sharp before derivative rules.</p>
+      <div style="margin-top:18px;">
+        <div style="font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:8px;">Read first — the intro to limits:</div>
+        <a href="https://enginearu.com/ap-calculus-prep/what-are-limits-ap-calculus/" class="ext-link" target="_blank" rel="noopener">What Are Limits in AP Calculus?</a>
+        <p style="font-size:12px;color:var(--muted);font-style:italic;margin-top:6px;">Why: The techniques here build on the foundation of how limits work conceptually.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- End CTA -->
+  <div class="sec" id="end-cta">
+    <div class="cta">
+      <h3>Build This Into Your Prep Before It Shows Up On a Test</h3>
+      <p>These algebraic limit techniques are not optional. They show up in multiple choice every year, and they also show up as the first step in FRQ problems that look like they are about something else entirely. If the algebra here is shaky, it will cost you later in Unit 1 and again in Unit 2 when the derivative definitions require the same moves.</p>
+      <a href="https://www.aceapcalculus.com/before-apcalc" class="btn">Download the Free Guide</a>
+      <div class="sub"><em>Parents: if your student is in the middle of Unit 1 and hitting a wall on algebraic limits, this guide is the fastest way to identify what is missing.</em></div>
+    </div>
+
+    <!-- Seasonal CTA — active through September 15, 2026 -->
+    <div class="sea">
+      <h3>Get Ahead This Summer Before the School Year Starts</h3>
+      <p>If you want your student to get through algebraic limit techniques before the school year even begins, my summer program runs in July and August. Structured. Small groups. Real AP exam practice from day one. Spots fill fast.</p>
+      <a href="https://www.aceapcalculus.com/summer-diagnostic-page" class="btn-w">See Summer Program Details</a>
+    </div>
+  </div>
+
+</div>
+<!-- END POST CONTENT -->
+
+<!-- Desmos graph script — live interactive graph for the preview -->
+<script>
+(function() {
+  var elt = document.getElementById('desmos-hole');
+  if (!elt || typeof Desmos === 'undefined') return;
+  var calc = Desmos.GraphingCalculator(elt, {
+    expressions: false,
+    settingsMenu: false,
+    zoomButtons: false,
+    lockViewport: true
+  });
+  calc.setMathBounds({ left: -0.5, right: 10, bottom: -0.05, top: 0.65 });
+  // f(x) = (sqrt(x) - 2)/(x - 4) — shows removable discontinuity at x=4
+  calc.setExpression({ id: 'curve', latex: '\\frac{\\sqrt{x}-2}{x-4}', color: '#1a3a6b', lineWidth: 2.5 });
+  // Highlight the limit value point (hole) at (4, 0.25)
+  calc.setExpression({ id: 'hole', latex: '(4, 0.25)', color: '#e8a020', pointSize: 10, pointStyle: Desmos.Styles.OPEN });
+  calc.setExpression({ id: 'label', latex: '(4, 0.25)', label: 'Limit = 1/4, but f(4) undefined', showLabel: true, color: '#e8a020', pointSize: 0 });
+})();
+</script>
+
+<!-- ===================================================================
+     ▲▲▲ END: WORDPRESS CUSTOM HTML BLOCK ▲▲▲
+     =================================================================== -->
+
+</div><!-- end .page -->
+
+</body>
+</html>

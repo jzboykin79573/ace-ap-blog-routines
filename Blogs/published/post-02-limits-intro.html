@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PREVIEW — Limits in AP Calculus — What They Actually Mean</title>
+
+<!--
+=======================================================================
+  PREVIEW FILE — ACE AP CALCULUS BLOG
+  Post 02: Limits in AP Calculus — What They Actually Mean
+=======================================================================
+  This file has three jobs:
+  1. Let you preview the post in your browser before publishing
+  2. Show you a publishing guide at the top of the page
+  3. Mark exactly what to copy into each part of WordPress
+
+  HOW TO USE THIS FILE
+  ─────────────────────
+  Open it in your browser → read the publishing guide at the top
+  Open it in VS Code → the comment markers show you what goes where
+
+  WHAT GETS PASTED INTO WORDPRESS
+  ─────────────────────────────────
+  STEP 1 (one time only) → functions.php  (see guide below)
+  STEP 2 → WordPress title field          (see guide below)
+  STEP 3 → One Custom HTML block          (marked in the body below)
+  STEP 4 → Yoast / Rank Math SEO fields   (see guide below)
+=======================================================================
+-->
+
+<!-- PREVIEW-ONLY: Fonts, MathJax, Desmos load here for local preview.
+     WordPress gets MathJax + Desmos from functions.php (Step 1 below).
+     Do NOT paste any of this <head> section into WordPress. -->
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Nunito+Sans:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<script>MathJax = { tex: { inlineMath: [['$','$']], displayMath: [['$$','$$']], processEscapes: true } };</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+<script src="https://www.desmos.com/api/v1.7/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0fda6"></script>
+
+<!-- PREVIEW-ONLY CSS: styles for the browser chrome, hero, and page wrapper. None of this goes into WordPress. -->
+<style>
+:root{
+  --navy:#1a3a6b;--blue:#1e4d8c;--accent:#e8a020;--accent-light:#fef3dc;
+  --green:#1a7a4a;--green-light:#eaf7f0;--red:#c0392b;--red-light:#fdf2f1;
+  --purple:#7c3aed;--purple-light:#f3f0ff;
+  --gray:#f5f6f8;--border:#dde1e8;--text:#1a1a2e;--muted:#6b7280;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Nunito Sans',sans-serif;background:#eef0f4;color:var(--text);font-size:14px;line-height:1.8}
+/* Publishing guide panel */
+.pub-guide{background:#1a1a2e;font-family:'JetBrains Mono',monospace}
+.pub-guide summary{padding:14px 20px;cursor:pointer;color:var(--accent);font-size:13px;font-weight:700;letter-spacing:.5px;list-style:none;display:flex;align-items:center;gap:10px}
+.pub-guide summary::before{content:"▶";font-size:10px;transition:transform .2s}
+.pub-guide[open] summary::before{transform:rotate(90deg)}
+.pub-guide-body{padding:0 20px 20px}
+.pub-step{margin-bottom:24px}
+.pub-step-ttl{color:var(--accent);font-size:12px;font-weight:700;margin-bottom:6px;letter-spacing:.5px}
+.pub-step p{color:rgba(255,255,255,.75);font-size:12px;margin-bottom:8px;font-family:'Nunito Sans',sans-serif;line-height:1.6}
+.pub-step textarea{width:100%;background:#0d0d1a;color:#a8d8a8;border:1px solid #333;border-radius:6px;padding:12px;font-size:11px;font-family:'JetBrains Mono',monospace;line-height:1.6;resize:vertical;min-height:80px}
+.pub-step code{background:#0d0d1a;color:var(--accent);padding:2px 6px;border-radius:3px;font-size:11px}
+.pub-divider{border:none;border-top:1px solid #2a2a4a;margin:20px 0}
+/* Preview chrome bar */
+.chrome{background:#2d2d2d;padding:8px 14px;display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:100}
+.dots{display:flex;gap:6px}.dot{width:11px;height:11px;border-radius:50%}
+.dot.r{background:#ff5f57}.dot.y{background:#febc2e}.dot.g{background:#28c840}
+.url{flex:1;background:#3d3d3d;border-radius:5px;padding:4px 10px;color:#aaa;font-size:11px;font-family:'JetBrains Mono',monospace}
+.badge{background:var(--accent);color:var(--navy);font-size:10px;font-weight:700;padding:3px 8px;border-radius:4px}
+/* Preview page wrapper + hero */
+.page{max-width:780px;margin:0 auto;background:#fff;min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,.12)}
+.hero{background:linear-gradient(135deg,#1a3a6b,#1e4d8c);padding:40px 40px 32px;color:#fff}
+.tag{display:inline-block;background:#e8a020;color:#1a3a6b;font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;padding:3px 9px;border-radius:3px;margin-bottom:14px}
+.hero h1{font-family:'Montserrat',sans-serif;font-size:22px;line-height:1.4;margin-bottom:14px}
+.meta{display:flex;gap:10px;flex-wrap:wrap}
+.pill{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.88);font-size:11px;padding:4px 10px;border-radius:20px}
+</style>
+</head>
+<body>
+
+<!-- ===================================================================
+     PUBLISHING GUIDE — visible in your browser, preview only
+     This panel does NOT get pasted into WordPress.
+     =================================================================== -->
+<details class="pub-guide" open>
+  <summary>PUBLISHING GUIDE — 4 steps to post this to WordPress</summary>
+  <div class="pub-guide-body">
+
+    <div class="pub-step">
+      <div class="pub-step-ttl">STEP 1 — ONE TIME ONLY: Add MathJax + Desmos to functions.php</div>
+      <p>Do this once. After that, skip to Step 2 for every future post.<br>
+         Go to: WordPress Admin → Appearance → Theme File Editor → functions.php<br>
+         Scroll to the bottom and paste the code below.</p>
+      <textarea readonly rows="10">
+// ── ACE AP CALCULUS: MathJax + Desmos ─────────────────────────────
+// Paste this at the bottom of functions.php — one time only.
+
+add_action('wp_head', function() {
+    echo '<script>MathJax = { tex: { inlineMath: [["$","$"]], displayMath: [["$$","$$"]] } };</script>';
+    echo '<script src="https://www.desmos.com/api/v1.7/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0fda6"></script>';
+}, 1);
+
+add_action('wp_enqueue_scripts', function() {
+    wp_enqueue_script('mathjax', 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js', [], null, false);
+});
+// ──────────────────────────────────────────────────────────────────</textarea>
+    </div>
+
+    <hr class="pub-divider">
+
+    <div class="pub-step">
+      <div class="pub-step-ttl">STEP 2 — WordPress title field</div>
+      <p>In the WordPress editor, click the title field at the top and paste this exactly:</p>
+      <textarea readonly rows="2">Limits in AP Calculus — What They Actually Mean (and Why MCQ Recognition Wins You Easy Points)</textarea>
+    </div>
+
+    <hr class="pub-divider">
+
+    <div class="pub-step">
+      <div class="pub-step-ttl">STEP 3 — WordPress Custom HTML block (the post content)</div>
+      <p>In the WordPress editor content area:<br>
+         1. Click the <code>+</code> button → search <code>Custom HTML</code> → add that block<br>
+         2. Open this file in VS Code or any text editor<br>
+         3. Find the comment that says: <code>▼▼▼ START: PASTE THIS INTO WORDPRESS CUSTOM HTML BLOCK ▼▼▼</code><br>
+         4. Select everything from that line down to: <code>▲▲▲ END: WORDPRESS CUSTOM HTML BLOCK ▲▲▲</code><br>
+         5. Paste into the Custom HTML block in WordPress<br><br>
+         That section contains the fonts link, all the CSS, all the post content, and the Desmos graph script.</p>
+    </div>
+
+    <hr class="pub-divider">
+
+    <div class="pub-step">
+      <div class="pub-step-ttl">STEP 4 — SEO fields (in the WordPress sidebar)</div>
+      <p>If you use Yoast or Rank Math, fill these in the sidebar before publishing:</p>
+      <textarea readonly rows="5">
+SEO Title:        What Are Limits in AP Calculus? (2026 Guide)
+Meta Description: Learn what limits mean in AP Calculus. One-sided limits, piecewise functions, 5-step method, and the MCQ recognition moves that win you automatic points.
+Slug:             what-are-limits-ap-calculus
+Focus Keyword:    what are limits in AP Calculus</textarea>
+    </div>
+
+  </div>
+</details>
+<!-- END PUBLISHING GUIDE -->
+
+
+<!-- ===================================================================
+     PREVIEW ONLY: browser chrome bar
+     Do NOT paste this into WordPress.
+     =================================================================== -->
+<div class="chrome">
+  <div class="dots">
+    <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
+  </div>
+  <div class="url">enginearu.com/ap-calculus-prep/what-are-limits-ap-calculus/</div>
+  <div class="badge">PREVIEW</div>
+</div>
+<!-- END PREVIEW CHROME -->
+
+
+<!-- ===================================================================
+     PREVIEW ONLY: hero header
+     WordPress uses the title field (Step 2) instead of this.
+     Do NOT paste this into WordPress.
+     =================================================================== -->
+<div class="page">
+<div class="hero">
+  <div class="tag">AP Calculus AB &middot; BC &middot; Unit 1</div>
+  <h1>Limits in AP Calculus<br>What They Actually Mean (and Why MCQ Recognition Wins You Easy Points)</h1>
+  <div class="meta">
+    <span class="pill">&#9201; 15 min read</span>
+    <span class="pill">&#10003; 500+ EngiNearU students</span>
+    <span class="pill">Unit 1 foundation</span>
+  </div>
+</div>
+<!-- END PREVIEW HERO -->
+
+
+<!-- ===================================================================
+     ▼▼▼ START: PASTE THIS INTO WORDPRESS CUSTOM HTML BLOCK ▼▼▼
+     ===================================================================
+     Select from this line all the way down to the matching END marker.
+     Paste the entire selection into one Custom HTML block in WordPress.
+     =================================================================== -->
+
+<!-- Google Fonts — loads the typefaces used in the post styling -->
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Nunito+Sans:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+
+<!-- Post CSS — all visual styles for the content below -->
+<style>
+.ace-post{
+  --navy:#1a3a6b;--blue:#1e4d8c;--accent:#e8a020;--accent-light:#fef3dc;
+  --green:#1a7a4a;--green-light:#eaf7f0;--red:#c0392b;--red-light:#fdf2f1;
+  --purple:#7c3aed;--purple-light:#f3f0ff;
+  --gray:#f5f6f8;--border:#dde1e8;--text:#1a1a2e;--muted:#6b7280;
+  font-family:'Nunito Sans',sans-serif;font-size:14px;line-height:1.8;color:var(--text);
+  padding:32px 0;
+}
+.ace-post .toc{background:var(--gray);border-left:4px solid var(--navy);border-radius:0 8px 8px 0;padding:18px 20px;margin-bottom:36px}
+.ace-post .toc-ttl{font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.ace-post .toc ol{padding-left:18px}.ace-post .toc li{margin-bottom:6px}
+.ace-post .toc a{color:var(--blue);text-decoration:none;font-size:13px;font-weight:600}
+.ace-post .sec{margin-bottom:40px}
+.ace-post h2{font-family:'Montserrat',sans-serif;font-size:18px;font-weight:800;color:var(--navy);margin-bottom:14px;padding-bottom:8px;border-bottom:2px solid var(--border)}
+.ace-post h3{font-size:14px;font-weight:700;color:var(--blue);margin:18px 0 8px}
+.ace-post p{margin-bottom:13px;font-size:14px}
+.ace-post strong{font-weight:700}
+.ace-post em{font-style:italic}
+.ace-post .math-block{background:var(--gray);border-radius:8px;padding:16px 20px;margin:14px 0;text-align:center;overflow-x:auto;font-size:15px}
+.ace-post .compare{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);border-radius:10px;overflow:hidden;margin:18px 0}
+.ace-post .compare-side{padding:18px 20px;background:#fff}
+.ace-post .compare-side.left{background:var(--gray)}
+.ace-post .compare-lbl{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px}
+.ace-post .compare-lbl.aroc{color:var(--muted)}
+.ace-post .compare-lbl.iroc{color:var(--blue)}
+.ace-post .compare-val{font-size:20px;font-weight:800;color:var(--navy);margin-bottom:4px}
+.ace-post .compare-sub{font-size:12px;color:var(--muted);line-height:1.5}
+.ace-post .compare-badge{display:inline-block;margin-top:8px;font-size:10px;font-weight:700;padding:3px 8px;border-radius:4px}
+.ace-post .compare-badge.aroc{background:var(--gray);color:var(--muted);border:1px solid var(--border)}
+.ace-post .compare-badge.iroc{background:var(--blue);color:#fff}
+.ace-post .callout{background:var(--accent-light);border-left:4px solid var(--accent);border-radius:0 8px 8px 0;padding:16px 20px;margin:20px 0}
+.ace-post .callout-ttl{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#8a5a00;margin-bottom:8px}
+.ace-post .callout p{font-size:13px;color:#5a3c00;margin-bottom:8px}
+.ace-post .callout p:last-child{margin-bottom:0}
+.ace-post .dna-box{background:var(--red-light);border:2px solid var(--red);border-radius:8px;padding:16px 20px;margin:18px 0;text-align:center}
+.ace-post .dna-ttl{font-family:'Montserrat',sans-serif;font-size:22px;font-weight:800;color:var(--red);margin-bottom:6px;letter-spacing:2px}
+.ace-post .dna-sub{font-size:12px;color:#7a2020}
+.ace-post .distinction{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);border-radius:10px;overflow:hidden;margin:18px 0}
+.ace-post .dist-side{padding:16px 18px;background:#fff}
+.ace-post .dist-side.limit{background:#eef2ff}
+.ace-post .dist-side.fval{background:var(--green-light)}
+.ace-post .dist-lbl{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px}
+.ace-post .dist-lbl.limit{color:#4f46e5}
+.ace-post .dist-lbl.fval{color:var(--green)}
+.ace-post .dist-val{font-size:18px;font-weight:800;margin-bottom:4px}
+.ace-post .dist-val.limit{color:#4f46e5}
+.ace-post .dist-val.fval{color:var(--green)}
+.ace-post .dist-sub{font-size:12px;color:var(--muted);line-height:1.5}
+.ace-post .flowchart{border:1px solid var(--border);border-radius:10px;overflow:hidden;margin:18px 0}
+.ace-post .flow-hd{background:var(--navy);color:#fff;padding:10px 16px;font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase}
+.ace-post .flow-step{display:flex;gap:14px;padding:14px 16px;border-bottom:1px solid var(--border);align-items:flex-start;background:#fff}
+.ace-post .flow-step:last-child{border-bottom:none}
+.ace-post .flow-num{background:var(--navy);color:#fff;width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;flex-shrink:0;margin-top:2px}
+.ace-post .flow-content{flex:1}
+.ace-post .flow-lbl{font-weight:700;font-size:13px;color:var(--navy);margin-bottom:4px}
+.ace-post .flow-content p{font-size:13px;margin-bottom:0}
+.ace-post .notation-warn{background:#fff3cd;border-left:4px solid #e8a020;border-radius:0 8px 8px 0;padding:14px 18px;margin:16px 0}
+.ace-post .notation-warn-ttl{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#8a5a00;margin-bottom:8px}
+.ace-post .notation-warn p{font-size:13px;color:#5a3c00;margin-bottom:8px}
+.ace-post .notation-warn p:last-child{margin-bottom:0}
+.ace-post .notation-warn code{background:rgba(0,0,0,.08);padding:1px 5px;border-radius:3px;font-family:'JetBrains Mono',monospace;font-size:11px}
+.ace-post .prob{background:var(--gray);border-radius:8px;padding:16px 18px;margin-bottom:14px;border:1px solid var(--border)}
+.ace-post .plbl{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.ace-post .prob p{font-size:13px;margin-bottom:8px}
+.ace-post .prob p:last-child{margin-bottom:0}
+.ace-post .step{display:flex;gap:14px;margin-bottom:18px;align-items:flex-start}
+.ace-post .snum{background:var(--navy);color:#fff;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;margin-top:2px}
+.ace-post .scontent{flex:1}
+.ace-post .slbl{font-weight:700;font-size:13px;color:var(--navy);margin-bottom:5px}
+.ace-post .scontent p{font-size:13px;margin-bottom:6px}
+.ace-post .rubric{background:var(--green-light);border-left:4px solid var(--green);border-radius:0 8px 8px 0;padding:14px 18px;margin:16px 0}
+.ace-post .rubric-ttl{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--green);margin-bottom:8px}
+.ace-post .rubric ul{padding-left:18px}.ace-post .rubric li{font-size:13px;margin-bottom:5px;color:#1a4a32}
+.ace-post .mcq-check{background:#eef2ff;border-left:4px solid #4f46e5;border-radius:0 8px 8px 0;padding:14px 18px;margin:16px 0}
+.ace-post .mcq-ttl{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#4f46e5;margin-bottom:8px}
+.ace-post .mcq-check ul{padding-left:18px}.ace-post .mcq-check li{font-size:13px;margin-bottom:5px;color:#312e81}
+.ace-post .cta{background:linear-gradient(135deg,var(--navy),var(--blue));border-radius:12px;padding:24px 26px;margin:28px 0;color:#fff}
+.ace-post .cta h3{color:#fff;margin:0 0 8px;font-size:15px;font-family:'Montserrat',sans-serif}
+.ace-post .cta p{color:rgba(255,255,255,.85);font-size:13px;margin-bottom:14px}
+.ace-post .btn{display:inline-block;background:var(--accent);color:var(--navy);font-weight:700;font-size:13px;padding:10px 20px;border-radius:6px;text-decoration:none}
+.ace-post .sub{font-size:11px;color:rgba(255,255,255,.6);margin-top:10px;font-style:italic}
+.ace-post .sea{background:var(--accent-light);border:2px solid var(--accent);border-radius:12px;padding:22px 26px;margin:20px 0}
+.ace-post .sea h3{color:var(--navy);font-size:14px;margin-bottom:8px;font-weight:700;font-family:'Montserrat',sans-serif}
+.ace-post .sea p{font-size:13px;color:#5a4500;margin-bottom:12px}
+.ace-post .btn-w{display:inline-block;background:var(--navy);color:#fff;font-weight:700;font-size:13px;padding:10px 20px;border-radius:6px;text-decoration:none}
+.ace-post .mk{border-left:4px solid var(--red);border-radius:0 8px 8px 0;padding:14px 18px;background:var(--red-light);margin-bottom:16px}
+.ace-post .mk-n{font-weight:700;color:var(--red);font-size:13px;margin-bottom:5px}
+.ace-post .mk-w{font-size:12px;color:#7a2020;margin-bottom:6px;font-style:italic}
+.ace-post .mk-f{font-size:13px;color:var(--text)}
+.ace-post .answers{background:var(--navy);border-radius:8px;padding:18px 20px;margin-top:20px}
+.ace-post .ans-ttl{color:var(--accent);font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:12px}
+.ace-post .ans-item{font-size:13px;color:rgba(255,255,255,.9);margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid rgba(255,255,255,.1)}
+.ace-post .ans-item:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
+.ace-post .faq-item{border-bottom:1px solid var(--border);padding:16px 0}
+.ace-post .faq-q{font-weight:700;color:var(--navy);font-size:13px;margin-bottom:8px}
+.ace-post .faq-a{font-size:13px;line-height:1.7}
+.ace-post .qr{background:var(--navy);color:#fff;border-radius:10px;padding:24px 26px;margin:20px 0}
+.ace-post .qr-ttl{color:var(--accent);font-size:12px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:16px}
+.ace-post .qrf{background:rgba(255,255,255,.07);border-radius:6px;padding:12px 16px;margin-bottom:10px;text-align:center}
+.ace-post .qrf-lbl{font-size:11px;color:rgba(255,255,255,.5);margin-bottom:6px}
+.ace-post .qrb{margin-top:14px;list-style:none;padding-left:0}
+.ace-post .qrb li{font-size:12px;color:rgba(255,255,255,.85);margin-bottom:6px;padding-left:20px;position:relative}
+.ace-post .qrb li::before{content:"&#10003;";color:#4ade80;position:absolute;left:0;font-weight:700}
+.ace-post .qrb .nv{color:#fca5a5!important}.ace-post .qrb .nv::before{content:"&#10007;"!important;color:#fca5a5!important}
+.ace-post .related-link{display:block;padding:12px 14px;background:var(--gray);border-radius:6px;border:1px solid var(--border);margin-bottom:8px;font-size:13px;color:var(--blue);font-weight:600;text-decoration:none}
+.ace-post .related-link.pending{color:var(--muted);font-style:italic}
+.ace-post .desmos-wrap{border-radius:10px;overflow:hidden;margin:18px 0;border:1px solid var(--border)}
+.ace-post .desmos-label{background:var(--navy);color:#fff;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:8px 14px;display:flex;align-items:center;gap:6px}
+.ace-post .desmos-dot{width:8px;height:8px;border-radius:50%;background:var(--accent)}
+.ace-post .body-list{padding-left:20px;margin-bottom:12px;font-size:13px}
+.ace-post .body-list li{margin-bottom:5px}
+.ace-post hr{border:none;border-top:1px solid var(--border);margin:28px 0}
+.ace-post .prereq-warn{background:#fff8e1;border:2px solid #f59e0b;border-radius:10px;padding:18px 20px;margin:18px 0}
+.ace-post .prereq-warn-ttl{font-family:'Montserrat',sans-serif;font-size:12px;font-weight:800;color:#b45309;margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px}
+.ace-post .prereq-warn p{font-size:13px;color:#78350f;margin-bottom:0}
+</style>
+
+<!-- Post content — all sections of the blog post -->
+<div class="ace-post">
+
+  <!-- Table of contents -->
+  <div class="toc">
+    <div class="toc-ttl">Jump To What You Need</div>
+    <ol>
+      <li><a href="#underestimate">The Topic Most Students Underestimate</a></li>
+      <li><a href="#what-it-means">What a Limit Actually Means</a></li>
+      <li><a href="#method">The Method: Zach's 5-Step Flowchart</a></li>
+      <li><a href="#example-1">Worked Example 1 — Direct Substitution and Factoring (Foundational)</a></li>
+      <li><a href="#mid-cta">Grab the Free Guide</a></li>
+      <li><a href="#example-2">Worked Example 2 — The MCQ Recognition Type That Wins You Easy Points</a></li>
+      <li><a href="#mistakes">The 3 Mistakes That Cost My Students Points</a></li>
+      <li><a href="#practice">Practice Problems</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="#quick-reference">Save This For Exam Day</a></li>
+      <li><a href="#related">Related Posts</a></li>
+    </ol>
+  </div>
+
+  <!-- Section 1: The Topic Most Students Underestimate -->
+  <div class="sec" id="underestimate">
+    <h2>The Topic Most Students Underestimate</h2>
+    <p>Every year, I watch the same pattern play out. A student comes to me in Unit 3 or Unit 4, frustrated about related rates or struggling to set up an integral. We sit down, I ask them a basic question about what are limits in AP Calculus, and they freeze. Not because they never saw limits. Because they skipped over Unit 1 thinking it was just a warm-up.</p>
+    <p>That is the most expensive mistake in AP Calculus.</p>
+    <p>Here is what I tell every student I work with before we get into derivatives: limits are not a stepping stone. They are the floor that everything else stands on. Derivatives? Built on limits. Integrals? Built on limits. The formal definition of continuity? Limits again. If you perform poorly in Unit 1, you are going to feel that gap every single time a new unit starts. I have watched students score 80s on unit tests in Unit 3 and still lose 4 to 6 points on FRQ problems because their limit foundation had a crack in it they never patched.</p>
+    <p>This post covers Unit 1, but it is really about the whole year.</p>
+    <p>You never had to truly understand definitions before this course. You could just remember the steps to get to your answer. But in AP Calculus, you have to know definitions and theorems. Not just the procedure. And nowhere in the course is that more true than right here in Unit 1.</p>
+    <p>AP limit recognition questions are direct MCQ wins. If you know what a limit is asking, you will see those problems and just know. No calculator. No scratch work. Automatic point. That is what this post gives you.</p>
+  </div>
+
+  <!-- Section 2: What a Limit Actually Means -->
+  <div class="sec" id="what-it-means">
+    <h2>What a Limit Actually Means</h2>
+    <p>Most textbooks open with the formal definition and then give you an example. I have never found that order helpful, and neither do my students. Here is how I actually teach this.</p>
+    <p>Forget the notation for a second. Think about walking toward a wall.</p>
+    <p>You start 10 feet away. You take a step and cut the distance in half. Then you cut it in half again. You keep halving the distance. You are getting closer and closer to the wall with every step, but you never actually reach it.</p>
+    <p>When I ask you about a limit, I am telling you what is this thing approaching. Not what is the value if I plug it in. That distinction is everything.</p>
+
+    <div class="callout">
+      <div class="callout-ttl">Zach's One-Sentence Definition</div>
+      <p><strong>A limit asks: what y-value is a function approaching as x gets closer and closer to a specific input, regardless of what actually happens at that input?</strong></p>
+      <p>Read that again. "Regardless of what actually happens at that input." That is the part students miss.</p>
+    </div>
+
+    <p>Remember: the limit, that L, is the y-value the function is approaching. Not necessarily the y-value at the point. Approaching.</p>
+    <p>I do not necessarily care what happens at the point. I care what it approaches.</p>
+    <p>Look at this graph. The function $f(x) = \dfrac{x^2 - 4}{x - 2}$ has a hole at $x = 2$. If you plug in 2 directly, you get $\frac{0}{0}$. But watch what the function does on both sides.</p>
+
+    <!-- Live Desmos graph: rational function with hole at x=2 -->
+    <div class="desmos-wrap">
+      <div class="desmos-label">
+        <div class="desmos-dot"></div>
+        Live Graph &mdash; $f(x) = (x^2-4)/(x-2)$: hole at $x=2$, limit = 4
+      </div>
+      <div id="desmos-hole" style="width:100%;height:300px;"></div>
+    </div>
+
+    <p>From the left, the y-values are approaching 4. From the right, the y-values are approaching 4. The function never touches $x = 2$, but it is heading directly toward $y = 4$ from both sides.</p>
+    <p>The limit is 4.</p>
+    <div class="math-block">$$\lim_{x \to 2} \frac{x^2 - 4}{x - 2} = 4$$</div>
+
+    <p>This is also where the AROC vs. IROC connection lives. The limit takes an average rate of change over a shrinking interval and collapses it down to the instantaneous rate of change at a single point. AROC gives you behavior over an interval. IROC is the exact behavior at one specific input. The derivative in Unit 2 is literally just a specific limit. The <a href="https://apcentral.collegeboard.org/courses/ap-calculus-ab/course" target="_blank" rel="noopener">AP Calculus AB Course and Exam Description</a> makes this explicit: limits are listed as a foundational skill in every unit, not just Unit 1.</p>
+
+    <!-- AROC vs IROC comparison -->
+    <div class="compare">
+      <div class="compare-side left">
+        <div class="compare-lbl aroc">Average Rate of Change</div>
+        <div class="compare-val">Interval</div>
+        <div class="compare-sub">How much did the function change<br>from point A to point B?</div>
+        <span class="compare-badge aroc">Big picture — not the limit</span>
+      </div>
+      <div class="compare-side">
+        <div class="compare-lbl iroc">Instantaneous Rate of Change</div>
+        <div class="compare-val" style="color:var(--blue)">One Point</div>
+        <div class="compare-sub">What is the function approaching<br>at this exact input?</div>
+        <span class="compare-badge iroc">The limit does this</span>
+      </div>
+    </div>
+
+    <h3>One-Sided Limits and the Key Test</h3>
+    <p>For a limit to exist, both sides have to agree.</p>
+    <ul class="body-list">
+      <li>Left-hand limit: $\lim_{x \to a^-} f(x)$ — what is the function approaching from the left?</li>
+      <li>Right-hand limit: $\lim_{x \to a^+} f(x)$ — what is the function approaching from the right?</li>
+    </ul>
+    <div class="math-block">$$\lim_{x \to a} f(x) = L \quad \text{if and only if} \quad \lim_{x \to a^-} f(x) = L \quad \text{and} \quad \lim_{x \to a^+} f(x) = L$$</div>
+    <p>If the left-hand limit equals the right-hand limit, the overall limit equals that value. If they disagree, the limit does not exist.</p>
+
+    <div class="dna-box">
+      <div class="dna-ttl">DNE</div>
+      <div class="dna-sub">Does Not Exist. Write this. Do not leave it blank on the AP exam.</div>
+    </div>
+
+    <h3>The Piecewise Example You Will See Every Year</h3>
+    <p>Here is a real example from my session. Say you have a piecewise function and you need $\lim_{x \to 1} f(x)$. From the left, the function is approaching 2. From the right, the function is approaching 3. The two sides disagree. The limit DNE.</p>
+    <p>But here is where most students lose points. The problem also tells you that $f(1) = 3$. Students see the closed circle at $(1, 3)$ on the graph and think the limit is 3. It is not.</p>
+
+    <div class="distinction">
+      <div class="dist-side limit">
+        <div class="dist-lbl limit">The Limit at x = 1</div>
+        <div class="dist-val limit">DNE</div>
+        <div class="dist-sub">Left side approaches 2.<br>Right side approaches 3.<br>They disagree. Limit does not exist.</div>
+      </div>
+      <div class="dist-side fval">
+        <div class="dist-lbl fval">The Function Value f(1)</div>
+        <div class="dist-val fval">3</div>
+        <div class="dist-sub">The closed circle on the graph.<br>This is the defined value at that point.<br>A separate question entirely.</div>
+      </div>
+    </div>
+
+    <p>Two separate questions. Two separate answers. Students lose these distinction points every year on the AP exam, and it is not because they are not smart enough. It is because nobody ever put both answers next to each other and said: these are different things. Now you have seen it. Do not forget it.</p>
+  </div>
+
+  <!-- Section 3: The Method -->
+  <div class="sec" id="method">
+    <h2>The Method: Zach's 5-Step Flowchart</h2>
+    <p>Every limit problem I teach uses the same sequence. This is not a suggestion. This is the process.</p>
+
+    <div class="flowchart">
+      <div class="flow-hd">Zach's 5-Step Limit Flowchart — Start at Step 1 Every Time</div>
+      <div class="flow-step">
+        <div class="flow-num">1</div>
+        <div class="flow-content">
+          <div class="flow-lbl">Direct Substitution</div>
+          <p>Plug in the value. If you get a real number, you are done. Easy, peasy, lemon squeezy as we call it.</p>
+          <div class="math-block">$$\lim_{x \to 3} (x^2 + 2) = 3^2 + 2 = 11 \quad \checkmark$$</div>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">2</div>
+        <div class="flow-content">
+          <div class="flow-lbl">Get $\frac{0}{0}$? Factor.</div>
+          <p>$\frac{0}{0}$ is not your answer. It is indeterminate form. It means there is a hole and you need to factor, cancel, then substitute again. This is the step that requires your algebra prereqs to actually be solid.</p>
+          <div class="math-block">$$\lim_{x \to 2} \frac{x^2 - 4}{x - 2} = \lim_{x \to 2} \frac{(x-2)(x+2)}{x-2} = \lim_{x \to 2} (x + 2) = 4 \quad \checkmark$$</div>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">3</div>
+        <div class="flow-content">
+          <div class="flow-lbl">Radical Present? Rationalize (Conjugate)</div>
+          <p>If factoring does not clear the $\frac{0}{0}$ and there is a square root in the expression, multiply numerator and denominator by the conjugate. The radical is your signal.</p>
+          <p><em>Example:</em></p>
+          <div class="math-block">$$\lim_{x \to 4} \frac{\sqrt{x} - 2}{x - 4}$$</div>
+          <p>Direct substitution gives $\frac{0}{0}$. Radical in numerator, so multiply by conjugate $\dfrac{\sqrt{x}+2}{\sqrt{x}+2}$:</p>
+          <div class="math-block">$$\lim_{x \to 4} \frac{(\sqrt{x}-2)(\sqrt{x}+2)}{(x-4)(\sqrt{x}+2)} = \lim_{x \to 4} \frac{x-4}{(x-4)(\sqrt{x}+2)} = \lim_{x \to 4} \frac{1}{\sqrt{x}+2} = \frac{1}{\sqrt{4}+2} = \frac{1}{4}$$</div>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">4</div>
+        <div class="flow-content">
+          <div class="flow-lbl">No Radical? Complex Fractions (Combine the Fractions)</div>
+          <p>If there is no radical, look for a compound fraction — fractions inside fractions. Combine over a common denominator first, then simplify and substitute.</p>
+          <p><em>Example:</em></p>
+          <div class="math-block">$$\lim_{x \to 0} \frac{\dfrac{1}{x+3} - \dfrac{1}{3}}{x}$$</div>
+          <p>Direct substitution gives $\frac{0}{0}$. Combine the two fractions in the numerator:</p>
+          <div class="math-block">$$\frac{1}{x+3} - \frac{1}{3} = \frac{3-(x+3)}{3(x+3)} = \frac{-x}{3(x+3)}$$</div>
+          <p>Now substitute back and cancel the $x$:</p>
+          <div class="math-block">$$\lim_{x \to 0} \frac{\dfrac{-x}{3(x+3)}}{x} = \lim_{x \to 0} \frac{-x}{3x(x+3)} = \lim_{x \to 0} \frac{-1}{3(x+3)} = \frac{-1}{3(0+3)} = -\frac{1}{9}$$</div>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">5</div>
+        <div class="flow-content">
+          <div class="flow-lbl">Special Techniques (Trig Limits, L'Hôpital's Rule)</div>
+          <p>If none of the above work, you are dealing with a trig limit. These do not factor or rationalize. Match them to a known identity and rewrite. Here are all the standard trig limits you need for AP Calculus:</p>
+          <table style="width:auto;border-collapse:collapse;margin:1rem 0;font-size:0.95rem;">
+            <thead>
+              <tr style="background:#1a3a6b;color:#fff;">
+                <th style="padding:0.6rem 1.2rem;text-align:left;">Limit</th>
+                <th style="padding:0.6rem 1.2rem;text-align:center;">Value</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="border-bottom:1px solid #333;">
+                <td style="padding:0.6rem 1.2rem;">$\displaystyle\lim_{x \to 0} \dfrac{\sin x}{x}$</td>
+                <td style="padding:0.6rem 1.2rem;text-align:center;">$1$</td>
+              </tr>
+              <tr style="border-bottom:1px solid #333;background:#111;">
+                <td style="padding:0.6rem 1.2rem;">$\displaystyle\lim_{x \to 0} \dfrac{1 - \cos x}{x}$</td>
+                <td style="padding:0.6rem 1.2rem;text-align:center;">$0$</td>
+              </tr>
+              <tr style="border-bottom:1px solid #333;">
+                <td style="padding:0.6rem 1.2rem;">$\displaystyle\lim_{x \to 0} \dfrac{\tan x}{x}$</td>
+                <td style="padding:0.6rem 1.2rem;text-align:center;">$1$</td>
+              </tr>
+              <tr style="border-bottom:1px solid #333;background:#111;">
+                <td style="padding:0.6rem 1.2rem;">$\displaystyle\lim_{x \to 0} \dfrac{\sin(ax)}{bx}$</td>
+                <td style="padding:0.6rem 1.2rem;text-align:center;">$\dfrac{a}{b}$</td>
+              </tr>
+              <tr>
+                <td style="padding:0.6rem 1.2rem;">$\displaystyle\lim_{x \to 0} \dfrac{1 - \cos x}{x^2}$</td>
+                <td style="padding:0.6rem 1.2rem;text-align:center;">$\dfrac{1}{2}$</td>
+              </tr>
+            </tbody>
+          </table>
+          <p>The strategy: rewrite your expression so one of these patterns appears, then substitute the value. Example: $\lim_{x \to 0} \frac{\sin(5x)}{x}$: multiply top and bottom by $\frac{5}{5}$ to get $5 \cdot \frac{\sin(5x)}{5x} = 5 \cdot 1 = 5$.</p>
+          <p>L'Hôpital's Rule applies to both AB and BC when other methods fail, but most courses do not introduce it in Unit 1. Always start at Step 1 and work down.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="prereq-warn">
+      <div class="prereq-warn-ttl">Prereq Warning: Factoring</div>
+      <p>If you are trying to skate by and think that you are going to just figure out the factoring when you get there, you will not figure it out. It should take you less than 5 seconds to factor $x^2 - 4$ into $(x-2)(x+2)$. If you are not there, stop right now and fix your factoring before you go any further. If you skip this, you are going to make the rest of Unit 1 really difficult for yourself.</p>
+    </div>
+
+    <div class="notation-warn">
+      <div class="notation-warn-ttl">Critical Notation Rule</div>
+      <p>Notation is not optional. Write $\lim_{x \to a}$ on every line until you do the final substitution. Dropping the limit notation mid-algebra is a real AP grading risk.</p>
+      <p><strong>Wrong:</strong></p>
+      <div class="math-block">$$\frac{x^2 - 4}{x - 2} = \frac{(x-2)(x+2)}{x-2} = x + 2 = 4$$</div>
+      <p><strong>Correct:</strong></p>
+      <div class="math-block">$$\lim_{x \to 2} \frac{x^2 - 4}{x - 2} = \lim_{x \to 2} \frac{(x-2)(x+2)}{x-2} = \lim_{x \to 2} (x + 2) = 4$$</div>
+      <p>Whenever you write an equal sign, make sure that thing is actually equal to what came before it. The limit notation stays until you substitute. If you drop it early, you have written that a limit expression equals an algebraic expression, which is incorrect math.</p>
+    </div>
+  </div>
+
+  <!-- Section 4: Worked Example 1 -->
+  <div class="sec" id="example-1">
+    <h2>Worked Example 1 &mdash; Direct Substitution and Factoring (Foundational)</h2>
+    <div class="prob">
+      <div class="plbl">Problem</div>
+      <p>Find the following limits. Show all work and use correct limit notation throughout.</p>
+      <p><strong>(a)</strong> $\displaystyle\lim_{x \to 4} (x^2 - 3x + 1)$</p>
+      <p><strong>(b)</strong> $\displaystyle\lim_{x \to 3} \dfrac{x^2 - 9}{x - 3}$</p>
+    </div>
+
+    <h3>Part (a) &mdash; Direct Substitution</h3>
+    <div class="step"><div class="snum">1</div><div class="scontent">
+      <div class="slbl">Try direct substitution first. Always.</div>
+      <div class="math-block">$$\lim_{x \to 4} (x^2 - 3x + 1) = (4)^2 - 3(4) + 1 = 16 - 12 + 1 = 5$$</div>
+      <p>Real number result. Done.</p>
+      <div class="math-block">$$\boxed{\lim_{x \to 4} (x^2 - 3x + 1) = 5}$$</div>
+    </div></div>
+
+    <h3>Part (b) &mdash; Indeterminate Form, Then Factor</h3>
+    <div class="step"><div class="snum">1</div><div class="scontent">
+      <div class="slbl">Try direct substitution</div>
+      <div class="math-block">$$\lim_{x \to 3} \frac{x^2 - 9}{x - 3} = \frac{(3)^2 - 9}{3 - 3} = \frac{0}{0}$$</div>
+      <p>$\frac{0}{0}$ is not your answer. It is your signal. Move to Step 2.</p>
+    </div></div>
+    <div class="step"><div class="snum">2</div><div class="scontent">
+      <div class="slbl">Factor the numerator</div>
+      <div class="math-block">$$\lim_{x \to 3} \frac{x^2 - 9}{x - 3} = \lim_{x \to 3} \frac{(x-3)(x+3)}{x-3}$$</div>
+      <p>Cancel the common factor $(x-3)$. In a limit, $x$ is approaching 3 but never equals 3, so this cancellation is valid.</p>
+      <div class="math-block">$$= \lim_{x \to 3} (x + 3)$$</div>
+    </div></div>
+    <div class="step"><div class="snum">3</div><div class="scontent">
+      <div class="slbl">Direct substitution now works</div>
+      <div class="math-block">$$= 3 + 3 = 6$$</div>
+      <div class="math-block">$$\boxed{\lim_{x \to 3} \frac{x^2 - 9}{x - 3} = 6}$$</div>
+    </div></div>
+
+    <div class="rubric">
+      <div class="rubric-ttl">Here is exactly how the AP exam scores this type of problem</div>
+      <ul>
+        <li>Write the limit notation $\lim_{x \to a}$ on every line until you substitute. A missing limit symbol before an expression is a notational error.</li>
+        <li>Show the indeterminate form $\frac{0}{0}$ explicitly when you get it. Do not skip from "plug in 3" to "factor" without showing why you are factoring.</li>
+        <li>Factor completely before canceling.</li>
+        <li>State the final answer with the limit notation resolved. The last line should be a plain number assignment, not a limit expression.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Mid CTA -->
+  <div id="mid-cta">
+    <div class="cta">
+      <h3>Grab the Free "Before AP Calculus" Guide</h3>
+      <p>Limits are the first real test of whether your algebra and prereq skills are strong enough for this course. Not sure if yours are? I put together a free guide that walks you through exactly what needs to be locked in before Unit 1 actually clicks. Zero fluff. It is free.</p>
+      <a class="btn" href="https://www.aceapcalculus.com/before-apcalc" target="_blank">Get the Free Guide &rarr;</a>
+      <div class="sub">Parents: this is a great first look at where your student stands with the foundational skills this course requires.</div>
+    </div>
+  </div>
+
+  <!-- Section 5: Worked Example 2 -->
+  <div class="sec" id="example-2">
+    <h2>Worked Example 2 &mdash; The MCQ Recognition Type That Wins You Easy Points</h2>
+    <p>This is the problem type that separates students who actually know their limits from students who can sometimes get lucky. It does not require calculation. It requires recognition. And if you have done the work in this post, it takes under 30 seconds.</p>
+    <p>The AP exam will give you a piecewise-defined function and a graph, then ask about limits, function values, and existence. These questions are stacked. One correct concept distinction earns you the point. One wrong assumption about what a limit is versus what the function value is costs you the point.</p>
+
+    <div class="prob">
+      <div class="plbl">Problem</div>
+      <p>The function $f$ is defined as:</p>
+      <div class="math-block">$$f(x) = \begin{cases} x + 1 & \text{if } x < 1 \\ 3 & \text{if } x = 1 \\ x + 2 & \text{if } x > 1 \end{cases}$$</div>
+      <p>Answer all parts below.</p>
+    </div>
+
+    <h3>Part (a) &mdash; Left-hand limit</h3>
+    <p>For $x &lt; 1$, we use $f(x) = x + 1$.</p>
+    <div class="math-block">$$\lim_{x \to 1^-} f(x) = \lim_{x \to 1^-} (x + 1) = 1 + 1 = 2$$</div>
+
+    <h3>Part (b) &mdash; Right-hand limit</h3>
+    <p>For $x &gt; 1$, we use $f(x) = x + 2$.</p>
+    <div class="math-block">$$\lim_{x \to 1^+} f(x) = \lim_{x \to 1^+} (x + 2) = 1 + 2 = 3$$</div>
+
+    <h3>Part (c) &mdash; Does the two-sided limit exist?</h3>
+    <p>Left-hand limit $= 2$. Right-hand limit $= 3$. They are not equal.</p>
+    <div class="math-block">$$\lim_{x \to 1} f(x) \text{ does not exist (DNE)}$$</div>
+    <p>The two sides approach different values. The overall limit cannot be one number when the left and right disagree.</p>
+
+    <h3>Part (d) &mdash; Function value</h3>
+    <p>The definition says $f(1) = 3$ directly. That is a closed circle on the graph at $(1, 3)$.</p>
+    <div class="math-block">$$f(1) = 3$$</div>
+
+    <h3>Part (e) &mdash; The trick question</h3>
+    <p>What is $\lim_{x \to 1} f(x) - f(1)$? This part catches students every year. The limit in Part (c) does not exist. You cannot subtract from something that does not exist. This expression is undefined.</p>
+
+    <hr>
+
+    <p>Here is the distinction students miss. Parts (c) and (d) give different answers: the limit does not exist, but $f(1) = 3$. Students look at the closed circle at $(1, 3)$ and think: "there is a y-value there, so the limit must be 3." It is not. The closed circle tells you the function value. The limit asks about the approach. Two completely separate questions. The AP exam tests exactly this distinction every year.</p>
+
+    <div class="distinction">
+      <div class="dist-side limit">
+        <div class="dist-lbl limit">Limit at x = 1</div>
+        <div class="dist-val limit">DNE</div>
+        <div class="dist-sub">Left = 2, Right = 3<br>One-sided limits disagree<br>Limit does not exist</div>
+      </div>
+      <div class="dist-side fval">
+        <div class="dist-lbl fval">Function Value f(1)</div>
+        <div class="dist-val fval">3</div>
+        <div class="dist-sub">Closed circle at (1, 3)<br>Defined by the piecewise rule<br>Separate question entirely</div>
+      </div>
+    </div>
+
+    <div class="mcq-check">
+      <div class="mcq-ttl">Here is exactly what the AP exam is checking on this problem type</div>
+      <ul>
+        <li>Left-hand and right-hand limits are evaluated separately using the correct piece of the piecewise function.</li>
+        <li>The two-sided limit exists if and only if both one-sided limits are equal and finite.</li>
+        <li>The function value $f(a)$ is not the same as the limit. They are independent questions. Answer both separately.</li>
+        <li>DNE is a complete, correct answer when one-sided limits disagree. Write it. Do not leave that part blank.</li>
+        <li>Limit laws: if $\lim_{x \to a} f(x) = 4$ and $\lim_{x \to a} g(x) = 9$, then $\lim_{x \to a} [f(x) + g(x)] = 4 + 9 = 13$. No algebra. Direct MCQ win.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Section 6: Mistakes -->
+  <div class="sec" id="mistakes">
+    <h2>The 3 Mistakes That Cost My Students Points</h2>
+
+    <div class="mk">
+      <div class="mk-n">Mistake 1: Confusing the function value with the limit</div>
+      <div class="mk-w">Why it happens: Students see a closed circle at $(1, 3)$ and their brain registers "the limit at $x = 1$ is 3." The closed circle is the function value. The limit is about the approach. The AP exam asks about both in the same problem on purpose.</div>
+      <div class="mk-f"><strong>How to fix it:</strong> Every time you see a piecewise graph question, answer four questions before touching the problem: what does the function approach from the left? From the right? Do those agree? What is the function value at that point? Write all four down. The limit and the function value will sometimes match. They will sometimes be completely different. Both situations show up on the exam.</div>
+    </div>
+
+    <div class="mk">
+      <div class="mk-n">Mistake 2: Dropping the limit notation during algebra steps</div>
+      <div class="mk-w">Why it happens: Students learn to do algebra and learn limits separately. When they combine them, the algebra reflex kicks in and the notation disappears. They write $= 0/0$ with an equal sign that is technically incorrect. This is a real AP grading risk.</div>
+      <div class="mk-f"><strong>How to fix it:</strong> Write $\lim_{x \to a}$ on every line until you substitute. Every expression before the substitution step is still a limit expression. Dropping the notation means writing that a limit equals an algebraic value, which is wrong. Practice full notation on every problem until it is automatic.</div>
+    </div>
+
+    <div class="mk">
+      <div class="mk-n">Mistake 3: Getting $\frac{0}{0}$ and freezing</div>
+      <div class="mk-w">Why it happens: Students try direct substitution, get $\frac{0}{0}$, and stop. Nobody told them clearly that $\frac{0}{0}$ is the signal to factor, not the final answer.</div>
+      <div class="mk-f"><strong>How to fix it:</strong> Burn this in: $\frac{0}{0}$ in a limit problem means the function has a hole here, and you need to factor. Move immediately to factoring. If factoring does not clear it, try conjugate multiplication or trig identities. But 80% of the time in Unit 1, it is factoring. Do not freeze. Factor.</div>
+    </div>
+  </div>
+
+  <!-- Section 7: Practice -->
+  <div class="sec" id="practice">
+    <h2>Practice Problems</h2>
+    <p>Try these on your own before you check the answers. If you get stuck, go back to the method section and identify which step of the flowchart you are on before you do anything else.</p>
+
+    <div class="prob">
+      <div class="plbl">Problem 1 &mdash; Direct Substitution and Limit Laws</div>
+      <p>Given $\lim_{x \to 2} f(x) = 4$ and $\lim_{x \to 2} g(x) = 9$, find:</p>
+      <p>(a) $\lim_{x \to 2} [f(x) + g(x)]$</p>
+      <p>(b) $\lim_{x \to 2} [3 \cdot f(x)]$</p>
+      <p>(c) $\lim_{x \to 2} \dfrac{f(x)}{g(x)}$</p>
+    </div>
+
+    <div class="prob">
+      <div class="plbl">Problem 2 &mdash; Factoring Required</div>
+      <p>Find: $\displaystyle\lim_{x \to -3} \frac{x^2 + 5x + 6}{x + 3}$</p>
+    </div>
+
+    <div class="prob">
+      <div class="plbl">Problem 3 &mdash; Piecewise, One-Sided Limits, and Function Value</div>
+      <p>The function $g$ is defined as:</p>
+      <div class="math-block">$$g(x) = \begin{cases} x^2 & \text{if } x \leq 2 \\ 2x + 1 & \text{if } x > 2 \end{cases}$$</div>
+      <p>(a) Find $\lim_{x \to 2^-} g(x)$</p>
+      <p>(b) Find $\lim_{x \to 2^+} g(x)$</p>
+      <p>(c) Does $\lim_{x \to 2} g(x)$ exist? Explain.</p>
+      <p>(d) What is $g(2)$?</p>
+    </div>
+
+    <div class="answers">
+      <div class="ans-ttl">Answers</div>
+      <div class="ans-item">
+        <strong style="color:var(--accent)">Problem 1:</strong><br>
+        <span style="font-size:12px;line-height:1.8">
+          (a) $4 + 9 = 13$ &nbsp; (b) $3 \cdot 4 = 12$ &nbsp; (c) $\dfrac{4}{9}$
+        </span>
+      </div>
+      <div class="ans-item">
+        <strong style="color:var(--accent)">Problem 2:</strong><br>
+        <span style="font-size:12px;line-height:1.8">
+          Direct substitution gives $\frac{0}{0}$. Factor: $x^2 + 5x + 6 = (x+2)(x+3)$.<br>
+          $\displaystyle\lim_{x \to -3} \frac{(x+2)(x+3)}{x+3} = \lim_{x \to -3} (x+2) = -3 + 2 = \mathbf{-1}$
+        </span>
+      </div>
+      <div class="ans-item">
+        <strong style="color:var(--accent)">Problem 3:</strong><br>
+        <span style="font-size:12px;line-height:1.8">
+          (a) $\lim_{x \to 2^-} g(x) = (2)^2 = 4$<br>
+          (b) $\lim_{x \to 2^+} g(x) = 2(2) + 1 = 5$<br>
+          (c) The limit does not exist (DNE). Left = 4, Right = 5. They disagree.<br>
+          (d) $g(2) = (2)^2 = 4$ &nbsp; (use the $x \leq 2$ piece for the function value)
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 8: FAQ -->
+  <div class="sec" id="faq">
+    <h2>FAQ</h2>
+    <div class="faq-item">
+      <div class="faq-q">What are limits in AP Calculus?</div>
+      <div class="faq-a">A limit asks what value a function is approaching as the input gets closer and closer to a specific number, regardless of what happens at that exact input. The limit is about the approach, not the arrival. On the AP exam you will see limits in notation like $\lim_{x \to a} f(x)$, and you will also see them hidden inside derivative definitions and integral setup problems. They show up in every unit of this course. That is why Unit 1 matters so much more than most students think.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">What does it mean when a limit does not exist?</div>
+      <div class="faq-a">Three situations cause a limit to not exist. First: the left-hand and right-hand limits disagree (the piecewise case we worked through above). Second: the function increases or decreases without bound near that point (vertical asymptote). Third: the function oscillates without settling toward any value. In all three cases, the correct answer is DNE. Does not exist. I have had students leave that blank on the AP exam because they thought the answer had to be a number. It does not. DNE is a complete answer. Write it.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Do I need to know limit laws for the AP exam?</div>
+      <div class="faq-a">Yes. The big ones are worth having cold. If the individual limits exist, you can add, subtract, multiply, divide, and take powers of them directly. On the multiple choice section, the AP exam will sometimes just give you two limit values and ask for a combination. If $\lim_{x \to 2} f(x) = 4$ and $\lim_{x \to 2} g(x) = 9$, then $\lim_{x \to 2} [f(x) + g(x)] = 13$. No algebra required. Just the law. These are automatic points if you know them. Free misses if you do not.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">How do limits connect to derivatives?</div>
+      <div class="faq-a">Directly. The formal definition of the derivative is a limit: $\lim_{h \to 0} \frac{f(x+h) - f(x)}{h}$. That is not a separate concept. That is a limit problem that defines instantaneous rate of change. Build this foundation now and Unit 2 accelerates. Skip it and you will be catching up all year. <a href="https://tutorial.math.lamar.edu/Classes/CalcI/DefnOfDerivative.aspx" target="_blank" rel="noopener">Paul's Online Math Notes</a> has a solid walkthrough of the limit definition of the derivative if you want a second angle on it.</div>
+    </div>
+  </div>
+
+  <!-- Section 9: Quick Reference -->
+  <div class="sec" id="quick-reference">
+    <h2>Save This For Exam Day</h2>
+    <div class="qr">
+      <div class="qr-ttl">Limits — Exam Day Reference</div>
+
+      <div class="qrf">
+        <div class="qrf-lbl">The Two-Sided Limit Test</div>
+        $$\lim_{x \to a} f(x) = L \iff \lim_{x \to a^-} f(x) = L \text{ and } \lim_{x \to a^+} f(x) = L$$
+      </div>
+
+      <div class="qrf">
+        <div class="qrf-lbl">Limit Law: Sum</div>
+        $$\lim_{x \to a} [f(x) + g(x)] = \lim_{x \to a} f(x) + \lim_{x \to a} g(x)$$
+      </div>
+
+      <div class="qrf">
+        <div class="qrf-lbl">Limit Law: Constant Multiple</div>
+        $$\lim_{x \to a} [c \cdot f(x)] = c \cdot \lim_{x \to a} f(x)$$
+      </div>
+
+      <div class="qrf">
+        <div class="qrf-lbl">Limit Law: Quotient (denominator &ne; 0)</div>
+        $$\lim_{x \to a} \frac{f(x)}{g(x)} = \frac{\lim_{x \to a} f(x)}{\lim_{x \to a} g(x)}$$
+      </div>
+
+      <ul class="qrb">
+        <li>The limit is the y-value approached, not the y-value at the point.</li>
+        <li>Function value and limit are separate questions. Answer both.</li>
+        <li>$\frac{0}{0}$ is indeterminate form. Factor next.</li>
+        <li>DNE is a complete, correct answer when one-sided limits disagree.</li>
+        <li>Write $\lim_{x \to a}$ on every line until you substitute.</li>
+        <li class="nv">Assume the function value equals the limit without checking both sides.</li>
+        <li class="nv">Drop limit notation during algebra and write an equal sign anyway.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Section 10: Related Posts -->
+  <div class="sec" id="related">
+    <h2>Related Posts</h2>
+    <p>Here's the path through Unit 1 and into Unit 2:</p>
+    <div style="margin-top:14px;">
+      <div style="font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:8px;">Read next — deepen your limit techniques:</div>
+      <a href="https://enginearu.com/ap-calculus-prep/unit-1-limits/hard-limits-ap-calculus-rationalizing-complex-fractions/" class="ext-link" target="_blank" rel="noopener">Limits Part 2 — Techniques (Rationalizing, Complex Fractions, and More)</a>
+      <p style="font-size:12px;color:var(--muted);font-style:italic;margin-top:6px;">Why: These are the algebraic moves the AP exam loves. You'll need them for tougher limit problems and later in derivatives.</p>
+      <div style="margin-top:18px;">
+        <div style="font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:8px;">Read first — the foundation concept:</div>
+        <a href="https://enginearu.com/ap-calculus-prep/what-is-a-derivative-ap-calculus/" class="ext-link" target="_blank" rel="noopener">What Is a Derivative in AP Calculus?</a>
+        <p style="font-size:12px;color:var(--muted);font-style:italic;margin-top:6px;">Why: The limit definition of the derivative is a limit problem. The foundation you build here shows up directly in Unit 2.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- End CTA -->
+  <div id="end-cta">
+    <div class="cta">
+      <h3>Your Foundation Before Everything Else Gets Harder</h3>
+      <p>Limits are the floor. Derivatives stand on them. Integrals stand on them. Related rates, implicit differentiation, accumulation functions. All of it. The students who come to me in April asking why the FRQ section keeps tripping them up? When we dig in, it is almost always a Unit 1 gap they carried forward.</p>
+      <p>That gap compounds. Every unit gets a little harder when the floor underneath it is not solid. If this post made something click, do not wait to fix the rest.</p>
+      <p>I put together a free guide that walks through exactly what needs to be solid before the course accelerates. It takes about 10 minutes. It shows you where the real gaps tend to hide. It is free.</p>
+      <a class="btn" href="https://www.aceapcalculus.com/before-apcalc" target="_blank">Download the Free Guide &rarr;</a>
+      <div class="sub">Parents: limits is the topic most students underestimate at the start of the year. If your student is in the course right now and feeling uncertain here, this guide is a fast way to pinpoint exactly what needs attention before it compounds.</div>
+    </div>
+
+    <div class="sea">
+      <h3>Summer Program &mdash; July &amp; August 2026</h3>
+      <p>If you want your student walking into AP Calculus already knowing what limits mean before the first day of class, my summer program is the fastest way to do that. We cover Unit 1 in the first week. Small groups. Real AP practice. A structured plan from someone who has prepared hundreds of students for this exam. July and August cohorts. Spots fill fast.</p>
+      <a class="btn-w" href="https://www.aceapcalculus.com/summer-diagnostic-page" target="_blank">See Summer Program Details &rarr;</a>
+      <p style="margin-top:10px;font-size:12px;color:#78350f;font-style:italic">Parents: the free diagnostic pre-assessment at aceapcalculus.com/summer-diagnostic-page takes 10 minutes and shows you exactly where your student stands before the program starts.</p>
+    </div>
+  </div>
+
+</div>
+<!-- End post content div -->
+
+<!-- Desmos graph initialization — runs after the page loads -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var elt = document.getElementById('desmos-hole');
+  if (!elt || typeof Desmos === 'undefined') return;
+  var calc = Desmos.GraphingCalculator(elt, {
+    expressions: false, settingsMenu: false, zoomButtons: false,
+    lockViewport: true, border: false
+  });
+  calc.setMathBounds({ left: -1, right: 5, bottom: -1, top: 7 });
+  // The function (x^2-4)/(x-2) = (x+2) for x != 2
+  calc.setExpression({ id: 'curve', latex: 'y=\\frac{x^{2}-4}{x-2}', color: '#1a3a6b', lineWidth: 2.5 });
+  // Open circle at (2, 4) to show the hole
+  calc.setExpression({
+    id: 'hole', latex: '(2, 4)',
+    color: '#c0392b', pointSize: 12, pointStyle: Desmos.Styles.OPEN,
+    showLabel: true, label: 'hole: f(2) undefined',
+    labelSize: Desmos.LabelSizes.MEDIUM
+  });
+  // Approach indicator label
+  calc.setExpression({
+    id: 'approach', latex: '(2, 4)',
+    color: '#e8a020', pointSize: 1,
+    showLabel: true, label: 'limit = 4 (approached from both sides)',
+    labelSize: Desmos.LabelSizes.SMALL
+  });
+});
+</script>
+
+<!-- ===================================================================
+     ▲▲▲ END: WORDPRESS CUSTOM HTML BLOCK ▲▲▲
+     Stop selecting here. Do not paste anything below this line.
+     =================================================================== -->
+
+
+</div><!-- /page — preview wrapper, not part of WordPress paste -->
+
+</body>
+</html>

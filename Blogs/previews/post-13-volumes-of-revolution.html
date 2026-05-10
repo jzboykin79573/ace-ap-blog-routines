@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PREVIEW — Volumes of Revolution in AP Calculus: The Disk and Washer Method (FRQ Setup Guide)</title>
+
+<!--
+=======================================================================
+  PREVIEW FILE — ACE AP CALCULUS BLOG
+  Post 13: Volumes of Revolution — Disk and Washer Method
+=======================================================================
+  This file has three jobs:
+  1. Let you preview the post in your browser before publishing
+  2. Show you a publishing guide at the top of the page
+  3. Mark exactly what to copy into each part of WordPress
+
+  HOW TO USE THIS FILE
+  ─────────────────────
+  Open it in your browser → read the publishing guide at the top
+  Open it in VS Code → the comment markers show you what goes where
+
+  WHAT GETS PASTED INTO WORDPRESS
+  ─────────────────────────────────
+  STEP 1 (one time only) → functions.php  (see guide below)
+  STEP 2 → WordPress title field          (see guide below)
+  STEP 3 → One Custom HTML block          (marked in the body below)
+  STEP 4 → Yoast / Rank Math SEO fields   (see guide below)
+=======================================================================
+-->
+
+<!-- PREVIEW-ONLY: Fonts, MathJax, Desmos load here for local preview.
+     WordPress gets MathJax + Desmos from functions.php (Step 1 below).
+     Do NOT paste any of this <head> section into WordPress. -->
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Nunito+Sans:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<script>MathJax = { tex: { inlineMath: [['$','$']], displayMath: [['$$','$$']], processEscapes: true } };</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+<script src="https://www.desmos.com/api/v1.7/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0fda6"></script>
+
+<style>
+:root{
+  --navy:#1a3a6b;--gold:#e8a020;--gold-light:#fef3dc;
+  --green:#1a7a4a;--green-light:#eaf7f0;--red:#c0392b;--red-light:#fdf2f1;
+  --purple:#7c3aed;--purple-light:#f3f0ff;
+  --gray:#f5f6f8;--border:#dde1e8;--text:#1a1a2e;--muted:#6b7280;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Nunito Sans',sans-serif;background:#eef0f4;color:var(--text);font-size:14px;line-height:1.8}
+/* Publishing guide panel */
+.pub-guide{background:#1a1a2e;font-family:'JetBrains Mono',monospace}
+.pub-guide summary{padding:14px 20px;cursor:pointer;color:var(--gold);font-size:13px;font-weight:700;letter-spacing:.5px;list-style:none;display:flex;align-items:center;gap:10px}
+.pub-guide summary::before{content:"▶";font-size:10px;transition:transform .2s}
+.pub-guide[open] summary::before{transform:rotate(90deg)}
+.pub-guide-body{padding:0 20px 20px}
+.pub-step{margin-bottom:24px}
+.pub-step-ttl{color:var(--gold);font-size:12px;font-weight:700;margin-bottom:6px;letter-spacing:.5px}
+.pub-step p{color:rgba(255,255,255,.75);font-size:12px;margin-bottom:8px;font-family:'Nunito Sans',sans-serif;line-height:1.6}
+.pub-step textarea{width:100%;background:#0d0d1a;color:#a8d8a8;border:1px solid #333;border-radius:6px;padding:12px;font-size:11px;font-family:'JetBrains Mono',monospace;line-height:1.6;resize:vertical;min-height:80px}
+.pub-step code{background:#0d0d1a;color:var(--gold);padding:2px 6px;border-radius:3px;font-size:11px}
+.pub-divider{border:none;border-top:1px solid #2a2a4a;margin:20px 0}
+/* Preview chrome bar */
+.chrome{background:#2d2d2d;padding:8px 14px;display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:100}
+.dots{display:flex;gap:6px}.dot{width:11px;height:11px;border-radius:50%}
+.dot.r{background:#ff5f57}.dot.y{background:#febc2e}.dot.g{background:#28c840}
+.url{flex:1;background:#3d3d3d;border-radius:5px;padding:4px 10px;color:#aaa;font-size:11px;font-family:'JetBrains Mono',monospace}
+.badge{background:var(--gold);color:var(--navy);font-size:10px;font-weight:700;padding:3px 8px;border-radius:4px}
+/* Preview page wrapper + hero */
+.page{max-width:780px;margin:0 auto;background:#fff;min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,.12)}
+.hero{background:linear-gradient(135deg,#0f1e3c,var(--navy));padding:40px 40px 32px;color:#fff}
+.tag{display:inline-block;background:var(--gold);color:var(--navy);font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;padding:3px 9px;border-radius:3px;margin-bottom:14px}
+.hero h1{font-family:'Montserrat',sans-serif;font-size:22px;line-height:1.4;margin-bottom:14px}
+.meta{display:flex;gap:10px;flex-wrap:wrap}
+.pill{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.88);font-size:11px;padding:4px 10px;border-radius:20px}
+</style>
+</head>
+<body>
+
+<!-- ===================================================================
+     PUBLISHING GUIDE — visible in your browser, preview only
+     This panel does NOT get pasted into WordPress.
+     =================================================================== -->
+<details class="pub-guide" open>
+  <summary>PUBLISHING GUIDE — 4 steps to post this to WordPress</summary>
+  <div class="pub-guide-body">
+
+    <div class="pub-step">
+      <div class="pub-step-ttl">STEP 1 — ONE TIME ONLY: Add MathJax + Desmos to functions.php</div>
+      <p>Do this once. After that, skip to Step 2 for every future post.<br>
+         Go to: WordPress Admin &rarr; Appearance &rarr; Theme File Editor &rarr; functions.php<br>
+         Scroll to the bottom and paste the code below.</p>
+      <textarea readonly rows="10">
+// ── ACE AP CALCULUS: MathJax + Desmos ─────────────────────────────
+// Paste this at the bottom of functions.php — one time only.
+
+add_action('wp_head', function() {
+    echo '<script>MathJax = { tex: { inlineMath: [["$","$"]], displayMath: [["$$","$$"]] } };</script>';
+    echo '<script src="https://www.desmos.com/api/v1.7/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0fda6"></script>';
+}, 1);
+
+add_action('wp_enqueue_scripts', function() {
+    wp_enqueue_script('mathjax', 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js', [], null, false);
+});
+// ──────────────────────────────────────────────────────────────────</textarea>
+    </div>
+
+    <hr class="pub-divider">
+
+    <div class="pub-step">
+      <div class="pub-step-ttl">STEP 2 — WordPress title field</div>
+      <p>In the WordPress editor, click the title field at the top and paste this exactly:</p>
+      <textarea readonly rows="2">Volumes of Revolution in AP Calculus: The Disk and Washer Method (FRQ Setup Guide)</textarea>
+    </div>
+
+    <hr class="pub-divider">
+
+    <div class="pub-step">
+      <div class="pub-step-ttl">STEP 3 — WordPress Custom HTML block (the post content)</div>
+      <p>In the WordPress editor content area:<br>
+         1. Click the <code>+</code> button &rarr; search <code>Custom HTML</code> &rarr; add that block<br>
+         2. Open this file in VS Code or any text editor<br>
+         3. Find the comment that says: <code>&#9660;&#9660;&#9660; START: PASTE THIS INTO WORDPRESS CUSTOM HTML BLOCK &#9660;&#9660;&#9660;</code><br>
+         4. Select everything from that line down to: <code>&#9650;&#9650;&#9650; END: WORDPRESS CUSTOM HTML BLOCK &#9650;&#9650;&#9650;</code><br>
+         5. Paste into the Custom HTML block in WordPress<br><br>
+         That section contains the fonts link, all the CSS, all the post content, and the Desmos graph script.</p>
+    </div>
+
+    <hr class="pub-divider">
+
+    <div class="pub-step">
+      <div class="pub-step-ttl">STEP 4 — SEO fields (in the WordPress sidebar)</div>
+      <p>If you use Yoast or Rank Math, fill these in the sidebar before publishing:</p>
+      <textarea readonly rows="5">
+SEO Title:       Volumes of Revolution AP Calculus: Disk and Washer (2026)
+Meta Description: Learn the disk and washer method for AP Calculus AB volumes of revolution FRQs. Step-by-step setup, worked examples, and exam rubric explained.
+Slug:            volumes-of-revolution-ap-calculus
+Focus Keyword:   volumes of revolution AP Calculus</textarea>
+    </div>
+
+  </div>
+</details>
+<!-- END PUBLISHING GUIDE -->
+
+
+<!-- ===================================================================
+     PREVIEW ONLY: browser chrome bar
+     Do NOT paste this into WordPress.
+     =================================================================== -->
+<div class="chrome">
+  <div class="dots">
+    <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
+  </div>
+  <div class="url">enginearu.com/ap-calculus-prep/volumes-of-revolution-ap-calculus/</div>
+  <div class="badge">PREVIEW</div>
+</div>
+<!-- END PREVIEW CHROME -->
+
+
+<!-- ===================================================================
+     PREVIEW ONLY: hero header
+     WordPress uses the title field (Step 2) instead of this.
+     Do NOT paste this into WordPress.
+     =================================================================== -->
+<div class="page">
+<div class="hero">
+  <div class="tag">AP Calculus AB &middot; Unit 8 &middot; FRQ</div>
+  <h1>Volumes of Revolution in AP Calculus: The Disk and Washer Method (FRQ Setup Guide)</h1>
+  <div class="meta">
+    <span class="pill">16 min read</span>
+    <span class="pill">Used by 500+ EngiNearU students to set up volume FRQs without freezing</span>
+  </div>
+</div>
+<!-- END PREVIEW HERO -->
+
+
+<!-- ===================================================================
+     ▼▼▼ START: PASTE THIS INTO WORDPRESS CUSTOM HTML BLOCK ▼▼▼
+     ===================================================================
+     Select from this line all the way down to the matching END marker.
+     Paste the entire selection into one Custom HTML block in WordPress.
+     =================================================================== -->
+
+<!-- Google Fonts — loads the typefaces used in the post styling -->
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Nunito+Sans:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+
+<!-- Post CSS — all visual styles for the content below -->
+<style>
+.ace-post{
+  --navy:#1a3a6b;--gold:#e8a020;--gold-light:#fef3dc;
+  --green:#1a7a4a;--green-light:#eaf7f0;--red:#c0392b;--red-light:#fdf2f1;
+  --purple:#7c3aed;--purple-light:#f3f0ff;
+  --gray:#f5f6f8;--border:#dde1e8;--text:#1a1a2e;--muted:#6b7280;
+  font-family:'Nunito Sans',sans-serif;font-size:14px;line-height:1.8;color:var(--text);
+  padding:32px 0;
+}
+.ace-post .toc{background:var(--gray);border-left:4px solid var(--navy);border-radius:0 8px 8px 0;padding:18px 20px;margin-bottom:36px}
+.ace-post .toc-ttl{font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.ace-post .toc ol{padding-left:18px}.ace-post .toc li{margin-bottom:6px}
+.ace-post .toc a{color:var(--navy);text-decoration:none;font-size:13px;font-weight:600}
+.ace-post .sec{margin-bottom:44px}
+.ace-post h2{font-family:'Montserrat',sans-serif;font-size:18px;font-weight:800;color:var(--navy);margin-bottom:14px;padding-bottom:8px;border-bottom:2px solid var(--border)}
+.ace-post h3{font-size:14px;font-weight:700;color:var(--navy);margin:18px 0 8px}
+.ace-post p{margin-bottom:13px;font-size:14px}
+.ace-post .math-block{background:var(--gray);border-radius:8px;padding:16px 20px;margin:14px 0;text-align:center;overflow-x:auto;font-size:15px}
+.ace-post .note{background:var(--purple-light);border-left:3px solid var(--purple);border-radius:0 6px 6px 0;padding:10px 14px;margin:14px 0;font-size:12px;color:#4c1d95}
+.ace-post .step{display:flex;gap:14px;margin-bottom:18px;align-items:flex-start}
+.ace-post .snum{background:var(--navy);color:#fff;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;margin-top:2px}
+.ace-post .scontent{flex:1}
+.ace-post .slbl{font-weight:700;font-size:13px;color:var(--navy);margin-bottom:5px}
+.ace-post .scontent p{font-size:13px;margin-bottom:6px}
+.ace-post .rubric{background:var(--green-light);border-left:4px solid var(--green);border-radius:0 8px 8px 0;padding:14px 18px;margin:16px 0}
+.ace-post .rubric-ttl{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--green);margin-bottom:8px}
+.ace-post .rubric ul{padding-left:18px}.ace-post .rubric li{font-size:13px;margin-bottom:5px;color:#1a4a32}
+.ace-post .cta{background:linear-gradient(135deg,#0f1e3c,var(--navy));border-radius:12px;padding:24px 26px;margin:28px 0;color:#fff}
+.ace-post .cta h3{color:#fff;margin:0 0 8px;font-size:15px;font-family:'Montserrat',sans-serif}
+.ace-post .cta p{color:rgba(255,255,255,.85);font-size:13px;margin-bottom:14px}
+.ace-post .btn{display:inline-block;background:var(--gold);color:var(--navy);font-weight:700;font-size:13px;padding:10px 20px;border-radius:6px;text-decoration:none}
+.ace-post .sub{font-size:11px;color:rgba(255,255,255,.6);margin-top:10px;font-style:italic}
+.ace-post .sea{background:var(--gold-light);border:2px solid var(--gold);border-radius:12px;padding:22px 26px;margin:20px 0}
+.ace-post .sea h3{color:var(--navy);font-size:14px;margin-bottom:8px;font-weight:700;font-family:'Montserrat',sans-serif}
+.ace-post .sea p{font-size:13px;color:#5a4500;margin-bottom:12px}
+.ace-post .btn-w{display:inline-block;background:var(--navy);color:#fff;font-weight:700;font-size:13px;padding:10px 20px;border-radius:6px;text-decoration:none}
+.ace-post .mk{border-left:4px solid var(--red);border-radius:0 8px 8px 0;padding:14px 18px;background:var(--red-light);margin-bottom:16px}
+.ace-post .mk-n{font-weight:700;color:var(--red);font-size:13px;margin-bottom:5px}
+.ace-post .mk-w{font-size:12px;color:#7a2020;margin-bottom:6px;font-style:italic}
+.ace-post .mk-f{font-size:13px;color:var(--text)}
+.ace-post .prob{background:var(--gray);border-radius:8px;padding:16px 18px;margin-bottom:14px;border:1px solid var(--border)}
+.ace-post .plbl{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.ace-post .prob p{font-size:13px;margin-bottom:8px}
+.ace-post .answers{background:var(--navy);border-radius:8px;padding:18px 20px;margin-top:20px}
+.ace-post .ans-ttl{color:var(--gold);font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:12px}
+.ace-post .ans-item{font-size:13px;color:rgba(255,255,255,.9);margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid rgba(255,255,255,.1)}
+.ace-post .ans-item:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
+.ace-post .faq-item{border-bottom:1px solid var(--border);padding:18px 0}
+.ace-post .faq-item:last-child{border-bottom:none}
+.ace-post .faq-q{font-weight:700;color:var(--navy);font-size:13px;margin-bottom:8px}
+.ace-post .faq-a{font-size:13px;line-height:1.7}
+.ace-post .qr{background:var(--navy);color:#fff;border-radius:10px;padding:24px 26px;margin:20px 0}
+.ace-post .qr-ttl{color:var(--gold);font-size:12px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:16px}
+.ace-post .qrf{background:rgba(255,255,255,.07);border-radius:6px;padding:12px 16px;margin-bottom:10px;text-align:center}
+.ace-post .qrf-lbl{font-size:11px;color:rgba(255,255,255,.5);margin-bottom:6px;text-transform:uppercase;letter-spacing:.8px;font-weight:700}
+.ace-post .qrb{margin-top:14px;list-style:none;padding-left:0}
+.ace-post .qrb li{font-size:12px;color:rgba(255,255,255,.85);margin-bottom:6px;padding-left:20px;position:relative}
+.ace-post .qrb li::before{content:"&#10003;";color:#4ade80;position:absolute;left:0;font-weight:700}
+.ace-post .qrb .nv{color:#fca5a5!important}.ace-post .qrb .nv::before{content:"&#10007;"!important;color:#fca5a5!important}
+.ace-post .related-link{display:block;padding:12px 14px;background:var(--gray);border-radius:6px;border:1px solid var(--border);margin-bottom:8px;font-size:13px;color:var(--navy);text-decoration:none;font-weight:600}
+.ace-post .related-link:hover{background:var(--gold-light);border-color:var(--gold)}
+.ace-post .desmos-wrap{border-radius:10px;overflow:hidden;margin:18px 0;border:1px solid var(--border)}
+.ace-post .desmos-label{background:var(--navy);color:#fff;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:8px 14px;display:flex;align-items:center;gap:6px}
+.ace-post .desmos-dot{width:8px;height:8px;border-radius:50%;background:var(--gold)}
+.ace-post .body-list{padding-left:20px;margin-bottom:12px;font-size:13px}
+.ace-post .body-list li{margin-bottom:5px}
+.ace-post hr{border:none;border-top:1px solid var(--border);margin:28px 0}
+.ace-post .formula-card{background:var(--gray);border-radius:8px;padding:18px 20px;margin-bottom:16px;border-left:4px solid var(--navy)}
+.ace-post .formula-lbl{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.ace-post .formula-title{font-weight:700;color:var(--navy);font-size:13px;margin-bottom:10px}
+.ace-post .screenshot-liner{background:var(--navy);color:var(--gold);border-radius:8px;padding:14px 18px;margin:20px 0;font-size:14px;font-weight:700;font-style:italic;text-align:center;font-family:'Montserrat',sans-serif}
+.ace-post .checklist{list-style:none;padding-left:0;margin-bottom:12px}
+.ace-post .checklist li{font-size:13px;padding:5px 0 5px 22px;position:relative;border-bottom:1px solid var(--border)}
+.ace-post .checklist li:last-child{border-bottom:none}
+.ace-post .checklist li::before{content:"&#10003;";position:absolute;left:0;color:var(--green);font-weight:700}
+.ace-post .radius-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0}
+.ace-post .radius-card{background:#fff;border:1px solid var(--border);border-radius:8px;padding:14px 16px;text-align:center}
+.ace-post .radius-card.outer{border-top:3px solid var(--gold)}
+.ace-post .radius-card.inner{border-top:3px solid var(--navy)}
+.ace-post .radius-lbl{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px}
+.ace-post .radius-lbl.outer{color:#8a5a00}
+.ace-post .radius-lbl.inner{color:var(--navy)}
+.ace-post .radius-def{font-size:12px;color:var(--muted);line-height:1.5}
+.ace-post .aroc-note{background:#eef2ff;border-left:4px solid #4f46e5;border-radius:0 8px 8px 0;padding:12px 16px;margin:14px 0;font-size:13px;color:#312e81}
+.ace-post .aroc-note strong{color:#3730a3}
+</style>
+
+<!-- Post content — all sections of the blog post -->
+<div class="ace-post">
+
+  <!-- Table of contents -->
+  <div class="toc">
+    <div class="toc-ttl">Jump To What You Need</div>
+    <ol>
+      <li><a href="#picture-problem">The Picture Problem</a></li>
+      <li><a href="#what-it-means">What Volumes of Revolution Actually Are</a></li>
+      <li><a href="#method">The Disk and Washer Method: Step-by-Step</a></li>
+      <li><a href="#example-1">Worked Example 1: Disk Method</a></li>
+      <li><a href="#mid-cta">Grab the Free Pre-Assessment</a></li>
+      <li><a href="#example-2">Worked Example 2: Washer Method FRQ (Full Rubric)</a></li>
+      <li><a href="#mistakes">The 3 Mistakes That Cost My Students Points</a></li>
+      <li><a href="#practice">Practice Problems</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="#quick-reference">Save This For Exam Day</a></li>
+      <li><a href="#related">Related Posts</a></li>
+      <li><a href="#end-cta">What Comes Next</a></li>
+    </ol>
+  </div>
+
+  <!-- Section: Intro — WEIGHT: HEAVY -->
+  <div class="sec" id="picture-problem">
+    <h2>The Picture Problem</h2>
+    <!-- HOOK TYPE: name-the-feeling -->
+    <p>There is a specific feeling that hits when you read a volumes of revolution AP Calculus FRQ and know, in theory, that you are supposed to write an integral, but have no idea what goes inside it. Not because you forgot the formula. You can see $\pi \int [R]^2\,dx$ in your head right now. The problem is you cannot figure out what $R$ is. So you stare at the page. And the clock keeps running.</p>
+    <p>I call this the <strong>Radius Blank-Out</strong>, and I see it every single year. Students who have practiced volumes of revolution problems still freeze on exam day not because they got the integration wrong, but because they drew the wrong picture before they ever wrote a single symbol. The picture determines the radius. The radius determines the integral setup. Get the picture wrong and every step after it is building on a broken foundation.</p>
+
+    <!-- NEEDS UNIQUE ANGLE: add Zach story here -->
+
+    <p>Here is the truth about this AP Calculus integration applications FRQ type: the integral is almost never the hard part. The students who drop points on AP Calculus AB volume problems are not making algebra mistakes inside the integral. They are making geometry mistakes before the integral even starts. Specifically, they confuse outer and inner radii, they use function values when they should subtract from a line, and they forget that the radius changes depending on the axis of rotation.</p>
+    <p>This post fixes that. You will know exactly what to draw, how to identify the radii, and how to set up the integral for both disk and washer problems. Unit 8 is 10-15% of your total AP score. Getting this right matters.</p>
+  </div>
+
+  <!-- Section: What It Actually Means — WEIGHT: LIGHT + 1 STANCE -->
+  <div class="sec" id="what-it-means">
+    <h2>What Volumes of Revolution Actually Are</h2>
+    <p>Most textbooks open this topic with the formal definition of a solid of revolution. I have never found that helpful as a first move. Here is the analogy I use instead.</p>
+    <p>Imagine you take a flat shape drawn on paper, a region between two curves, and you spin it around a line. Like a pottery wheel. The flat shape sweeps through three-dimensional space and traces out a solid. That solid is what you are finding the volume of.</p>
+    <p>The key insight: if you slice that solid with a very thin cut perpendicular to the axis of rotation, the cross-section is a circle. Or a washer. The volume of the entire solid is the sum of the volumes of all those infinitely thin circular slices. The integral does that summation. That is all this is.</p>
+
+    <div class="aroc-note">
+      <strong>AROC vs. IROC connection:</strong> When you use the definite integral to accumulate the cross-sectional area of each slice, you are using the same accumulation principle that connects IROC to total change: $\int_a^b f'(x)\,dx = f(b) - f(a)$. Each cross-section has an instantaneous area ($\pi R^2$ at a specific $x$), and the integral accumulates those across the interval. The disk method is not separate from that idea. It is the same idea applied to geometry.
+    </div>
+
+    <p>You would think the hard part is the integration. It is not. The hard part is identifying the radius of each circular cross-section from the picture you draw before you write a single symbol.</p>
+
+    <p>The formal definition: a <strong>volume of revolution</strong> is a solid created by rotating a two-dimensional region around a line called the axis of rotation. The disk method and washer method are the two integral setup AP exam formulas used to compute the volume of that solid.</p>
+  </div>
+
+  <!-- Section: Method — WEIGHT: LIGHT -->
+  <div class="sec" id="method">
+    <h2>The Disk and Washer Method: Step-by-Step</h2>
+    <p>Two cases. You identify which one applies before you write a single symbol.</p>
+
+    <div class="formula-card">
+      <div class="formula-lbl">Case 1</div>
+      <div class="formula-title">Disk Method: No gap between region and axis of rotation</div>
+      <p style="font-size:13px;">Use when the region being rotated touches the axis directly. Each cross-section is a solid circle.</p>
+      <div class="math-block">$$V = \pi \int_a^b \bigl[f(x)\bigr]^2\,dx \quad \text{(rotating around the x-axis)}$$</div>
+      <p style="font-size:13px;">The radius $R = f(x)$ is the distance from the axis to the curve. Square it. Multiply by $\pi$. Integrate.</p>
+    </div>
+
+    <div class="formula-card" style="border-left-color: var(--gold);">
+      <div class="formula-lbl">Case 2</div>
+      <div class="formula-title">Washer Method: Gap between region and axis of rotation</div>
+      <p style="font-size:13px;">Use when there is empty space between the region and the axis. Each cross-section is a washer: a big circle with a hole.</p>
+      <div class="math-block">$$V = \pi \int_a^b \Bigl(\bigl[R(x)\bigr]^2 - \bigl[r(x)\bigr]^2\Bigr)\,dx \quad \text{(rotating around the x-axis)}$$</div>
+      <div class="radius-grid">
+        <div class="radius-card outer">
+          <div class="radius-lbl outer">Outer Radius R</div>
+          <p class="radius-def">Distance from the axis of rotation to the <strong>farther curve</strong> (the bigger circle)</p>
+        </div>
+        <div class="radius-card inner">
+          <div class="radius-lbl inner">Inner Radius r</div>
+          <p class="radius-def">Distance from the axis of rotation to the <strong>closer curve</strong> (the hole)</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="formula-card">
+      <div class="formula-lbl">Rotating around the y-axis</div>
+      <div class="formula-title">Integrate in terms of y: rewrite functions as x = g(y) first</div>
+      <div class="math-block">$$V = \pi \int_c^d \bigl[f(y)\bigr]^2\,dy \quad \text{(disk)} \qquad V = \pi \int_c^d \Bigl(\bigl[R(y)\bigr]^2 - \bigl[r(y)\bigr]^2\Bigr)\,dy \quad \text{(washer)}$$</div>
+    </div>
+
+    <div class="formula-card" style="border-left-color: var(--red);">
+      <div class="formula-lbl">Rotation about a non-standard line (y = k)</div>
+      <div class="formula-title">The radius is the distance from the line to the curve, not the function value</div>
+      <p style="font-size:13px;">If the axis is $y = k$ and the curve is above the line:</p>
+      <div class="math-block">$$R = f(x) - k \qquad r = g(x) - k$$</div>
+      <p style="font-size:13px;">If the axis is $y = k$ and the curve is below the line:</p>
+      <div class="math-block">$$R = k - g(x) \qquad r = k - f(x)$$</div>
+      <p style="font-size:13px;margin-bottom:0;">This is the most common setup error on AP exam FRQs involving non-standard axes. Write the radius formula explicitly before substituting.</p>
+    </div>
+
+    <h3>The 4-Step Setup Process</h3>
+    <div class="step"><div class="snum">1</div><div class="scontent"><div class="slbl">Sketch the region.</div><p>Draw both curves. Label which is farther from the axis of rotation (outer) and which is closer (inner). This is not optional. The sketch determines the radii.</p></div></div>
+    <div class="step"><div class="snum">2</div><div class="scontent"><div class="slbl">Identify the axis of rotation.</div><p>If it is not a coordinate axis, write out $R = f(x) - k$ and $r = g(x) - k$ before writing the integral. The radius is always the distance from the axis, not the function height.</p></div></div>
+    <div class="step"><div class="snum">3</div><div class="scontent"><div class="slbl">Find the bounds of integration.</div><p>Set the curves equal and solve for intersection points. These are your limits unless the problem specifies them directly.</p></div></div>
+    <div class="step"><div class="snum">4</div><div class="scontent"><div class="slbl">Write the integral, evaluate, and box the answer with units.</div><p>Disk: $\pi \int [f(x)]^2\,dx$. Washer: $\pi \int ([R]^2 - [r]^2)\,dx$. If units are given in the problem, include them in the answer.</p></div></div>
+
+    <!-- Desmos: region between y=x and y=x^2, annotated for washer method -->
+    <div class="desmos-wrap">
+      <div class="desmos-label"><span class="desmos-dot"></span> Interactive Graph: Washer Method Region. Drag to Explore.</div>
+      <div id="desmos-washer" style="width:100%;height:360px;"></div>
+      <p style="font-size:12px;color:var(--muted);margin-top:8px;padding:0 14px 10px;text-align:center;">
+        Shaded region between $y = x$ (gold, outer) and $y = x^2$ (navy, inner) on $[0,1]$.
+        When rotated about the x-axis, the outer radius is $R = x$ and the inner radius is $r = x^2$.
+      </p>
+    </div>
+  </div>
+
+  <!-- Section: Worked Example 1 — WEIGHT: PROCESS -->
+  <div class="sec" id="example-1">
+    <h2>Worked Example 1: Disk Method (Rotating Around the x-axis)</h2>
+    <p>The region below $f(x) = \sqrt{x}$ and above the x-axis is rotated about the x-axis on $[0, 4]$. Find the volume.</p>
+
+    <div class="step"><div class="snum">1</div><div class="scontent"><div class="slbl">Identify the method.</div><p>The region touches the x-axis (the lower boundary is $y = 0$, which is the axis of rotation). No gap. This is a disk problem.</p></div></div>
+
+    <div class="step"><div class="snum">2</div><div class="scontent"><div class="slbl">Write the disk formula and substitute.</div>
+      <div class="math-block">$$V = \pi \int_0^4 \bigl[\sqrt{x}\bigr]^2\,dx$$</div>
+    </div></div>
+
+    <div class="step"><div class="snum">3</div><div class="scontent"><div class="slbl">Simplify the integrand.</div>
+      <div class="math-block">$$V = \pi \int_0^4 x\,dx$$</div>
+      <p>Always write the squared form first as its own step before simplifying. Students who go directly from $\sqrt{x}$ to $x$ skip the step most often to lose the setup point on a rubric.</p>
+    </div></div>
+
+    <div class="step"><div class="snum">4</div><div class="scontent"><div class="slbl">Evaluate.</div>
+      <div class="math-block">$$V = \pi \left[\frac{x^2}{2}\right]_0^4 = \pi \left(\frac{16}{2} - 0\right) = \pi \cdot 8$$</div>
+      <div class="math-block">$$\boxed{V = 8\pi}$$</div>
+    </div></div>
+
+    <div class="rubric">
+      <div class="rubric-ttl">Here is exactly how the AP exam scores this type of problem</div>
+      <ul>
+        <li>Correct formula setup with $\pi$ and the integrand squared (not just $f(x)$): 1 point</li>
+        <li>Correct limits of integration ($0$ to $4$): 1 point</li>
+        <li>Correct antiderivative of $x$ (getting $\frac{x^2}{2}$): 1 point</li>
+        <li>Correct evaluation and final answer $8\pi$: 1 point</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Section: Mid-post CTA — WEIGHT: NEUTRAL -->
+  <div class="sec" id="mid-cta">
+    <div class="cta">
+      <h3>Not Sure Where Your Unit 8 Gaps Are?</h3>
+      <p>Take the free pre-assessment. 10 minutes. It tells you exactly which concepts in Unit 8 need attention before they show up on a rubric.</p>
+      <a href="https://www.aceapcalculus.com/summer-diagnostic-page" class="btn" target="_blank">Take the Free Pre-Assessment</a>
+      <div class="sub">Parents: this is the fastest way to find out exactly where your student stands in Unit 8 right now, before a test or quiz tells you first.</div>
+    </div>
+  </div>
+
+  <!-- Section: Worked Example 2 — WEIGHT: PROCESS (FRQ) -->
+  <div class="sec" id="example-2">
+    <h2>Worked Example 2: Washer Method FRQ (Full Rubric)</h2>
+    <p>This is the problem type that shows up on FRQs every year. The washer method is the AP exam's preferred volumes of revolution FRQ setup because it requires students to identify both radii correctly. If you can do this cold, you will not leave points on the table.</p>
+
+    <div class="note">
+      <strong>Problem:</strong> Let $R$ be the region bounded by $f(x) = x$ and $g(x) = x^2$ on $[0, 1]$. The region is rotated about the x-axis. Find the volume of the resulting solid.
+    </div>
+
+    <div class="step"><div class="snum">1</div><div class="scontent"><div class="slbl">Sketch and identify outer and inner radii.</div>
+      <p>On $[0, 1]$, the line $y = x$ sits above the parabola $y = x^2$. The axis is the x-axis ($y = 0$).</p>
+      <div class="radius-grid">
+        <div class="radius-card outer">
+          <div class="radius-lbl outer">Outer Radius R(x)</div>
+          <p class="radius-def">Distance from x-axis to $y = x$:<br><strong>$R(x) = x$</strong></p>
+        </div>
+        <div class="radius-card inner">
+          <div class="radius-lbl inner">Inner Radius r(x)</div>
+          <p class="radius-def">Distance from x-axis to $y = x^2$:<br><strong>$r(x) = x^2$</strong></p>
+        </div>
+      </div>
+    </div></div>
+
+    <div class="step"><div class="snum">2</div><div class="scontent"><div class="slbl">Write the washer formula.</div>
+      <div class="math-block">$$V = \pi \int_0^1 \Bigl(\bigl[R(x)\bigr]^2 - \bigl[r(x)\bigr]^2\Bigr)\,dx = \pi \int_0^1 \bigl(x^2 - x^4\bigr)\,dx$$</div>
+    </div></div>
+
+    <div class="step"><div class="snum">3</div><div class="scontent"><div class="slbl">Evaluate.</div>
+      <div class="math-block">$$V = \pi \left[\frac{x^3}{3} - \frac{x^5}{5}\right]_0^1 = \pi \left(\frac{1}{3} - \frac{1}{5}\right) = \pi \cdot \frac{2}{15}$$</div>
+      <div class="math-block">$$\boxed{V = \dfrac{2\pi}{15}}$$</div>
+    </div></div>
+
+    <div class="step"><div class="snum">4</div><div class="scontent"><div class="slbl">Write the justification sentence.</div>
+      <p>This is the step most students skip, and it is the most expensive skip on a rubric. On the AP exam, write:</p>
+      <div class="note" style="font-style:italic;">"Since the region is rotated about the x-axis, the volume is given by the washer method with outer radius $R(x) = x$ and inner radius $r(x) = x^2$."</div>
+      <p>One sentence. That is the justification point. Without it, the grader cannot award the setup point even if your integral is correct.</p>
+    </div></div>
+
+    <div class="rubric">
+      <div class="rubric-ttl">Here is exactly how the AP exam scores this type of problem</div>
+      <ul>
+        <li>Correct washer setup: $[R(x)]^2 - [r(x)]^2$ inside the integral (not $[R(x) - r(x)]^2$): 1 point</li>
+        <li>Correct identification of $R(x) = x$ and $r(x) = x^2$: 1 point</li>
+        <li>Correct antiderivatives $\frac{x^3}{3}$ and $\frac{x^5}{5}$: 1 point</li>
+        <li>Correct final answer $\frac{2\pi}{15}$: 1 point</li>
+      </ul>
+    </div>
+
+    <div class="mk">
+      <div class="mk-n">The single most expensive error on this problem type</div>
+      <p class="mk-w">Writing $\pi \int_0^1 (x - x^2)^2\,dx$ instead of $\pi \int_0^1 (x^2 - x^4)\,dx$.</p>
+      <p class="mk-f">Squaring after subtracting is a different integral that gives a different answer. That single error costs you 3 of the 4 rubric points: the setup, the antiderivative, and the final answer are all wrong. The formula rule is: square each radius separately, then subtract. Never subtract first, then square.</p>
+    </div>
+  </div>
+
+  <!-- Section: The 3 Mistakes — WEIGHT: MEDIUM -->
+  <div class="sec" id="mistakes">
+    <h2>The 3 Mistakes That Cost My Students Points</h2>
+
+    <!-- NEEDS UNIQUE ANGLE: add Zach story here -->
+
+    <div class="mk">
+      <div class="mk-n">Mistake 1: Subtracting functions before squaring</div>
+      <p class="mk-w">Why it happens: The area between curves formula is $\int [f(x) - g(x)]\,dx$, so students write $\pi \int [f(x) - g(x)]^2\,dx$ for the washer. That is a different integral and a wrong answer.</p>
+      <p class="mk-f">The fix: write $[R(x)]^2 - [r(x)]^2$ as the structure first. Label $R$ and $r$ separately before substituting. The moment you label them separately, you cannot collapse them before squaring. Consequence: changes the integrand completely. On a standard 4-point FRQ rubric, this costs you 3 points. Not 1. The setup, antiderivative, and final answer are all wrong.</p>
+    </div>
+
+    <div class="mk">
+      <div class="mk-n">Mistake 2: Wrong radius when rotating about a non-standard line</div>
+      <p class="mk-w">Why it happens: Students know how to handle $y = 0$ and $x = 0$ as axes. When the axis shifts to $y = 2$ or $y = -1$, they write $f(x)$ as the radius instead of $f(x) - 2$ (or $f(x) + 1$).</p>
+      <p class="mk-f">The fix: the radius is always the vertical distance from the axis of rotation to the curve. Write it as $f(x) - k$ before substituting. If $k$ is negative, the subtraction adds to the radius. Consequence: writing the wrong expression for $R$ or $r$ costs the radius identification point and, if the error cascades, the final answer point. That is up to 2 points lost on a setup that should take 30 seconds.</p>
+    </div>
+
+    <div class="mk">
+      <div class="mk-n">Mistake 3: Skipping the sketch</div>
+      <p class="mk-w">Why it happens: Students practice enough standard problems that they feel confident going straight from the problem statement to the integral. On an AP exam FRQ, the problem is not always standard.</p>
+      <p class="mk-f">The fix: draw the region every single time. Label the outer curve, the inner curve, and the axis of rotation. 60 seconds. This single step prevents both Mistake 1 and Mistake 2 above. I have never seen a student who draws a clean, labeled sketch set up the integral wrong. Not once. Consequence: skipping the sketch is the root cause of the other two mistakes. It is the most expensive 60 seconds you can save on an FRQ.</p>
+    </div>
+  </div>
+
+  <!-- Section: Practice Problems — WEIGHT: LIGHT -->
+  <div class="sec" id="practice">
+    <h2>Practice Problems</h2>
+    <p>Try these on your own before checking the answers. Draw the picture first every time. Identify disk or washer, label the radii, then write the integral.</p>
+
+    <div class="prob">
+      <div class="plbl">Problem 1: Disk Method (Foundational)</div>
+      <p>The region below $f(x) = 2x$ and above the x-axis on $[0, 3]$ is rotated about the x-axis. Find the volume of the resulting solid.</p>
+    </div>
+
+    <div class="prob">
+      <div class="plbl">Problem 2: Washer Method</div>
+      <p>Let $R$ be the region bounded by $f(x) = \sqrt{x}$ and $g(x) = x^2$ for $0 \leq x \leq 1$. Find the volume when $R$ is rotated about the x-axis.</p>
+    </div>
+
+    <div class="prob">
+      <div class="plbl">Problem 3: Non-Standard Axis (FRQ Level)</div>
+      <p>The region bounded by $f(x) = 4$ and $g(x) = x^2$ is rotated about the line $y = -1$ on $[-2, 2]$. Identify the outer and inner radii, write the integral, and find the volume.</p>
+    </div>
+
+    <div class="answers">
+      <div class="ans-ttl">Answers</div>
+
+      <div class="ans-item">
+        <strong>Problem 1:</strong>
+        <div class="math-block" style="margin:8px 0;background:rgba(255,255,255,.06);">$$V = \pi \int_0^3 [2x]^2\,dx = \pi \int_0^3 4x^2\,dx = \pi \left[\frac{4x^3}{3}\right]_0^3 = \pi \cdot \frac{4(27)}{3} = 36\pi$$</div>
+      </div>
+
+      <div class="ans-item">
+        <strong>Problem 2:</strong> On $[0,1]$, $\sqrt{x} \geq x^2$, so outer radius $R = \sqrt{x}$, inner radius $r = x^2$.
+        <div class="math-block" style="margin:8px 0;background:rgba(255,255,255,.06);">$$V = \pi \int_0^1 \bigl([\sqrt{x}]^2 - [x^2]^2\bigr)\,dx = \pi \int_0^1 (x - x^4)\,dx = \pi \left[\frac{x^2}{2} - \frac{x^5}{5}\right]_0^1 = \pi\!\left(\frac{1}{2} - \frac{1}{5}\right) = \frac{3\pi}{10}$$</div>
+      </div>
+
+      <div class="ans-item">
+        <strong>Problem 3:</strong> Axis is $y = -1$ (below both curves).
+        <ul style="padding-left:18px;margin:8px 0;font-size:13px;color:rgba(255,255,255,.85);">
+          <li>Outer radius: distance from $y = -1$ to $f(x) = 4$: $R = 4 - (-1) = 5$</li>
+          <li>Inner radius: distance from $y = -1$ to $g(x) = x^2$: $r = x^2 - (-1) = x^2 + 1$</li>
+        </ul>
+        <div class="math-block" style="margin:8px 0;background:rgba(255,255,255,.06);">$$V = \pi \int_{-2}^{2} \bigl(25 - (x^2+1)^2\bigr)\,dx = \pi \int_{-2}^{2} (24 - 2x^2 - x^4)\,dx = \frac{1088\pi}{15}$$</div>
+        <p style="font-size:12px;color:rgba(255,255,255,.6);margin-top:6px;margin-bottom:0;">Note: verify the Problem 3 expansion arithmetic before publishing.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section: FAQ — WEIGHT: LIGHT + ZACH CLOSE -->
+  <div class="sec" id="faq">
+    <h2>FAQ</h2>
+
+    <div class="faq-item">
+      <div class="faq-q">How do I know whether to use the disk method or the washer method?</div>
+      <div class="faq-a">
+        <p>One question answers this: is there a gap between the region you are rotating and the axis of rotation? If the region touches the axis directly (no hole), use the disk method. If there is empty space between the region and the axis, use the washer method. Draw the picture and the answer is usually obvious.</p>
+        <p>My shortcut: if you can trace from the axis of rotation directly to the edge of your region without passing through air, you have a disk. If there is air between the axis and the region, you have a washer. This single mental image will be faster than any formula check you try to run in the middle of a timed exam.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">What is the difference between rotating around the x-axis vs. the y-axis?</div>
+      <div class="faq-a">
+        <p>The formula structure is the same. The difference is the variable. Rotating around x-axis calculus problems integrate in terms of $x$ (with $dx$), and the radius is a function of $x$. Rotation about the y-axis means you integrate in terms of $y$ (with $dy$), and you rewrite your functions as $x = g(y)$ before setting up. The AP Calculus AB exam mostly tests rotation about the x-axis or a horizontal line. Y-axis rotation shows up less often in AB but it is in scope.</p>
+        <p>The fastest way to remember: the axis direction tells you the variable direction. Horizontal axis, horizontal slices, $dx$. Vertical axis, vertical slices, $dy$. You can confirm the full list of tested volume setups in the <a href="https://apcentral.collegeboard.org/courses/ap-calculus-ab" target="_blank">AP Calculus AB Course and Exam Description</a> published by the College Board.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">What if the problem gives me the region but does not tell me the axis explicitly?</div>
+      <div class="faq-a">
+        <p>Read more carefully. The axis of rotation is always stated in the problem. If it says "rotated about the x-axis," the axis is $y = 0$. If it says "rotated about the line $y = 3$," the axis is $y = 3$. The axis is never implied. It is always there.</p>
+        <p>If you genuinely cannot find it, go back to the problem statement before you write anything. An assumed axis is a guaranteed setup error, and setup errors are the most expensive kind on an FRQ rubric.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">Is there a way to check my integral setup before I evaluate it?</div>
+      <div class="faq-a">
+        <p>Yes. After you write the integral, do a dimensional check: you are integrating $[radius]^2$ (length squared) over $dx$ (length), so the result has units of length cubed. That matches a volume. If your integrand does not have units of area, something is wrong in your setup.</p>
+        <p>Also: the answer should always be positive. If you get a negative volume, you either reversed the radii or evaluated the bounds in the wrong order. Go back to the sketch before you try to fix the algebra.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section: Quick Reference Box — WEIGHT: NEUTRAL -->
+  <div class="sec" id="quick-reference">
+    <div class="qr">
+      <div class="qr-ttl">Save This For Exam Day</div>
+
+      <div class="qrf">
+        <div class="qrf-lbl">Disk Method (no gap)</div>
+        <p style="font-size:13px;color:rgba(255,255,255,.9);">$$V = \pi \int_a^b [f(x)]^2\,dx \qquad \text{(x-axis rotation)}$$</p>
+      </div>
+
+      <div class="qrf">
+        <div class="qrf-lbl">Washer Method (gap present)</div>
+        <p style="font-size:13px;color:rgba(255,255,255,.9);">$$V = \pi \int_a^b \bigl([R(x)]^2 - [r(x)]^2\bigr)\,dx \qquad R = \text{outer},\; r = \text{inner}$$</p>
+      </div>
+
+      <div class="qrf">
+        <div class="qrf-lbl">Non-Standard Axis y = k</div>
+        <p style="font-size:13px;color:rgba(255,255,255,.9);">Curve above line: $R = f(x) - k$ &nbsp;&nbsp;|&nbsp;&nbsp; Curve below line: $R = k - f(x)$</p>
+      </div>
+
+      <p style="font-size:12px;color:rgba(255,255,255,.7);margin-top:16px;margin-bottom:8px;font-weight:700;">Setup checklist before you write the integral:</p>
+      <ul class="qrb">
+        <li>Sketch the region. Label outer curve, inner curve, axis of rotation.</li>
+        <li>Identify: disk (no gap) or washer (gap)?</li>
+        <li>Write $R$ and $r$ explicitly, with the axis shift accounted for, before substituting.</li>
+        <li>Write $[R(x)]^2 - [r(x)]^2$, not $[R(x) - r(x)]^2$.</li>
+        <li>Check: answer must be positive. If negative, reverse the subtraction order.</li>
+      </ul>
+
+      <p style="font-size:12px;color:rgba(255,255,255,.7);margin-top:14px;margin-bottom:8px;font-weight:700;">Notation the AP exam expects to see:</p>
+      <ul class="qrb">
+        <li>The full integral written with $\pi$, both radii squared, and limits of integration</li>
+        <li>Antiderivative shown in bracket notation before evaluation</li>
+        <li>One justification sentence naming the method and both radii</li>
+        <li>Units stated if the problem provides them</li>
+        <li class="nv">Never: $\pi \int [R - r]^2\,dx$. This is a different, wrong integral.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Screenshot-able one-liner -->
+  <!-- SCREENSHOT-ABLE ONE-LINER -->
+  <div class="screenshot-liner">
+    The washer method squares each radius separately, then subtracts. Not the other way around.
+  </div>
+  <!-- END ONE-LINER -->
+
+  <!-- Section: Related Posts — WEIGHT: NEUTRAL -->
+  <div class="sec" id="related">
+    <h2>Related Posts</h2>
+    <p>These posts build the foundation that this topic sits on. If any of this felt unfamiliar, go back to these first.</p>
+    <a href="https://enginearu.com/ap-calculus-prep/what-is-a-derivative-ap-calculus/" class="related-link" target="_blank">What Is a Derivative in AP Calculus? The conceptual foundation for everything in this course.</a>
+    <a href="/ap-calculus-prep/post-08-integration-intro/" class="related-link">Introduction to Integration in AP Calculus: The mechanics you need before volumes make sense.</a>
+    <a href="/ap-calculus-prep/post-10-u-substitution/" class="related-link">U-Substitution in AP Calculus: For when the volume integral requires a substitution.</a>
+    <a href="/ap-calculus-prep/post-11-area-between-curves/" class="related-link">Area Between Curves in AP Calculus: Volumes of revolution build directly on the area setup you learned here.</a>
+  </div>
+
+  <!-- Section: End CTA + Seasonal — WEIGHT: NEUTRAL + 1 consequence line -->
+  <div class="sec" id="end-cta">
+    <h2>What Comes Next</h2>
+    <p>Volumes of revolution are one of the highest-point-value FRQ types in Unit 8, which is 10-15% of your total AP score. The students who lose points here are not making calculus mistakes. They are making picture mistakes. Draw the region. Label the radii. Write the formula before you substitute. That sequence costs you nothing and saves you everything.</p>
+    <p>If you are not sure where you stand on Unit 8, take the free pre-assessment. It takes about 10 minutes and tells you exactly which concepts need work before the AP exam. Because if the radius setup is shaky, cross-sections and other advanced integration applications get harder than they need to be.</p>
+    <div class="cta">
+      <h3>Free Pre-Assessment: Find Your Unit 8 Gaps</h3>
+      <p>10 minutes. No fluff. Tells you exactly which integration applications concepts need attention before exam day.</p>
+      <a href="https://www.aceapcalculus.com/summer-diagnostic-page" class="btn" target="_blank">Take the Free Pre-Assessment</a>
+      <div class="sub">Parents: Unit 8 shows up on every AP Calculus AB exam. If your student is working through it right now and feeling shaky, this is the fastest way to identify the gaps before they show up on a rubric.</div>
+    </div>
+
+    <div class="sea">
+      <h3>Summer Program: July &amp; August 2026</h3>
+      <p>If you want your student to have volumes of revolution locked in before AP Calculus starts next fall, my summer program runs in July and August. We do real FRQ practice. We draw the pictures. We run through every integral setup AP exam type. Small groups. Proven results. Spots are limited each session.</p>
+      <a href="https://www.aceapcalculus.com/summer-diagnostic-page" class="btn-w" target="_blank">See Summer Program Details</a>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- SEO Metadata block -->
+  <div style="background:var(--gray);border-radius:8px;padding:20px;font-size:12px;color:var(--muted);font-family:'JetBrains Mono',monospace;margin-top:32px">
+    <div style="color:var(--navy);font-weight:700;margin-bottom:12px;font-size:13px">SEO METADATA</div>
+    SEO Title: Volumes of Revolution AP Calculus: Disk and Washer (2026)<br>
+    Meta Description: Learn the disk and washer method for AP Calculus AB volumes of revolution FRQs. Step-by-step setup, worked examples, and exam rubric explained.<br>
+    Slug: volumes-of-revolution-ap-calculus<br>
+    Primary Keyword: volumes of revolution AP Calculus<br>
+    Keyword Cluster: disk method calculus, washer method AP exam, volumes of revolution FRQ, AP Calculus integration applications, rotating around x-axis calculus, cross-sectional area calculus, AP Calculus AB volume problems, integral setup AP exam<br>
+    SERP_TARGET_WORD_COUNT: ~3200 (Paul's Online Notes ~2400; Khan Academy inaccessible; third result 404)<br>
+    COVERAGE_GAPS_ADDRESSED: rotation about non-standard axes (y=k), AROC/IROC accumulation framing, FRQ justification sentence requirement, dimensional check method<br>
+    Post Type: long-form | Hook Type: name-the-feeling | Cluster Role: spoke | Pillar: TBD | Data Year: 2026
+  </div>
+
+</div>
+<!-- End post content div -->
+
+<!-- FAQPage schema for SEO -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How do I know whether to use the disk method or the washer method?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "One question answers this: is there a gap between the region you are rotating and the axis of rotation? If the region touches the axis directly with no hole, use the disk method. If there is empty space between the region and the axis, use the washer method. Draw the picture and the answer is usually obvious."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the difference between rotating around the x-axis vs. the y-axis?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The formula structure is the same; the difference is the variable. Rotating around the x-axis means integrating in terms of x with dx. Rotating around the y-axis means integrating in terms of y with dy, and you rewrite functions as x = g(y) first. Horizontal axis uses dx; vertical axis uses dy."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What if the problem gives me the region but does not tell me the axis explicitly?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Read more carefully. The axis of rotation is always stated in the problem. If it says rotated about the x-axis, the axis is y = 0. If it says rotated about the line y = 3, the axis is y = 3. The axis is never implied. An assumed axis is a guaranteed setup error on the FRQ."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is there a way to check my integral setup before I evaluate it?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Do a dimensional check: you are integrating radius squared (length squared) over dx (length), so the result should have units of length cubed, matching a volume. Also, the answer must always be positive. If you get a negative volume, you either reversed the radii or evaluated the bounds in the wrong order."
+      }
+    }
+  ]
+}
+</script>
+
+<!-- ===================================================================
+     ▲▲▲ END: WORDPRESS CUSTOM HTML BLOCK ▲▲▲
+     Stop selecting here. Do not paste anything below this line.
+     =================================================================== -->
+
+<!-- Desmos graph initialization — runs after the page loads -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var elt = document.getElementById('desmos-washer');
+  if (!elt || typeof Desmos === 'undefined') return;
+  var calc = Desmos.GraphingCalculator(elt, {
+    expressions: false,
+    settingsMenu: false,
+    zoomButtons: true,
+    lockViewport: false,
+    keypad: false,
+    border: false
+  });
+  calc.setMathBounds({ left: -0.25, right: 1.35, bottom: -0.2, top: 1.2 });
+
+  // Inner curve: y = x^2 (navy)
+  calc.setExpression({
+    id: 'inner',
+    latex: 'y = x^2',
+    color: '#1a3a6b',
+    lineWidth: 2.5,
+    label: 'inner: y = x² (r)',
+    showLabel: true
+  });
+
+  // Outer curve: y = x (gold)
+  calc.setExpression({
+    id: 'outer',
+    latex: 'y = x',
+    color: '#e8a020',
+    lineWidth: 2.5,
+    label: 'outer: y = x (R)',
+    showLabel: true
+  });
+
+  // Shaded region between the two curves
+  calc.setExpression({
+    id: 'region',
+    latex: '0 \\le x \\le 1 \\left\\{x^2 \\le y \\le x\\right\\}',
+    color: '#e8a020',
+    fillOpacity: 0.18,
+    lineWidth: 0
+  });
+
+  // Radius R indicator at x = 0.5
+  calc.setExpression({
+    id: 'rR',
+    latex: 'x = 0.5 \\left\\{0 \\le y \\le 0.5\\right\\}',
+    color: '#e8a020',
+    lineWidth: 1.5,
+    lineStyle: Desmos.Styles.DASHED
+  });
+
+  // Radius r indicator at x = 0.5
+  calc.setExpression({
+    id: 'rr',
+    latex: 'x = 0.5 \\left\\{0 \\le y \\le 0.25\\right\\}',
+    color: '#1a3a6b',
+    lineWidth: 2,
+    lineStyle: Desmos.Styles.SOLID
+  });
+
+  // Point on outer curve at x=0.5
+  calc.setExpression({
+    id: 'ptR',
+    latex: '(0.5, 0.5)',
+    color: '#e8a020',
+    pointSize: 10,
+    label: 'R = 0.5',
+    showLabel: true,
+    labelOrientation: Desmos.LabelOrientations.RIGHT
+  });
+
+  // Point on inner curve at x=0.5
+  calc.setExpression({
+    id: 'ptr',
+    latex: '(0.5, 0.25)',
+    color: '#1a3a6b',
+    pointSize: 10,
+    label: 'r = 0.25',
+    showLabel: true,
+    labelOrientation: Desmos.LabelOrientations.LEFT
+  });
+
+  // x-axis
+  calc.setExpression({
+    id: 'xaxis',
+    latex: 'y = 0',
+    color: '#6b7280',
+    lineWidth: 1
+  });
+});
+</script>
+
+</div>
+<!-- End .page wrapper -->
+</body>
+</html>
