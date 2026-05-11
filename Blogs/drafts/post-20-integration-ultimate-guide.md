@@ -11,7 +11,7 @@ pillar_slug: post-20-integration-ultimate-guide
 data_year: 2026
 date: 2026-05-11
 reading_time: "22 min read"
-ready_to_publish: false
+ready_to_publish: true
 ---
 
 # Integration in AP Calculus 2026: The Complete Unit 6 Guide (Definite Integrals, Antiderivatives, Riemann Sums, FTC)

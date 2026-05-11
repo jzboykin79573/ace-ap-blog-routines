@@ -75,6 +75,12 @@ Blogs/_system/publish.log
 Blogs/_system/launchd-stdout.log
 Blogs/_system/launchd-stderr.log
 
+# Asana downloader logs and idempotency state (machine-local).
+Blogs/_system/asana-pull.log
+Blogs/_system/asana-pull-stdout.log
+Blogs/_system/asana-pull-stderr.log
+Blogs/_queue/asana-download-state.json
+
 
 # -------------------------------------------------------------
 # NODE / NPM (if a build tool is added in future)
