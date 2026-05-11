@@ -131,11 +131,12 @@ Both modes require the **Asana** MCP connector to be attached to the routine. Th
      ---
      APPROVAL INSTRUCTIONS
 
-     To approve as-is: open the Claude Code app or claude.ai/code/routines and tap "Run now" on the ace-blog-daily-drafter routine.
+     To approve as-is: open this drafter routine and tap "Run now":
+     https://claude.ai/code/routines/trig_01U7t8mJxgDfkvSafxKLpifj
 
-     To edit topics first: edit this task's description above (replace TOPIC fields, keep block format intact), save, then tap "Run now" on the drafter routine. The drafter reads the latest description.
+     To edit topics first: edit this task's description above (replace TOPIC fields, keep block format intact), save, then tap "Run now" via the link above. The drafter reads the latest description.
 
-     The drafter will mark this task Complete and add a comment with the PR link when drafts are ready.
+     The drafter will attach the finished drafts to this task and mark it Complete. Files sync to your Mac's drafts/ folder within the hour via the local downloader.
      ```
    - Do NOT specify a project (leave it as a private My Tasks task) unless the runtime tool requires one. If `create_tasks` requires a workspace_gid, fetch it from `get_me` (workspaces array, take the first).
 5. Capture the new task's GID. Echo it in the routine's output for audit (`REMOTE_PROPOSAL_TASK_GID: <gid>`).
