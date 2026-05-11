@@ -157,41 +157,39 @@ If `mcp__asana__create_tasks` fails (network, auth, etc.), emit `REMOTE_PROPOSAL
 5. Run Step 2 (enrich) using the topics from the parsed task description.
 6. Run Step 3 (parallel drafting) — same `DRAFTER_INPUT_ERROR` handling as the interactive flow.
 7. Run Step 4 (mechanical audit) — same retry logic.
-8. After all drafts pass mechanical audit (or hit `AUDIT_RETRY_EXHAUSTED`), commit drafts and open a PR. **Use the GitHub Integration MCP (or `gh` if available in the runtime) to open the PR; do NOT use a personal access token.**
-   ```
-   DATE=$(date +%Y-%m-%d)
-   git checkout -b daily-$DATE
-   git add Blogs/drafts/post-*.md Blogs/previews/post-*.html
-   git commit -m "drafts: daily $DATE"
-   git push -u origin daily-$DATE
-   ```
-   Then open the PR. Title: `Daily drafts — YYYY-MM-DD`. Base: `main`. Head: `daily-YYYY-MM-DD`. Body: see format in step 9.
-9. PR body uses the DAY READY summary from Step 5 with the workflow lines replaced by:
-   ```
-   Workflow per post (from your phone):
-   1. Open the .html preview in the GitHub app to skim — Publishing Guide is at the top.
-   2. Subjective audit (~6 min): Layers 1, 2, 4 — opinion, contradiction, ugly truth.
-   3. To edit, push commits to this branch (preview reflects on next pull).
-   4. Merge the PR when ready.
+8. After all drafts pass mechanical audit (or hit `AUDIT_RETRY_EXHAUSTED`), upload the drafts to the Asana task as file attachments. **Do NOT push to GitHub.** The drafter's sandbox has no write credentials to GitHub; delivery is via Asana attachments.
 
-   Then locally:
-   - git checkout main && git pull
-   - Open each Blogs/previews/post-NN-slug.html in your browser.
-   - Follow the Publishing Guide to paste into WordPress, schedule (don't hard-publish).
-   - After both posts are scheduled, run /blog-archive ... locally to move files to published/.
+   For each draft produced, upload both files to the Asana task via `mcp__asana__attach_file` (or whichever Asana attachment tool is available at runtime; fall back to `mcp__asana__add_comment` with a base64-encoded inline block if no attachment tool exists):
+   - `Blogs/drafts/post-NN-slug.md`
+   - `Blogs/previews/post-NN-slug.html`
+
+   Attachment filenames must preserve the exact slug-bearing filename (e.g. `post-20-integration-ultimate-guide.md`). The local downloader matches by filename.
+
+9. Add a comment to the Asana task via `mcp__asana__add_comment` using the DAY READY summary from Step 5, with the workflow lines replaced by:
    ```
-10. After the PR is created, mark the Asana task complete via `mcp__asana__update_tasks` (set `completed: true`) and add a comment via `mcp__asana__add_comment`:
-    ```
-    Drafted in PR #<N>: <PR URL>
-    ```
+   Drafts attached to this task as files. They will sync to your Mac's local drafts/ folder within the hour via the launchd downloader (com.zachboykin.aceblog.pull).
+
+   Workflow per post (from your phone):
+   1. Tap each .html attachment in Asana to preview — Publishing Guide is at the top.
+   2. Subjective audit (~6 min): Layers 1, 2, 4 — opinion, contradiction, ugly truth.
+   3. If anything needs editing, do it locally on your Mac after the download arrives.
+
+   Once the download arrives locally:
+   - Open each Blogs/previews/post-NN-slug.html to verify.
+   - Set ready_to_publish: true in the draft front-matter for each post you're ready to ship.
+   - Drop a matching featured image in /Users/zachboykin/AIProjects/Blog Titles/.
+   - The auto-publisher (com.zachboykin.aceblog.publish) ships it at the next 8am or 4pm tick, capped at 2/day.
+   ```
+10. Mark the Asana task complete via `mcp__asana__update_tasks` (set `completed: true`).
 11. Exit.
 
 ### Hard rules for remote modes
 - Never run `--remote-proposal` and `--remote-draft` concurrently — though they touch different surfaces (Asana create vs Asana read), the drafter assumes there's exactly one pending proposal task.
-- Never push directly to `main` from `--remote-draft`. Always go via PR.
+- The drafter must NOT attempt to push to GitHub or open a PR. Delivery is exclusively via Asana attachments on the proposal task.
 - If no pending Asana task is found in `--remote-draft`, do not invent topics or fall back to git. Exit cleanly with `REMOTE_DRAFT_NO_PENDING_TOPICS`.
 - The Asana MCP calls in both modes are hard requirements — if they fail, the routine surfaces a fatal error.
 - Do NOT modify `Blogs/_queue/pending-approval.md` in either remote mode. That path was an earlier design and is no longer used; the source of truth is the Asana task.
+- Attachment filenames must include the post slug so the local downloader can match them.
 
 ## Hard rules
 
