@@ -66,6 +66,15 @@ wp-config.php
 *.pem
 *.cert
 
+# Auto-publish machine-local state (cached WP author ID, daily counter, registry of posted IDs).
+Blogs/_system/.wp-author-id
+Blogs/_queue/publish-state.json
+
+# Auto-publish runtime logs (machine-local, never useful in git history).
+Blogs/_system/publish.log
+Blogs/_system/launchd-stdout.log
+Blogs/_system/launchd-stderr.log
+
 
 # -------------------------------------------------------------
 # NODE / NPM (if a build tool is added in future)

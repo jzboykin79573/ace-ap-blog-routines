@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PREVIEW — Integration in AP Calculus 2026: Unit 6 Ultimate Guide</title>
+
+<!--
+=======================================================================
+  PREVIEW FILE — ACE AP CALCULUS BLOG
+  Post 20: Integration in AP Calculus 2026 — Unit 6 Ultimate Guide (Pillar)
+=======================================================================
+  This file has three jobs:
+  1. Let you preview the post in your browser before publishing
+  2. Show you a publishing guide at the top of the page
+  3. Mark exactly what to copy into each part of WordPress
+=======================================================================
+-->
+
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<script>MathJax = { tex: { inlineMath: [['$','$']], displayMath: [['$$','$$']], processEscapes: true } };</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+<script src="https://www.desmos.com/api/v1.7/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0fda6"></script>
+
+<style>
+:root{
+  --navy:#0f1e3c;--blue:#1a3a6b;--accent:#e8a020;--accent-light:#fef3dc;
+  --green:#1a7a4a;--green-light:#eaf7f0;--red:#c0392b;--red-light:#fdf2f1;
+  --purple:#7c3aed;--purple-light:#f3f0ff;
+  --gray:#f5f6f8;--border:#dde1e8;--text:#1a1a2e;--muted:#6b7280;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:#eef0f4;color:var(--text);font-size:14px;line-height:1.8}
+.pub-guide{background:#1a1a2e;font-family:'JetBrains Mono',monospace}
+.pub-guide summary{padding:14px 20px;cursor:pointer;color:var(--accent);font-size:13px;font-weight:700;letter-spacing:.5px;list-style:none;display:flex;align-items:center;gap:10px}
+.pub-guide summary::before{content:"▶";font-size:10px;transition:transform .2s}
+.pub-guide[open] summary::before{transform:rotate(90deg)}
+.pub-guide-body{padding:0 20px 20px}
+.pub-step{margin-bottom:24px}
+.pub-step-ttl{color:var(--accent);font-size:12px;font-weight:700;margin-bottom:6px;letter-spacing:.5px}
+.pub-step p{color:rgba(255,255,255,.75);font-size:12px;margin-bottom:8px;font-family:'Inter',sans-serif;line-height:1.6}
+.pub-step textarea{width:100%;background:#0d0d1a;color:#a8d8a8;border:1px solid #333;border-radius:6px;padding:12px;font-size:11px;font-family:'JetBrains Mono',monospace;line-height:1.6;resize:vertical;min-height:80px}
+.pub-step code{background:#0d0d1a;color:var(--accent);padding:2px 6px;border-radius:3px;font-size:11px}
+.pub-divider{border:none;border-top:1px solid #2a2a4a;margin:20px 0}
+.chrome{background:#2d2d2d;padding:8px 14px;display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:100}
+.dots{display:flex;gap:6px}.dot{width:11px;height:11px;border-radius:50%}
+.dot.r{background:#ff5f57}.dot.y{background:#febc2e}.dot.g{background:#28c840}
+.url{flex:1;background:#3d3d3d;border-radius:5px;padding:4px 10px;color:#aaa;font-size:11px;font-family:'JetBrains Mono',monospace}
+.badge{background:var(--accent);color:var(--navy);font-size:10px;font-weight:700;padding:3px 8px;border-radius:4px}
+.page{max-width:780px;margin:0 auto;background:#fff;min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,.12)}
+.hero{background:linear-gradient(135deg,var(--navy),var(--blue));padding:40px 40px 32px;color:#fff}
+.tag{display:inline-block;background:var(--accent);color:var(--navy);font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;padding:3px 9px;border-radius:3px;margin-bottom:14px}
+.hero h1{font-family:'Merriweather',serif;font-size:22px;line-height:1.4;margin-bottom:14px}
+.meta{display:flex;gap:10px;flex-wrap:wrap}
+.pill{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.88);font-size:11px;padding:4px 10px;border-radius:20px}
+</style>
+</head>
+<body>
+
+<details class="pub-guide" open>
+  <summary>PUBLISHING GUIDE — 4 steps to post this to WordPress</summary>
+  <div class="pub-guide-body">
+
+    <div class="pub-step">
+      <div class="pub-step-ttl">STEP 1 — ONE TIME ONLY: Add MathJax + Desmos to functions.php</div>
+      <p>Do this once. After that, skip to Step 2 for every future post.<br>
+         Go to: WordPress Admin → Appearance → Theme File Editor → functions.php<br>
+         Scroll to the bottom and paste the code below.</p>
+      <textarea readonly rows="10">
+// ── ACE AP CALCULUS: MathJax + Desmos ─────────────────────────────
+// Paste this at the bottom of functions.php — one time only.
+
+add_action('wp_head', function() {
+    echo '<script>MathJax = { tex: { inlineMath: [["$","$"]], displayMath: [["$$","$$"]] } };</script>';
+    echo '<script src="https://www.desmos.com/api/v1.7/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0fda6"></script>';
+}, 1);
+
+add_action('wp_enqueue_scripts', function() {
+    wp_enqueue_script('mathjax', 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js', [], null, false);
+});
+// ──────────────────────────────────────────────────────────────────</textarea>
+    </div>
+
+    <hr class="pub-divider">
+
+    <div class="pub-step">
+      <div class="pub-step-ttl">STEP 2 — WordPress title field</div>
+      <p>In the WordPress editor, click the title field and paste this exactly:</p>
+      <textarea readonly rows="2">Integration in AP Calculus 2026: The Complete Unit 6 Guide (Definite Integrals, Antiderivatives, Riemann Sums, FTC)</textarea>
+    </div>
+
+    <hr class="pub-divider">
+
+    <div class="pub-step">
+      <div class="pub-step-ttl">STEP 3 — WordPress Custom HTML block (the post content)</div>
+      <p>In the WordPress editor content area:<br>
+         1. Click the <code>+</code> button → search <code>Custom HTML</code> → add that block<br>
+         2. Open this file in VS Code or any text editor<br>
+         3. Find the comment that says: <code>▼▼▼ START: PASTE THIS INTO WORDPRESS CUSTOM HTML BLOCK ▼▼▼</code><br>
+         4. Select everything from that line down to: <code>▲▲▲ END: WORDPRESS CUSTOM HTML BLOCK ▲▲▲</code><br>
+         5. Paste into the Custom HTML block in WordPress<br><br>
+         That section contains the fonts link, all the CSS, all the post content, and the Desmos graph script.</p>
+    </div>
+
+    <hr class="pub-divider">
+
+    <div class="pub-step">
+      <div class="pub-step-ttl">STEP 4 — SEO fields (Yoast or Rank Math)</div>
+      <p>Fill these in the sidebar before publishing:</p>
+      <textarea readonly rows="5">
+SEO Title:       Integration AP Calculus 2026: Unit 6 Guide (FTC, Riemann)
+Meta Description: The complete Unit 6 guide to integration AP Calculus: definite integrals, Riemann sums, both parts of the FTC, and the 3 mistakes that cost AP points.
+Slug:            integration-ap-calculus
+Focus Keyword:   integration ap calculus</textarea>
+    </div>
+
+  </div>
+</details>
+
+<div class="chrome">
+  <div class="dots">
+    <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
+  </div>
+  <div class="url">enginearu.com/ap-calculus-prep/unit-6-integration/integration-ap-calculus/</div>
+  <div class="badge">PREVIEW</div>
+</div>
+
+<div class="page">
+<div class="hero">
+  <div class="tag">AP Calculus AB · BC · Unit 6 · Pillar Guide</div>
+  <h1>Integration in AP Calculus 2026:<br>The Complete Unit 6 Guide<br>(Definite Integrals, Antiderivatives, Riemann Sums, FTC)</h1>
+  <div class="meta">
+    <span class="pill">⏱ 22 min read</span>
+    <span class="pill">✓ 500+ EngiNearU students</span>
+    <span class="pill">3 → 5 score improvement</span>
+  </div>
+</div>
+
+
+<!-- ===================================================================
+     ▼▼▼ START: PASTE THIS INTO WORDPRESS CUSTOM HTML BLOCK ▼▼▼
+     =================================================================== -->
+
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+.ace-post{
+  --navy:#0f1e3c;--blue:#1a3a6b;--accent:#e8a020;--accent-light:#fef3dc;
+  --green:#1a7a4a;--green-light:#eaf7f0;--red:#c0392b;--red-light:#fdf2f1;
+  --purple:#7c3aed;--purple-light:#f3f0ff;
+  --gray:#f5f6f8;--border:#dde1e8;--text:#1a1a2e;--muted:#6b7280;
+  font-family:'Inter',sans-serif;font-size:14px;line-height:1.8;color:var(--text);
+  padding:32px 0;
+}
+.ace-post .toc{background:var(--gray);border-left:4px solid var(--navy);border-radius:0 8px 8px 0;padding:18px 20px;margin-bottom:36px}
+.ace-post .toc-ttl{font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.ace-post .toc ol{padding-left:18px}.ace-post .toc li{margin-bottom:6px}
+.ace-post .toc a{color:var(--blue);text-decoration:none;font-size:13px;font-weight:500}
+.ace-post .sec{margin-bottom:40px}
+.ace-post h2{font-family:'Merriweather',serif;font-size:18px;font-weight:700;color:var(--navy);margin-bottom:14px;padding-bottom:8px;border-bottom:2px solid var(--border)}
+.ace-post h3{font-size:14px;font-weight:700;color:var(--blue);margin:18px 0 8px}
+.ace-post p{margin-bottom:13px;font-size:14px}
+.ace-post .math-block{background:var(--gray);border-radius:8px;padding:16px 20px;margin:14px 0;text-align:center;overflow-x:auto;font-size:15px}
+.ace-post table{width:100%;border-collapse:collapse;margin:16px 0;font-size:13px}
+.ace-post th, .ace-post td{border:1px solid var(--border);padding:9px 12px;text-align:left}
+.ace-post th{background:var(--navy);color:#fff;font-weight:700}
+.ace-post tr:nth-child(even) td{background:var(--gray)}
+.ace-post .anatomy{background:var(--purple-light);border-left:4px solid var(--purple);border-radius:0 8px 8px 0;padding:16px 20px;margin:18px 0}
+.ace-post .anatomy-ttl{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--purple);margin-bottom:10px}
+.ace-post .priority-essential{display:inline-block;background:var(--red);color:#fff;font-size:9px;font-weight:700;padding:2px 7px;border-radius:3px;letter-spacing:.5px;margin-left:6px}
+.ace-post .priority-important{display:inline-block;background:var(--accent);color:var(--navy);font-size:9px;font-weight:700;padding:2px 7px;border-radius:3px;letter-spacing:.5px;margin-left:6px}
+.ace-post .priority-supplementary{display:inline-block;background:var(--muted);color:#fff;font-size:9px;font-weight:700;padding:2px 7px;border-radius:3px;letter-spacing:.5px;margin-left:6px}
+.ace-post .step{display:flex;gap:14px;margin-bottom:18px;align-items:flex-start}
+.ace-post .snum{background:var(--navy);color:#fff;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;margin-top:2px}
+.ace-post .scontent{flex:1}
+.ace-post .slbl{font-weight:700;font-size:13px;color:var(--navy);margin-bottom:5px}
+.ace-post .scontent p{font-size:13px;margin-bottom:6px}
+.ace-post .rubric{background:var(--green-light);border-left:4px solid var(--green);border-radius:0 8px 8px 0;padding:14px 18px;margin:16px 0}
+.ace-post .rubric-ttl{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--green);margin-bottom:8px}
+.ace-post .rubric ul{padding-left:18px}.ace-post .rubric li{font-size:13px;margin-bottom:5px;color:#1a4a32}
+.ace-post .cta{background:linear-gradient(135deg,var(--navy),var(--blue));border-radius:12px;padding:24px 26px;margin:28px 0;color:#fff}
+.ace-post .cta h3{color:#fff;margin:0 0 8px;font-size:15px;font-family:'Merriweather',serif}
+.ace-post .cta p{color:rgba(255,255,255,.85);font-size:13px;margin-bottom:14px}
+.ace-post .btn{display:inline-block;background:var(--accent);color:var(--navy);font-weight:700;font-size:13px;padding:10px 20px;border-radius:6px;text-decoration:none}
+.ace-post .sub{font-size:11px;color:rgba(255,255,255,.6);margin-top:10px;font-style:italic}
+.ace-post .sea{background:var(--accent-light);border:2px solid var(--accent);border-radius:12px;padding:22px 26px;margin:20px 0}
+.ace-post .sea h3{color:var(--navy);font-size:14px;margin-bottom:8px;font-weight:700}
+.ace-post .sea p{font-size:13px;color:#5a4500;margin-bottom:12px}
+.ace-post .btn-w{display:inline-block;background:var(--navy);color:#fff;font-weight:700;font-size:13px;padding:10px 20px;border-radius:6px;text-decoration:none}
+.ace-post .mk{border-left:4px solid var(--red);border-radius:0 8px 8px 0;padding:14px 18px;background:var(--red-light);margin-bottom:16px}
+.ace-post .mk-n{font-weight:700;color:var(--red);font-size:13px;margin-bottom:5px}
+.ace-post .mk-w{font-size:12px;color:#7a2020;margin-bottom:6px;font-style:italic}
+.ace-post .mk-f{font-size:13px;color:var(--text)}
+.ace-post .prob{background:var(--gray);border-radius:8px;padding:16px 18px;margin-bottom:14px;border:1px solid var(--border)}
+.ace-post .plbl{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.ace-post .prob p{font-size:13px;margin-bottom:8px}
+.ace-post .answers{background:var(--navy);border-radius:8px;padding:18px 20px;margin-top:20px}
+.ace-post .ans-ttl{color:var(--accent);font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:12px}
+.ace-post .ans-item{font-size:13px;color:rgba(255,255,255,.9);margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid rgba(255,255,255,.1)}
+.ace-post .ans-item:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
+.ace-post .faq-item{border-bottom:1px solid var(--border);padding:16px 0}
+.ace-post .faq-q{font-weight:700;color:var(--navy);font-size:13px;margin-bottom:8px}
+.ace-post .faq-a{font-size:13px;line-height:1.7}
+.ace-post .qr{background:var(--navy);color:#fff;border-radius:10px;padding:24px 26px;margin:20px 0}
+.ace-post .qr-ttl{color:var(--accent);font-size:12px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:16px}
+.ace-post .qrf{background:rgba(255,255,255,.07);border-radius:6px;padding:12px 16px;margin-bottom:10px;text-align:center}
+.ace-post .qrf-lbl{font-size:11px;color:rgba(255,255,255,.5);margin-bottom:6px}
+.ace-post .qrb{margin-top:14px;list-style:none;padding-left:0}
+.ace-post .qrb li{font-size:12px;color:rgba(255,255,255,.85);margin-bottom:6px;padding-left:20px;position:relative}
+.ace-post .qrb li::before{content:"✓";color:#4ade80;position:absolute;left:0;font-weight:700}
+.ace-post .qrb .nv{color:#fca5a5!important}.ace-post .qrb .nv::before{content:"✗"!important;color:#fca5a5!important}
+.ace-post .related-link{display:block;padding:12px 14px;background:var(--gray);border-radius:6px;border:1px solid var(--border);margin-bottom:8px;font-size:13px;color:var(--blue);text-decoration:none}
+.ace-post .related-link strong{color:var(--navy)}
+.ace-post .desmos-wrap{border-radius:10px;overflow:hidden;margin:18px 0;border:1px solid var(--border)}
+.ace-post .desmos-label{background:var(--navy);color:#fff;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:8px 14px;display:flex;align-items:center;gap:6px}
+.ace-post .desmos-dot{width:8px;height:8px;border-radius:50%;background:var(--accent)}
+.ace-post .body-list{padding-left:20px;margin-bottom:12px;font-size:13px}
+.ace-post .body-list li{margin-bottom:5px}
+.ace-post hr{border:none;border-top:1px solid var(--border);margin:28px 0}
+.ace-post .one-liner{background:var(--accent-light);border:2px solid var(--accent);border-radius:8px;padding:14px 18px;margin:18px 0;font-style:italic;font-weight:600;color:#5a4500;font-size:14px}
+</style>
+
+<div class="ace-post">
+
+  <!-- Table of contents -->
+  <div class="toc">
+    <div class="toc-ttl">Jump To What You Need</div>
+    <ol>
+      <li><a href="#confusion">The Confusion That Costs Students Points Every April</a></li>
+      <li><a href="#exam-anatomy">Exam Anatomy: Where Integration Shows Up on the AP Exam</a></li>
+      <li><a href="#what-it-means">What Integration Actually Is (The Big Idea)</a></li>
+      <li><a href="#antiderivative-rules">The Antiderivative Rules You Must Have Cold</a></li>
+      <li><a href="#riemann-sums">Riemann Sums and How They Become Integrals</a></li>
+      <li><a href="#ftc">The Fundamental Theorem of Calculus (Both Parts)</a></li>
+      <li><a href="#example-1">Worked Example 1: A Full Unit 6 FRQ Setup (Foundational)</a></li>
+      <li><a href="#mid-cta">Grab the Free Guide</a></li>
+      <li><a href="#example-2">Worked Example 2: FTC Part 2 with Communication Points</a></li>
+      <li><a href="#mistakes">The 3 Mistakes That Cost My Students Points</a></li>
+      <li><a href="#practice">Practice Problems</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="#quick-reference">Save This For Exam Day</a></li>
+      <li><a href="#related">Related Posts</a></li>
+    </ol>
+  </div>
+
+  <p>If you searched for <strong>integration ap calculus</strong> and landed here, this is the full Unit 6 guide. Everything that gets tested. The actual exam anatomy. The 3 mistakes I see every April. Read it once, save it, and come back when a topic gets shaky.</p>
+
+  <!-- Section 1: The Confusion -->
+  <div class="sec" id="confusion">
+    <h2>The Confusion That Costs Students Points Every April</h2>
+    <p>Every April I watch students lose 4 to 6 points on integration FRQs because they confuse "taking the antiderivative" with "finding the area under the curve," and that single confusion shows up in roughly 60 percent of the Unit 6 errors I see in mock exams.</p>
+    <p>That is not a small leak. Unit 6 covers 17 to 20 percent of the AP Calculus AB exam and a similar slice of BC. Integration appears in MCQ, in calculator-active FRQs, and in calculator-inactive FRQs. If you only know one or two integration tricks, you are gambling with about a fifth of your score.</p>
+    <p>Here is the specific confusion. Students learn antiderivatives as "do the power rule backwards." Then they learn definite integrals as "find the area under the curve." Then they learn Riemann sums as "approximate that area with rectangles." Their brain stores three separate procedures. The AP exam tests how those three things are the same operation, viewed three different ways. Students who never built that connection guess on the interpretation questions and lose the easy points.</p>
+    <p>This is the pillar guide for Unit 6. It is not a quick read. It is the one I send students to in April when they want to know what is actually tested, how it is scored, and where their gaps are. By the end you will have the exam anatomy, the antiderivative rules, the Riemann sum to integral bridge, both parts of the Fundamental Theorem of Calculus, two worked FRQ-level examples, and the three mistakes I watch happen every year. Then a save-for-exam-day reference box.</p>
+    <p>If the conceptual foundation feels shaky, the companion intro post in this cluster builds the "why" piece. This guide is the "all of it" piece. See the Related Posts list at the bottom of this guide for the full spoke set.</p>
+  </div>
+
+  <!-- Section 2: Exam Anatomy -->
+  <div class="sec" id="exam-anatomy">
+    <h2>Exam Anatomy: Where Integration Shows Up on the AP Exam</h2>
+    <p>Before strategy, you need orientation. Most students do not know the actual exam format and that gap shows up the first time they sit a full timed practice test.</p>
+
+    <div class="anatomy">
+      <div class="anatomy-ttl">AP Calculus AB Exam Format (2026)</div>
+      <ul class="body-list">
+        <li><strong>45 MCQ total:</strong> 30 calculator-inactive (60 min) + 15 calculator-active (45 min)</li>
+        <li><strong>6 FRQ total:</strong> 2 calculator-active (30 min) + 4 calculator-inactive (60 min)</li>
+        <li><strong>Total exam time:</strong> 3 hours 15 minutes</li>
+        <li><strong>Section weighting:</strong> MCQ 50% of score, FRQ 50% of score</li>
+      </ul>
+    </div>
+
+    <h3>Where integration appears</h3>
+    <ul class="body-list">
+      <li>Unit 6 (Integration and Accumulation of Change): 17 to 20 percent of the exam</li>
+      <li>Unit 7 (Differential Equations): 6 to 12 percent of the exam, but every problem uses integration</li>
+      <li>Unit 8 (Applications of Integration): 10 to 15 percent of the exam, all integration-based</li>
+    </ul>
+
+    <p>Add those up. Integration is the primary skill in roughly 33 to 47 percent of the AP Calculus AB exam. That is why the foundation matters.</p>
+
+    <h3>Calculator policy by section</h3>
+    <ul class="body-list">
+      <li><strong>Calculator-active sections:</strong> graphing calculator allowed for numerical integration, root-finding, graph analysis. The exam expects you to use it for definite integrals where the antiderivative is hard or impossible by hand.</li>
+      <li><strong>Calculator-inactive sections:</strong> antiderivatives by hand. Power rule, basic trig, exponentials, u-substitution, and simple FTC applications all show up here.</li>
+    </ul>
+
+    <h3>Score to credit table</h3>
+    <table>
+      <thead>
+        <tr><th>AP Score</th><th>What it earns at most universities</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>5</strong></td><td>Calculus I + II credit (often Calc III placement). Typically 6 to 10 semester hours.</td></tr>
+        <tr><td><strong>4</strong></td><td>Calculus I credit at most schools. Some count it for Calc II. Typically 3 to 4 hours.</td></tr>
+        <tr><td><strong>3</strong></td><td>Calculus I credit at many universities, but not the most selective ones. Verify per school.</td></tr>
+        <tr><td><strong>2</strong></td><td>No credit. Retake or take Calc I in college.</td></tr>
+        <tr><td><strong>1</strong></td><td>No credit.</td></tr>
+      </tbody>
+    </table>
+
+    <p>You only need about 60 to 65 percent of available points to score a 5 on AP Calculus AB. That changes how you prepare. Aim for mastery on the topics that show up most, not perfection on the rare ones. Integration is the highest-leverage topic in the entire course.</p>
+
+    <p>For the full College Board breakdown, the <a href="https://apcentral.collegeboard.org/courses/ap-calculus-ab" target="_blank">AP Calculus AB Course and Exam Description</a> lists every learning objective by unit. If you want to see how integration is actually tested, the <a href="https://apcentral.collegeboard.org/courses/ap-calculus-ab/exam/past-exam-questions" target="_blank">official AP Calculus AB free-response archive</a> has every released FRQ with scoring guidelines.</p>
+
+    <h3>Specifically how Unit 6 shows up on the exam</h3>
+    <p>In a typical 45-question MCQ section, expect roughly 8 to 10 questions that pull directly from Unit 6 (definite integrals, antiderivatives, Riemann sums, the FTC). Another 3 to 5 MCQs lean on Unit 6 indirectly through Units 7 and 8, where integration is the underlying tool. That puts Unit 6 in roughly 25 to 30 percent of MCQs on any given exam, with year-to-year variation.</p>
+    <p>On the FRQ side, the pattern is even more predictable. Most recent released exams include one FRQ that is overtly an integration accumulation problem (often given as a rate function $R(t)$ with a definite integral to evaluate), one FRQ that mixes FTC Part 1 with derivative analysis, and one FRQ where integration shows up as a step inside a particle-motion or area/volume question. If you study the released FRQs from the last five years, you will see this trio show up almost every cycle. That repetition is your edge. The form changes; the underlying skill does not.</p>
+    <p>The takeaway: Unit 6 is not a topic you can skim and hope only one question appears. Integration shows up everywhere on this exam. Build the foundation now and the other units get easier instead of harder.</p>
+  </div>
+
+  <!-- Section 3: What integration actually is -->
+  <div class="sec" id="what-it-means">
+    <h2>What Integration Actually Is (The Big Idea)</h2>
+    <p>Most textbooks open Unit 6 with Riemann sums and a wall of summation notation. I have never found that helpful for a first explanation. Here is how I teach this in the first lesson of Unit 6.</p>
+    <p>Imagine a faucet filling a bathtub. The water flow rate changes over time. Slow at first, fast in the middle, slow again at the end. At any single moment you can read the rate off a meter. That rate is your function $r(t)$.</p>
+    <p>Your question is not "how fast is the water flowing right now?" That is a derivative. Your question is: "how much water is in the tub after 10 minutes?"</p>
+    <p>To answer that, you have to add up all the tiny amounts that came in during each instant of those 10 minutes. The total accumulation. That is the integral.</p>
+    <div class="math-block">$$\int_0^{10} r(t)\,dt$$</div>
+    <p>The $\int$ symbol is a stretched-out S that literally stands for "sum." The $dt$ means "each tiny slice of time." The exact accumulated total, not an estimate.</p>
+    <p>Now here is the part most students miss. That same operation gives you three different things depending on what you ask for:</p>
+    <ul class="body-list">
+      <li>If $r(t)$ is a rate, the integral is the total accumulated amount.</li>
+      <li>If $f(x)$ is the height of a curve, the integral is the area between the curve and the x-axis on that interval.</li>
+      <li>If $f(x)$ is any function and you want a function whose derivative is $f(x)$, the indefinite integral gives you the family of antiderivatives.</li>
+    </ul>
+
+    <div class="one-liner">Antiderivatives, area under a curve, and definite integrals are the same operation. Students who treat them as three separate topics lose points on all three.</div>
+
+    <p>That unification is the single most important conceptual move in Unit 6. The Fundamental Theorem of Calculus, coming up later in this guide, is the proof that the three views are the same. Most students learn the theorem as a formula and never see why it is a theorem at all.</p>
+    <p>This is why the Riemann-sum-vs-antiderivative confusion costs so many points. Students who only learned antiderivatives reach for the power rule on every integral and have nothing to say when the problem hands them a table of values and asks for an approximation. Students who only learned area under a curve cannot compute exact values when the antiderivative is required. You need both, and you need to know which one each problem is asking for.</p>
+    <p>Two definitions to write down before we move on:</p>
+    <p><strong>Indefinite integral.</strong> No limits of integration. Answer is a function family.</p>
+    <div class="math-block">$$\int f(x)\,dx = F(x) + C$$</div>
+    <p><strong>Definite integral.</strong> Has limits $a$ and $b$. Answer is a number.</p>
+    <div class="math-block">$$\int_a^b f(x)\,dx = F(b) - F(a)$$</div>
+    <p>The $+C$ on the indefinite integral is mandatory. The AP exam scores points for it on FRQ. We will come back to this in the mistakes section.</p>
+  </div>
+
+  <!-- Section 4: Antiderivative Rules -->
+  <div class="sec" id="antiderivative-rules">
+    <h2>The Antiderivative Rules You Must Have Cold</h2>
+    <p>These are the antiderivative rules calculus students need locked in before Unit 6 makes any sense. Memorize them. Practice them until they are automatic. Most of the calculator-inactive MCQ section is testing whether you can apply these without hesitating.</p>
+    <p>I am using the priority labels from the College Board's content emphasis to flag what to actually drill.</p>
+
+    <h3>Power Rule <span class="priority-essential">ESSENTIAL</span></h3>
+    <div class="math-block">$$\int x^n\,dx = \frac{x^{n+1}}{n+1} + C \quad (n \neq -1)$$</div>
+    <p>Add 1 to the exponent. Divide by the new exponent. Add $+C$. The single most-used rule in the entire course. Quick example: $\int x^3\,dx = \dfrac{x^4}{4} + C$. Same move applies to $\int x^{1/2}\,dx = \dfrac{2}{3}x^{3/2} + C$, which is exactly the kind of fraction-in-the-exponent setup the MCQ section likes to test.</p>
+
+    <h3>Constant Multiple Rule <span class="priority-essential">ESSENTIAL</span></h3>
+    <div class="math-block">$$\int k\,f(x)\,dx = k\int f(x)\,dx$$</div>
+    <p>You can pull constants out front. Do not try to pull a variable out front. That is not how this works. Quick example: $\int 5x^2\,dx = \dfrac{5x^3}{3} + C$. The constant rides along; the power rule handles the variable.</p>
+
+    <h3>Sum and Difference Rule <span class="priority-essential">ESSENTIAL</span></h3>
+    <div class="math-block">$$\int [f(x) \pm g(x)]\,dx = \int f(x)\,dx \pm \int g(x)\,dx$$</div>
+    <p>Integrate term by term. Do not integrate products this way. There is no product rule for integrals. Quick example: $\int (3x^2 + 4x - 7)\,dx = x^3 + 2x^2 - 7x + C$. Each term gets the power rule independently and the $+C$ collects at the end, not after each piece.</p>
+
+    <h3>Exponential Rules <span class="priority-essential">ESSENTIAL</span></h3>
+    <div class="math-block">$$\int e^x\,dx = e^x + C \qquad \int e^{kx}\,dx = \frac{1}{k}e^{kx} + C$$</div>
+    <p>The $e^x$ integral is itself, plus C. That is the entire rule. The $\frac{1}{k}$ factor on $e^{kx}$ is where students lose points by forgetting. Quick example: $\int e^{3x}\,dx = \dfrac{1}{3}e^{3x} + C$. If you forget the $1/3$, you have just lost the answer point on every MCQ that tests this pattern.</p>
+
+    <h3>Trig Rules <span class="priority-important">IMPORTANT</span></h3>
+    <div class="math-block">$$\int \sin(x)\,dx = -\cos(x) + C$$</div>
+    <div class="math-block">$$\int \cos(x)\,dx = \sin(x) + C$$</div>
+    <div class="math-block">$$\int \sec^2(x)\,dx = \tan(x) + C$$</div>
+    <p>The sign flip on $\int \sin$ is the most common trig integration error. Sine goes to negative cosine. Cosine goes to positive sine. Drill it. Quick example: $\int_0^{\pi} \sin(x)\,dx = [-\cos(x)]_0^{\pi} = -\cos(\pi) - (-\cos(0)) = 1 + 1 = 2$. Two negatives, one final answer. Slow down on the signs and you get this every time.</p>
+
+    <h3>Natural Log Rule <span class="priority-essential">ESSENTIAL</span></h3>
+    <div class="math-block">$$\int \frac{1}{x}\,dx = \ln|x| + C$$</div>
+    <p>The absolute value matters. Without it, you are technically wrong on FRQs where $x$ could be negative. Quick example: $\int_1^e \dfrac{1}{x}\,dx = \ln(e) - \ln(1) = 1$. Classic exam result and one of the cleanest definite integrals to compute by hand.</p>
+
+    <h3>U-Substitution <span class="priority-essential">ESSENTIAL</span></h3>
+    <p>When the integrand is a composition, set $u$ equal to the inside function, compute $du$, and rewrite the integral in terms of $u$. Then integrate using the rules above and substitute back. This is the single most important integration technique on the AP exam; the dedicated post in this cluster (linked in Related Posts) walks through it with worked examples.</p>
+
+    <h3>Integration by Parts <span class="priority-supplementary">SUPPLEMENTARY (AB)</span> <span class="priority-important">IMPORTANT (BC)</span></h3>
+    <div class="math-block">$$\int u\,dv = uv - \int v\,du$$</div>
+    <p>AB students rarely need this. BC students see it every year. Choose $u$ using LIATE: Logarithmic, Inverse trig, Algebraic, Trig, Exponential. Pick whatever comes first in that list.</p>
+
+    <h3>Partial Fractions <span class="priority-supplementary">SUPPLEMENTARY (AB)</span> <span class="priority-important">IMPORTANT (BC)</span></h3>
+    <p>BC only. Used to split rational functions into smaller fractions before integrating.</p>
+
+    <p>Drill the ESSENTIAL rules until they are reflexes. The IMPORTANT ones show up most years. The SUPPLEMENTARY ones are worth knowing for BC and worth at least recognizing on AB so you do not panic.</p>
+  </div>
+
+  <!-- Section 5: Riemann Sums -->
+  <div class="sec" id="riemann-sums">
+    <h2>Riemann Sums and How They Become Integrals</h2>
+    <p>Here is the part of riemann sums explained that I see students skip: you are not memorizing a formula. You are watching a process. The formula is the snapshot of that process at one moment.</p>
+    <p>Imagine you have a function and you want the area between the curve and the x-axis on an interval $[a, b]$. You do not have a clean formula for that area yet. But you do have rectangles. Lots of them.</p>
+    <p>Slice the interval into $n$ equal pieces. Each slice has width $\Delta x = \dfrac{b - a}{n}$. On each slice, build a rectangle whose height equals the function value at the left endpoint, right endpoint, or midpoint. Add up the areas.</p>
+    <div class="math-block">$$\sum_{i=1}^{n} f(x_i)\,\Delta x$$</div>
+    <p>That is the Riemann sum. It approximates the area. More rectangles, better approximation.</p>
+    <p>The integral is what happens when you make $n$ go to infinity and let $\Delta x$ shrink to zero:</p>
+    <div class="math-block">$$\int_a^b f(x)\,dx = \lim_{n \to \infty} \sum_{i=1}^{n} f(x_i)\,\Delta x$$</div>
+    <p>This is not a side note. This is the definition of the definite integral. The notation $\int$ and the $dx$ are direct echoes of the sum and the $\Delta x$. The integral sign is a stretched S because you are summing. The $dx$ is a tiny width because $\Delta x$ shrank to zero.</p>
+
+    <h3>The three types of Riemann sums you will see</h3>
+    <table>
+      <thead>
+        <tr><th>Type</th><th>Sample point on each slice</th><th>Tendency on increasing functions</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Left Riemann sum</td><td>Left endpoint</td><td>Underestimate</td></tr>
+        <tr><td>Right Riemann sum</td><td>Right endpoint</td><td>Overestimate</td></tr>
+        <tr><td>Midpoint sum</td><td>Middle</td><td>Closer than left or right</td></tr>
+      </tbody>
+    </table>
+    <p>On decreasing functions, the over/under flips. Concavity matters too: trapezoidal sums overestimate on concave-up curves and underestimate on concave-down.</p>
+
+    <h3>What the AP exam actually tests on Riemann sums</h3>
+    <p>The exam asks you to compute a Riemann sum from a table of values. The exam asks whether a given Riemann sum is an over- or under-estimate based on the function's behavior. The exam hands you a limit-of-sum expression and asks which definite integral it represents. All three question types reward students who built the picture before the formula.</p>
+
+    <!-- Live Desmos graph: Left Riemann sum -->
+    <div class="desmos-wrap">
+      <div class="desmos-label">
+        <div class="desmos-dot"></div>
+        Live Graph — Left Riemann sum (n = 5) approximating area under f(x) = 0.4x² + 1
+      </div>
+      <div id="desmos-riemann" style="width:100%;height:340px;"></div>
+    </div>
+  </div>
+
+  <!-- Section 6: FTC -->
+  <div class="sec" id="ftc">
+    <h2>The Fundamental Theorem of Calculus (Both Parts)</h2>
+    <p>The fundamental theorem of calculus is the single most important theorem in the entire course. It comes in two parts. You need both. The AP exam tests them in different ways.</p>
+
+    <h3>FTC Part 1 (the function-defined-by-an-integral part)</h3>
+    <p>If $F(x) = \displaystyle\int_a^x f(t)\,dt$ where $f$ is continuous on $[a, b]$, then</p>
+    <div class="math-block">$$F'(x) = f(x)$$</div>
+    <p>In plain words: if you define a new function as the integral of $f$ from $a$ to a variable upper limit, the derivative of that new function is just $f$ itself. The integration and the differentiation undo each other.</p>
+    <p>This is the form that shows up when the AP exam gives you something like $g(x) = \int_2^x \sin(t^2)\,dt$ and asks you to find $g'(x)$. The answer is $\sin(x^2)$. You do not actually integrate. You just swap the $t$ for the $x$ and you are done.</p>
+
+    <h3>FTC Part 2 (the evaluation part)</h3>
+    <p>If $F$ is any antiderivative of $f$ on $[a, b]$, then</p>
+    <div class="math-block">$$\int_a^b f(x)\,dx = F(b) - F(a)$$</div>
+    <p>This is the version every student knows. Find an antiderivative. Plug in the upper limit. Plug in the lower limit. Subtract. The $+C$ cancels because both terms have it.</p>
+
+    <h3>Why this is a theorem and not just a formula</h3>
+    <p>The theorem proves that the operation of integration (summing infinitely many slices) is the same as the operation of finding an antiderivative (reversing differentiation). Those two procedures look completely different. The theorem is the connecting bridge. It is what justifies using antiderivatives to compute areas in the first place.</p>
+    <p>For this pillar guide, the rule is simple: when you see a function defined as an integral, use Part 1. When you see a definite integral to evaluate, use Part 2. A dedicated Part 1 vs Part 2 deep dive is in the cluster pipeline; for now, this guide gives you the working version of both.</p>
+
+    <h3>FTC and the AROC vs IROC distinction</h3>
+    <p>When you compute $\int_a^b f(x)\,dx$ for a rate function $f$, the result is the total change over the interval (an AROC-style accumulation). When you compute $\frac{d}{dx}\int_a^x f(t)\,dt$, the result is the rate at one moment (an IROC). The FTC is the bridge between AROC thinking and IROC thinking. Students who never built that distinction in Units 2 and 4 reach Unit 6 and freeze when an FRQ asks them to flip between them.</p>
+  </div>
+
+  <!-- Section 7: Worked Example 1 -->
+  <div class="sec" id="example-1">
+    <h2>Worked Example 1: A Full Unit 6 FRQ Setup (Foundational)</h2>
+    <div class="prob">
+      <div class="plbl">Problem (no calculator)</div>
+      <p>A particle moves along the x-axis with velocity $v(t) = 3t^2 - 12t + 9$ for $0 \leq t \leq 5$.</p>
+      <p>(a) Find the total displacement of the particle on $[0, 5]$.</p>
+      <p>(b) Find the total distance traveled by the particle on $[0, 5]$.</p>
+    </div>
+    <p>This is the kind of multi-part FRQ that hits the integration techniques ap exam students need to have automatic. Note the AROC vs IROC framing here: integrating the velocity gives the total accumulated change in position (an AROC-style total). If they had asked for the velocity at $t = 3$, that would be an IROC question (just plug in $t = 3$).</p>
+
+    <div class="step"><div class="snum">1</div><div class="scontent">
+      <div class="slbl">Identify the setup</div>
+      <p>Displacement is the integral of velocity, signed. Distance is the integral of speed, $|v(t)|$.</p>
+      <div class="math-block">$$\text{Displacement} = \int_0^5 v(t)\,dt$$</div>
+      <div class="math-block">$$\text{Distance} = \int_0^5 |v(t)|\,dt$$</div>
+    </div></div>
+
+    <div class="step"><div class="snum">2</div><div class="scontent">
+      <div class="slbl">Find the antiderivative of v(t)</div>
+      <div class="math-block">$$\int (3t^2 - 12t + 9)\,dt = t^3 - 6t^2 + 9t + C$$</div>
+      <p>Check by differentiating: $\frac{d}{dt}(t^3 - 6t^2 + 9t) = 3t^2 - 12t + 9$. Confirmed.</p>
+    </div></div>
+
+    <div class="step"><div class="snum">3</div><div class="scontent">
+      <div class="slbl">Compute displacement using FTC Part 2</div>
+      <div class="math-block">$$\int_0^5 v(t)\,dt = \left[t^3 - 6t^2 + 9t\right]_0^5 = (125 - 150 + 45) - 0 = 20$$</div>
+      <p>The total displacement is $\boxed{20}$ units to the right.</p>
+    </div></div>
+
+    <div class="step"><div class="snum">4</div><div class="scontent">
+      <div class="slbl">For distance, find where v(t) changes sign</div>
+      <p>Factor: $v(t) = 3(t^2 - 4t + 3) = 3(t-1)(t-3)$. So $v(t) = 0$ at $t = 1$ and $t = 3$.</p>
+      <p>Test signs:</p>
+      <ul class="body-list">
+        <li>On $[0, 1]$: $v(0.5) = 3.75 > 0$, so $v > 0$.</li>
+        <li>On $[1, 3]$: $v(2) = -3 < 0$, so $v < 0$.</li>
+        <li>On $[3, 5]$: $v(4) = 9 > 0$, so $v > 0$.</li>
+      </ul>
+    </div></div>
+
+    <div class="step"><div class="snum">5</div><div class="scontent">
+      <div class="slbl">Split the integral and compute</div>
+      <div class="math-block">$$\text{Distance} = \int_0^1 v\,dt - \int_1^3 v\,dt + \int_3^5 v\,dt$$</div>
+      <p>Let $F(t) = t^3 - 6t^2 + 9t$.</p>
+      <ul class="body-list">
+        <li>$F(0) = 0$</li>
+        <li>$F(1) = 1 - 6 + 9 = 4$</li>
+        <li>$F(3) = 27 - 54 + 27 = 0$</li>
+        <li>$F(5) = 125 - 150 + 45 = 20$</li>
+      </ul>
+      <div class="math-block">$$\text{Distance} = (4 - 0) - (0 - 4) + (20 - 0) = 4 + 4 + 20 = \boxed{28}$$</div>
+      <p>The total distance traveled is 28 units.</p>
+    </div></div>
+
+    <div class="rubric">
+      <div class="rubric-ttl">Here is exactly how the AP exam scores this type of problem</div>
+      <ul>
+        <li>1 point for correctly setting up displacement as $\int_0^5 v(t)\,dt$</li>
+        <li>1 point for finding the antiderivative correctly</li>
+        <li>1 point for evaluating using FTC Part 2 (showing $F(5) - F(0)$ explicitly)</li>
+        <li>1 point for stating the displacement answer with appropriate units or direction</li>
+        <li>1 point for setting up distance as the integral of $|v(t)|$ or splitting at sign changes</li>
+        <li>1 point for finding the sign-change points correctly ($t = 1, 3$)</li>
+        <li>1 point for computing the absolute value integrals correctly</li>
+        <li>1 point for the final distance answer</li>
+      </ul>
+    </div>
+
+    <p>That is 8 points on a single FRQ. The most common loss happens at the displacement-vs-distance distinction in part (b). Students who do not catch the sign change compute the displacement and call it distance. That is an automatic 4-point loss on this problem.</p>
+    <p>On the actual AP rubric, the displacement piece scores cleanly when the student writes the integral, the antiderivative, and the $F(5) - F(0)$ evaluation with units or direction. Skipping any one of those costs a point. On the distance piece, the rubric rewards students who explicitly identify the sign-change points $t = 1$ and $t = 3$ before they split the integral. If you just write the final number without showing the split, graders cannot give the setup point. My coaching take: write more, not less. The extra 30 seconds of justification on a problem like this is the difference between an 8-point response and a 4-point response, and most students leave those points on the table because they were rushing.</p>
+  </div>
+
+  <!-- Mid CTA -->
+  <div id="mid-cta">
+    <div class="cta">
+      <h3>Grab the Free "Before AP Calculus" Guide</h3>
+      <p>Unit 6 is where every shortcut from Units 1 through 5 either holds or breaks. If you want to know exactly what concepts need to be solid before integration clicks for your student, I have a free guide that maps it out. No fluff, just the foundation.</p>
+      <a class="btn" href="https://aceapcalculus.com/before-apcalc" target="_blank">Get the Free Guide →</a>
+      <div class="sub">Parents: this guide is worth reading before Unit 6 starts, not after the first quiz comes back with red marks.</div>
+    </div>
+  </div>
+
+  <!-- Section 8: Worked Example 2 -->
+  <div class="sec" id="example-2">
+    <h2>Worked Example 2: FTC Part 2 with Communication Points</h2>
+    <p>This example shows the communication layer the AP exam scores you on. Students lose 2 to 3 points per FRQ not because their math is wrong but because their justification line is missing or vague.</p>
+
+    <div class="prob">
+      <div class="plbl">Problem (calculator allowed)</div>
+      <p>The rate at which water enters a reservoir is given by $R(t) = 100 + 50\sin(\pi t / 6)$ gallons per hour, for $0 \leq t \leq 12$.</p>
+      <p>(a) Find the total amount of water that enters the reservoir over the 12-hour period.</p>
+      <p>(b) Justify your answer using the Fundamental Theorem of Calculus.</p>
+    </div>
+
+    <div class="step"><div class="snum">1</div><div class="scontent">
+      <div class="slbl">Set up the integral</div>
+      <p>Total water in is the integral of the rate:</p>
+      <div class="math-block">$$\int_0^{12} \left(100 + 50\sin\!\left(\frac{\pi t}{6}\right)\right) dt$$</div>
+    </div></div>
+
+    <div class="step"><div class="snum">2</div><div class="scontent">
+      <div class="slbl">Find the antiderivative</div>
+      <p>$\int 100\,dt = 100t$. For $\int 50\sin(\pi t/6)\,dt$, use $\int \sin(kt)\,dt = -\frac{1}{k}\cos(kt) + C$ with $k = \pi/6$.</p>
+      <div class="math-block">$$\int 50\sin\!\left(\frac{\pi t}{6}\right) dt = -\frac{300}{\pi}\cos\!\left(\frac{\pi t}{6}\right)$$</div>
+      <p>So $F(t) = 100t - \dfrac{300}{\pi}\cos\!\left(\dfrac{\pi t}{6}\right)$.</p>
+    </div></div>
+
+    <div class="step"><div class="snum">3</div><div class="scontent">
+      <div class="slbl">Evaluate F(12) − F(0)</div>
+      <div class="math-block">$$F(12) = 1200 - \frac{300}{\pi}\cos(2\pi) = 1200 - \frac{300}{\pi}$$</div>
+      <div class="math-block">$$F(0) = 0 - \frac{300}{\pi}\cos(0) = -\frac{300}{\pi}$$</div>
+      <div class="math-block">$$F(12) - F(0) = 1200 - \frac{300}{\pi} - \left(-\frac{300}{\pi}\right) = \boxed{1200 \text{ gallons}}$$</div>
+    </div></div>
+
+    <div class="step"><div class="snum">4</div><div class="scontent">
+      <div class="slbl">The communication line</div>
+      <p>This is where the AP rubric earns or loses you the justification point.</p>
+      <p>Write this exactly: <em>"By the Fundamental Theorem of Calculus, the total water entering the reservoir on $[0, 12]$ equals $\displaystyle\int_0^{12} R(t)\,dt = F(12) - F(0) = 1200$ gallons."</em></p>
+      <p>You must include the words "by the Fundamental Theorem of Calculus" and you must show the $F(b) - F(a)$ step explicitly. AP graders are looking for both. Skip either and you lose the communication point even if your number is correct.</p>
+    </div></div>
+
+    <div class="rubric">
+      <div class="rubric-ttl">Here is exactly how the AP exam scores this type of problem</div>
+      <ul>
+        <li>1 point for setting up $\int_0^{12} R(t)\,dt$ as the total accumulation</li>
+        <li>1 point for finding the antiderivative correctly (including the $\pi/6$ inside the cosine)</li>
+        <li>1 point for evaluating $F(12) - F(0)$ using FTC Part 2</li>
+        <li>1 point for the numerical answer with correct units (gallons)</li>
+        <li>1 point for the justification line citing the Fundamental Theorem of Calculus</li>
+      </ul>
+    </div>
+
+    <p>That last point is the one most students miss. It is 1 out of 5 on this question, or 20 percent. Multiply that across the whole exam and you can see why the communication layer matters as much as the math.</p>
+  </div>
+
+  <!-- Section 9: The 3 Mistakes -->
+  <div class="sec" id="mistakes">
+    <h2>The 3 Mistakes That Cost My Students Points</h2>
+
+    <div class="mk">
+      <div class="mk-n">Mistake 1: Confusing antiderivatives with area under the curve</div>
+      <div class="mk-w">Why it happens: students learn the two ideas on different days, in different chapters. The brain stores them as separate procedures. When an FRQ asks for area but the integrand has no clean antiderivative, students freeze. My coaching take on the deeper cause: most students never had a teacher draw the FTC bridge explicitly, so the two procedures live in different mental rooms. Until you connect them out loud, the brain treats them as unrelated, and the FRQ that mixes the two will catch you every time.</div>
+      <div class="mk-f">The consequence: about 60 percent of the Unit 6 errors I see come from this single confusion. That works out to 4 to 6 lost points on the typical Unit 6 FRQ. The fix is to internalize the FTC connection. Antiderivatives compute exact integrals when one exists. Riemann sums approximate when one does not. They are the same tool in two modes.</div>
+    </div>
+
+    <div class="mk">
+      <div class="mk-n">Mistake 2: Dropping the +C on indefinite integrals</div>
+      <div class="mk-w">Why it happens: students compute the antiderivative correctly, write the result, and stop. The $+C$ feels optional. It is not. My coaching take: this is a habit problem, not a knowledge problem. Almost every student who drops the $+C$ on the exam can recite the rule perfectly when asked. The reflex never built because their homework was scored on the final number, not the form. Build the reflex by writing $+C$ on every single antiderivative for two weeks straight until it feels weird to omit it.</div>
+      <div class="mk-f">The consequence: 1 point lost on any FRQ that asks for a general antiderivative or uses initial conditions. In MCQ, the trap answer is the same antiderivative without $+C$. Roughly 1 to 2 points per exam on this alone. Make it a reflex.</div>
+    </div>
+
+    <div class="mk">
+      <div class="mk-n">Mistake 3: Skipping the FTC justification line on FRQs</div>
+      <div class="mk-w">Why it happens: students finish the computation, see the right answer, and feel done. They do not realize the AP rubric scores the words "by the Fundamental Theorem of Calculus" as a separate point. My coaching take: this one is pure rubric literacy. Students who have actually read a released scoring guideline know the citation is its own point. Students who only know the math from class do not. Spend 20 minutes with one released FRQ and its scoring rubric before the exam and this mistake disappears.</div>
+      <div class="mk-f">The consequence: 1 communication point lost per FRQ where this line is required. Across 2 or 3 FRQs, that is 2 to 3 points gone for a student who did all the math correctly. The fix is muscle memory. Every $F(b) - F(a)$ gets the justification line. Every single time.</div>
+    </div>
+  </div>
+
+  <!-- Section 10: Practice -->
+  <div class="sec" id="practice">
+    <h2>Practice Problems</h2>
+    <p>Try these on your own before checking the answers. If you get stuck, identify whether the problem wants exact (FTC), approximate (Riemann sum), or a function-defined-by-integral (FTC Part 1) before doing any algebra.</p>
+
+    <div class="prob">
+      <div class="plbl">Problem 1 — FTC Part 2</div>
+      <p>Compute: $\displaystyle\int_1^3 (2x^3 - 4x + 1)\,dx$</p>
+    </div>
+
+    <div class="prob">
+      <div class="plbl">Problem 2 — FTC Part 1</div>
+      <p>Let $g(x) = \displaystyle\int_0^x \cos(t^2)\,dt$. Find $g'(x)$.</p>
+    </div>
+
+    <div class="prob">
+      <div class="plbl">Problem 3 — Riemann Sum from a Table</div>
+      <p>The table shows values of a continuous function $h$:</p>
+      <table>
+        <tr><th>$x$</th><td>0</td><td>2</td><td>4</td><td>6</td><td>8</td></tr>
+        <tr><th>$h(x)$</th><td>5</td><td>8</td><td>4</td><td>7</td><td>3</td></tr>
+      </table>
+      <p>Use a left Riemann sum with 4 equal subintervals to approximate $\displaystyle\int_0^8 h(x)\,dx$.</p>
+    </div>
+
+    <div class="answers">
+      <div class="ans-ttl">Answers</div>
+      <div class="ans-item"><strong>Problem 1:</strong> $F(x) = \dfrac{x^4}{2} - 2x^2 + x$. So $F(3) - F(1) = 25.5 - (-0.5) = 26$.</div>
+      <div class="ans-item"><strong>Problem 2:</strong> By FTC Part 1, $g'(x) = \cos(x^2)$.</div>
+      <div class="ans-item"><strong>Problem 3:</strong> Left endpoints $x = 0, 2, 4, 6$ with $\Delta x = 2$. Sum $= 5(2) + 8(2) + 4(2) + 7(2) = 10 + 16 + 8 + 14 = 48$.</div>
+    </div>
+  </div>
+
+  <!-- Section 11: FAQ -->
+  <div class="sec" id="faq">
+    <h2>FAQ</h2>
+
+    <div class="faq-item">
+      <div class="faq-q">Q: What is the difference between a definite integral ap calc problem and an indefinite one?</div>
+      <div class="faq-a">A definite integral has limits of integration ($a$ and $b$) and produces a number. An indefinite integral has no limits and produces a family of functions (with $+C$). Definite integrals use FTC Part 2 to evaluate. Indefinite integrals are found by reversing differentiation rules. Both show up on the AP exam multiple times per year. Know which one the problem is asking for before you start the algebra. If the question says "evaluate" with bounds, it is definite. If it says "find the general antiderivative," it is indefinite. The setup is identical until the last step.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">Q: When do I use u-substitution versus integration by parts?</div>
+      <div class="faq-a">U-substitution handles compositions: when the integrand contains a function and its derivative (up to a constant). Look for $f(g(x)) \cdot g'(x)$. Integration by parts handles products that are not compositions, typically when one factor is a polynomial and the other is exponential, trig, or log. AB students only need u-sub. BC students need both. If you try u-sub and it does not simplify the integral, try parts. If neither works, the AP exam probably does not expect you to evaluate it analytically and you should use your calculator.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">Q: Do I really need to know all the antiderivative rules calculus has, or can I just memorize a few?</div>
+      <div class="faq-a">The ESSENTIAL rules (power, exponential, basic trig, natural log, u-sub) cover roughly 85 percent of what the AP exam tests on integration. Lock those in. The IMPORTANT rules (integration by parts for BC, more trig identities) cover the next 10 percent. The SUPPLEMENTARY rules (partial fractions, trig sub) cover the last 5 percent and only on BC. If you only have 2 weeks, focus on ESSENTIAL plus u-substitution and skip the rest. If you have a month, drill all three tiers. Honest triage beats trying to be a perfect generalist. For supplemental practice, <a href="https://www.khanacademy.org/math/ap-calculus-ab/ab-integration-new" target="_blank">Khan Academy's AP Calculus AB integration unit</a> has solid sets organized by skill.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">Q: How important is showing work on integration FRQs?</div>
+      <div class="faq-a">Critical. The AP rubric scores setup, antiderivative, evaluation, and interpretation as separate points. A student who writes only the final answer typically loses 2 to 4 points per FRQ even when the answer is correct. The communication line citing the Fundamental Theorem of Calculus is its own point on most FTC FRQs. Write every step. Use units. Cite the theorem. If you took the time to do the math, take the 5 extra seconds to write the justification.</div>
+    </div>
+  </div>
+
+  <!-- Section 12: Quick Reference -->
+  <div class="sec" id="quick-reference">
+    <h2>Save This For Exam Day</h2>
+    <div class="qr">
+      <div class="qr-ttl">Unit 6 Quick Reference</div>
+
+      <div class="qrf">
+        <div class="qrf-lbl">Power Rule for Integration</div>
+        $$\int x^n\,dx = \frac{x^{n+1}}{n+1} + C \quad (n \neq -1)$$
+      </div>
+
+      <div class="qrf">
+        <div class="qrf-lbl">Fundamental Theorem of Calculus, Part 1</div>
+        $$\frac{d}{dx}\!\int_a^x f(t)\,dt = f(x)$$
+      </div>
+
+      <div class="qrf">
+        <div class="qrf-lbl">Fundamental Theorem of Calculus, Part 2</div>
+        $$\int_a^b f(x)\,dx = F(b) - F(a)$$
+      </div>
+
+      <div class="qrf">
+        <div class="qrf-lbl">Definition of the Definite Integral</div>
+        $$\int_a^b f(x)\,dx = \lim_{n \to \infty} \sum_{i=1}^{n} f(x_i)\,\Delta x$$
+      </div>
+
+      <ul class="qrb">
+        <li>$\int e^x\,dx = e^x + C$</li>
+        <li>$\int \sin(x)\,dx = -\cos(x) + C$</li>
+        <li>$\int \cos(x)\,dx = \sin(x) + C$</li>
+        <li>$\int \sec^2(x)\,dx = \tan(x) + C$</li>
+        <li>$\int \frac{1}{x}\,dx = \ln|x| + C$</li>
+        <li>Always write $+C$ on indefinite integrals</li>
+        <li>Always show $F(b) - F(a)$ explicitly</li>
+        <li>Always cite "by the Fundamental Theorem of Calculus" on FRQ evaluations</li>
+        <li class="nv">Never drop $+C$ on indefinite integrals</li>
+        <li class="nv">Never skip the evaluation step</li>
+        <li class="nv">Never confuse antiderivative-as-process with area-as-result</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Section 13: Related Posts -->
+  <div class="sec" id="related">
+    <h2>Related Posts</h2>
+    <p>If you want more depth on the Unit 6 sub-topics:</p>
+    <a class="related-link" href="/post-08-integration-intro"><strong>What Integration Actually Is in AP Calculus: Unit 6 Intro</strong><br>The conceptual foundation. Read this first if the big picture feels shaky.</a>
+    <a class="related-link" href="/post-10-u-substitution"><strong>U-Substitution in AP Calculus: When and How to Use It</strong><br>The single most important integration technique for the AP exam.</a>
+    <a class="related-link" href="/post-01-what-is-a-derivative"><strong>What Is a Derivative in AP Calculus? (The Concept, Not Just the Formula)</strong><br>The Unit 2 foundation that makes the FTC make sense.</a>
+    <a class="related-link" href="/post-07-mean-value-theorem"><strong>The Mean Value Theorem in AP Calculus</strong><br>The theorem that connects average and instantaneous rates of change.</a>
+  </div>
+
+  <!-- End CTA -->
+  <div id="end-cta">
+    <div class="cta">
+      <h3>Get the Free Guide. Then Come Back Ready.</h3>
+      <p>Integration is where the foundation either holds or cracks. If Units 1 through 5 felt like memorizing rules without seeing the picture, Unit 6 is where that gap costs real points. The conceptual piece is learnable fast, but it does not happen by doing more practice problems without it. Because if integration is shaky, Unit 7 and Unit 8 get harder than they need to be.</p>
+      <a class="btn" href="https://aceapcalculus.com/before-apcalc" target="_blank">Download the Free Guide →</a>
+      <div class="sub">Parents: if your student is heading into Unit 6 right now, this is worth putting in front of them today.</div>
+    </div>
+
+    <div class="sea">
+      <h3>Seasonal: Summer Program (Active through September 15, 2026)</h3>
+      <p>If you want your student to arrive at AP Calculus next year with the integration foundation already built, my summer program runs in July and August. Small groups. Real FRQ practice. The communication layer drilled from day one. Spots fill fast.</p>
+      <a class="btn-w" href="https://aceapcalculus.com/summer-diagnostic-page" target="_blank">See Summer Program Details →</a>
+    </div>
+  </div>
+
+</div>
+<!-- End .ace-post -->
+
+<!-- Desmos live graph script -->
+<script>
+(function() {
+  var elt = document.getElementById('desmos-riemann');
+  if (!elt || typeof Desmos === 'undefined') return;
+  var calc = Desmos.GraphingCalculator(elt, {
+    expressions: false, settingsMenu: false, zoomButtons: false, lockViewport: true
+  });
+  calc.setMathBounds({ left: -0.5, right: 5, bottom: -0.5, top: 8 });
+  calc.setExpression({ id: 'curve', latex: 'y=0.4x^{2}+1', color: '#1a3a6b', lineWidth: 2.5 });
+  // Left Riemann sum rectangles, n = 5, on [0, 4], width = 0.8
+  // Left endpoints: x = 0, 0.8, 1.6, 2.4, 3.2. Heights: 0.4*x^2 + 1 at each.
+  var rects = [
+    { x0: 0,   x1: 0.8, h: 0.4*0*0 + 1 },
+    { x0: 0.8, x1: 1.6, h: 0.4*0.8*0.8 + 1 },
+    { x0: 1.6, x1: 2.4, h: 0.4*1.6*1.6 + 1 },
+    { x0: 2.4, x1: 3.2, h: 0.4*2.4*2.4 + 1 },
+    { x0: 3.2, x1: 4.0, h: 0.4*3.2*3.2 + 1 }
+  ];
+  rects.forEach(function(r, i) {
+    calc.setExpression({
+      id: 'rect' + i,
+      latex: '\\operatorname{polygon}\\left(\\left(' + r.x0 + ',0\\right),\\left(' + r.x1 + ',0\\right),\\left(' + r.x1 + ',' + r.h + '\\right),\\left(' + r.x0 + ',' + r.h + '\\right)\\right)',
+      color: '#e8a020',
+      fillOpacity: 0.35,
+      lineWidth: 1.5
+    });
+  });
+})();
+</script>
+
+<!-- ===================================================================
+     ▲▲▲ END: WORDPRESS CUSTOM HTML BLOCK ▲▲▲
+     =================================================================== -->
+
+</div>
+<!-- End .page -->
+
+</body>
+</html>

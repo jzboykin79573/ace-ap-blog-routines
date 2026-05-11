@@ -4,8 +4,8 @@
 
 | Field | Value |
 |-------|-------|
-| `HOOK_ROTATION_POSITION` | 2 |
-| `NEXT_HOOK_TYPE` | `student-moment` |
+| `HOOK_ROTATION_POSITION` | 1 |
+| `NEXT_HOOK_TYPE` | `counterintuitive-stat` |
 
 Rotation order: 1=counterintuitive-stat → 2=student-moment → 3=uncomfortable-truth → 4=name-the-feeling → back to 1.
 `blog-archive` advances this automatically after each post ships.
@@ -14,8 +14,8 @@ Rotation order: 1=counterintuitive-stat → 2=student-moment → 3=uncomfortable
 
 | Field | Value |
 |-------|-------|
-| `POST_TYPE_ROTATION_POSITION` | 6 |
-| `NEXT_POST_TYPE` | `ultimate-guide` |
+| `POST_TYPE_ROTATION_POSITION` | 1 |
+| `NEXT_POST_TYPE` | `long-form` |
 
 8-post weighted rotation (long-form appears 4x to keep pace sustainable):
 
@@ -61,6 +61,9 @@ Post-01 (derivative concept) is a spoke. Assign to Unit 2 or Unit 3 when its pil
 | 05 | post-05-derivative-rules | Derivative Rules in AP Calculus 2026: Power, Product, Quotient, and Chain Without the Mess | (pending — add URL when live) |
 | 06 | post-06-related-rates | Related Rates: The FRQ That Costs Students 4 Points Every May | https://enginearu.com/ap-calculus-prep/unit-4-contextual-applications/related-rates-ap-calculus/ |
 | 07 | post-07-mean-value-theorem | Mean Value Theorem AP Calculus | https://enginearu.com/ap-calculus-prep/unit-5-analytical-applications/mean-value-theorem-ap-calculus/ |
+| 08 | post-08-integration-intro | What Is Integration in AP Calculus? | https://enginearu.com/ap-calculus-prep/unit-6-integration/what-is-integration-in-ap-calculus/ |
+| 09 | post-09-slope-fields-intro | Slope Fields in AP Calculus | https://enginearu.com/ap-calculus-prep/unit-7-differential-equations/slope-fields-ap-calculus/ |
+| 10 | post-10-u-substitution | U-Substitution in AP Calculus | https://enginearu.com/ap-calculus-prep/unit-6-integration/u-substitution-ap-calculus/ |
 
 ## In Progress
 | # | Slug | Title | Status |
@@ -82,6 +85,9 @@ Use this when filling the `EXISTING POSTS:` field in the topic trigger.
 - Post 05: `(pending — add URL when live)` — Derivative Rules in AP Calculus 2026
 - Post 06: `https://enginearu.com/ap-calculus-prep/unit-4-contextual-applications/related-rates-ap-calculus/` — Related Rates: The FRQ That Costs Students 4 Points Every May
 - Post 07: `https://enginearu.com/ap-calculus-prep/unit-5-analytical-applications/mean-value-theorem-ap-calculus/` — Mean Value Theorem AP Calculus
+- Post 08: `https://enginearu.com/ap-calculus-prep/unit-6-integration/what-is-integration-in-ap-calculus/` — What Is Integration in AP Calculus?
+- Post 09: `https://enginearu.com/ap-calculus-prep/unit-7-differential-equations/slope-fields-ap-calculus/` — Slope Fields in AP Calculus
+- Post 10: `https://enginearu.com/ap-calculus-prep/unit-6-integration/u-substitution-ap-calculus/` — U-Substitution in AP Calculus
 
 ---
 *Update this file after each publish. Add the live URL to the Published table and add the slug to the internal link index.*

@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PREVIEW - Differential Equations in AP Calculus (Unit 7 Pillar)</title>
+
+<!--
+=======================================================================
+  PREVIEW FILE - ACE AP CALCULUS BLOG
+  Post 21: Differential Equations in AP Calculus (Unit 7 Pillar Guide)
+=======================================================================
+  HOW TO USE THIS FILE
+  Open in browser to preview. Open in VS Code to find the paste markers.
+
+  WHAT GETS PASTED INTO WORDPRESS
+  STEP 1 (one time only) -> functions.php
+  STEP 2 -> WordPress title field
+  STEP 3 -> One Custom HTML block (marked in the body below)
+  STEP 4 -> Yoast / Rank Math SEO fields
+=======================================================================
+-->
+
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<script>MathJax = { tex: { inlineMath: [['$','$']], displayMath: [['$$','$$']], processEscapes: true } };</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+<script src="https://www.desmos.com/api/v1.7/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0fda6"></script>
+
+<style>
+:root{
+  --navy:#0f1e3c;--blue:#1a3a6b;--accent:#e8a020;--accent-light:#fef3dc;
+  --green:#1a7a4a;--green-light:#eaf7f0;--red:#c0392b;--red-light:#fdf2f1;
+  --purple:#7c3aed;--purple-light:#f3f0ff;
+  --gray:#f5f6f8;--border:#dde1e8;--text:#1a1a2e;--muted:#6b7280;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:#eef0f4;color:var(--text);font-size:14px;line-height:1.8}
+.pub-guide{background:#1a1a2e;font-family:'JetBrains Mono',monospace}
+.pub-guide summary{padding:14px 20px;cursor:pointer;color:var(--accent);font-size:13px;font-weight:700;letter-spacing:.5px;list-style:none;display:flex;align-items:center;gap:10px}
+.pub-guide summary::before{content:"▶";font-size:10px;transition:transform .2s}
+.pub-guide[open] summary::before{transform:rotate(90deg)}
+.pub-guide-body{padding:0 20px 20px}
+.pub-step{margin-bottom:24px}
+.pub-step-ttl{color:var(--accent);font-size:12px;font-weight:700;margin-bottom:6px;letter-spacing:.5px}
+.pub-step p{color:rgba(255,255,255,.75);font-size:12px;margin-bottom:8px;font-family:'Inter',sans-serif;line-height:1.6}
+.pub-step textarea{width:100%;background:#0d0d1a;color:#a8d8a8;border:1px solid #333;border-radius:6px;padding:12px;font-size:11px;font-family:'JetBrains Mono',monospace;line-height:1.6;resize:vertical;min-height:80px}
+.pub-step code{background:#0d0d1a;color:var(--accent);padding:2px 6px;border-radius:3px;font-size:11px}
+.pub-divider{border:none;border-top:1px solid #2a2a4a;margin:20px 0}
+.chrome{background:#2d2d2d;padding:8px 14px;display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:100}
+.dots{display:flex;gap:6px}.dot{width:11px;height:11px;border-radius:50%}
+.dot.r{background:#ff5f57}.dot.y{background:#febc2e}.dot.g{background:#28c840}
+.url{flex:1;background:#3d3d3d;border-radius:5px;padding:4px 10px;color:#aaa;font-size:11px;font-family:'JetBrains Mono',monospace}
+.badge{background:var(--accent);color:var(--navy);font-size:10px;font-weight:700;padding:3px 8px;border-radius:4px}
+.page{max-width:780px;margin:0 auto;background:#fff;min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,.12)}
+.hero{background:linear-gradient(135deg,var(--navy),var(--blue));padding:40px 40px 32px;color:#fff}
+.tag{display:inline-block;background:var(--accent);color:var(--navy);font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;padding:3px 9px;border-radius:3px;margin-bottom:14px}
+.hero h1{font-family:'Merriweather',serif;font-size:22px;line-height:1.4;margin-bottom:14px}
+.meta{display:flex;gap:10px;flex-wrap:wrap}
+.pill{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.88);font-size:11px;padding:4px 10px;border-radius:20px}
+</style>
+</head>
+<body>
+
+<!-- PUBLISHING GUIDE -->
+<details class="pub-guide" open>
+  <summary>PUBLISHING GUIDE - 4 steps to post this to WordPress</summary>
+  <div class="pub-guide-body">
+
+    <div class="pub-step">
+      <div class="pub-step-ttl">STEP 1 - ONE TIME ONLY: Add MathJax + Desmos to functions.php</div>
+      <p>Go to WordPress Admin -&gt; Appearance -&gt; Theme File Editor -&gt; functions.php and paste the snippet below at the bottom. Do this once. Skip on every future post.</p>
+      <textarea readonly rows="10">
+// -- ACE AP CALCULUS: MathJax + Desmos -------------------
+// Paste at the bottom of functions.php. One time only.
+
+add_action('wp_head', function() {
+    echo '<script>MathJax = { tex: { inlineMath: [["$","$"]], displayMath: [["$$","$$"]] } };</script>';
+    echo '<script src="https://www.desmos.com/api/v1.7/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0fda6"></script>';
+}, 1);
+
+add_action('wp_enqueue_scripts', function() {
+    wp_enqueue_script('mathjax', 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js', [], null, false);
+});
+// -------------------------------------------------------</textarea>
+    </div>
+
+    <hr class="pub-divider">
+
+    <div class="pub-step">
+      <div class="pub-step-ttl">STEP 2 - WordPress title field</div>
+      <p>In the WordPress editor, click the title field and paste this exactly:</p>
+      <textarea readonly rows="2">Differential Equations in AP Calculus: The Complete Unit 7 Guide (Slope Fields, Separable DEs, Initial Value Problems)</textarea>
+    </div>
+
+    <hr class="pub-divider">
+
+    <div class="pub-step">
+      <div class="pub-step-ttl">STEP 3 - WordPress Custom HTML block</div>
+      <p>In the editor content area:<br>
+         1. Click <code>+</code> -&gt; search <code>Custom HTML</code> -&gt; add the block<br>
+         2. Open this file in VS Code<br>
+         3. Find the comment <code>▼▼▼ START: PASTE THIS INTO WORDPRESS CUSTOM HTML BLOCK ▼▼▼</code><br>
+         4. Select down to <code>▲▲▲ END: WORDPRESS CUSTOM HTML BLOCK ▲▲▲</code><br>
+         5. Paste into the Custom HTML block.</p>
+    </div>
+
+    <hr class="pub-divider">
+
+    <div class="pub-step">
+      <div class="pub-step-ttl">STEP 4 - Yoast / Rank Math SEO fields</div>
+      <p>Fill these in the SEO sidebar before publishing:</p>
+      <textarea readonly rows="5">
+SEO Title:       Differential Equations AP Calculus: Unit 7 Complete Guide
+Meta Description: Master Unit 7 differential equations: slope fields, separable DEs, initial value problems, exponential growth, BC logistic. Worked FRQs and rubrics.
+Slug:            differential-equations-ap-calculus
+Focus Keyword:   differential equations ap calculus</textarea>
+    </div>
+
+  </div>
+</details>
+<!-- END PUBLISHING GUIDE -->
+
+
+<!-- PREVIEW ONLY: browser chrome bar -->
+<div class="chrome">
+  <div class="dots">
+    <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
+  </div>
+  <div class="url">enginearu.com/ap-calculus-prep/unit-7-differential-equations/differential-equations-ap-calculus/</div>
+  <div class="badge">PREVIEW</div>
+</div>
+<!-- END PREVIEW CHROME -->
+
+
+<!-- PREVIEW ONLY: hero header (WordPress uses the title field instead) -->
+<div class="page">
+<div class="hero">
+  <div class="tag">AP Calculus AB · BC · Unit 7 · Pillar Guide</div>
+  <h1>Differential Equations in AP Calculus:<br>The Complete Unit 7 Guide</h1>
+  <div class="meta">
+    <span class="pill">⏱ 22 min read</span>
+    <span class="pill">✓ Slope fields + separable DEs + IVPs</span>
+    <span class="pill">Worked FRQ rubrics inside</span>
+  </div>
+</div>
+<!-- END PREVIEW HERO -->
+
+
+<!-- ===================================================================
+     ▼▼▼ START: PASTE THIS INTO WORDPRESS CUSTOM HTML BLOCK ▼▼▼
+     =================================================================== -->
+
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+.ace-post{
+  --navy:#0f1e3c;--blue:#1a3a6b;--accent:#e8a020;--accent-light:#fef3dc;
+  --green:#1a7a4a;--green-light:#eaf7f0;--red:#c0392b;--red-light:#fdf2f1;
+  --purple:#7c3aed;--purple-light:#f3f0ff;
+  --gray:#f5f6f8;--border:#dde1e8;--text:#1a1a2e;--muted:#6b7280;
+  font-family:'Inter',sans-serif;font-size:14px;line-height:1.8;color:var(--text);
+  padding:32px 0;
+}
+.ace-post .toc{background:var(--gray);border-left:4px solid var(--navy);border-radius:0 8px 8px 0;padding:18px 20px;margin-bottom:36px}
+.ace-post .toc-ttl{font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.ace-post .toc ol{padding-left:18px}.ace-post .toc li{margin-bottom:6px}
+.ace-post .toc a{color:var(--blue);text-decoration:none;font-size:13px;font-weight:500}
+.ace-post .sec{margin-bottom:40px}
+.ace-post h2{font-family:'Merriweather',serif;font-size:18px;font-weight:700;color:var(--navy);margin-bottom:14px;padding-bottom:8px;border-bottom:2px solid var(--border)}
+.ace-post h3{font-size:14px;font-weight:700;color:var(--blue);margin:18px 0 8px}
+.ace-post p{margin-bottom:13px;font-size:14px}
+.ace-post .math-block{background:var(--gray);border-radius:8px;padding:16px 20px;margin:14px 0;text-align:center;overflow-x:auto;font-size:15px}
+.ace-post .anatomy{background:var(--purple-light);border-left:4px solid var(--purple);border-radius:0 8px 8px 0;padding:16px 20px;margin:18px 0}
+.ace-post .anatomy h3{color:var(--purple);margin-top:6px}
+.ace-post .anatomy ul{padding-left:18px;font-size:13px}
+.ace-post .anatomy li{margin-bottom:5px;color:#4c1d95}
+.ace-post table.credit{width:100%;border-collapse:collapse;margin:14px 0;font-size:13px}
+.ace-post table.credit th{background:var(--navy);color:#fff;padding:8px 10px;text-align:left;font-size:11px;font-weight:700;letter-spacing:.6px;text-transform:uppercase}
+.ace-post table.credit td{padding:8px 10px;border:1px solid var(--border);background:#fff}
+.ace-post table.credit tr:nth-child(even) td{background:var(--gray)}
+.ace-post .step{display:flex;gap:14px;margin-bottom:18px;align-items:flex-start}
+.ace-post .snum{background:var(--navy);color:#fff;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;margin-top:2px}
+.ace-post .scontent{flex:1}
+.ace-post .slbl{font-weight:700;font-size:13px;color:var(--navy);margin-bottom:5px}
+.ace-post .scontent p{font-size:13px;margin-bottom:6px}
+.ace-post .rubric{background:var(--green-light);border-left:4px solid var(--green);border-radius:0 8px 8px 0;padding:14px 18px;margin:16px 0}
+.ace-post .rubric-ttl{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--green);margin-bottom:8px}
+.ace-post .rubric ul{padding-left:18px}.ace-post .rubric li{font-size:13px;margin-bottom:5px;color:#1a4a32}
+.ace-post .cta{background:linear-gradient(135deg,var(--navy),var(--blue));border-radius:12px;padding:24px 26px;margin:28px 0;color:#fff}
+.ace-post .cta h3{color:#fff;margin:0 0 8px;font-size:15px;font-family:'Merriweather',serif}
+.ace-post .cta p{color:rgba(255,255,255,.85);font-size:13px;margin-bottom:14px}
+.ace-post .btn{display:inline-block;background:var(--accent);color:var(--navy);font-weight:700;font-size:13px;padding:10px 20px;border-radius:6px;text-decoration:none}
+.ace-post .sub{font-size:11px;color:rgba(255,255,255,.6);margin-top:10px;font-style:italic}
+.ace-post .sea{background:var(--accent-light);border:2px solid var(--accent);border-radius:12px;padding:22px 26px;margin:20px 0}
+.ace-post .sea h3{color:var(--navy);font-size:14px;margin-bottom:8px;font-weight:700}
+.ace-post .sea p{font-size:13px;color:#5a4500;margin-bottom:12px}
+.ace-post .btn-w{display:inline-block;background:var(--navy);color:#fff;font-weight:700;font-size:13px;padding:10px 20px;border-radius:6px;text-decoration:none}
+.ace-post .mk{border-left:4px solid var(--red);border-radius:0 8px 8px 0;padding:14px 18px;background:var(--red-light);margin-bottom:16px}
+.ace-post .mk-n{font-weight:700;color:var(--red);font-size:13px;margin-bottom:5px}
+.ace-post .mk-w{font-size:12px;color:#7a2020;margin-bottom:6px;font-style:italic}
+.ace-post .mk-f{font-size:13px;color:var(--text)}
+.ace-post .prob{background:var(--gray);border-radius:8px;padding:16px 18px;margin-bottom:14px;border:1px solid var(--border)}
+.ace-post .plbl{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.ace-post .prob p{font-size:13px;margin-bottom:8px}
+.ace-post .answers{background:var(--navy);border-radius:8px;padding:18px 20px;margin-top:20px}
+.ace-post .ans-ttl{color:var(--accent);font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:12px}
+.ace-post .ans-item{font-size:13px;color:rgba(255,255,255,.9);margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid rgba(255,255,255,.1)}
+.ace-post .ans-item:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
+.ace-post .faq-item{border-bottom:1px solid var(--border);padding:16px 0}
+.ace-post .faq-q{font-weight:700;color:var(--navy);font-size:13px;margin-bottom:8px}
+.ace-post .faq-a{font-size:13px;line-height:1.7}
+.ace-post .qr{background:var(--navy);color:#fff;border-radius:10px;padding:24px 26px;margin:20px 0}
+.ace-post .qr-ttl{color:var(--accent);font-size:12px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:16px}
+.ace-post .qrf{background:rgba(255,255,255,.07);border-radius:6px;padding:12px 16px;margin-bottom:10px;text-align:center}
+.ace-post .qrf-lbl{font-size:11px;color:rgba(255,255,255,.5);margin-bottom:6px}
+.ace-post .qrb{margin-top:14px;list-style:none;padding-left:0}
+.ace-post .qrb li{font-size:12px;color:rgba(255,255,255,.85);margin-bottom:6px;padding-left:20px;position:relative}
+.ace-post .qrb li::before{content:"✓";color:#4ade80;position:absolute;left:0;font-weight:700}
+.ace-post .qrb .nv{color:#fca5a5!important}.ace-post .qrb .nv::before{content:"✗"!important;color:#fca5a5!important}
+.ace-post .related-link{display:block;padding:12px 14px;background:var(--gray);border-radius:6px;border:1px solid var(--border);margin-bottom:8px;font-size:13px;color:var(--blue);text-decoration:none;font-weight:500}
+.ace-post .related-link:hover{background:var(--accent-light)}
+.ace-post .desmos-wrap{border-radius:10px;overflow:hidden;margin:18px 0;border:1px solid var(--border)}
+.ace-post .desmos-label{background:var(--navy);color:#fff;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:8px 14px;display:flex;align-items:center;gap:6px}
+.ace-post .desmos-dot{width:8px;height:8px;border-radius:50%;background:var(--accent)}
+.ace-post .tier{display:inline-block;font-size:10px;font-weight:700;padding:3px 8px;border-radius:4px;margin-right:6px;letter-spacing:.5px}
+.ace-post .tier.ess{background:var(--red);color:#fff}
+.ace-post .tier.imp{background:var(--accent);color:var(--navy)}
+.ace-post .tier.sup{background:var(--gray);color:var(--muted);border:1px solid var(--border)}
+.ace-post .one-liner{background:var(--accent-light);border-left:4px solid var(--accent);padding:14px 18px;border-radius:0 8px 8px 0;margin:18px 0;font-style:italic;font-size:15px;color:#5a4500}
+.ace-post hr{border:none;border-top:1px solid var(--border);margin:28px 0}
+.ace-post strong{font-weight:700;color:var(--navy)}
+</style>
+
+<div class="ace-post">
+
+  <!-- TOC -->
+  <div class="toc">
+    <div class="toc-ttl">Jump To What You Need</div>
+    <ol>
+      <li><a href="#intro">Why Unit 7 Is Not What You Think It Is</a></li>
+      <li><a href="#exam-anatomy">The Unit 7 Exam Anatomy</a></li>
+      <li><a href="#what-it-means">What a Differential Equation Actually Is</a></li>
+      <li><a href="#method">The 4-Step Solver Framework</a></li>
+      <li><a href="#slope-fields">Slope Fields: Reading the Picture</a></li>
+      <li><a href="#example-1">Worked Example 1 - Solving a Basic Separable DE</a></li>
+      <li><a href="#mid-cta">Grab the Free Guide</a></li>
+      <li><a href="#example-2">Worked Example 2 - Full FRQ Scoring Walkthrough</a></li>
+      <li><a href="#exp-growth">Exponential Growth and Decay</a></li>
+      <li><a href="#mistakes">The 3 Mistakes That Cost Unit 7 Points</a></li>
+      <li><a href="#practice">Practice Problems</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="#quick-reference">Save This For Exam Day</a></li>
+      <li><a href="#related">Related Posts</a></li>
+    </ol>
+  </div>
+
+  <!-- 1: Intro -->
+  <div class="sec" id="intro">
+    <h2>Why Unit 7 Is Not What You Think It Is</h2>
+    <!-- HOOK TYPE: counterintuitive-stat -->
+    <p>About 7 out of 10 students I work with freeze the first time they see a differential equation, and almost none of them freeze because of the calculus. They freeze because they think Unit 7 is a brand new topic. It is not. A differential equation in AP calculus is an algebra problem wrapped around an integration step you already know how to do.</p>
+    <p>I watched this happen last week with two of my AB groups. The May 5 mock exam had a separable DE sub-part worth 5 of 9 FRQ points. Students who scored 90s on the integration unit could not write the first line of the separation. They knew $\int 12\,dT = 12T + C$ cold. They could not see that the FRQ was asking them to do that exact integral.</p>
+    <p>There is a specific kind of panic that hits when a problem labels itself "differential equation." I call it the <strong>Unit 7 Freeze</strong>. It happens because the College Board uses the phrase "find a particular solution" and your brain reads it as a new procedure instead of three procedures you already own: separate variables, integrate both sides, plug in the initial condition. That is the whole unit. If you cannot recite those three moves out loud right now, you are about to leave 4 to 6 points on the AP exam.</p>
+    <p>This is the pillar guide for Unit 7 Differential Equations. By the end you will know how to read a slope field, separate a DE, solve an initial value problem, and recognize the FRQ patterns the AP exam recycles every single year. If you skip Unit 7 entirely, you will lose points on at least one FRQ on the actual exam. The AP exam has included a separable DE FRQ in some form for more than 20 consecutive years. Expect it again.</p>
+  </div>
+
+  <!-- 2: Exam Anatomy -->
+  <div class="sec" id="exam-anatomy">
+    <h2>The Unit 7 Exam Anatomy</h2>
+    <p>Before strategy, you need orientation. Here is exactly how Unit 7 shows up on the 2026 AP Calculus exams.</p>
+
+    <div class="anatomy">
+      <h3>AP Calculus AB</h3>
+      <ul>
+        <li>Unit 7 weight: roughly 6 to 12 percent of the exam</li>
+        <li>Typical MCQ count from Unit 7: 3 to 6 questions (slope fields, separation setup, initial value)</li>
+        <li>FRQ presence: at least 1 free response problem each year contains a separable DE sub-part</li>
+        <li>Calculator policy: Unit 7 problems appear in both calculator-active and calculator-inactive sections</li>
+      </ul>
+    </div>
+
+    <div class="anatomy">
+      <h3>AP Calculus BC</h3>
+      <ul>
+        <li>Unit 7 weight: roughly 6 to 9 percent of the exam (smaller because BC has its own series unit)</li>
+        <li>BC adds the logistic differential equation and Euler's method to the AB content</li>
+        <li>FRQ presence: same as AB, plus logistic or Euler's appears on most BC exams</li>
+      </ul>
+    </div>
+
+    <h3>Score-to-Credit Outcomes</h3>
+    <p>This is what each AP score actually earns you at most universities. Verify your specific school against <a href="https://apstudents.collegeboard.org/getting-credit-placement/search-policies" target="_blank" rel="noopener">College Board's AP Credit Policy</a> before counting on a number.</p>
+
+    <table class="credit">
+      <thead>
+        <tr><th>AP Score</th><th>AB Typical Credit</th><th>BC Typical Credit</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>5</strong></td><td>4 credit hours (Calc I)</td><td>8 credit hours (Calc I + II), some give Calc III placement</td></tr>
+        <tr><td><strong>4</strong></td><td>4 credit hours (Calc I)</td><td>4 to 8 credit hours (Calc I, sometimes II)</td></tr>
+        <tr><td><strong>3</strong></td><td>Varies. Many schools accept, many require a 4+</td><td>4 credit hours (Calc I) at most schools, no II</td></tr>
+        <tr><td><strong>2 or 1</strong></td><td>No credit</td><td>No credit</td></tr>
+      </tbody>
+    </table>
+
+    <p>What this means for Unit 7: missing 4 to 6 points on a separable DE FRQ is often the gap between a 3 and a 4 on AB, or between a 4 and a 5 on BC. That gap can be worth 4 college credit hours and an entire semester of college math you do not have to retake.</p>
+  </div>
+
+  <!-- 3: What it means -->
+  <div class="sec" id="what-it-means">
+    <h2>What a Differential Equation Actually Is</h2>
+    <p>Most students think a differential equation is some advanced category of math. It is not. A differential equation is just an equation that contains a derivative. That is the entire definition.</p>
+    <p>If I write $\frac{dy}{dx} = 2x$, I have written a differential equation. The unknown is not a number. The unknown is the function $y$ whose derivative is $2x$. You already know one answer: $y = x^2 + C$. You found it the moment you learned the power rule for integrals. That was Unit 6. The only thing Unit 7 adds is naming it and applying it.</p>
+    <p>One vocabulary note before we keep going: $\frac{dy}{dx}$ at a point gives you the instantaneous rate of change (IROC), not the average rate of change (AROC) across an interval. AROC is a secant slope. IROC is a tangent slope. That distinction matters when an FRQ asks you to justify a rate. Use IROC language when you are working from the differential equation, and reserve AROC for the cases where the problem hands you two function values and asks for the average.</p>
+    <p>Here is the picture I draw for every student on day one of Unit 7. A regular algebra equation like $3x + 5 = 14$ asks: "what number satisfies this?" A differential equation asks: "what function satisfies this?" The first one has a number as the answer. The second one has a function as the answer. Same idea. Different kind of answer.</p>
+    <p>There are two flavors of answer you need to know cold.</p>
+    <p>A <strong>general solution</strong> is the family of all functions that satisfy the DE. It always has a $+C$ in it because antiderivatives are only unique up to a constant. $y = x^2 + C$ is the general solution to $\frac{dy}{dx} = 2x$.</p>
+    <p>A <strong>particular solution</strong> is the one specific function from that family that also passes through a given point. The AP exam almost always gives you an initial condition like $y(0) = 3$ so you can solve for $C$ and pin the family down to one curve.</p>
+    <p>That distinction is the entire reason Unit 7 exists as its own unit. Integration alone gives you a family of curves. A differential equation with an initial condition gives you exactly one. The AP exam tests both forms, and the FRQ rubric awards points for showing the difference between them.</p>
+  </div>
+
+  <!-- 4: Method -->
+  <div class="sec" id="method">
+    <h2>The 4-Step Solver Framework</h2>
+    <p>Every separable differential equation on the AP exam gets solved the same way. Memorize the 4 steps and the words you say out loud at each one. The words matter for FRQ communication points.</p>
+
+    <div class="step"><div class="snum">1</div><div class="scontent">
+      <div class="slbl">Separate the variables</div>
+      <p>Get every $y$ and $dy$ on one side. Get every $x$ and $dx$ on the other side. If you cannot algebraically split them, the equation is not separable and the College Board will not put it on the FRQ that year.</p>
+    </div></div>
+
+    <div class="step"><div class="snum">2</div><div class="scontent">
+      <div class="slbl">Integrate both sides</div>
+      <p>Apply the antiderivative to each side independently. The $+C$ only needs to appear once. By convention it lives on the $x$ side.</p>
+    </div></div>
+
+    <div class="step"><div class="snum">3</div><div class="scontent">
+      <div class="slbl">Solve for the constant using the initial condition</div>
+      <p>Plug the given point $(x_0, y_0)$ into your equation and solve for $C$. This is the step most students skip. Do not skip it.</p>
+    </div></div>
+
+    <div class="step"><div class="snum">4</div><div class="scontent">
+      <div class="slbl">Solve for $y$ explicitly (when asked)</div>
+      <p>The FRQ will tell you to write $y$ as a function of $x$. If it does, isolate $y$. If the equation involves an exponential or absolute value, drop the absolute value and handle the sign using the initial condition.</p>
+    </div></div>
+
+    <p>That is the entire framework. Four steps. The AP exam has not changed the structure of this problem since before your parents were in high school.</p>
+    <p>A common subtlety: in Step 4, when you exponentiate to solve for $y$, the constant $C$ becomes a new constant. Most students relabel it as $k$ or just $C$ and move on. That is fine. The rubric does not care what letter you use as long as your final answer is consistent with your initial condition.</p>
+  </div>
+
+  <!-- 5: Slope Fields -->
+  <div class="sec" id="slope-fields">
+    <h2>Slope Fields: Reading the Picture</h2>
+    <p>A slope field is a grid of tiny line segments. Each segment shows the slope of the solution curve at that point, computed from the differential equation. If $\frac{dy}{dx} = x - y$, then at the point $(2, 1)$ the slope segment has slope $2 - 1 = 1$. Draw a short segment with slope 1 at $(2,1)$. Repeat for every grid point. That is a slope field.</p>
+    <p>The AP exam tests slope fields in three specific ways and you should expect at least one of these every year:</p>
+    <ul style="padding-left:22px;font-size:13px;margin-bottom:14px">
+      <li><strong>Sketch a slope field</strong> given a differential equation. You will be handed a 3x3 or 4x4 grid and asked to draw the segments.</li>
+      <li><strong>Match a slope field to a differential equation.</strong> Multiple choice. You compute slopes at 2 or 3 grid points and eliminate.</li>
+      <li><strong>Sketch the solution curve through a given point.</strong> Use the slope segments as a guide. The curve must follow the segments, not cross through them awkwardly.</li>
+    </ul>
+
+    <!-- Live Desmos: slope field for dy/dx = x - y with solution curve -->
+    <div class="desmos-wrap">
+      <div class="desmos-label">
+        <div class="desmos-dot"></div>
+        Live Graph - slope field for dy/dx = x - y with solution through (0,1)
+      </div>
+      <div id="desmos-slopefield" style="width:100%;height:360px;"></div>
+    </div>
+
+    <p>If reading slope fields still feels slow, see the slope fields walkthrough linked in Related Posts below and come back. The rest of this guide assumes you can compute a slope at a point in under 10 seconds.</p>
+    <p>Slope fields are the visual link between a differential equation and its solution. The differential equation tells you the slope at every point. The slope field shows it. The solution curve follows it. Three representations of the same idea. The AP exam likes to ask the same problem in all three formats to see if you can translate.</p>
+
+    <!-- SCREENSHOT-ABLE ONE-LINER -->
+    <div class="one-liner">A differential equation is an algebra problem wrapped around an integration step you already know.</div>
+    <!-- END ONE-LINER -->
+  </div>
+
+  <!-- 6: Worked Example 1 -->
+  <div class="sec" id="example-1">
+    <h2>Worked Example 1 - Solving a Basic Separable DE (Foundational)</h2>
+    <div class="prob">
+      <div class="plbl">Problem</div>
+      <p>Given $\frac{dy}{dx} = \frac{x}{y}$ with $y(0) = 2$, find the particular solution $y$ as a function of $x$.</p>
+    </div>
+
+    <div class="step"><div class="snum">1</div><div class="scontent">
+      <div class="slbl">Separate the variables</div>
+      <p>I move every $y$ to the left and every $x$ to the right:</p>
+      <div class="math-block">$$y\,dy = x\,dx$$</div>
+    </div></div>
+
+    <div class="step"><div class="snum">2</div><div class="scontent">
+      <div class="slbl">Integrate both sides</div>
+      <div class="math-block">$$\int y\,dy = \int x\,dx$$</div>
+      <div class="math-block">$$\frac{y^2}{2} = \frac{x^2}{2} + C$$</div>
+    </div></div>
+
+    <div class="step"><div class="snum">3</div><div class="scontent">
+      <div class="slbl">Apply the initial condition $y(0) = 2$</div>
+      <p>Plug $x = 0$ and $y = 2$ into the equation:</p>
+      <div class="math-block">$$\frac{(2)^2}{2} = \frac{(0)^2}{2} + C$$</div>
+      <div class="math-block">$$2 = 0 + C \quad \Rightarrow \quad C = 2$$</div>
+    </div></div>
+
+    <div class="step"><div class="snum">4</div><div class="scontent">
+      <div class="slbl">Solve for $y$ explicitly</div>
+      <div class="math-block">$$\frac{y^2}{2} = \frac{x^2}{2} + 2$$</div>
+      <p>Multiply both sides by 2:</p>
+      <div class="math-block">$$y^2 = x^2 + 4$$</div>
+      <p>Take the square root. The initial condition $y(0) = 2$ is positive, so we keep the positive branch:</p>
+      <div class="math-block">$$\boxed{y = \sqrt{x^2 + 4}}$$</div>
+    </div></div>
+
+    <div class="rubric">
+      <div class="rubric-ttl">Here is exactly how the AP exam scores this type of problem</div>
+      <ul>
+        <li>1 point for correctly separating $y\,dy = x\,dx$ (the setup line is its own point on most rubrics)</li>
+        <li>1 point for antidifferentiating both sides correctly, with a constant of integration shown explicitly</li>
+        <li>1 point for using the initial condition to solve for $C$</li>
+        <li>1 point for the correct value of $C$</li>
+        <li>1 point for the final explicit function, with the correct sign branch chosen using the initial condition</li>
+      </ul>
+    </div>
+    <p>That is 5 points. If you write the separation line, get $C$ right, and pick the correct sign, you have earned all of them. The math is not hard. The communication is what students miss.</p>
+  </div>
+
+  <!-- Mid CTA -->
+  <div id="mid-cta">
+    <div class="cta">
+      <h3>Grab the Free "Before AP Calculus" Guide</h3>
+      <p>Not sure if your Unit 6 integration skills are solid enough for Unit 7? I put together a free guide that maps out exactly what needs to be locked in before differential equations actually click. It is the same checklist I run with every student before we touch a separable DE.</p>
+      <a class="btn" href="https://www.aceapcalculus.com/freeguide" target="_blank" rel="noopener">Get the Free Guide</a>
+      <div class="sub">Parents: this is a great resource if your student is heading into AP Calculus and you want to know where they actually stand before the school year picks up.</div>
+    </div>
+  </div>
+
+  <!-- 7: Worked Example 2 -->
+  <div class="sec" id="example-2">
+    <h2>Worked Example 2 - Full FRQ Scoring Walkthrough</h2>
+    <p>This is the FRQ pattern from the May 5 mock exam. I am walking it through exactly the way I scored it for the two students in my AB group who got 8 out of 9 on this problem.</p>
+    <div class="prob">
+      <div class="plbl">Problem</div>
+      <p>Water is being pumped into a tank at a rate modeled by $\frac{dH}{dT} = 12\sqrt{4 + H}$, where $H$ is the height of water in feet and $T$ is time in minutes. At time $T = 0$, the height is $H = 0$.</p>
+      <p>(a) Use separation of variables to find $H$ as a function of $T$.</p>
+      <p>(b) Find the height at $T = 1$ minute.</p>
+    </div>
+
+    <h3>Part (a) Solution</h3>
+
+    <div class="step"><div class="snum">1</div><div class="scontent">
+      <div class="slbl">Separate the variables</div>
+      <p>Divide both sides by $\sqrt{4 + H}$ and multiply both sides by $dT$:</p>
+      <div class="math-block">$$\frac{dH}{\sqrt{4 + H}} = 12\,dT$$</div>
+    </div></div>
+
+    <div class="step"><div class="snum">2</div><div class="scontent">
+      <div class="slbl">Integrate both sides</div>
+      <div class="math-block">$$\int \frac{1}{\sqrt{4 + H}}\,dH = \int 12\,dT$$</div>
+      <p>The left side is a u-substitution with $u = 4 + H$, $du = dH$. If u-substitution feels slow here, revisit the u-sub walkthrough linked in Related Posts before moving on.</p>
+      <div class="math-block">$$2\sqrt{4 + H} = 12T + C$$</div>
+    </div></div>
+
+    <div class="step"><div class="snum">3</div><div class="scontent">
+      <div class="slbl">Apply the initial condition $H(0) = 0$</div>
+      <div class="math-block">$$2\sqrt{4 + 0} = 12(0) + C$$</div>
+      <div class="math-block">$$2(2) = C \quad \Rightarrow \quad C = 4$$</div>
+    </div></div>
+
+    <div class="step"><div class="snum">4</div><div class="scontent">
+      <div class="slbl">Solve for $H$ explicitly</div>
+      <div class="math-block">$$2\sqrt{4 + H} = 12T + 4$$</div>
+      <p>Divide both sides by 2:</p>
+      <div class="math-block">$$\sqrt{4 + H} = 6T + 2$$</div>
+      <p>Square both sides:</p>
+      <div class="math-block">$$4 + H = (6T + 2)^2$$</div>
+      <div class="math-block">$$\boxed{H = (6T + 2)^2 - 4}$$</div>
+    </div></div>
+
+    <h3>Part (b) Solution</h3>
+    <p>Plug $T = 1$ into the answer from part (a):</p>
+    <div class="math-block">$$H(1) = (6(1) + 2)^2 - 4 = (8)^2 - 4 = 64 - 4 = 60 \text{ feet}$$</div>
+
+    <div class="rubric">
+      <div class="rubric-ttl">Here is exactly how the AP exam scores this type of problem</div>
+      <ul>
+        <li>1 point: separation of variables (writing $\frac{dH}{\sqrt{4+H}} = 12\,dT$)</li>
+        <li>2 points: antiderivatives, one for each side, correct including constants</li>
+        <li>1 point: using the initial condition to find $C$</li>
+        <li>1 point: correct value of $C$</li>
+        <li>1 point: solving for $H$ explicitly</li>
+        <li>1 point: correct numerical answer for $H(1)$ with units</li>
+        <li>1 point: communication and notation (showing the integral sign, writing $+C$, labeling units)</li>
+      </ul>
+    </div>
+    <p>That is 8 points across part (a) and part (b). The AP exam awards the communication point even if you make a small algebra mistake. You must write the integral sign. You must write $+C$. You must label your units. Skip any of those and the rubric eats the point even when your final answer is correct.</p>
+    <p>This is the communication layer I keep telling my students about. Free response is graded on what you write down, not what you know. If your math is right but you forgot to write $+C$ on Step 2, that is a point gone. That is the difference between a 4 and a 5.</p>
+  </div>
+
+  <!-- 8: Exponential Growth and Decay -->
+  <div class="sec" id="exp-growth">
+    <h2>Exponential Growth and Decay</h2>
+    <p>Every year the AP exam puts an exponential growth or decay problem in front of you. Most of them are differential equations in disguise. If you ever see the phrase "the rate of change is proportional to the amount," that is code for this differential equation:</p>
+    <div class="math-block">$$\frac{dy}{dt} = ky$$</div>
+    <p>This is the most tested DE on the AP exam outside of pure separable problems. It separates instantly:</p>
+    <div class="math-block">$$\frac{dy}{y} = k\,dt \;\;\Rightarrow\;\; \ln|y| = kt + C \;\;\Rightarrow\;\; y = Ae^{kt}$$</div>
+    <p>The constant $A$ is the initial amount $y(0)$. The constant $k$ is positive for growth and negative for decay. That is the entire pattern. Population growth, radioactive decay, Newton's law of cooling (with a twist), continuously compounded interest. All the same equation.</p>
+
+    <h3>For BC students only: the logistic equation</h3>
+    <p>BC adds one more DE to the list. The logistic equation models growth that levels off at a carrying capacity $L$:</p>
+    <div class="math-block">$$\frac{dP}{dt} = kP\left(1 - \frac{P}{L}\right)$$</div>
+    <p>The AP exam will rarely ask you to solve this DE by hand on the FRQ. It will ask three things instead: identify the carrying capacity $L$, find where growth is fastest (it is at $P = L/2$), and describe the long-term behavior ($P \to L$ as $t \to \infty$). Know those three answers cold and you will pick up easy MCQ points on the BC exam.</p>
+
+    <h3>Tier the topics for your study session</h3>
+    <ul style="padding-left:22px;font-size:13px;margin-bottom:14px">
+      <li><span class="tier ess">ESSENTIAL</span> Separable DEs, initial value problems, slope field reading, exponential growth setup. If any of these are shaky, fix them first.</li>
+      <li><span class="tier imp">IMPORTANT</span> Slope field sketching, matching slope fields to equations, distinguishing general from particular solutions.</li>
+      <li><span class="tier sup">SUPPLEMENTARY</span> Euler's method, logistic carrying capacity questions, slope field analysis for asymptotic behavior (BC mostly).</li>
+    </ul>
+    <p>Do not spread your study time evenly across these tiers. Put 60 percent of your Unit 7 review on the ESSENTIAL row.</p>
+  </div>
+
+  <!-- 9: Mistakes -->
+  <div class="sec" id="mistakes">
+    <h2>The 3 Mistakes That Cost My Students Unit 7 Points</h2>
+
+    <div class="mk">
+      <div class="mk-n">Mistake 1: Skipping the separation line on the FRQ</div>
+      <div class="mk-w">Why it happens: my students integrate in their head and write the antiderivative line straight away. The thinking is right. The communication is not. The College Board reads what is on the page, not what is in your head.</div>
+      <div class="mk-f"><strong>Fix:</strong> Always write the separated form as its own line. $\frac{dH}{\sqrt{4+H}} = 12\,dT$ is worth 1 full FRQ point all by itself. That is one of the cheapest points in the entire exam. Take it. <strong>Consequence:</strong> 1 point lost per FRQ, every single time, even when the math is right. That is a 4 instead of a 5 over the course of an exam.</div>
+    </div>
+
+    <div class="mk">
+      <div class="mk-n">Mistake 2: Forgetting the constant of integration</div>
+      <div class="mk-w">Why it happens: my students see $y = x^2$ as a clean answer and stop. They were so focused on the antiderivative they forgot the $+C$. This is the most common Unit 7 mistake I see, and it is also the easiest to fix.</div>
+      <div class="mk-f"><strong>Fix:</strong> Train the reflex. Every antiderivative line gets a $+C$ before you do anything else. Write $+C$ before you write the next step. Make it muscle memory in homework so it happens automatically on the exam. <strong>Consequence:</strong> Without the $+C$, you cannot apply the initial condition and you cannot find the particular solution. That is 3 or more FRQ points gone, plus the communication point. A single missing letter has cost my students a full score band.</div>
+    </div>
+
+    <div class="mk">
+      <div class="mk-n">Mistake 3: Picking the wrong sign branch when you take a square root</div>
+      <div class="mk-w">Why it happens: my students solve $y^2 = x^2 + 4$ and write $y = \sqrt{x^2 + 4}$ without checking the initial condition. If the initial condition was negative, the answer should have been $y = -\sqrt{x^2 + 4}$. The math is right. The sign is wrong.</div>
+      <div class="mk-f"><strong>Fix:</strong> The moment you see a square root in your solution, look back at the initial condition. If $y(0) = 2$, the answer is positive. If $y(0) = -2$, the answer is negative. The initial condition is the tiebreaker. <strong>Consequence:</strong> 1 FRQ point at minimum. Sometimes more if the wrong branch breaks a later sub-part. This shows up almost every year in some form.</div>
+    </div>
+  </div>
+
+  <!-- 10: Practice -->
+  <div class="sec" id="practice">
+    <h2>Practice Problems</h2>
+    <p>Try these on your own before checking the answers. If you get stuck, write down the 4-step framework and identify which step you froze on. That is more useful than peeking at the answer.</p>
+
+    <div class="prob">
+      <div class="plbl">Problem 1 - Foundational Separable DE</div>
+      <p>Given $\frac{dy}{dx} = 6x^2 y$ with $y(0) = 5$, find $y$ as a function of $x$.</p>
+    </div>
+
+    <div class="prob">
+      <div class="plbl">Problem 2 - FRQ Style with Initial Value</div>
+      <p>A particle moves along the x-axis with velocity $\frac{dx}{dt} = \frac{t}{x}$ where $x &gt; 0$, and $x(0) = 3$.</p>
+      <p>(a) Find $x$ as a function of $t$.</p>
+      <p>(b) Find $x(4)$.</p>
+    </div>
+
+    <div class="prob">
+      <div class="plbl">Problem 3 - Slope Field Recognition</div>
+      <p>The slope field for a differential equation has horizontal segments on the line $y = 2$ and the segments steepen as $|y - 2|$ grows. Which differential equation matches?</p>
+      <p>(A) $\frac{dy}{dx} = y - 2$<br>
+      (B) $\frac{dy}{dx} = (y - 2)^2$<br>
+      (C) $\frac{dy}{dx} = 2 - y$<br>
+      (D) $\frac{dy}{dx} = x - 2$</p>
+    </div>
+
+    <div class="answers">
+      <div class="ans-ttl">Answers</div>
+      <div class="ans-item"><strong>Problem 1:</strong> Separating gives $\frac{dy}{y} = 6x^2\,dx$. Integrating gives $\ln|y| = 2x^3 + C$. Exponentiating gives $y = Ae^{2x^3}$. Using $y(0) = 5$ gives $A = 5$. Final answer: $y = 5e^{2x^3}$.</div>
+      <div class="ans-item"><strong>Problem 2 (a):</strong> Separation: $x\,dx = t\,dt$. Integration: $\frac{x^2}{2} = \frac{t^2}{2} + C$. Initial condition $x(0) = 3$ gives $C = \frac{9}{2}$. So $x^2 = t^2 + 9$ and $x = \sqrt{t^2 + 9}$ (positive branch from the initial condition). <strong>(b):</strong> $x(4) = \sqrt{16 + 9} = \sqrt{25} = 5$.</div>
+      <div class="ans-item"><strong>Problem 3:</strong> Answer (B). The slope is zero only when $(y - 2)^2 = 0$, which means $y = 2$. The slope grows as $|y - 2|$ grows because of the squared term. (A) and (C) also have slope zero on $y = 2$ but grow linearly, not quadratically. (D) makes the slope depend on $x$ only, giving vertical-striped slopes, not horizontal ones at $y = 2$.</div>
+    </div>
+  </div>
+
+  <!-- 11: FAQ -->
+  <div class="sec" id="faq">
+    <h2>FAQ</h2>
+
+    <div class="faq-item">
+      <div class="faq-q">Q: How much of the AP Calculus exam is differential equations?</div>
+      <div class="faq-a">Unit 7 makes up roughly 6 to 12 percent of the AB exam and 6 to 9 percent of the BC exam. That sounds small, but Unit 7 is almost guaranteed to appear in at least one FRQ every year, and FRQs are weighted more heavily than MCQs per question. In practical terms, Unit 7 is usually worth 8 to 12 raw points on your exam. Skipping it is not an option if you want a 4 or 5.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">Q: What is the difference between a general solution and a particular solution?</div>
+      <div class="faq-a">A general solution is the family of all functions that satisfy the differential equation, written with a constant of integration $+C$. A particular solution is one specific function from that family, found by using an initial condition to solve for $C$. The FRQ almost always asks for the particular solution. If your final answer still has a $C$ in it, you did not finish the problem.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">Q: Do I have to memorize Euler's method for the AP Calc AB exam?</div>
+      <div class="faq-a">No. Euler's method is BC-only content. AB students do not need to know it. If you are studying for AB and a practice problem asks about Euler's method, it is from BC and you can skip it. BC students should know the basic Euler step formula and how to apply it across 2 or 3 iterations. The AP exam keeps Euler problems short.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">Q: How is a separable differential equation different from u-substitution?</div>
+      <div class="faq-a">U-substitution is a technique for evaluating an integral when the integrand contains a function and its derivative. Separation of variables is a technique for setting up a differential equation so you can integrate each side. They are related because Step 2 of separation usually requires u-substitution to evaluate the integrals. Think of it this way: separation is the strategy. U-substitution is one tool inside it.</div>
+    </div>
+  </div>
+
+  <!-- 12: Quick Reference -->
+  <div class="sec" id="quick-reference">
+    <h2>Save This For Exam Day</h2>
+    <div class="qr">
+      <div class="qr-ttl">The 4-Step Separable DE Framework</div>
+      <div class="qrf"><div class="qrf-lbl">Step 1</div>Separate variables. Get $y\,dy$ on the left, $x\,dx$ on the right.</div>
+      <div class="qrf"><div class="qrf-lbl">Step 2</div>Integrate both sides. Write $+C$ on the right side.</div>
+      <div class="qrf"><div class="qrf-lbl">Step 3</div>Apply initial condition. Solve for $C$.</div>
+      <div class="qrf"><div class="qrf-lbl">Step 4</div>Solve for $y$ explicitly. Use initial condition to pick the correct sign branch.</div>
+
+      <div class="qr-ttl" style="margin-top:18px">Key Differential Equations</div>
+      <div class="qrf">$$\frac{dy}{dt} = ky \;\Rightarrow\; y = Ae^{kt} \;\text{(growth/decay)}$$</div>
+      <div class="qrf">$$\frac{dP}{dt} = kP\left(1 - \frac{P}{L}\right) \;\text{(logistic, BC, capacity } L \text{)}$$</div>
+
+      <div class="qr-ttl" style="margin-top:18px">Slope Field Quick Tells</div>
+      <ul class="qrb">
+        <li>Horizontal segments on $y = c$ means $\frac{dy}{dx} = 0$ when $y = c$</li>
+        <li>Slopes depending only on $x$ make vertical stripes</li>
+        <li>Slopes depending only on $y$ make horizontal stripes</li>
+        <li>Slopes depending on both make a mixed pattern</li>
+        <li class="nv">Skip the separation line when writing the FRQ</li>
+        <li class="nv">Forget the $+C$ after antidifferentiating</li>
+        <li class="nv">Take a square root and pick the wrong sign branch</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 13: Related Posts -->
+  <div class="sec" id="related">
+    <h2>Related Posts</h2>
+    <p>These posts are the spokes for Unit 7 and the integration topics it builds on:</p>
+    <a class="related-link" href="https://enginearu.com/ap-calculus-prep/unit-7-differential-equations/slope-fields-ap-calculus/">post-09-slope-fields-intro: Slope Fields in AP Calculus - How to Read and Sketch Them</a>
+    <a class="related-link" href="https://enginearu.com/ap-calculus-prep/unit-6-integration/what-is-integration-in-ap-calculus/">post-08-what-is-integration: What Is Integration in AP Calculus?</a>
+    <a class="related-link" href="https://enginearu.com/ap-calculus-prep/unit-6-integration/u-substitution-ap-calculus/">post-10-u-substitution: U-Substitution in AP Calculus</a>
+    <a class="related-link" href="https://enginearu.com/ap-calculus-prep/unit-4-contextual-applications/related-rates-ap-calculus/">post-05-related-rates: Related Rates in AP Calculus</a>
+    <a class="related-link" href="https://enginearu.com/ap-calculus-prep/what-is-a-derivative-ap-calculus/">post-03-what-is-a-derivative: What Is a Derivative in AP Calculus?</a>
+    <p style="margin-top:14px;font-size:13px">For more practice, the <a href="https://www.khanacademy.org/math/ap-calculus-ab/ab-differential-equations-new" target="_blank" rel="noopener">Khan Academy AP Calculus differential equations unit</a> has solid foundational problems. The <a href="https://apcentral.collegeboard.org/courses/ap-calculus-ab/course" target="_blank" rel="noopener">College Board AP Calculus Course and Exam Description</a> is the official source for what is in scope each year.</p>
+  </div>
+
+  <!-- 14: End CTA -->
+  <div class="sec" id="end-cta">
+    <div class="cta">
+      <h3>Get the Free Guide - Then Come Back Ready</h3>
+      <p>Unit 7 is one of the cleanest scoring opportunities on the AP exam. The math is mostly Unit 6 integration in disguise. The FRQ structure repeats every single year. Lock in the 4-step framework and the rubric communication rules and you will pick up 4 to 6 points that most students leave on the table.</p>
+      <p>I put together a free guide that walks your student through the prerequisites that need to be solid before Unit 7 clicks. It is free. It takes about 10 minutes to read. It identifies the integration gaps that quietly cost students points on every Unit 7 FRQ.</p>
+      <a class="btn" href="https://www.aceapcalculus.com/freeguide" target="_blank" rel="noopener">Download the Free Guide</a>
+      <div class="sub">Parents: this is the resource I would send your student first if Unit 7 has started to feel shaky. It saves a lot of confusion later in the course.</div>
+      <p style="margin-top:14px;color:rgba(255,255,255,.7);font-size:12px;font-style:italic">Because if Unit 7 is shaky, the BC series unit and the Unit 8 applications of integration are going to feel impossible.</p>
+    </div>
+
+    <div class="sea">
+      <h3>Summer Program (active through September 15, 2026)</h3>
+      <p>If you want your student to walk into next year's AP Calculus class already comfortable with differential equations, my summer program runs in July and August. Small groups. Real FRQ practice. Structured 4-week plan. The students who come through walk into Unit 7 already knowing the framework.</p>
+      <a class="btn-w" href="https://www.aceapcalculus.com/summer" target="_blank" rel="noopener">See Summer Program Details</a>
+      <p style="margin-top:10px;font-size:12px;font-style:italic;color:#5a4500">Parents: spots fill fast and the July session is usually full by mid-June. Reserve early if your student is targeting a 4 or 5.</p>
+    </div>
+  </div>
+
+</div>
+
+<!-- Live Desmos script for slope field -->
+<script>
+(function() {
+  function init() {
+    var elt = document.getElementById('desmos-slopefield');
+    if (!elt || typeof Desmos === 'undefined') { setTimeout(init, 150); return; }
+    var calc = Desmos.GraphingCalculator(elt, {
+      expressions: false, settingsMenu: false, zoomButtons: false, lockViewport: true, border: false
+    });
+    calc.setMathBounds({ left: -3, right: 3, bottom: -3, top: 3 });
+    // Draw the slope field as a parametric family of short segments at integer grid points.
+    // dy/dx = x - y. For each (a,b) on grid, segment of length L centered at (a,b) with slope m = a - b.
+    var L = 0.35;
+    var id = 0;
+    for (var a = -3; a <= 3; a++) {
+      for (var b = -3; b <= 3; b++) {
+        var m = a - b;
+        var dx = L / Math.sqrt(1 + m*m);
+        var dy = m * dx;
+        var x1 = (a - dx).toFixed(4);
+        var y1 = (b - dy).toFixed(4);
+        var x2 = (a + dx).toFixed(4);
+        var y2 = (b + dy).toFixed(4);
+        calc.setExpression({
+          id: 'seg' + (id++),
+          type: 'expression',
+          latex: '\\left(\\left(1-t\\right)\\cdot' + x1 + '+t\\cdot' + x2 + ',\\left(1-t\\right)\\cdot' + y1 + '+t\\cdot' + y2 + '\\right)',
+          parametricDomain: { min: '0', max: '1' },
+          color: '#1a3a6b',
+          lineWidth: 1.5
+        });
+      }
+    }
+    // Overlay the actual solution curve through (0,1): y = x - 1 + 2e^{-x}
+    calc.setExpression({
+      id: 'soln',
+      latex: 'y=x-1+2e^{-x}',
+      color: '#e8a020',
+      lineWidth: 3
+    });
+    calc.setExpression({
+      id: 'pt',
+      latex: '(0,1)',
+      color: '#e8a020',
+      pointSize: 9,
+      label: '(0,1)',
+      showLabel: true
+    });
+  }
+  init();
+})();
+</script>
+
+<!-- ===================================================================
+     ▲▲▲ END: WORDPRESS CUSTOM HTML BLOCK ▲▲▲
+     =================================================================== -->
+
+</div><!-- /.page -->
+</body>
+</html>

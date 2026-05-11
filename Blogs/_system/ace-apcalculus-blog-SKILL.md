@@ -422,6 +422,18 @@ Before finishing every draft:
 - [ ] Every paragraph passes 5-layer audit (no layer under 7)
 - [ ] Post reads like Zach taught it, not like AI wrote it
 
+### Publishing (automated via `/ace-blog-publish`)
+
+The blog now auto-publishes through the `/ace-blog-publish` skill (twice-daily cron at 08:00 and 16:00, max 2 posts/day). To ship a finished draft:
+
+1. Set `ready_to_publish: true` in the draft's YAML front-matter. Default is `false`.
+2. Export the featured image from your Claude Design project and save it to the Google Drive folder **Blog Titles**. Name it with the post slug somewhere in the filename (e.g. `post-08-integration-intro.png`).
+3. Wait for the next scheduled run, or invoke `/ace-blog-publish <slug>` manually.
+
+The publisher pulls the body from the preview HTML (between the `▼▼▼ START` / `▲▲▲ END` paste markers — they must be present), uploads the image to WP as the featured media, and creates the post as published, authored by "Zach Boykin". See `/Users/zachboykin/.claude/skills/ace-blog-publish/SKILL.md` for full execution detail.
+
+**Manual paste fallback** (only if the automation is unavailable): open the preview HTML, copy between the paste markers, paste into a WordPress Custom HTML block, set the title and featured image by hand.
+
 ### SKILL DELTA (complete after every draft)
 Add this block to the bottom of the checklist before closing the session. It becomes the input for the next skill file update.
 ```

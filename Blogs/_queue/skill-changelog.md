@@ -4,6 +4,33 @@ Each entry is populated from the SKILL DELTA block at the bottom of the complete
 
 ---
 
+## post-10-u-substitution — 2026-05-11
+
+- New lesson learned: Narrow-focus posts benefit from embedding the "why it works" conceptually before the technique steps, even briefly. Students do not retain u-sub if they see it as a set of procedures without the chain-rule-in-reverse frame.
+- Forbidden pattern eliminated: Em-dashes replaced throughout. Step headers now use colons. Section headers rewritten without em-dashes.
+- Analogy or voice move that worked: "Integration Wall" as a named feeling in the intro. The image of the student freezing at $\int 2x \cos(x^2)\,dx$ specifically is more credible than a generic "students struggle with integration."
+- MCQ/FRQ framing note: This post is FRQ-framed correctly. U-sub appears in FRQ as the setup step before an FTC application or area/accumulation problem. The "+C" and verification coaching belongs here because those are the communication points where FRQ partial credit is lost.
+
+---
+
+## post-09-slope-fields-intro — 2026-05-11
+
+- New lesson learned: The "Algebra Trap" naming in the intro (Layer 6: name the feeling) lands harder when the named phenomenon has a specific consequence attached. The trap is not just "solving when you shouldn't." It is "spending 4 minutes to earn 1 point." The consequence makes the naming worthwhile.
+- Forbidden pattern eliminated: Verified zero em-dashes, zero forbidden phrases throughout.
+- Analogy or voice move that worked: "The slope field is what you get when you go to a grid of points and draw a small line segment at each one." Functional description before formal definition. Carry this forward.
+- MCQ/FRQ framing note: MCQ_OR_FRQ=frq confirmed correct for this topic. Slope field problems are drawing/justification tasks, not recognition tasks. The matching variant is the closest to MCQ-style reasoning, but it is still graded as an FRQ justification problem.
+
+---
+
+## post-08-integration-intro — 2026-05-11
+
+- New lesson learned: The "one bucket" framing (area = antiderivative = integral) is a strong contradiction move for integration posts. Students are taught these as separate topics and the unification is genuinely surprising. Carry this framing to any integration-adjacent post.
+- Forbidden pattern eliminated: Did not open any section with a definition. "The integral is..." never appears as a section opener. Always led with analogy (pool filling) or contradiction (three topics, one bucket).
+- Analogy or voice move that worked: Pool-filling analogy for accumulation. More visceral than the standard "area under a curve" framing because it answers "why would you ever add up infinitely many slices?" with a practical answer before giving the notation.
+- MCQ/FRQ framing note: Example 2 is Riemann sum recognition, a classic MCQ interpretation problem. Correctly opened rubric with "Here is exactly what the AP exam is checking on this problem type." Example 1 uses FRQ rubric opener per instructions.
+
+---
+
 ## post-06-related-rates — 2026-05-08
 
 - New lesson learned: Related rates is inherently process-heavy (more PROCESS and LIGHT sections than concept posts). The humanization layer lives in The 3 Mistakes "why it happens" blocks, not scattered throughout. This is the correct pattern for procedural FRQ topics — carry forward for integration techniques, optimization setup, and similar process-driven posts.
