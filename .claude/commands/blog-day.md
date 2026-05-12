@@ -158,13 +158,25 @@ If `mcp__asana__create_tasks` fails (network, auth, etc.), emit `REMOTE_PROPOSAL
 5. Run Step 2 (enrich) using the topics from the parsed task description.
 6. Run Step 3 (parallel drafting) — same `DRAFTER_INPUT_ERROR` handling as the interactive flow.
 7. Run Step 4 (mechanical audit) — same retry logic.
-8. After all drafts pass mechanical audit (or hit `AUDIT_RETRY_EXHAUSTED`), upload the drafts to the Asana task as file attachments. **Do NOT push to GitHub.** The drafter's sandbox has no write credentials to GitHub; delivery is via Asana attachments.
+8. After all drafts pass mechanical audit (or hit `AUDIT_RETRY_EXHAUSTED`), upload the drafts to the Asana task as file attachments via the **Asana REST API** (not the MCP — the MCP exposes only read-side attachment tools). **Do NOT push to GitHub.**
 
-   For each draft produced, upload both files to the Asana task via `mcp__asana__attach_file` (or whichever Asana attachment tool is available at runtime; fall back to `mcp__asana__add_comment` with a base64-encoded inline block if no attachment tool exists):
-   - `Blogs/drafts/post-NN-slug.md`
-   - `Blogs/previews/post-NN-slug.html`
+   The drafter routine prompt embeds an Asana Personal Access Token. Use it with `curl` to POST each file to the task's attachment endpoint.
 
-   Attachment filenames must preserve the exact slug-bearing filename (e.g. `post-20-integration-ultimate-guide.md`). The local downloader matches by filename.
+   For each draft produced (typically two), upload both files:
+
+   ```bash
+   # Required: TASK_GID (from step 3), ASANA_PAT (from the routine prompt env section)
+   for FILE in Blogs/drafts/post-NN-slug.md Blogs/previews/post-NN-slug.html; do
+     curl -X POST \
+       -H "Authorization: Bearer $ASANA_PAT" \
+       -F "file=@$FILE" \
+       "https://app.asana.com/api/1.0/tasks/$TASK_GID/attachments"
+   done
+   ```
+
+   Substitute the real slug-bearing filename for each draft (e.g. `post-22-implicit-differentiation.md`). Asana preserves the basename on the attachment; the local downloader matches files by post-slug-in-filename, so the basename MUST include the slug.
+
+   Verify each curl returns HTTP 200 and a JSON body with a `data.gid`. If any upload fails, surface the failure as a fatal error in the routine output AND add a status comment to the task explaining which file(s) failed. Do NOT mark the task complete if any attachment failed to upload.
 
 9. Add a comment to the Asana task via `mcp__asana__add_comment` using the DAY READY summary from Step 5, with the workflow lines replaced by:
    ```
@@ -188,7 +200,8 @@ If `mcp__asana__create_tasks` fails (network, auth, etc.), emit `REMOTE_PROPOSAL
 - Never run `--remote-proposal` and `--remote-draft` concurrently — though they touch different surfaces (Asana create vs Asana read), the drafter assumes there's exactly one pending proposal task.
 - The drafter must NOT attempt to push to GitHub or open a PR. Delivery is exclusively via Asana attachments on the proposal task.
 - If no pending Asana task is found in `--remote-draft`, do not invent topics or fall back to git. Exit cleanly with `REMOTE_DRAFT_NO_PENDING_TOPICS`.
-- The Asana MCP calls in both modes are hard requirements — if they fail, the routine surfaces a fatal error.
+- The Asana MCP is used for read operations (get task, get attachments, search, comments, mark complete). Attachment **uploads** must go through the Asana REST API with the embedded PAT and `curl`, because the MCP does not expose an upload tool.
+- The Asana PAT is provided to the drafter routine via its prompt config (not committed to the repo, not in any source file). If the routine env does not contain ASANA_PAT, fail loud with `REMOTE_DRAFT_NO_ASANA_PAT` and exit.
 - Do NOT modify `Blogs/_queue/pending-approval.md` in either remote mode. That path was an earlier design and is no longer used; the source of truth is the Asana task.
 - Attachment filenames must include the post slug so the local downloader can match them.
 
