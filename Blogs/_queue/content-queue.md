@@ -4,8 +4,8 @@
 
 | Field | Value |
 |-------|-------|
-| `HOOK_ROTATION_POSITION` | 1 |
-| `NEXT_HOOK_TYPE` | `counterintuitive-stat` |
+| `HOOK_ROTATION_POSITION` | 3 |
+| `NEXT_HOOK_TYPE` | `uncomfortable-truth` |
 
 Rotation order: 1=counterintuitive-stat → 2=student-moment → 3=uncomfortable-truth → 4=name-the-feeling → back to 1.
 `blog-archive` advances this automatically after each post ships.
@@ -14,7 +14,7 @@ Rotation order: 1=counterintuitive-stat → 2=student-moment → 3=uncomfortable
 
 | Field | Value |
 |-------|-------|
-| `POST_TYPE_ROTATION_POSITION` | 1 |
+| `POST_TYPE_ROTATION_POSITION` | 3 |
 | `NEXT_POST_TYPE` | `long-form` |
 
 8-post weighted rotation (long-form appears 4x to keep pace sustainable):
@@ -64,6 +64,8 @@ Post-01 (derivative concept) is a spoke. Assign to Unit 2 or Unit 3 when its pil
 | 08 | post-08-integration-intro | What Is Integration in AP Calculus? | https://enginearu.com/ap-calculus-prep/unit-6-integration/what-is-integration-in-ap-calculus/ |
 | 09 | post-09-slope-fields-intro | Slope Fields in AP Calculus | https://enginearu.com/ap-calculus-prep/unit-7-differential-equations/slope-fields-ap-calculus/ |
 | 10 | post-10-u-substitution | U-Substitution in AP Calculus | https://enginearu.com/ap-calculus-prep/unit-6-integration/u-substitution-ap-calculus/ |
+| 11 | post-11-area-between-curves | Area Between Curves in AP Calculus: Top Minus Bottom, Right Minus Left | https://enginearu.com/ap-calculus-prep/unit-8-applications-integration/area-between-curves-ap-calculus/ |
+| 12 | post-12-optimization-problems | Optimization Problems in AP Calculus: The FRQ Setup Most Students Skip | https://enginearu.com/ap-calculus-prep/unit-5-analytical-applications/optimization-ap-calculus-problems/ |
 
 ## In Progress
 | # | Slug | Title | Status |
@@ -88,6 +90,8 @@ Use this when filling the `EXISTING POSTS:` field in the topic trigger.
 - Post 08: `https://enginearu.com/ap-calculus-prep/unit-6-integration/what-is-integration-in-ap-calculus/` — What Is Integration in AP Calculus?
 - Post 09: `https://enginearu.com/ap-calculus-prep/unit-7-differential-equations/slope-fields-ap-calculus/` — Slope Fields in AP Calculus
 - Post 10: `https://enginearu.com/ap-calculus-prep/unit-6-integration/u-substitution-ap-calculus/` — U-Substitution in AP Calculus
+- Post 11: `https://enginearu.com/ap-calculus-prep/unit-8-applications-integration/area-between-curves-ap-calculus/` — Area Between Curves in AP Calculus
+- Post 12: `https://enginearu.com/ap-calculus-prep/unit-5-analytical-applications/optimization-ap-calculus-problems/` — Optimization Problems in AP Calculus
 
 ---
 *Update this file after each publish. Add the live URL to the Published table and add the slug to the internal link index.*

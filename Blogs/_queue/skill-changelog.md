@@ -138,3 +138,17 @@ Each entry is populated from the SKILL DELTA block at the bottom of the complete
 - Analogy or voice move that worked: The "60 miles in 1 hour means your speedometer hit 60 at some point" framing makes MVT click without secant-line jargon. Carry forward for any rate-of-change post.
 - MCQ/FRQ framing note: This is a heavy FRQ post. Both worked examples used the FRQ rubric opener. The MVT vs. IVT section bridges to the MCQ framing without disrupting the FRQ-first flow.
 - Hook type justification: counterintuitive-stat was supplied in the topic block; the under-38% justification rate stat reframes MVT from "easy theorem" to "the most-missed predictable point" and matches the post's core argument.
+
+## post-11-area-between-curves — 2026-05-13
+
+- New lesson learned: Narrow-focus posts benefit from a single worked example mid-content rather than standalone "Worked Example" sections — it reads more naturally as a teaching demonstration than a structured block
+- Forbidden pattern eliminated: No em-dashes present; verified "Setup" and "Right Minus Left" sub-rules framed as named teaching moves rather than textbook headings
+- Analogy or voice move that worked: "The Setup Stall" as a named student experience — the Layer 6 naming technique from the hook carries the intro effectively
+- MCQ/FRQ framing note: Kept FRQ-focused throughout; area between curves is a procedural-justification problem, not a form-recognition MCQ problem — FRQ framing is correct per Section 4 rules
+
+## post-12-optimization-problems — 2026-05-13
+
+- New lesson learned: FRQ communication layer (writing the justification sentence) is a distinct skill from the calculus itself and needs its own rubric coaching section. Future optimization posts should include a full-credit justification template.
+- Forbidden pattern eliminated: All forbidden words omitted. No em-dashes in body.
+- Analogy or voice move that worked: "Setup Freeze" as a named phenomenon for the name-the-feeling hook. Works because it names the exact moment before the math begins, not a general anxiety feeling.
+- MCQ/FRQ framing note: This is correctly framed as FRQ-primary. The FAQ addresses the MCQ version briefly, which is appropriate for a long-form FRQ post.
