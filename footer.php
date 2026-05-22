@@ -59,34 +59,6 @@
                         <?php esc_html_e( 'All Resources', 'ace-ap' ); ?>
                     </a>
                 </li>
-                <!-- Topic links go to WP category archive pages.
-                     These slugs must match the category slugs created in WP Admin → Posts → Categories.
-                     TO ADD A TOPIC: Duplicate a <li> and update the slug and label. -->
-                <li>
-                    <a href="<?php echo esc_url( home_url( '/category/limits' ) ); ?>">
-                        <?php esc_html_e( 'Limits &amp; Continuity', 'ace-ap' ); ?>
-                    </a>
-                </li>
-                <li>
-                    <a href="<?php echo esc_url( home_url( '/category/derivatives' ) ); ?>">
-                        <?php esc_html_e( 'Derivatives', 'ace-ap' ); ?>
-                    </a>
-                </li>
-                <li>
-                    <a href="<?php echo esc_url( home_url( '/category/integrals' ) ); ?>">
-                        <?php esc_html_e( 'Integrals', 'ace-ap' ); ?>
-                    </a>
-                </li>
-                <li>
-                    <a href="<?php echo esc_url( home_url( '/category/series' ) ); ?>">
-                        <?php esc_html_e( 'Series &amp; Sequences', 'ace-ap' ); ?>
-                    </a>
-                </li>
-                <li>
-                    <a href="<?php echo esc_url( home_url( '/category/exam-prep' ) ); ?>">
-                        <?php esc_html_e( 'Exam Prep', 'ace-ap' ); ?>
-                    </a>
-                </li>
             </ul>
         </div><!-- AP Calculus col -->
 
