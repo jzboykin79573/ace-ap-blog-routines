@@ -151,8 +151,110 @@ function ace_scripts() {
     if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
         wp_enqueue_script( 'comment-reply' );
     }
+
+    // ─── FRQ Hub page enhancements ─────────────────────────────
+    // Mobile-friendly close handlers for the Mock Section II overlay
+    // and related study-space modals. Loads only on the FRQ hub page
+    // (under either the old /frq-hub/ slug or the new SEO slug).
+    if ( is_page( 'ap-calculus-free-response-questions' ) || is_page( 'frq-hub' ) ) {
+        wp_enqueue_script(
+            'ace-frq-hub-fixes',
+            get_template_directory_uri() . '/assets/js/frq-hub-fixes.js',
+            array(),
+            wp_get_theme()->get( 'Version' ),
+            true
+        );
+    }
+
+    // ─── Blog post fixes (single post only) ────────────────────
+    // Inline CSS + JS that patches three recurring issues identified
+    // in the 2026-05-25 blog audit:
+    //   1. Tables overflow horizontally on mobile (no scroll wrapper)
+    //   2. MathJax does not typeset content inside <details>/<summary>
+    //   3. wpautop strips inline init scripts (Desmos, Chart.js) —
+    //      we add a hook so post HTML can call window.aceInitDeferred()
+    //      from a post-end script that survives wpautop.
+    if ( is_singular( 'post' ) ) {
+        wp_add_inline_style( 'ace-style', '
+            .entry-content table,
+            .ace-post table,
+            article table {
+                display: block;
+                max-width: 100%;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+            .entry-content table thead,
+            .ace-post table thead {
+                white-space: nowrap;
+            }
+            /* Force single-line FAQ summary even if post HTML has stray newlines */
+            details > summary { white-space: normal; }
+            details > summary > br:first-child,
+            details > summary br + br { display: none; }
+        ' );
+
+        wp_add_inline_script( 'ace-main', '
+            (function() {
+                function typesetIfReady(roots) {
+                    if (window.MathJax && window.MathJax.typesetPromise) {
+                        window.MathJax.typesetPromise(roots).catch(function(){});
+                    }
+                }
+                function init() {
+                    var summaries = document.querySelectorAll("summary");
+                    if (summaries.length) typesetIfReady(Array.from(summaries));
+                    document.querySelectorAll("details").forEach(function(d) {
+                        d.addEventListener("toggle", function() {
+                            if (d.open) typesetIfReady([d]);
+                        });
+                    });
+                }
+                if (document.readyState === "loading") {
+                    document.addEventListener("DOMContentLoaded", init);
+                } else {
+                    init();
+                }
+            })();
+        ' );
+    }
 }
 add_action( 'wp_enqueue_scripts', 'ace_scripts' );
+
+
+/* ============================================================
+   3b. LEGACY SLUG REDIRECTS
+   ─────────────────────────────────────────────────────────
+   301-redirects to preserve SEO link equity when a published
+   page slug is renamed. The page itself is renamed in WP
+   admin to the new slug; this map sends traffic from the old
+   URL to the new one. Priority 1 so this fires before WP's
+   own canonical-redirect logic.
+   ============================================================ */
+function ace_legacy_slug_redirects() {
+    if ( is_admin() ) return;
+
+    $path = trim( parse_url( $_SERVER['REQUEST_URI'] ?? '', PHP_URL_PATH ) ?? '', '/' );
+
+    $redirects = array(
+        'frq-hub' => '/ap-calculus-free-response-questions/',
+        // 2026-05-25 audit: drop "post-NN-" numbering from blog slugs.
+        // After renaming the slug in WP admin, these 301s preserve link
+        // equity from any backlinks pointing at the old URLs.
+        'ap-calculus-blog-category/post-20-integration-ultimate-guide'
+            => '/ap-calculus-blog-category/integration-ultimate-guide-ap-calculus/',
+        'ap-calculus-blog-category/post-22-integration-by-parts'
+            => '/ap-calculus-blog-category/integration-by-parts-ap-calculus/',
+        'ap-calculus-blog-category/exam-prep/post-23-practice-score-gap'
+            => '/ap-calculus-blog-category/exam-prep/practice-score-gap-ap-calculus/',
+    );
+
+    if ( isset( $redirects[ $path ] ) ) {
+        wp_safe_redirect( home_url( $redirects[ $path ] ), 301 );
+        exit;
+    }
+}
+add_action( 'template_redirect', 'ace_legacy_slug_redirects', 1 );
 
 
 /* ============================================================
