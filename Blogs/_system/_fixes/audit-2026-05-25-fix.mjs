@@ -66,6 +66,13 @@ function stripDuplicateHeroH1(html) {
   return html.replace(re, '');
 }
 
+// The theme already renders the post title as <h1> in single.php
+// (via the_title()), so any <h1> inside post content is a duplicate.
+// Demote in-content <h1> to <h2> so each page has exactly one H1.
+function demoteInContentH1(html) {
+  return html.replace(/<h1(\s[^>]*)?>([\s\S]*?)<\/h1>/gi, (_m, attrs, inner) => `<h2${attrs || ''}>${inner}</h2>`);
+}
+
 // Unicode mathematical alphanumeric block: U+1D400–U+1D7FF
 // Plus primes ′″‴ and double-prime style ” used in
 // the audited heading "𝑓 ” (𝑐) = 0".
@@ -99,38 +106,21 @@ function removeOrphanCanvas(html) {
 
 // ─── Per-post recipes ─────────────────────────────────────────
 
+// Hero-strip runs first (removes inline-styled hero H1), then demote
+// any remaining in-content <h1> to <h2> so the theme's auto-rendered
+// title is the only H1 on the page.
+const DEFAULT_TRANSFORMS = [stripDuplicateHeroH1, demoteInContentH1];
+
 const RECIPES = [
-  {
-    id: 447, label: 'chain-rule',
-    transforms: [stripDuplicateHeroH1],
-  },
-  {
-    id: 444, label: 'limits-ultimate-guide',
-    transforms: [stripDuplicateHeroH1],
-  },
-  {
-    id: 489, label: 'concavity',
-    transforms: [collapseMathH2Whitespace],
-  },
-  {
-    id: 487, label: 'first-second-derivative-test',
-    transforms: [collapseMathH2Whitespace],
-  },
-  {
-    id: 483, label: 'integration-ultimate-guide',
-    transforms: [fixQSummary, removeOrphanCanvas],
-    slug: 'integration-ultimate-guide-ap-calculus',
-  },
-  {
-    id: 485, label: 'practice-score-gap',
-    transforms: [],
-    slug: 'practice-score-gap-ap-calculus',
-  },
-  {
-    id: 392, label: 'integration-by-parts',
-    transforms: [],
-    slug: 'integration-by-parts-ap-calculus',
-  },
+  { id: 447, label: 'chain-rule',                  transforms: DEFAULT_TRANSFORMS },
+  { id: 444, label: 'limits-ultimate-guide',       transforms: DEFAULT_TRANSFORMS },
+  { id: 489, label: 'concavity',                   transforms: [...DEFAULT_TRANSFORMS, collapseMathH2Whitespace] },
+  { id: 487, label: 'first-second-derivative-test', transforms: [...DEFAULT_TRANSFORMS, collapseMathH2Whitespace] },
+  { id: 483, label: 'integration-ultimate-guide',  transforms: [...DEFAULT_TRANSFORMS, fixQSummary, removeOrphanCanvas] },
+  { id: 485, label: 'practice-score-gap',          transforms: DEFAULT_TRANSFORMS },
+  { id: 475, label: 'lhopitals-rule',              transforms: DEFAULT_TRANSFORMS },
+  { id: 473, label: 'implicit-differentiation',    transforms: DEFAULT_TRANSFORMS },
+  { id: 392, label: 'integration-by-parts',        transforms: DEFAULT_TRANSFORMS },
 ];
 
 // ─── Diff helper ──────────────────────────────────────────────

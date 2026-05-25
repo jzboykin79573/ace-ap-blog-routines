@@ -246,14 +246,23 @@ function collapseMathHeadingWhitespace(html) {
   });
 }
 
+// The theme's single.php renders the post title as <h1> via the_title(),
+// so any <h1> inside post content is a duplicate. Demote to <h2>.
+function demoteInContentH1(html) {
+  return html.replace(/<h1(\s[^>]*)?>([\s\S]*?)<\/h1>/gi, (_m, attrs, inner) => `<h2${attrs || ''}>${inner}</h2>`);
+}
+
 function sanitizeContent(html) {
   let out = html;
   const before = out;
   out = stripDuplicateHeroH1(out);
   if (out !== before) console.warn('[sanitize] stripped duplicate hero <h1>');
   const before2 = out;
+  out = demoteInContentH1(out);
+  if (out !== before2) console.warn('[sanitize] demoted in-content <h1> to <h2>');
+  const before3 = out;
   out = collapseMathHeadingWhitespace(out);
-  if (out !== before2) console.warn('[sanitize] collapsed whitespace in math headings');
+  if (out !== before3) console.warn('[sanitize] collapsed whitespace in math headings');
   return out;
 }
 
