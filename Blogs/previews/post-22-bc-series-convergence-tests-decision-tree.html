@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AP Calculus BC Series Convergence Tests: Which Test Do You Actually Use?</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&family=Nunito+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- MathJax -->
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
+  <style>
+    :root {
+      --navy-900: #081A33;
+      --navy-800: #0C2344;
+      --navy-700: #103059;
+      --gold-600: #F4B626;
+      --gold-700: #D69916;
+      --navy-300: #729AC9;
+      --navy-100: #B7CFE9;
+      --ink-50: #F8F9FB;
+      --white: #FFFFFF;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--navy-900);
+      color: var(--white);
+      font-family: 'Nunito Sans', sans-serif;
+      font-size: 17px;
+      line-height: 1.75;
+    }
+
+    /* ── Publishing Guide ── */
+    .publishing-guide {
+      background-color: var(--navy-800);
+      border-left: 4px solid var(--gold-600);
+      padding: 20px 28px;
+      font-family: 'Nunito Sans', sans-serif;
+      font-size: 14px;
+      line-height: 1.7;
+      color: var(--navy-100);
+    }
+    .publishing-guide strong {
+      color: var(--gold-600);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 12px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: 10px;
+    }
+    .publishing-guide ul {
+      list-style: disc;
+      padding-left: 20px;
+    }
+    .publishing-guide li { margin-bottom: 4px; }
+    .publishing-guide code {
+      background: rgba(244,182,38,0.12);
+      color: var(--gold-600);
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-size: 13px;
+    }
+
+    /* ── Layout ── */
+    .post-wrap {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 60px 24px 80px;
+    }
+
+    /* ── Meta bar ── */
+    .post-meta {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold-600);
+      margin-bottom: 18px;
+    }
+
+    /* ── Headings ── */
+    h1 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: clamp(28px, 5vw, 40px);
+      font-weight: 900;
+      line-height: 1.15;
+      color: var(--white);
+      margin-bottom: 24px;
+    }
+    h2 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: clamp(20px, 3.5vw, 26px);
+      font-weight: 800;
+      color: var(--white);
+      margin: 52px 0 16px;
+      padding-top: 8px;
+    }
+    h3 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--navy-100);
+      margin: 32px 0 10px;
+    }
+
+    /* ── Body text ── */
+    p {
+      margin-bottom: 18px;
+      color: rgba(255,255,255,0.9);
+    }
+    strong { color: var(--white); }
+
+    /* ── Reading time / social proof ── */
+    .read-meta {
+      font-size: 14px;
+      color: var(--navy-300);
+      margin-bottom: 40px;
+    }
+
+    /* ── Divider ── */
+    hr {
+      border: none;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      margin: 40px 0;
+    }
+
+    /* ── TOC ── */
+    .toc {
+      background: var(--navy-800);
+      border-left: 3px solid var(--gold-600);
+      padding: 24px 28px;
+      border-radius: 4px;
+      margin-bottom: 48px;
+    }
+    .toc-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold-600);
+      margin-bottom: 12px;
+    }
+    .toc ol {
+      padding-left: 20px;
+    }
+    .toc li {
+      margin-bottom: 6px;
+      font-size: 15px;
+    }
+    .toc a {
+      color: var(--navy-100);
+      text-decoration: none;
+    }
+    .toc a:hover { color: var(--gold-600); }
+
+    /* ── Tables ── */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      font-size: 15px;
+    }
+    th {
+      background: var(--navy-800);
+      color: var(--gold-600);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 10px 14px;
+      text-align: left;
+      border-bottom: 2px solid var(--gold-600);
+    }
+    td {
+      padding: 10px 14px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      vertical-align: top;
+      color: rgba(255,255,255,0.85);
+    }
+    tr:last-child td { border-bottom: none; }
+    tr:nth-child(even) td { background: rgba(255,255,255,0.03); }
+
+    /* ── Rubric / callout box ── */
+    .rubric-box {
+      background: var(--navy-800);
+      border-left: 4px solid var(--gold-600);
+      border-radius: 4px;
+      padding: 20px 24px;
+      margin: 28px 0;
+    }
+    .rubric-box .rubric-label {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold-600);
+      margin-bottom: 10px;
+    }
+    .rubric-box p {
+      font-size: 15px;
+      margin-bottom: 10px;
+    }
+    .rubric-box ul {
+      padding-left: 20px;
+      margin-bottom: 0;
+    }
+    .rubric-box li {
+      margin-bottom: 6px;
+      font-size: 15px;
+      color: rgba(255,255,255,0.85);
+    }
+
+    /* ── Step blocks ── */
+    .step-block {
+      background: rgba(255,255,255,0.03);
+      border-radius: 6px;
+      padding: 20px 24px;
+      margin: 20px 0;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .step-label {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold-600);
+      margin-bottom: 8px;
+    }
+
+    /* ── Math display ── */
+    .math-display {
+      text-align: center;
+      margin: 16px 0;
+      overflow-x: auto;
+    }
+
+    /* ── CTA block ── */
+    .cta-block {
+      background: var(--navy-700);
+      border: 1px solid var(--gold-600);
+      border-radius: 6px;
+      padding: 32px 28px;
+      margin: 48px 0;
+      text-align: center;
+    }
+    .cta-block .eyebrow {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold-600);
+      margin-bottom: 10px;
+    }
+    .cta-block p {
+      margin-bottom: 20px;
+      font-size: 16px;
+    }
+    .cta-btn {
+      display: inline-block;
+      background: var(--gold-600);
+      color: var(--navy-900);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 14px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 14px 28px;
+      border-radius: 4px;
+      text-decoration: none;
+      margin-bottom: 14px;
+    }
+    .cta-btn:hover { background: var(--gold-700); }
+    .cta-parent {
+      display: block;
+      font-size: 13px;
+      color: var(--navy-300);
+      font-style: italic;
+      margin-top: 10px;
+    }
+
+    /* ── Practice problems ── */
+    .practice-problem {
+      background: var(--navy-800);
+      border-radius: 6px;
+      padding: 20px 24px;
+      margin: 16px 0;
+      border-left: 3px solid var(--navy-300);
+    }
+    .problem-num {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--navy-300);
+      margin-bottom: 8px;
+    }
+
+    /* ── Answer block ── */
+    .answers-block {
+      background: rgba(255,255,255,0.03);
+      border-radius: 6px;
+      padding: 24px;
+      margin-top: 28px;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .answers-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold-600);
+      margin-bottom: 16px;
+    }
+
+    /* ── FAQ ── */
+    .faq-item {
+      margin-bottom: 32px;
+    }
+    .faq-item h3 {
+      color: var(--white);
+      font-size: 17px;
+      margin-bottom: 10px;
+    }
+
+    /* ── Quick ref box ── */
+    .quick-ref {
+      background: var(--navy-800);
+      border-radius: 8px;
+      padding: 32px 28px;
+      margin: 48px 0;
+    }
+    .quick-ref-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold-600);
+      margin-bottom: 20px;
+    }
+    .quick-ref-note {
+      margin-top: 16px;
+      font-size: 14px;
+      color: var(--navy-300);
+      font-style: italic;
+    }
+
+    /* ── Related posts ── */
+    .related-posts {
+      margin: 48px 0;
+    }
+    .related-posts h2 { margin-top: 0; }
+    .related-posts ul {
+      padding-left: 20px;
+    }
+    .related-posts li {
+      margin-bottom: 10px;
+      color: rgba(255,255,255,0.85);
+    }
+    .related-posts a {
+      color: var(--navy-300);
+    }
+    .related-posts a:hover { color: var(--gold-600); }
+
+    /* ── One-liner highlight ── */
+    .one-liner {
+      font-family: 'Montserrat', sans-serif;
+      font-size: clamp(18px, 3vw, 22px);
+      font-weight: 800;
+      color: var(--gold-600);
+      text-align: center;
+      border-top: 1px solid rgba(244,182,38,0.3);
+      border-bottom: 1px solid rgba(244,182,38,0.3);
+      padding: 20px 0;
+      margin: 32px 0;
+      line-height: 1.4;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 600px) {
+      .post-wrap { padding: 40px 16px 60px; }
+      table { font-size: 13px; }
+      th, td { padding: 8px 10px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- PUBLISHING GUIDE -->
+  <div class="publishing-guide">
+    <strong>Publishing Guide</strong>
+    <ul>
+      <li><strong>Title:</strong> AP Calculus BC Series Convergence Tests: Which Test Do You Actually Use?</li>
+      <li><strong>Slug:</strong> <code>post-22-bc-series-convergence-tests-decision-tree</code></li>
+      <li><strong>Category:</strong> AP Calculus BC / Unit 10</li>
+      <li><strong>Primary keyword:</strong> ap calculus BC series convergence tests</li>
+      <li><strong>Meta description:</strong> 9 convergence tests on the BC exam, but picking the right one in 30 seconds is the real skill. Here is the decision tree I use with every BC student.</li>
+      <li><strong>Schedule:</strong> Set publish date in WordPress. Do not hard-publish immediately.</li>
+      <li><strong>FAQPage JSON-LD:</strong> Copy the &lt;script type="application/ld+json"&gt; block from the FAQ section into the WP post body (HTML block).</li>
+      <li><strong>MathJax:</strong> Add MathJax script to header (or use a MathJax plugin). Required for all math rendering.</li>
+      <li><strong>CTAs used:</strong> Year-round only (free review sheet). No seasonal CTAs. Post date is Oct 1, 2026.</li>
+      <li><strong>Ready to publish:</strong> false (set to true after final review)</li>
+    </ul>
+  </div>
+
+  <div class="post-wrap">
+
+    <!-- Meta / eyebrow -->
+    <div class="post-meta">AP Calculus BC &nbsp;·&nbsp; Unit 10 &nbsp;·&nbsp; Series Convergence</div>
+
+    <!-- Title -->
+    <h1>AP Calculus BC Series Convergence Tests: Which Test Do You Actually Use?</h1>
+
+    <!-- Reading time + social proof -->
+    <div class="read-meta">18 min read &nbsp;·&nbsp; Unit 10 (BC only) &nbsp;·&nbsp; enginearu.com</div>
+
+    <!-- Table of Contents -->
+    <nav class="toc">
+      <div class="toc-title">Jump To What You Need</div>
+      <ol>
+        <li><a href="#real-problem">The Real Problem With How Students Study Series</a></li>
+        <li><a href="#what-it-means">What Series Convergence Actually Tests on the BC Exam</a></li>
+        <li><a href="#decision-tree">The Decision Tree: Which Test Do You Run?</a></li>
+        <li><a href="#example-1">Worked Example 1: Ratio Test (Foundational)</a></li>
+        <li><a href="#mid-cta">Get the Free Review Sheet</a></li>
+        <li><a href="#example-2">Worked Example 2: Limit Comparison Test (MCQ Recognition Type)</a></li>
+        <li><a href="#three-mistakes">The 3 Mistakes I See Every Year</a></li>
+        <li><a href="#practice-problems">Practice Problems</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="#quick-ref">Save This For Exam Day</a></li>
+        <li><a href="#related">Related Posts</a></li>
+      </ol>
+    </nav>
+
+    <hr>
+
+    <!-- INTRO -->
+    <section id="real-problem">
+      <h2>The Real Problem With How Students Study Series</h2>
+
+      <!-- HOOK TYPE: counterintuitive-stat -->
+      <p>There are 9 series convergence tests on the AP Calculus BC exam. Most BC students can name all 9 of them. I know this because I quiz my students in September and almost everyone can recite the list. Geometric series, p-series, Ratio Test, Alternating Series Test. They have all of it. Then I hand them a single series with no label on it and say, "Does this converge?" The room goes quiet.</p>
+
+      <p>That is the problem. Knowing the tests is not the skill. Picking the right one is.</p>
+
+      <p>Here is a number that should reframe how you study Unit 10: on the BC exam, 4 tests cover the majority of series problems you will see. The Ratio Test, Limit Comparison Test, p-Series Test, and Alternating Series Test handle the bulk of it. But most courses teach all 9 tests as equals, so students spend weeks drilling the Integral Test and the Root Test at the same depth as the tests they will actually use.</p>
+
+      <p>The uncomfortable truth is this: studying convergence tests as a list is the worst way to prepare for a timed AP exam. You need to study them as a decision system.</p>
+
+      <p>This post is that system. Run the steps in order and you will never freeze on a series problem again.</p>
+
+      <!-- SCREENSHOT-ABLE ONE-LINER -->
+      <div class="one-liner">
+        Knowing 9 tests is not the skill. Picking the right one in 30 seconds is.
+      </div>
+    </section>
+
+    <hr>
+
+    <!-- WHAT IT MEANS -->
+    <section id="what-it-means">
+      <h2>What Series Convergence Actually Tests on the BC Exam</h2>
+
+      <p>Every BC teacher I know covers Unit 10 in the same order: here is the geometric series test, here is the p-series test, here is the Ratio Test. One at a time. Practiced in isolation.</p>
+
+      <p>That is exactly the wrong way to study for the AP exam.</p>
+
+      <p>The AP exam does not label the test for you. It hands you a series and waits. If your study sessions only drilled each test separately, you trained for a different exam than the one you are taking.</p>
+
+      <p>Here is what Unit 10 actually tests: <strong>pattern recognition under time pressure</strong>. You look at a series and your brain should immediately fire on the form. \(\frac{1}{n^3}\) is a p-series. \(\frac{3^n}{n!}\) has a factorial so it is Ratio Test. \((-1)^n \cdot \frac{1}{\sqrt{n}}\) is alternating, so Alternating Series Test is the first thing you check.</p>
+
+      <p>The content knowledge matters. But the meta-skill, knowing which tool to pull out, is what separates a 4 from a 5 on Unit 10.</p>
+
+      <p>I have watched students score 85s and 90s on unit tests and still freeze on timed practice. Not because they forgot the tests. Because they never practiced the decision itself.</p>
+
+      <p><strong>On the BC FRQ:</strong> series convergence appears in questions that ask you to determine whether a series converges or diverges, often as part of a multi-part Taylor series problem. The grading rubric rewards three things: naming the test you used, checking the condition, and stating the conclusion. All three. A correct answer with no justification earns zero on those scoring points.</p>
+
+      <p><strong>On the BC MCQ:</strong> series problems show up as recognition tasks. You see the series and need to match it to a conclusion. Speed matters. If you hesitate on which test to use, you lose time you need on the rest of Section I.</p>
+    </section>
+
+    <hr>
+
+    <!-- DECISION TREE -->
+    <section id="decision-tree">
+      <h2>The Decision Tree: Which Test Do You Run?</h2>
+
+      <p>Run every series through these steps in order. Do not skip Step 1.</p>
+
+      <div class="step-block">
+        <div class="step-label">Step 1: nth-Term Test (Divergence Test)</div>
+        <p>Ask: does \(\lim_{n \to \infty} a_n = 0\)?</p>
+        <p><strong>If the limit is NOT zero:</strong> the series diverges. You are done. Write the conclusion and move on. Do not run any other test.</p>
+        <p><strong>If the limit IS zero:</strong> this test tells you nothing about convergence. Proceed to Step 2.</p>
+        <p style="color: var(--navy-300); font-size: 14px; margin-bottom: 0;">This is also where students make their most expensive mistake. The nth-term test only proves divergence. If the limit equals zero and you write "converges," you just lost every point on that part of the problem.</p>
+      </div>
+
+      <div class="step-block">
+        <div class="step-label">Step 2: Identify the Series Form</div>
+        <p>Look at the structure and match it to a category:</p>
+
+        <table>
+          <thead>
+            <tr>
+              <th>What you see in the series</th>
+              <th>Test to run</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>\(ar^{n-1}\) or \(ar^n\) (constant raised to a power)</td>
+              <td>Geometric Series Test</td>
+            </tr>
+            <tr>
+              <td>\(\dfrac{1}{n^p}\) (\(n\) in denominator with constant exponent)</td>
+              <td>p-Series Test</td>
+            </tr>
+            <tr>
+              <td>\((-1)^n\) or \((-1)^{n+1}\) (alternating sign pattern)</td>
+              <td>Alternating Series Test</td>
+            </tr>
+            <tr>
+              <td>Factorial \(n!\) or exponential \(r^n\) with \(n\) in exponent</td>
+              <td>Ratio Test</td>
+            </tr>
+            <tr>
+              <td>Rational function in \(n\) that resembles a p-series</td>
+              <td>Limit Comparison Test</td>
+            </tr>
+            <tr>
+              <td>Terms clearly smaller than a known convergent series</td>
+              <td>Direct Comparison Test</td>
+            </tr>
+            <tr>
+              <td>Terms form a positive, decreasing, continuous function</td>
+              <td>Integral Test</td>
+            </tr>
+            <tr>
+              <td>Clean \(n\)th root of \(|a_n|\)</td>
+              <td>Root Test</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="step-block">
+        <div class="step-label">Step 3: Apply the Test and Write the Conclusion</div>
+        <p>Run the test. Then write three things:</p>
+        <ol style="padding-left: 20px; color: rgba(255,255,255,0.85);">
+          <li style="margin-bottom: 6px;">The name of the test you used.</li>
+          <li style="margin-bottom: 6px;">The condition you checked (e.g., \(L < 1\), \(p > 1\), terms are decreasing and go to zero).</li>
+          <li style="margin-bottom: 6px;">The conclusion: converges or diverges.</li>
+        </ol>
+        <p style="margin-top: 10px; margin-bottom: 0;">On BC FRQ, all three are required for full credit. On BC MCQ, you need the conclusion and you need to get there fast.</p>
+      </div>
+
+      <p><strong>A note on Ratio Test versus Root Test:</strong> both use the same decision rule (\(L < 1\) converges, \(L > 1\) diverges, \(L = 1\) inconclusive). Ratio Test works best when you have factorials or exponentials with \(n\) in the exponent. Root Test works best when the entire term is raised to the \(n\)th power. In practice, you will see the Ratio Test far more often on the BC exam.</p>
+
+      <p><strong>A note on Direct versus Limit Comparison:</strong> Direct Comparison requires you to show that \(0 \leq a_n \leq b_n\) for all \(n\), which means you need a clean inequality. If the inequality is messy, use Limit Comparison instead. Limit Comparison only requires that the ratio \(\lim_{n \to \infty} \frac{a_n}{b_n}\) equals a positive finite number.</p>
+    </section>
+
+    <hr>
+
+    <!-- WORKED EXAMPLE 1 -->
+    <section id="example-1">
+      <h2>Worked Example 1: Does This Series Converge?</h2>
+
+      <p>Let me walk you through a problem where the Ratio Test is the right call.</p>
+
+      <p><strong>Problem:</strong> Determine whether \(\displaystyle\sum_{n=1}^{\infty} \frac{3^n}{n!}\) converges or diverges.</p>
+
+      <div class="step-block">
+        <div class="step-label">Step 1: nth-Term Test</div>
+        <div class="math-display">
+          $$\lim_{n \to \infty} \frac{3^n}{n!} = 0$$
+        </div>
+        <p style="margin-bottom: 0;">Factorials grow much faster than exponential functions. This limit equals zero, so the nth-term test is inconclusive. Move to Step 2.</p>
+      </div>
+
+      <div class="step-block">
+        <div class="step-label">Step 2: Identify the Form</div>
+        <p style="margin-bottom: 0;">The numerator is \(3^n\), an exponential. The denominator is \(n!\), a factorial. Whenever you see a factorial, reach for the Ratio Test.</p>
+      </div>
+
+      <div class="step-block">
+        <div class="step-label">Step 3: Apply the Ratio Test</div>
+        <div class="math-display">
+          $$L = \lim_{n \to \infty} \left|\frac{a_{n+1}}{a_n}\right| = \lim_{n \to \infty} \left|\frac{3^{n+1}}{(n+1)!} \cdot \frac{n!}{3^n}\right|$$
+        </div>
+        <p>Simplify:</p>
+        <div class="math-display">
+          $$L = \lim_{n \to \infty} \frac{3^{n+1}}{3^n} \cdot \frac{n!}{(n+1)!} = \lim_{n \to \infty} \frac{3}{n+1} = 0$$
+        </div>
+        <p style="margin-bottom: 0;">Since \(L = 0 < 1\), the Ratio Test tells us the series <strong>converges</strong>.</p>
+      </div>
+
+      <div class="step-block">
+        <div class="step-label">Step 4: Write the FRQ Conclusion</div>
+        <p style="margin-bottom: 0; font-style: italic; color: var(--navy-100);">"By the Ratio Test, since \(\displaystyle\lim_{n \to \infty} \left|\frac{a_{n+1}}{a_n}\right| = 0 < 1\), the series \(\displaystyle\sum_{n=1}^{\infty} \frac{3^n}{n!}\) converges."</p>
+      </div>
+
+      <p>That sentence, test name, limit value, condition, conclusion, is what earns full FRQ credit. Practice writing it exactly that way.</p>
+
+      <div class="rubric-box">
+        <div class="rubric-label">Rubric Box</div>
+        <p>Here is exactly how the AP exam scores this type of problem.</p>
+        <ul>
+          <li><strong>Point 1:</strong> Setting up the Ratio Test correctly: writing \(\left|\dfrac{a_{n+1}}{a_n}\right|\) with the correct terms substituted in.</li>
+          <li><strong>Point 2:</strong> Correctly simplifying the limit to get \(L = 0\).</li>
+          <li><strong>Point 3:</strong> Stating the conclusion with the test name and the condition (\(L < 1\)).</li>
+        </ul>
+        <p style="margin-top: 12px; margin-bottom: 0; color: var(--navy-300); font-size: 14px;">The most common point loss: writing the right answer without citing the test. "The series converges because the terms go to zero" is wrong and earns no credit on Points 1 and 3.</p>
+      </div>
+    </section>
+
+    <hr>
+
+    <!-- MID-POST CTA -->
+    <section id="mid-cta">
+      <div class="cta-block">
+        <div class="eyebrow">Free Resource</div>
+        <p>If you are working through BC Unit 10 right now, the free AP Calculus review sheet covers series convergence tests, Taylor series, and every other BC topic in one place.</p>
+        <a class="cta-btn" href="https://enginearu.com/the-ultimate-ap-calculus-review-sheet/" target="_blank" rel="noopener">Grab the Free Review Sheet</a>
+        <span class="cta-parent">Parents: students who use structured review materials alongside their coursework consistently score higher on the AP exam. This sheet is free and built specifically for BC and AB students.</span>
+      </div>
+    </section>
+
+    <!-- WORKED EXAMPLE 2 -->
+    <section id="example-2">
+      <h2>Worked Example 2: MCQ Recognition Type</h2>
+
+      <p>This is the type of series problem that appears most often in AP MCQ form. You see a rational-looking series and need to identify whether it converges or diverges, and which test proves it.</p>
+
+      <p><strong>Problem:</strong> Determine whether \(\displaystyle\sum_{n=1}^{\infty} \frac{n+2}{3n^2 - 1}\) converges or diverges.</p>
+
+      <div class="step-block">
+        <div class="step-label">Step 1: nth-Term Test</div>
+        <div class="math-display">
+          $$\lim_{n \to \infty} \frac{n+2}{3n^2-1} = 0$$
+        </div>
+        <p style="margin-bottom: 0;">The numerator grows as \(n\) and the denominator grows as \(3n^2\), so the terms go to zero. Inconclusive. Move to Step 2.</p>
+      </div>
+
+      <div class="step-block">
+        <div class="step-label">Step 2: Identify the Form</div>
+        <p>This is a rational function in \(n\). The dominant term in the numerator is \(n\). The dominant term in the denominator is \(3n^2\). For large \(n\), the terms behave like \(\dfrac{n}{3n^2} = \dfrac{1}{3n}\).</p>
+        <p style="margin-bottom: 0;">That looks like \(\dfrac{1}{n}\), which is the harmonic series, a p-series with \(p = 1\), which diverges. When a series looks like a multiple of a known series for large \(n\), the Limit Comparison Test is the move.</p>
+      </div>
+
+      <div class="step-block">
+        <div class="step-label">Step 3: Apply the Limit Comparison Test</div>
+        <p>Let \(b_n = \dfrac{1}{n}\).</p>
+        <div class="math-display">
+          $$L = \lim_{n \to \infty} \frac{a_n}{b_n} = \lim_{n \to \infty} \frac{\dfrac{n+2}{3n^2-1}}{\dfrac{1}{n}} = \lim_{n \to \infty} \frac{n(n+2)}{3n^2-1} = \lim_{n \to \infty} \frac{n^2 + 2n}{3n^2-1} = \frac{1}{3}$$
+        </div>
+        <p style="margin-bottom: 0;">Since \(L = \dfrac{1}{3}\), a positive finite number, the series \(\displaystyle\sum \frac{n+2}{3n^2-1}\) behaves the same as \(\displaystyle\sum \frac{1}{n}\).</p>
+      </div>
+
+      <div class="step-block">
+        <div class="step-label">Step 4: Evaluate the Comparison Series</div>
+        <p style="margin-bottom: 0;">\(\displaystyle\sum_{n=1}^{\infty} \frac{1}{n}\) is a p-series with \(p = 1\). Since \(p = 1 \leq 1\), this series <strong>diverges</strong>. Therefore \(\displaystyle\sum_{n=1}^{\infty} \frac{n+2}{3n^2-1}\) <strong>diverges</strong> by the Limit Comparison Test.</p>
+      </div>
+
+      <div class="step-block">
+        <div class="step-label">Step 5: Write the FRQ Conclusion</div>
+        <p style="margin-bottom: 0; font-style: italic; color: var(--navy-100);">"By the Limit Comparison Test with \(b_n = \dfrac{1}{n}\), since \(\displaystyle\lim_{n \to \infty} \frac{a_n}{b_n} = \dfrac{1}{3}\), a positive finite number, and \(\displaystyle\sum \frac{1}{n}\) diverges (p-series with \(p = 1\)), the series \(\displaystyle\sum_{n=1}^{\infty} \frac{n+2}{3n^2-1}\) diverges."</p>
+      </div>
+
+      <div class="rubric-box">
+        <div class="rubric-label">Rubric Box</div>
+        <p>Here is exactly what the AP exam is checking on this problem type.</p>
+        <ul>
+          <li>Can you identify the dominant behavior of the terms? (Recognizing the series behaves like \(\frac{1}{n}\) for large \(n\))</li>
+          <li>Did you choose a valid comparison series \(b_n\)?</li>
+          <li>Is the limit calculation correct and shown?</li>
+          <li>Did you state that the comparison series diverges and cite why (\(p = 1 \leq 1\))?</li>
+          <li>Did you state the final conclusion for the original series?</li>
+        </ul>
+        <p style="margin-top: 12px; margin-bottom: 0; color: var(--navy-300); font-size: 14px;"><strong>Common wrong answers in MCQ:</strong> "Converges by p-series with \(p = 2\)" (wrong identification of dominant term; students look at \(n^2\) in the denominator and forget to account for \(n\) in the numerator). "Diverges by the nth-term test" (forgetting the limit equals zero, so the nth-term test is inconclusive).</p>
+      </div>
+
+      <p>The pattern you want to lock in: <strong>when you see a rational function in \(n\), your brain should immediately go to Limit Comparison</strong>. Find the dominant terms, build your \(b_n\), run the limit. If it is a positive finite number, you match the behavior of your comparison series.</p>
+    </section>
+
+    <hr>
+
+    <!-- THE 3 MISTAKES -->
+    <section id="three-mistakes">
+      <h2>The 3 Mistakes I See Every Year</h2>
+
+      <h3>Mistake 1: Using the nth-Term Test to Prove Convergence</h3>
+      <p>The nth-term test only works in one direction. If the limit is not zero, the series diverges. If the limit equals zero, you know nothing. I see this on BC FRQs almost every year. "The series converges because \(\lim_{n \to \infty} a_n = 0\)" costs students every scoring point on that part. There is no partial credit for using the wrong tool.</p>
+
+      <h3>Mistake 2: Declaring a Result When the Ratio Test Gives \(L = 1\)</h3>
+      <p>If your Ratio Test limit equals 1, the test is <strong>inconclusive</strong>. It does not mean the series converges. It does not mean the series diverges. It means the Ratio Test cannot tell you, and you need to try a different test. I watch students run the Ratio Test, get \(L = 1\), write "converges," and lose all three FRQ points on that section. The fix is simple: when you get \(L = 1\) from the Ratio Test, stop and try Limit Comparison or Direct Comparison instead.</p>
+
+      <h3>Mistake 3: Writing an Answer Without Naming the Test on FRQ</h3>
+      <p>This is the one that hurts the most because students know the right answer. They run the correct test, get the correct limit, state the correct conclusion, and forget to write "By the Ratio Test" at the start of the sentence. On a well-designed BC FRQ rubric, that sentence is worth a scoring point. You can solve the entire problem correctly and still lose a point for skipping two words. Name the test every single time.</p>
+    </section>
+
+    <hr>
+
+    <!-- PRACTICE PROBLEMS -->
+    <section id="practice-problems">
+      <h2>Practice Problems</h2>
+
+      <p>Work each of these before reading the answers below. Pick the test first, then run it.</p>
+
+      <div class="practice-problem">
+        <div class="problem-num">Problem 1</div>
+        <p style="margin-bottom: 0;">Determine whether \(\displaystyle\sum_{n=1}^{\infty} \frac{1}{n^{3/2}}\) converges or diverges.</p>
+      </div>
+
+      <div class="practice-problem">
+        <div class="problem-num">Problem 2</div>
+        <p style="margin-bottom: 0;">Determine whether \(\displaystyle\sum_{n=1}^{\infty} \frac{(-1)^n}{\sqrt{n}}\) converges or diverges.</p>
+      </div>
+
+      <div class="practice-problem">
+        <div class="problem-num">Problem 3</div>
+        <p style="margin-bottom: 0;">Determine whether \(\displaystyle\sum_{n=1}^{\infty} \frac{n!}{5^n}\) converges or diverges.</p>
+      </div>
+
+      <div class="answers-block">
+        <div class="answers-title">Answers</div>
+
+        <p><strong>Problem 1:</strong> p-Series Test. The series is \(\displaystyle\sum \frac{1}{n^{3/2}}\) with \(p = \frac{3}{2}\). Since \(p = \frac{3}{2} > 1\), the series <strong>converges</strong> by the p-Series Test.</p>
+
+        <p><strong>Problem 2:</strong> Alternating Series Test. Let \(b_n = \frac{1}{\sqrt{n}}\). Check three conditions: (1) \(b_n > 0\) for all \(n\), (2) \(b_n\) is decreasing, (3) \(\lim_{n \to \infty} \frac{1}{\sqrt{n}} = 0\). All three hold. The series <strong>converges</strong> by the Alternating Series Test.</p>
+
+        <p style="margin-bottom: 0;"><strong>Problem 3:</strong> Ratio Test.
+          $$L = \lim_{n \to \infty} \left|\frac{(n+1)!}{5^{n+1}} \cdot \frac{5^n}{n!}\right| = \lim_{n \to \infty} \frac{n+1}{5} = \infty$$
+          Since \(L = \infty > 1\), the series <strong>diverges</strong> by the Ratio Test.
+        </p>
+      </div>
+    </section>
+
+    <hr>
+
+    <!-- FAQ -->
+    <section id="faq">
+      <h2>Frequently Asked Questions</h2>
+
+      <div class="faq-item">
+        <h3>How many series convergence tests are on the AP Calculus BC exam?</h3>
+        <p>The BC exam expects you to know 9 convergence tests: the nth-Term Test, Geometric Series Test, p-Series Test, Direct Comparison Test, Limit Comparison Test, Integral Test, Ratio Test, Root Test, and Alternating Series Test. In practice, the Ratio Test, Limit Comparison Test, p-Series Test, and Alternating Series Test appear most frequently on AP exam questions.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>What is the first test I should always run on a series problem?</h3>
+        <p>Always start with the nth-Term Test. Compute \(\lim_{n \to \infty} a_n\). If that limit is not zero, the series diverges immediately and you do not need any other test. If the limit equals zero, the nth-Term Test is inconclusive and you move to identifying the series form.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>When should I use the Ratio Test versus the Limit Comparison Test?</h3>
+        <p>Use the Ratio Test when the series contains factorials (\(n!\)) or exponentials (\(r^n\)) where \(n\) is in the exponent. Use the Limit Comparison Test when the series is a rational function in \(n\) and you can identify a similar p-series or harmonic series to compare against. The Ratio Test gives \(L = 1\) (inconclusive) on most rational functions, which is a wasted step.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>Does the Alternating Series Test prove absolute convergence?</h3>
+        <p>No. The Alternating Series Test only proves conditional convergence. To test for absolute convergence, apply a separate convergence test to \(\sum |a_n|\), the series without the alternating sign. If that series converges, the original series converges absolutely. If \(\sum |a_n|\) diverges but the AST conditions hold, the series converges conditionally.</p>
+      </div>
+
+      <!-- FAQPage JSON-LD Schema -->
+      <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How many series convergence tests are on the AP Calculus BC exam?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The BC exam expects you to know 9 convergence tests: the nth-Term Test, Geometric Series Test, p-Series Test, Direct Comparison Test, Limit Comparison Test, Integral Test, Ratio Test, Root Test, and Alternating Series Test. In practice, the Ratio Test, Limit Comparison Test, p-Series Test, and Alternating Series Test appear most frequently on AP exam questions."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the first test I should always run on a series problem?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Always start with the nth-Term Test. If the limit as n goes to infinity of a sub n is not zero, the series diverges immediately. If the limit equals zero, the nth-Term Test is inconclusive and you move to identifying the series form. This step takes 10 seconds and eliminates the need for any other test when it works."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "When should I use the Ratio Test versus the Limit Comparison Test?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use the Ratio Test when the series contains factorials or exponentials where n is in the exponent. Use the Limit Comparison Test when the series is a rational function in n and you can identify a similar p-series or harmonic series. The Ratio Test gives an inconclusive result on most rational functions, so defaulting to Limit Comparison for rational series saves time on the AP exam."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does the Alternating Series Test prove absolute convergence?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. The Alternating Series Test only proves conditional convergence. To test for absolute convergence, apply a separate convergence test to the series of absolute values, removing the alternating sign. If that series converges, the original converges absolutely. If it diverges but the AST conditions hold, the series converges conditionally."
+      }
+    }
+  ]
+}
+      </script>
+    </section>
+
+    <hr>
+
+    <!-- QUICK REFERENCE BOX -->
+    <section id="quick-ref">
+      <div class="quick-ref">
+        <div class="quick-ref-title">Save This For Exam Day: Convergence Test Quick Reference</div>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Test</th>
+              <th>Use when you see</th>
+              <th>Converges if</th>
+              <th>Diverges if</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>nth-Term (Divergence)</td>
+              <td>Always first</td>
+              <td>(inconclusive if limit = 0)</td>
+              <td>\(\lim_{n\to\infty} a_n \neq 0\)</td>
+            </tr>
+            <tr>
+              <td>Geometric Series</td>
+              <td>\(ar^n\) form</td>
+              <td>\(|r| &lt; 1\)</td>
+              <td>\(|r| \geq 1\)</td>
+            </tr>
+            <tr>
+              <td>p-Series</td>
+              <td>\(\frac{1}{n^p}\)</td>
+              <td>\(p &gt; 1\)</td>
+              <td>\(p \leq 1\)</td>
+            </tr>
+            <tr>
+              <td>Alternating Series</td>
+              <td>\((-1)^n b_n\)</td>
+              <td>\(b_n\) decreasing, \(b_n \to 0\)</td>
+              <td>Conditions fail</td>
+            </tr>
+            <tr>
+              <td>Ratio Test</td>
+              <td>Factorials, \(r^n\)</td>
+              <td>\(L &lt; 1\)</td>
+              <td>\(L &gt; 1\)</td>
+            </tr>
+            <tr>
+              <td>Limit Comparison</td>
+              <td>Rational in \(n\)</td>
+              <td>Comparison series converges and \(0 &lt; L &lt; \infty\)</td>
+              <td>Comparison series diverges and \(0 &lt; L &lt; \infty\)</td>
+            </tr>
+            <tr>
+              <td>Direct Comparison</td>
+              <td>Clean inequality visible</td>
+              <td>\(a_n \leq b_n\), \(\sum b_n\) converges</td>
+              <td>\(a_n \geq b_n\), \(\sum b_n\) diverges</td>
+            </tr>
+            <tr>
+              <td>Integral Test</td>
+              <td>Positive, decreasing, continuous</td>
+              <td>\(\int_1^\infty f(x)\,dx\) converges</td>
+              <td>\(\int_1^\infty f(x)\,dx\) diverges</td>
+            </tr>
+            <tr>
+              <td>Root Test</td>
+              <td>Entire term to \(n\)th power</td>
+              <td>\(L &lt; 1\)</td>
+              <td>\(L &gt; 1\)</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p class="quick-ref-note">Ratio Test and Root Test both give \(L = 1\): inconclusive. Try a different test.</p>
+      </div>
+    </section>
+
+    <!-- RELATED POSTS -->
+    <section id="related" class="related-posts">
+      <h2>Related Posts</h2>
+      <ul>
+        <li><a href="#">AP Calculus BC Taylor and Maclaurin Series: How to Build Them From Scratch</a>: Unit 10 follow-up: once you know if a series converges, here is how to construct the polynomial approximation.</li>
+        <li><a href="#">AP Calculus BC Sequences and Series: The Full Unit 10 Roadmap</a>: Coming soon.</li>
+        <li><a href="#">AP Calculus AB and BC Limits: The Only 3 Techniques You Need</a>: The limit skills behind convergence test calculations.</li>
+      </ul>
+    </section>
+
+    <hr>
+
+    <!-- END CTA -->
+    <section id="end-cta">
+      <p>Unit 10 is the section of BC where most students leave points on the table, not because they do not know the tests, but because they have never practiced the decision. Run the decision tree on every series you see from here through exam day. The more times you practice the identification step, the faster it gets.</p>
+
+      <p>If you want every convergence test, every Taylor series pattern, and every BC topic organized in one place, the free review sheet is the starting point.</p>
+
+      <div class="cta-block">
+        <div class="eyebrow">Free For Every BC Student</div>
+        <p>Every convergence test, Taylor series pattern, and BC topic in one structured review sheet.</p>
+        <a class="cta-btn" href="https://enginearu.com/the-ultimate-ap-calculus-review-sheet/" target="_blank" rel="noopener">Download the Free Review Sheet</a>
+        <span class="cta-parent">Parents: the review sheet covers every BC and AB topic your student will see on the AP exam. It is free, structured, and the resource I point every one of my students to at the start of the year.</span>
+      </div>
+    </section>
+
+  </div><!-- end .post-wrap -->
+
+</body>
+</html>
