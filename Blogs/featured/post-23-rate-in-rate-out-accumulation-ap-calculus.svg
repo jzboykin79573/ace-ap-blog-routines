@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 628" width="1200" height="628">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&amp;family=Nunito+Sans:wght@400;600&amp;display=swap');
+    </style>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="628" fill="#103059"/>
+  <rect width="1200" height="628" fill="url(#grid)"/>
+
+  <!-- Gold accent bar left -->
+  <rect x="0" y="0" width="8" height="628" fill="#F4B626"/>
+
+  <!-- Dark bottom strip -->
+  <rect x="0" y="570" width="1200" height="58" fill="#081A33" opacity="0.6"/>
+
+  <!-- Eyebrow -->
+  <text x="72" y="130" font-family="Montserrat, sans-serif" font-weight="700" font-size="14"
+        fill="#F4B626" letter-spacing="3" text-anchor="start">AP CALCULUS · UNIT 6 + 8 · FRQ</text>
+
+  <!-- Main title -->
+  <text x="72" y="220" font-family="Montserrat, sans-serif" font-weight="900" font-size="62"
+        fill="#FFFFFF" text-anchor="start">Rate In, Rate Out:</text>
+  <text x="72" y="295" font-family="Montserrat, sans-serif" font-weight="900" font-size="52"
+        fill="#FFFFFF" text-anchor="start">How to Read Accumulation</text>
+  <text x="72" y="360" font-family="Montserrat, sans-serif" font-weight="900" font-size="52"
+        fill="#FFFFFF" text-anchor="start">FRQs</text>
+
+  <!-- Gold underline -->
+  <rect x="72" y="380" width="180" height="4" fill="#F4B626" rx="2"/>
+
+  <!-- Subtitle -->
+  <text x="72" y="430" font-family="Nunito Sans, sans-serif" font-weight="600" font-size="24"
+        fill="rgba(255,255,255,0.70)" text-anchor="start">The equation. The 4 sub-questions.</text>
+  <text x="72" y="462" font-family="Nunito Sans, sans-serif" font-weight="600" font-size="24"
+        fill="rgba(255,255,255,0.70)" text-anchor="start">Every FRQ type, solved.</text>
+
+  <!-- Decorative math -->
+  <text x="950" y="260" font-family="Montserrat, sans-serif" font-weight="700" font-size="32"
+        fill="rgba(244,182,38,0.15)" text-anchor="middle">Q(b) = Q(a)</text>
+  <text x="950" y="305" font-family="Montserrat, sans-serif" font-weight="700" font-size="32"
+        fill="rgba(244,182,38,0.15)" text-anchor="middle">+ &#x222B; R(t) dt</text>
+
+  <!-- Bottom bar -->
+  <text x="72" y="608" font-family="Montserrat, sans-serif" font-weight="700" font-size="16"
+        fill="#F4B626" text-anchor="start">EngiNearU</text>
+  <text x="200" y="608" font-family="Nunito Sans, sans-serif" font-weight="400" font-size="16"
+        fill="rgba(255,255,255,0.5)" text-anchor="start">·</text>
+  <text x="220" y="608" font-family="Nunito Sans, sans-serif" font-weight="400" font-size="16"
+        fill="rgba(255,255,255,0.5)" text-anchor="start">enginearu.com</text>
+</svg>

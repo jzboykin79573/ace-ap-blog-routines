@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PREVIEW: Rate In, Rate Out: How to Read AP Calculus Accumulation FRQs</title>
+
+<!--
+=======================================================================
+  PREVIEW FILE: ACE AP CALCULUS BLOG
+  Post 23: Rate In, Rate Out: How to Read AP Calculus Accumulation FRQs
+=======================================================================
+  This file has three jobs:
+  1. Let you preview the post in your browser before publishing
+  2. Show you a publishing guide at the top of the page
+  3. Mark exactly what to copy into each part of WordPress
+
+  HOW TO USE THIS FILE
+  ─────────────────────
+  Open it in your browser → read the publishing guide at the top
+  Open it in VS Code → the comment markers show you what goes where
+
+  WHAT GETS PASTED INTO WORDPRESS
+  ─────────────────────────────────
+  STEP 1 (one time only) → functions.php  (see guide below)
+  STEP 2 → WordPress title field          (see guide below)
+  STEP 3 → One Custom HTML block          (marked in the body below)
+  STEP 4 → Yoast / Rank Math SEO fields   (see guide below)
+=======================================================================
+-->
+
+<!-- PREVIEW-ONLY: Fonts, MathJax load here for local preview.
+     WordPress gets MathJax from functions.php (Step 1 below).
+     Do NOT paste any of this <head> section into WordPress. -->
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<script>MathJax = { tex: { inlineMath: [['$','$']], displayMath: [['$$','$$']], processEscapes: true } };</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+
+<!-- PREVIEW-ONLY CSS: styles for the browser chrome, hero, and page
+     wrapper below. None of this goes into WordPress. -->
+<style>
+:root{
+  --navy:#0f1e3c;--blue:#1a3a6b;--accent:#e8a020;--accent-light:#fef3dc;
+  --green:#1a7a4a;--green-light:#eaf7f0;--red:#c0392b;--red-light:#fdf2f1;
+  --purple:#7c3aed;--purple-light:#f3f0ff;
+  --gray:#f5f6f8;--border:#dde1e8;--text:#1a1a2e;--muted:#6b7280;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:#eef0f4;color:var(--text);font-size:14px;line-height:1.8}
+/* Publishing guide panel */
+.pub-guide{background:#1a1a2e;font-family:'JetBrains Mono',monospace}
+.pub-guide summary{padding:14px 20px;cursor:pointer;color:var(--accent);font-size:13px;font-weight:700;letter-spacing:.5px;list-style:none;display:flex;align-items:center;gap:10px}
+.pub-guide summary::before{content:"▶";font-size:10px;transition:transform .2s}
+.pub-guide[open] summary::before{transform:rotate(90deg)}
+.pub-guide-body{padding:0 20px 20px}
+.pub-step{margin-bottom:24px}
+.pub-step-ttl{color:var(--accent);font-size:12px;font-weight:700;margin-bottom:6px;letter-spacing:.5px}
+.pub-step p{color:rgba(255,255,255,.75);font-size:12px;margin-bottom:8px;font-family:'Inter',sans-serif;line-height:1.6}
+.pub-step textarea{width:100%;background:#0d0d1a;color:#a8d8a8;border:1px solid #333;border-radius:6px;padding:12px;font-size:11px;font-family:'JetBrains Mono',monospace;line-height:1.6;resize:vertical;min-height:80px}
+.pub-step code{background:#0d0d1a;color:var(--accent);padding:2px 6px;border-radius:3px;font-size:11px}
+.pub-divider{border:none;border-top:1px solid #2a2a4a;margin:20px 0}
+/* Preview chrome bar */
+.chrome{background:#2d2d2d;padding:8px 14px;display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:100}
+.dots{display:flex;gap:6px}.dot{width:11px;height:11px;border-radius:50%}
+.dot.r{background:#ff5f57}.dot.y{background:#febc2e}.dot.g{background:#28c840}
+.url{flex:1;background:#3d3d3d;border-radius:5px;padding:4px 10px;color:#aaa;font-size:11px;font-family:'JetBrains Mono',monospace}
+.badge{background:var(--accent);color:var(--navy);font-size:10px;font-weight:700;padding:3px 8px;border-radius:4px}
+/* Preview page wrapper + hero */
+.page{max-width:780px;margin:0 auto;background:#fff;min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,.12)}
+.hero{background:linear-gradient(135deg,var(--navy),var(--blue));padding:40px 40px 32px;color:#fff}
+.tag{display:inline-block;background:var(--accent);color:var(--navy);font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;padding:3px 9px;border-radius:3px;margin-bottom:14px}
+.hero h1{font-family:'Merriweather',serif;font-size:22px;line-height:1.4;margin-bottom:14px}
+.meta{display:flex;gap:10px;flex-wrap:wrap}
+.pill{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.88);font-size:11px;padding:4px 10px;border-radius:20px}
+</style>
+</head>
+<body>
+
+<!-- ===================================================================
+     PUBLISHING GUIDE: visible in your browser, preview only
+     This panel does NOT get pasted into WordPress.
+     =================================================================== -->
+<details class="pub-guide" open>
+  <summary>PUBLISHING GUIDE: 4 steps to post this to WordPress</summary>
+  <div class="pub-guide-body">
+
+    <div class="pub-step">
+      <div class="pub-step-ttl">STEP 1 (ONE TIME ONLY): Add MathJax to functions.php</div>
+      <p>Do this once. After that, skip to Step 2 for every future post.<br>
+         Go to: WordPress Admin &rarr; Appearance &rarr; Theme File Editor &rarr; functions.php<br>
+         Scroll to the bottom and paste the code below.</p>
+      <textarea readonly rows="10">
+// ── ACE AP CALCULUS: MathJax ───────────────────────────────────────
+// Paste this at the bottom of functions.php (one time only).
+
+add_action('wp_head', function() {
+    echo '<script>MathJax = { tex: { inlineMath: [["$","$"]], displayMath: [["$$","$$"]] } };<\/script>';
+}, 1);
+
+add_action('wp_enqueue_scripts', function() {
+    wp_enqueue_script('mathjax', 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js', [], null, false);
+});
+// ──────────────────────────────────────────────────────────────────</textarea>
+    </div>
+
+    <hr class="pub-divider">
+
+    <div class="pub-step">
+      <div class="pub-step-ttl">STEP 2: WordPress title field</div>
+      <p>In the WordPress editor, click the title field at the top and paste this exactly:</p>
+      <textarea readonly rows="2">Rate In, Rate Out: How to Read AP Calculus Accumulation FRQs</textarea>
+    </div>
+
+    <hr class="pub-divider">
+
+    <div class="pub-step">
+      <div class="pub-step-ttl">STEP 3: WordPress Custom HTML block (the post content)</div>
+      <p>In the WordPress editor content area:<br>
+         1. Click the <code>+</code> button &rarr; search <code>Custom HTML</code> &rarr; add that block<br>
+         2. Open this file in VS Code or any text editor<br>
+         3. Find the comment that says: <code>&#9660;&#9660;&#9660; START: PASTE THIS INTO WORDPRESS CUSTOM HTML BLOCK &#9660;&#9660;&#9660;</code><br>
+         4. Select everything from that line down to: <code>&#9650;&#9650;&#9650; END: WORDPRESS CUSTOM HTML BLOCK &#9650;&#9650;&#9650;</code><br>
+         5. Paste into the Custom HTML block in WordPress<br><br>
+         That section contains the fonts link, all the CSS, and all the post content.</p>
+    </div>
+
+    <hr class="pub-divider">
+
+    <div class="pub-step">
+      <div class="pub-step-ttl">STEP 4: SEO fields (in the WordPress sidebar)</div>
+      <p>If you use Yoast or Rank Math, fill these in the sidebar before publishing:</p>
+      <textarea readonly rows="5">
+SEO Title:       Rate In Rate Out: AP Calculus Accumulation FRQ Guide 2026
+Meta Description: Master AP Calculus rate in rate out FRQs: the net change framework, table Riemann sum approximations, and all 4 sub-question types with scored examples.
+Slug:            post-23-rate-in-rate-out-accumulation-ap-calculus
+Focus Keyword:   ap calculus rate in rate out</textarea>
+    </div>
+
+  </div>
+</details>
+<!-- END PUBLISHING GUIDE -->
+
+
+<!-- ===================================================================
+     PREVIEW ONLY: browser chrome bar
+     Do NOT paste this into WordPress.
+     =================================================================== -->
+<div class="chrome">
+  <div class="dots">
+    <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
+  </div>
+  <div class="url">enginearu.com/ap-calculus-prep/unit-8-applications-integration/rate-in-rate-out-accumulation-ap-calculus/</div>
+  <div class="badge">PREVIEW</div>
+</div>
+<!-- END PREVIEW CHROME -->
+
+
+<!-- ===================================================================
+     PREVIEW ONLY: hero header
+     WordPress uses the title field (Step 2) instead of this.
+     Do NOT paste this into WordPress.
+     =================================================================== -->
+<div class="page">
+<div class="hero">
+  <div class="tag">AP Calculus AB &middot; BC &middot; Unit 6 + Unit 8: Integration &amp; Applications</div>
+  <h1>Rate In, Rate Out:<br>How to Read AP Calculus Accumulation FRQs</h1>
+  <div class="meta">
+    <span class="pill">17 min read</span>
+    <span class="pill">FRQ scoring framework included</span>
+    <span class="pill">Net change theorem + table approximations</span>
+    <span class="pill">All 4 sub-question types</span>
+  </div>
+</div>
+<!-- END PREVIEW HERO -->
+
+
+<!-- ===================================================================
+     ▼▼▼ START: PASTE THIS INTO WORDPRESS CUSTOM HTML BLOCK ▼▼▼
+     ===================================================================
+     Select from this line all the way down to the matching END marker.
+     Paste the entire selection into one Custom HTML block in WordPress.
+     =================================================================== -->
+
+<!-- Google Fonts: loads the typefaces used in the post styling -->
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<!-- Post CSS: all visual styles for the content below -->
+<style>
+.ace-post{
+  --navy:#0f1e3c;--blue:#1a3a6b;--accent:#e8a020;--accent-light:#fef3dc;
+  --green:#1a7a4a;--green-light:#eaf7f0;--red:#c0392b;--red-light:#fdf2f1;
+  --purple:#7c3aed;--purple-light:#f3f0ff;
+  --gray:#f5f6f8;--border:#dde1e8;--text:#1a1a2e;--muted:#6b7280;
+  font-family:'Inter',sans-serif;font-size:14px;line-height:1.8;color:var(--text);
+  padding:32px 0;
+}
+.ace-post .toc{background:var(--gray);border-left:4px solid var(--navy);border-radius:0 8px 8px 0;padding:18px 20px;margin-bottom:36px}
+.ace-post .toc-ttl{font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.ace-post .toc ol{padding-left:18px}.ace-post .toc li{margin-bottom:6px}
+.ace-post .toc a{color:var(--blue);text-decoration:none;font-size:13px;font-weight:500}
+.ace-post .sec{margin-bottom:40px;padding:0 32px}
+.ace-post h2{font-family:'Merriweather',serif;font-size:18px;font-weight:700;color:var(--navy);margin-bottom:14px;padding-bottom:8px;border-bottom:2px solid var(--border)}
+.ace-post h3{font-size:14px;font-weight:700;color:var(--blue);margin:18px 0 8px}
+.ace-post p{margin-bottom:13px;font-size:14px}
+.ace-post .math-block{background:var(--gray);border-radius:8px;padding:16px 20px;margin:14px 0;text-align:center;overflow-x:auto;font-size:15px}
+.ace-post .rubric{background:var(--green-light);border-left:4px solid var(--green);border-radius:0 8px 8px 0;padding:14px 18px;margin:16px 0}
+.ace-post .rubric-ttl{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--green);margin-bottom:8px}
+.ace-post .rubric ul{padding-left:18px}.ace-post .rubric li{font-size:13px;margin-bottom:5px;color:#1a4a32}
+.ace-post .rubric p{font-size:13px;color:#1a4a32;margin-bottom:6px}
+.ace-post .cta{background:linear-gradient(135deg,var(--navy),var(--blue));border-radius:12px;padding:24px 26px;margin:28px 0;color:#fff}
+.ace-post .cta h3{color:#fff;margin:0 0 8px;font-size:15px;font-family:'Merriweather',serif}
+.ace-post .cta p{color:rgba(255,255,255,.85);font-size:13px;margin-bottom:14px}
+.ace-post .btn{display:inline-block;background:var(--accent);color:var(--navy);font-weight:700;font-size:13px;padding:10px 20px;border-radius:6px;text-decoration:none}
+.ace-post .sub{font-size:11px;color:rgba(255,255,255,.6);margin-top:10px;font-style:italic}
+.ace-post .mk{border-left:4px solid var(--red);border-radius:0 8px 8px 0;padding:14px 18px;background:var(--red-light);margin-bottom:16px}
+.ace-post .mk-n{font-weight:700;color:var(--red);font-size:13px;margin-bottom:5px}
+.ace-post .mk-f{font-size:13px;color:var(--text);margin-bottom:0}
+.ace-post .prob{background:var(--gray);border-radius:8px;padding:16px 18px;margin-bottom:14px;border:1px solid var(--border)}
+.ace-post .plbl{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.ace-post .prob p{font-size:13px;margin-bottom:8px}
+.ace-post .answers{background:var(--navy);border-radius:8px;padding:18px 20px;margin-top:20px}
+.ace-post .ans-ttl{color:var(--accent);font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:12px}
+.ace-post .ans-item{font-size:13px;color:rgba(255,255,255,.9);margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid rgba(255,255,255,.1)}
+.ace-post .ans-item:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
+/* FAQ accordion */
+.ace-post .faq-list{border:1px solid var(--border);border-radius:8px;overflow:hidden;margin:24px 0}
+.ace-post .faq-item{border-bottom:1px solid var(--border);padding:0}
+.ace-post .faq-item:last-child{border-bottom:none}
+.ace-post .faq-item summary{padding:14px 16px;cursor:pointer;font-weight:600;color:var(--navy);font-size:14px;list-style:none;display:flex;align-items:center;gap:8px;user-select:none;background:#fff}
+.ace-post .faq-item summary::-webkit-details-marker{display:none}
+.ace-post .faq-item summary .faq-q-label{color:var(--accent);font-weight:700;flex-shrink:0}
+.ace-post .faq-item summary .faq-toggle{margin-left:auto;color:var(--accent);font-size:20px;font-weight:300;flex-shrink:0;line-height:1}
+.ace-post .faq-a{padding:4px 16px 14px;color:#4a5568;line-height:1.7}
+.ace-post .faq-a p{margin:0;font-size:13px}
+.ace-post .qr{background:var(--navy);color:#fff;border-radius:10px;padding:24px 26px;margin:20px 0}
+.ace-post .qr-ttl{color:var(--accent);font-size:12px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:16px}
+.ace-post .qrf{background:rgba(255,255,255,.07);border-radius:6px;padding:12px 16px;margin-bottom:10px;text-align:center}
+.ace-post .qr-table{width:100%;border-collapse:collapse;font-size:12px;margin:14px 0}
+.ace-post .qr-table th{background:rgba(255,255,255,.1);color:var(--accent);padding:8px 12px;font-size:11px;font-weight:700;letter-spacing:.5px;text-align:left}
+.ace-post .qr-table td{padding:8px 12px;border-bottom:1px solid rgba(255,255,255,.08);color:rgba(255,255,255,.85);vertical-align:top}
+.ace-post .qr-table tr:last-child td{border-bottom:none}
+.ace-post .qrb{margin-top:14px;list-style:none;padding-left:0}
+.ace-post .qrb li{font-size:12px;color:rgba(255,255,255,.85);margin-bottom:6px;padding-left:20px;position:relative}
+.ace-post .qrb li::before{content:"✓";color:#4ade80;position:absolute;left:0;font-weight:700}
+.ace-post .note{background:var(--purple-light);border-left:3px solid var(--purple);border-radius:0 6px 6px 0;padding:10px 14px;margin:14px 0;font-size:12px;color:#4c1d95}
+.ace-post .one-liner{background:var(--accent-light);border:2px solid var(--accent);border-radius:8px;padding:16px 20px;margin:20px 0;font-size:15px;font-weight:700;color:var(--navy);text-align:center;font-family:'Merriweather',serif;font-style:italic}
+.ace-post .related-link{display:block;padding:12px 14px;background:var(--gray);border-radius:6px;border:1px solid var(--border);margin-bottom:8px;font-size:13px;color:var(--blue);text-decoration:none}
+.ace-post .related-link:hover{background:#e8edf5}
+.ace-post .related-draft{font-size:11px;color:var(--muted);margin-left:6px}
+.ace-post .data-table{width:100%;border-collapse:collapse;font-size:13px;margin:14px 0}
+.ace-post .data-table th{background:var(--navy);color:#fff;padding:8px 12px;font-size:11px;font-weight:700;letter-spacing:.5px;text-align:center}
+.ace-post .data-table td{padding:8px 12px;border-bottom:1px solid var(--border);text-align:center}
+.ace-post .data-table tr:nth-child(even) td{background:var(--gray)}
+.ace-post .framework-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:16px 0}
+.ace-post .framework-card{background:var(--gray);border-radius:8px;padding:14px 16px;border:1px solid var(--border)}
+.ace-post .framework-card-ttl{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.ace-post .framework-card p{font-size:12px;margin-bottom:0;color:var(--text)}
+.ace-post .step-block{display:flex;gap:14px;margin-bottom:18px;align-items:flex-start}
+.ace-post .step-num{background:var(--navy);color:#fff;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;margin-top:2px}
+.ace-post .step-content{flex:1}
+.ace-post .step-label{font-weight:700;font-size:13px;color:var(--navy);margin-bottom:5px}
+.ace-post .step-content p{font-size:13px;margin-bottom:6px}
+.ace-post hr{border:none;border-top:1px solid var(--border);margin:28px 0}
+.ace-post .trap-note{background:#fff8e6;border-left:4px solid var(--accent);border-radius:0 8px 8px 0;padding:12px 16px;margin:14px 0;font-size:13px;color:#5a3c00}
+.ace-post .trap-note strong{color:var(--navy)}
+@media(max-width:560px){
+  .ace-post .framework-grid{grid-template-columns:1fr}
+  .ace-post .sec{padding:0 16px}
+}
+</style>
+
+<!-- Post content: all sections of the blog post -->
+<div class="ace-post">
+
+  <!-- Table of contents -->
+  <div class="sec">
+  <div class="toc">
+    <div class="toc-ttl">Jump To What You Need</div>
+    <ol>
+      <li><a href="#the-part-nobody-tells-you">The Part Nobody Tells You</a></li>
+      <li><a href="#what-it-means">What Rate In/Rate Out Actually Means</a></li>
+      <li><a href="#the-framework">The Framework: One Equation, 4 Sub-Questions</a></li>
+      <li><a href="#example-1">Worked Example 1: Table-Based Problem</a></li>
+      <li><a href="#mid-cta">Grab the Free Review Sheet</a></li>
+      <li><a href="#example-2">Worked Example 2: Formula-Based, All 4 Parts</a></li>
+      <li><a href="#mistakes">The 3 Mistakes That Cost Points</a></li>
+      <li><a href="#practice">Practice Problems</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="#quick-reference">Quick Reference Box</a></li>
+      <li><a href="#related">Related Posts</a></li>
+    </ol>
+  </div>
+  </div>
+
+  <!-- Section 1: Intro (HEAVY) -->
+  <div class="sec" id="the-part-nobody-tells-you">
+    <h2>The Part Nobody Tells You</h2>
+
+    <!-- HOOK TYPE: uncomfortable-truth -->
+    <p>Most students who get a 2 or a 3 on the AP Calculus exam can integrate. They can evaluate definite integrals. They can handle the algebra. That part is not the problem.</p>
+
+    <p>The problem is that they do not know what question the integral is answering.</p>
+
+    <p>The AP exam writes a story about water flowing into and out of a tank, or cars entering and leaving a parking lot. Then it asks you 4 specific questions about that story. Students who understand integration mechanics but have never seen this framing miss every point that requires interpretation and justification. The math is correct. The reading is wrong. That is where the points go.</p>
+
+    <!-- SCREENSHOT-ABLE ONE-LINER -->
+    <div class="one-liner">This FRQ is not an integration test. It is a reading comprehension test with calculus wrapped around it.</div>
+    <!-- END ONE-LINER -->
+
+    <p>Rate in/rate out problems appear on nearly every released AP Calculus AB and BC exam. They show up in Parts (a), (b), (c), and (d) of the free response, and they always ask the same 4 things. Once you know the framework, you can spot those 4 questions from a mile away and write the answer before you even finish reading the problem.</p>
+
+    <p>This post gives you the equation that runs every accumulation FRQ, both problem types (table and formula), all 4 sub-question types with full rubric breakdowns, and the 3 mistakes that cost points every year. You will know exactly what the AP grader is looking for and how to write it.</p>
+  </div>
+
+  <!-- Section 2: What it means (LIGHT + 1 STANCE) -->
+  <div class="sec" id="what-it-means">
+    <h2>What Rate In/Rate Out Actually Means</h2>
+
+    <p>Think about a bank account. You start with a balance. Money comes in. Money goes out. At any point, your balance is the starting amount plus everything that came in minus everything that went out.</p>
+
+    <p>That is the entire concept.</p>
+
+    <p>An integral is a continuous version of adding up all those deposits and withdrawals. When the rate of change is a smooth function of time, we use integration instead of arithmetic to find the running total.</p>
+
+    <p>Here is the connection worth memorizing: $R_{in}(t) - R_{out}(t)$ is the derivative of the total quantity $Q(t)$. In other words, the net rate function is the instantaneous rate of change of the quantity. The integral of that rate function is the total accumulation. This is the Fundamental Theorem of Calculus applied to a real-world context, which is exactly what Unit 8 is testing.</p>
+
+    <p>The net change theorem written as an accumulation equation:</p>
+
+    <div class="math-block">$$Q(b) = Q(a) + \int_a^b \left[R_{in}(t) - R_{out}(t)\right] dt$$</div>
+
+    <p>$Q(a)$ is the starting amount. The integral is the net change over $[a, b]$. $Q(b)$ is the ending amount.</p>
+
+    <p>Students see this problem type in a word problem and assume the setup is more complicated than it looks. It is not. That equation above is always the starting point. The only things that change between problems are the formulas (or table values) for $R_{in}$ and $R_{out}$ and the specific question being asked.</p>
+  </div>
+
+  <!-- Section 3: Framework (LIGHT) -->
+  <div class="sec" id="the-framework">
+    <h2>The Framework: One Equation, 4 Sub-Questions</h2>
+
+    <p>Every rate in/rate out FRQ on the AP exam asks essentially the same 4 things. The numbers and context change. The structure does not.</p>
+
+    <div class="step-block">
+      <div class="step-num">1</div>
+      <div class="step-content">
+        <div class="step-label">Find the amount at time $t$</div>
+        <p>Direct application of the net change theorem: $Q(t) = Q(0) + \int_0^t [R_{in}(u) - R_{out}(u)]\,du$. Evaluate the integral. Add the initial condition. Do not forget $Q(0)$.</p>
+      </div>
+    </div>
+
+    <div class="step-block">
+      <div class="step-num">2</div>
+      <div class="step-content">
+        <div class="step-label">When is the quantity at its maximum (or minimum)?</div>
+        <p>The quantity is increasing when $R_{in}(t) &gt; R_{out}(t)$ and decreasing when $R_{in}(t) &lt; R_{out}(t)$. The maximum occurs where the net rate changes from positive to negative. Set $R_{in}(t) = R_{out}(t)$ and solve for $t$. Verify the sign change. If the critical point is outside the domain, check the endpoints.</p>
+      </div>
+    </div>
+
+    <div class="step-block">
+      <div class="step-num">3</div>
+      <div class="step-content">
+        <div class="step-label">Net change vs. total accumulated</div>
+        <p>These are different and the AP exam tests whether you know the difference.</p>
+        <p><strong>Net change:</strong> $\int_a^b [R_{in}(t) - R_{out}(t)]\,dt$ &mdash; how much more or less is in the tank than at the start.</p>
+        <p><strong>Total amount that entered:</strong> $\int_a^b R_{in}(t)\,dt$ &mdash; how much poured in, regardless of what also left.</p>
+        <p>"How much is in the tank at $t = b$?" requires net change. "How much total water entered?" requires $R_{in}$ only.</p>
+      </div>
+    </div>
+
+    <div class="step-block">
+      <div class="step-num">4</div>
+      <div class="step-content">
+        <div class="step-label">Is the quantity increasing or decreasing at time $t$? Justify.</div>
+        <p>Evaluate $R_{in}(t) - R_{out}(t)$ at the given time. State whether the result is positive or negative. Interpret the sign in terms of the context. All three pieces are required for full credit.</p>
+      </div>
+    </div>
+
+    <h3>The decision tree: table vs. formula</h3>
+
+    <div class="framework-grid">
+      <div class="framework-card">
+        <div class="framework-card-ttl">Problem gives a TABLE</div>
+        <p>Approximate the integral using a Riemann sum. The problem will specify which sum (left, right, or midpoint). Use exactly what is asked. Do not try to fit a formula and integrate.</p>
+      </div>
+      <div class="framework-card">
+        <div class="framework-card-ttl">Problem gives FORMULAS</div>
+        <p>Compute the integral exactly. Set up the antiderivative, evaluate at the bounds, and simplify. Do not use a Riemann sum when an exact answer is possible.</p>
+      </div>
+    </div>
+
+    <p>Using the wrong method loses the setup point. The grader cannot award consistency points for a work chain that started with the wrong approach.</p>
+  </div>
+
+  <!-- Section 4: Worked Example 1 (PROCESS) -->
+  <div class="sec" id="example-1">
+    <h2>Worked Example 1: Table-Based Problem</h2>
+
+    <p>A water tank contains 500 gallons at time $t = 0$. Water flows into the tank at rate $R_{in}(t)$ (gallons per hour) and out at rate $R_{out}(t)$. Selected values are given in the table.</p>
+
+    <table class="data-table">
+      <thead>
+        <tr><th>$t$ (hours)</th><th>$R_{in}(t)$</th><th>$R_{out}(t)$</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>0</td><td>20</td><td>12</td></tr>
+        <tr><td>2</td><td>18</td><td>15</td></tr>
+        <tr><td>4</td><td>22</td><td>18</td></tr>
+        <tr><td>6</td><td>16</td><td>20</td></tr>
+        <tr><td>8</td><td>14</td><td>22</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Part (a)</h3>
+    <p>Use a left Riemann sum with 4 subintervals to approximate the total amount of water that entered the tank from $t = 0$ to $t = 8$.</p>
+
+    <p>This question asks about total water entering. Integrate $R_{in}$ only. The 4 subintervals are $[0,2]$, $[2,4]$, $[4,6]$, $[6,8]$, each with width $\Delta t = 2$. A left Riemann sum uses the left endpoint of each interval.</p>
+
+    <div class="math-block">$$\int_0^8 R_{in}(t)\,dt \approx (2)(20) + (2)(18) + (2)(22) + (2)(16)$$</div>
+    <div class="math-block">$$= 40 + 36 + 44 + 32 = 152 \text{ gallons}$$</div>
+
+    <p>Approximately 152 gallons entered the tank from $t = 0$ to $t = 8$.</p>
+
+    <div class="rubric">
+      <div class="rubric-ttl">Here is exactly how the AP exam scores this type of problem.</div>
+      <ul>
+        <li>1 point: correct setup (left sum with $\Delta t = 2$ and left endpoints from the table)</li>
+        <li>1 point: correct computation, or a computation consistent with your setup</li>
+      </ul>
+      <p>Show the full sum. Writing only "152" without the sum structure loses the setup point even if the arithmetic is right.</p>
+    </div>
+
+    <h3>Part (b)</h3>
+    <p>Approximate how much water is in the tank at $t = 8$.</p>
+
+    <p>Now we need the amount in the tank, not total inflow. Use the net change theorem with both rates. Compute the net rate at each left endpoint:</p>
+
+    <table class="data-table">
+      <thead>
+        <tr><th>Left endpoint $t$</th><th>$R_{in}(t)$</th><th>$R_{out}(t)$</th><th>Net rate</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>0</td><td>20</td><td>12</td><td>8</td></tr>
+        <tr><td>2</td><td>18</td><td>15</td><td>3</td></tr>
+        <tr><td>4</td><td>22</td><td>18</td><td>4</td></tr>
+        <tr><td>6</td><td>16</td><td>20</td><td>-4</td></tr>
+      </tbody>
+    </table>
+
+    <p>Left Riemann sum for the net rate:</p>
+
+    <div class="math-block">$$\int_0^8 [R_{in}(t) - R_{out}(t)]\,dt \approx (2)(8) + (2)(3) + (2)(4) + (2)(-4)$$</div>
+    <div class="math-block">$$= 16 + 6 + 8 - 8 = 22 \text{ gallons (net change)}$$</div>
+
+    <p>Apply the net change theorem:</p>
+
+    <div class="math-block">$$Q(8) \approx Q(0) + 22 = 500 + 22 = 522 \text{ gallons}$$</div>
+
+    <div class="rubric">
+      <div class="rubric-ttl">Rubric note</div>
+      <p>The negative value at $t = 6$ matters. The net rate at that interval is $-4$ gallons per hour, meaning water is leaving faster than it is entering. Dropping that negative sign overestimates the tank level by 16 gallons and will cause an error on any justification question that follows. Always write out the net rate at each endpoint before summing.</p>
+    </div>
+  </div>
+
+  <!-- Mid-post CTA -->
+  <div class="sec" id="mid-cta">
+    <div class="cta">
+      <h3>Lock In the Framework Before Exam Day</h3>
+      <p>The free review sheet covers every Unit 6 and Unit 8 topic, including rate in/rate out, with additional practice problems and scoring notes.</p>
+      <a class="btn" href="https://enginearu.com/the-ultimate-ap-calculus-review-sheet/" target="_blank">Get the Free AP Calculus Review Sheet</a>
+      <p class="sub"><em>Parents: the review sheet covers every major topic in AP Calculus AB and BC. Students download it, work through the priority sections, and arrive at the FRQ portion of the exam with a clear plan for each problem type.</em></p>
+    </div>
+  </div>
+
+  <!-- Section 5: Worked Example 2 (PROCESS) -->
+  <div class="sec" id="example-2">
+    <h2>Worked Example 2: Formula-Based, All 4 Parts</h2>
+
+    <p>Cars enter a parking lot at rate $E(t) = 60 + 2t$ cars per hour and exit at rate $X(t) = 10t$ cars per hour, for $0 \leq t \leq 6$ hours after the lot opens. At $t = 0$, the lot has 50 cars.</p>
+
+    <h3>Part (a): Find $N(t)$, the number of cars in the lot at time $t$.</h3>
+
+    <p>Set up the net change theorem:</p>
+
+    <div class="math-block">$$N(t) = N(0) + \int_0^t [E(u) - X(u)]\,du$$</div>
+    <div class="math-block">$$= 50 + \int_0^t [(60 + 2u) - 10u]\,du = 50 + \int_0^t (60 - 8u)\,du$$</div>
+    <div class="math-block">$$= 50 + \left[60u - 4u^2\right]_0^t$$</div>
+    <div class="math-block">$$N(t) = 50 + 60t - 4t^2$$</div>
+
+    <div class="rubric">
+      <div class="rubric-ttl">Rubric language for Part (a)</div>
+      <p>"Sets up the integral of the net rate with the correct initial condition. Evaluates the antiderivative correctly." Two points: 1 for the integral setup with initial value, 1 for correct evaluation. Forgetting to add $N(0) = 50$ costs 1 point.</p>
+    </div>
+
+    <h3>Part (b): When is the parking lot fullest during $0 \leq t \leq 6$?</h3>
+
+    <p>The lot is fullest when the net rate changes from positive to negative. Set $E(t) = X(t)$:</p>
+
+    <div class="math-block">$$60 + 2t = 10t \Rightarrow 60 = 8t \Rightarrow t = 7.5$$</div>
+
+    <p>The critical point $t = 7.5$ falls outside the domain $[0, 6]$. Check whether the net rate is positive or negative on the entire interval. At $t = 6$: $E(6) = 72$ and $X(6) = 60$, so $E(6) - X(6) = 12 &gt; 0$. The net rate is positive on the entire domain. The lot is always gaining cars, so the maximum occurs at $t = 6$.</p>
+
+    <div class="math-block">$$N(6) = 50 + 60(6) - 4(36) = 50 + 360 - 144 = 266 \text{ cars}$$</div>
+
+    <div class="rubric">
+      <div class="rubric-ttl">Rubric language for Part (b)</div>
+      <p>"Sets $E(t) = X(t)$, finds $t = 7.5$, notes this is outside the domain. States that $E(t) &gt; X(t)$ for all $t$ in $[0, 6]$, so $N(t)$ is increasing on the entire interval. Concludes the maximum is at $t = 6$." The justification earns its own point separate from the numerical answer. Writing only "266 cars at $t = 6$" without the sign argument will lose a point.</p>
+    </div>
+
+    <h3>Part (c): How many total cars entered the lot from $t = 0$ to $t = 6$?</h3>
+
+    <p>This asks about total cars that entered, not the net change. Integrate $E(t)$ only:</p>
+
+    <div class="math-block">$$\int_0^6 E(t)\,dt = \int_0^6 (60 + 2t)\,dt = \left[60t + t^2\right]_0^6 = 360 + 36 = 396 \text{ cars}$$</div>
+
+    <p>396 cars entered the lot from $t = 0$ to $t = 6$.</p>
+
+    <div class="trap-note">
+      <strong>The trap students fall into:</strong> After working parts (a) and (b) with the net rate, many students automatically integrate $[E(t) - X(t)]$ here. That gives net change (how many more cars are in the lot), not total count of cars that entered. Read the question word for word. "Total cars that entered" means integrate $E(t)$ alone.
+    </div>
+
+    <h3>Part (d): Is the lot gaining or losing cars at $t = 3$? Justify.</h3>
+
+    <p>Evaluate the net rate at $t = 3$:</p>
+
+    <div class="math-block">$$E(3) - X(3) = (60 + 6) - 30 = 66 - 30 = 36$$</div>
+
+    <p>Since $E(3) - X(3) = 36 &gt; 0$, the net rate of change of cars in the lot is positive at $t = 3$. Therefore the lot is gaining cars at $t = 3$.</p>
+
+    <div class="rubric">
+      <div class="rubric-ttl">Rubric language for Part (d)</div>
+      <p>The AP grader is looking for three things: (1) the numerical value of the net rate at the given time, (2) the comparison to zero, and (3) the interpretation in context. Write all three in one or two sentences. "$36 &gt; 0$" alone does not earn the justification point. "The lot is gaining cars because $E(3) - X(3) = 36 &gt; 0$" does.</p>
+    </div>
+  </div>
+
+  <!-- Section 6: The 3 Mistakes (MEDIUM) -->
+  <div class="sec" id="mistakes">
+    <h2>The 3 Mistakes That Cost Points</h2>
+
+    <div class="mk">
+      <div class="mk-n">Mistake 1: Integrating when the problem specifies a Riemann sum</div>
+      <p class="mk-f">When the problem gives you a table and says "use a left Riemann sum with 4 subintervals," that is not a suggestion. It is the method you are being scored on. The problem is specifically testing whether you can set up and evaluate a Riemann sum from tabular data. If you try to approximate a formula from the table and integrate it, you lose the setup point and the grader cannot award the consistency point. Use exactly what the problem asks.</p>
+    </div>
+
+    <div class="mk">
+      <div class="mk-n">Mistake 2: Confusing net change with total accumulated</div>
+      <p class="mk-f">This costs a point on nearly every accumulation FRQ. Net change answers "how much more is in the tank than at the start." Total accumulated answers "how much flowed in, regardless of what also left." When you see "total amount that entered," integrate the inflow rate only. When you see "amount in the tank at time $t$," use the net change theorem with both rates. The distinction is always in the phrasing of the question. Read slowly.</p>
+    </div>
+
+    <div class="mk">
+      <div class="mk-n">Mistake 3: Finding the critical time but skipping the justification</div>
+      <p class="mk-f">Setting $R_{in}(t) = R_{out}(t)$ and solving for $t$ earns one point. The justification that the net rate changes from positive to negative at that time earns another. Students find the time and stop. To earn the justification point, write: "Because $R_{in}(t) &gt; R_{out}(t)$ for $t &lt; t^*$ and $R_{in}(t) &lt; R_{out}(t)$ for $t &gt; t^*$, the net rate changes from positive to negative at $t = t^*$, so the quantity has a maximum at $t = t^*$." That sentence is worth more points than the algebra that found $t^*$.</p>
+    </div>
+  </div>
+
+  <!-- Section 7: Practice Problems (LIGHT) -->
+  <div class="sec" id="practice">
+    <h2>Practice Problems</h2>
+
+    <div class="prob">
+      <div class="plbl">Problem 1</div>
+      <p>A bathtub holds 80 gallons at $t = 0$. Water enters at $R_{in}(t) = 4$ gallons per minute and drains at $R_{out}(t) = t$ gallons per minute for $0 \leq t \leq 8$ minutes. Find the amount of water in the tub at $t = 4$.</p>
+    </div>
+
+    <div class="prob">
+      <div class="plbl">Problem 2</div>
+      <p>The table below shows the rate at which people enter and leave a museum (people per hour) at selected times.</p>
+      <table class="data-table">
+        <thead>
+          <tr><th>$t$ (hours)</th><th>Entry rate</th><th>Exit rate</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>0</td><td>50</td><td>10</td></tr>
+          <tr><td>1</td><td>45</td><td>20</td></tr>
+          <tr><td>2</td><td>40</td><td>35</td></tr>
+          <tr><td>3</td><td>30</td><td>40</td></tr>
+        </tbody>
+      </table>
+      <p>At $t = 0$, there are 100 people in the museum. Use a left Riemann sum with 3 subintervals to estimate the number of people in the museum at $t = 3$.</p>
+    </div>
+
+    <div class="prob">
+      <div class="plbl">Problem 3</div>
+      <p>Oil flows into a tank at rate $I(t) = 12t$ gallons per hour and out at rate $O(t) = 3t^2$ gallons per hour for $0 \leq t \leq 6$. At $t = 0$, there are 200 gallons in the tank. At what time is the tank fullest? Justify your answer.</p>
+    </div>
+
+    <div class="answers">
+      <div class="ans-ttl">Answers</div>
+      <div class="ans-item">
+        <strong>Problem 1:</strong> $Q(4) = 80 + \int_0^4 (4 - t)\,dt = 80 + \left[4t - \frac{t^2}{2}\right]_0^4 = 80 + (16 - 8) = 88$ gallons.
+      </div>
+      <div class="ans-item">
+        <strong>Problem 2:</strong> Net rates at left endpoints: $50-10=40$, $45-20=25$, $40-35=5$. Left sum: $(1)(40)+(1)(25)+(1)(5) = 70$. Museum at $t=3 \approx 100 + 70 = 170$ people.
+      </div>
+      <div class="ans-item">
+        <strong>Problem 3:</strong> Set $I(t) = O(t)$: $12t = 3t^2 \Rightarrow t(12-3t)=0 \Rightarrow t=4$. On $(0,4)$: $I(t) &gt; O(t)$ (gaining). On $(4,6)$: $I(t) &lt; O(t)$ (losing). Net rate changes from positive to negative at $t=4$, so the tank is fullest at $t=4$. $N(4) = 200 + \int_0^4 (12t-3t^2)\,dt = 200 + [6t^2-t^3]_0^4 = 200 + (96-64) = 232$ gallons.
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 8: FAQ (LIGHT + ZACH CLOSE) -->
+  <div class="sec" id="faq">
+    <h2>FAQ</h2>
+
+    <div class="faq-list">
+
+      <details class="faq-item">
+        <summary>
+          <span class="faq-q-label">Q</span>
+          What is the net change theorem in AP Calculus?
+          <span class="faq-toggle">+</span>
+        </summary>
+        <div class="faq-a">
+          <p>The net change theorem states that the integral of a rate of change over an interval gives the total change in the quantity. In accumulation problems: starting amount plus the integral of (rate in minus rate out) equals the amount at time $b$. Written as $Q(b) = Q(a) + \int_a^b [R_{in}(t) - R_{out}(t)]\,dt$. Every rate in/rate out FRQ on the AP exam is a direct application of this one equation.</p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>
+          <span class="faq-q-label">Q</span>
+          How do I know when to use a Riemann sum instead of integrating?
+          <span class="faq-toggle">+</span>
+        </summary>
+        <div class="faq-a">
+          <p>Use a Riemann sum when the problem gives you a table of values and specifies which sum to use (left, right, or midpoint). The problem will state this explicitly, usually as "use a left Riemann sum with [n] subintervals." When the problem gives you formulas for the rate functions, evaluate the integral exactly. Never mix the two approaches on the same problem part.</p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>
+          <span class="faq-q-label">Q</span>
+          What is the difference between net change and total accumulated?
+          <span class="faq-toggle">+</span>
+        </summary>
+        <div class="faq-a">
+          <p>Net change is the integral of (rate in minus rate out). It tells you how much more or less of the quantity exists compared to the starting value. Total accumulated is the integral of the inflow rate alone. It tells you how much of the quantity entered the system, regardless of what also left. The AP exam frequently asks both in the same problem with different phrasing, specifically to test whether you know which integral to set up.</p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>
+          <span class="faq-q-label">Q</span>
+          How do I find when a quantity is at its maximum in a rate in/rate out problem?
+          <span class="faq-toggle">+</span>
+        </summary>
+        <div class="faq-a">
+          <p>Set the inflow rate equal to the outflow rate and solve for $t$. Verify that the net rate changes from positive to negative at that point (positive to negative is a maximum; negative to positive is a minimum). If the critical point is outside the domain, compare endpoint values instead. Always include a written justification citing the sign change of the net rate. That justification earns its own rubric point separate from the calculation.</p>
+        </div>
+      </details>
+
+    </div>
+
+    <!-- FAQPage JSON-LD Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is the net change theorem in AP Calculus?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The net change theorem states that the integral of a rate of change over an interval gives the total change in the quantity. In accumulation problems: starting amount plus the integral of (rate in minus rate out) equals the amount at time b. Every rate in/rate out FRQ on the AP exam is a direct application of this one equation."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I know when to use a Riemann sum instead of integrating?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Use a Riemann sum when the problem gives you a table of values and specifies which sum to use (left, right, or midpoint). The problem will state this explicitly. When the problem gives formulas for the rate functions, evaluate the integral exactly. Never mix the two approaches on the same problem part."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the difference between net change and total accumulated?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Net change is the integral of (rate in minus rate out). It tells you how much more or less of the quantity exists compared to the starting value. Total accumulated is the integral of the inflow rate alone. It tells you how much entered, regardless of what also left. The AP exam frequently asks both in the same problem with different phrasing to test whether you know which integral to set up."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I find when a quantity is at its maximum in a rate in/rate out problem?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Set the inflow rate equal to the outflow rate and solve for t. Verify that the net rate changes from positive to negative at that point (positive to negative means maximum; negative to positive means minimum). If the critical point is outside the domain, compare endpoint values. Always include a written justification citing the sign change of the net rate, which earns its own rubric point."
+          }
+        }
+      ]
+    }
+    </script>
+  </div>
+
+  <!-- Section 9: Quick Reference Box -->
+  <div class="sec" id="quick-reference">
+    <h2>Quick Reference Box</h2>
+
+    <div class="qr">
+      <div class="qr-ttl">The equation that runs every accumulation FRQ</div>
+      <div class="qrf">$$Q(b) = Q(a) + \int_a^b \left[R_{in}(t) - R_{out}(t)\right] dt$$</div>
+
+      <div class="qr-ttl" style="margin-top:18px">The 4 sub-question types</div>
+      <table class="qr-table">
+        <thead>
+          <tr><th>Question type</th><th>What to set up</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Amount at time $t$</td><td>$Q(0) + \int_0^t [R_{in} - R_{out}]\,du$</td></tr>
+          <tr><td>When is quantity greatest?</td><td>Solve $R_{in}(t) = R_{out}(t)$, check sign change</td></tr>
+          <tr><td>Total amount that entered</td><td>$\int_a^b R_{in}(t)\,dt$ only</td></tr>
+          <tr><td>Increasing or decreasing at $t$?</td><td>Evaluate $R_{in}(t) - R_{out}(t)$, state sign + interpretation</td></tr>
+        </tbody>
+      </table>
+
+      <div class="qr-ttl" style="margin-top:18px">Table problem checklist</div>
+      <ul class="qrb">
+        <li>Use the exact Riemann sum the problem specifies</li>
+        <li>Identify subinterval width $\Delta t$ first</li>
+        <li>Write out each term before summing</li>
+        <li>Include the initial condition in your final answer</li>
+      </ul>
+
+      <div class="qr-ttl" style="margin-top:18px">Justification template for Part (b)</div>
+      <div style="background:rgba(255,255,255,.07);border-radius:6px;padding:12px 16px;font-size:12px;color:rgba(255,255,255,.85);line-height:1.6">
+        "Because $R_{in}(t) &gt; R_{out}(t)$ for $t &lt; t^*$ and $R_{in}(t) &lt; R_{out}(t)$ for $t &gt; t^*$, the net rate changes from positive to negative at $t = t^*$, so the quantity is greatest at $t = t^*$."
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 10: Related Posts -->
+  <div class="sec" id="related">
+    <h2>Related Posts</h2>
+
+    <a class="related-link" href="https://enginearu.com/ap-calculus-prep/unit-6-integration/what-is-integration-in-ap-calculus/" target="_blank">
+      What Is Integration in AP Calculus? &mdash; The conceptual foundation this post builds on
+    </a>
+    <a class="related-link" href="https://enginearu.com/ap-calculus-prep/unit-6-integration/ftc-part-1-vs-part-2-ap-calculus/" target="_blank">
+      Fundamental Theorem of Calculus Part 1 vs Part 2 <span class="related-draft">(Post 16 &mdash; drafted)</span>
+    </a>
+    <a class="related-link" href="https://enginearu.com/ap-calculus-prep/unit-8-applications-integration/area-between-curves-ap-calculus/" target="_blank">
+      Area Between Curves in AP Calculus &mdash; Another Unit 8 application using the same integral setup
+    </a>
+    <a class="related-link" href="https://enginearu.com/ap-calculus-prep/unit-6-integration/u-substitution-ap-calculus/" target="_blank">
+      U-Substitution in AP Calculus &mdash; The technique you will need when rate functions are not linear
+    </a>
+  </div>
+
+  <!-- End CTA -->
+  <div class="sec">
+    <div class="cta">
+      <h3>Start Here If You Have Not Already</h3>
+      <p>Every Unit 6 and Unit 8 topic, including rate in/rate out, is on the free review sheet. Students who use it before the exam know exactly which problem types they are strong on and which ones need more work before test day.</p>
+      <a class="btn" href="https://enginearu.com/the-ultimate-ap-calculus-review-sheet/" target="_blank">Get the Free AP Calculus Review Sheet</a>
+      <br><br>
+      <a class="btn" href="https://aceapcalculus.com/before-apcalc" target="_blank" style="background:#fff;color:var(--navy);">Get the Before AP Calc Guide</a>
+      <p class="sub"><em>Parents: the review sheet is completely free and covers every major topic in AP Calculus AB and BC. If your student is preparing for the AP exam, this is the best place to start.</em></p>
+    </div>
+  </div>
+
+</div>
+<!-- END ace-post -->
+
+<!-- ===================================================================
+     ▲▲▲ END: WORDPRESS CUSTOM HTML BLOCK ▲▲▲
+     =================================================================== -->
+
+</div>
+<!-- END .page wrapper -->
+
+</body>
+</html>

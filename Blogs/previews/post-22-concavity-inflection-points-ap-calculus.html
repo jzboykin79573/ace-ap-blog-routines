@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PREVIEW: Concavity and Inflection Points in AP Calculus: The Rate-of-Rate-of-Change Story Your Textbook Skips</title>
+
+<!--
+=======================================================================
+  PREVIEW FILE: ACE AP CALCULUS BLOG
+  Post 22: Concavity and Inflection Points in AP Calculus:
+           The Rate-of-Rate-of-Change Story Your Textbook Skips
+=======================================================================
+  This file has three jobs:
+  1. Let you preview the post in your browser before publishing
+  2. Show you a publishing guide at the top of the page
+  3. Mark exactly what to copy into each part of WordPress
+
+  HOW TO USE THIS FILE
+  ─────────────────────
+  Open it in your browser → read the publishing guide at the top
+  Open it in VS Code → the comment markers show you what goes where
+
+  WHAT GETS PASTED INTO WORDPRESS
+  ─────────────────────────────────
+  STEP 1 (one time only) → functions.php  (see guide below)
+  STEP 2 → WordPress title field          (see guide below)
+  STEP 3 → One Custom HTML block          (marked in the body below)
+  STEP 4 → Yoast / Rank Math SEO fields   (see guide below)
+=======================================================================
+-->
+
+<!-- PREVIEW-ONLY: Fonts, MathJax, Desmos load here for local preview.
+     WordPress gets MathJax + Desmos from functions.php (Step 1 below).
+     Do NOT paste any of this <head> section into WordPress. -->
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<script>MathJax = { tex: { inlineMath: [['$','$']], displayMath: [['$$','$$']], processEscapes: true } };</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+<script src="https://www.desmos.com/api/v1.7/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0fda6"></script>
+
+<!-- PREVIEW-ONLY CSS -->
+<style>
+:root{
+  --navy:#0f1e3c;--blue:#1a3a6b;--accent:#e8a020;--accent-light:#fef3dc;
+  --green:#1a7a4a;--green-light:#eaf7f0;--red:#c0392b;--red-light:#fdf2f1;
+  --purple:#7c3aed;--purple-light:#f3f0ff;
+  --gray:#f5f6f8;--border:#dde1e8;--text:#1a1a2e;--muted:#6b7280;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:#eef0f4;color:var(--text);font-size:14px;line-height:1.8}
+.pub-guide{background:#1a1a2e;font-family:'JetBrains Mono',monospace}
+.pub-guide summary{padding:14px 20px;cursor:pointer;color:var(--accent);font-size:13px;font-weight:700;letter-spacing:.5px;list-style:none;display:flex;align-items:center;gap:10px}
+.pub-guide summary::before{content:"▶";font-size:10px;transition:transform .2s}
+.pub-guide[open] summary::before{transform:rotate(90deg)}
+.pub-guide-body{padding:0 20px 20px}
+.pub-step{margin-bottom:24px}
+.pub-step-ttl{color:var(--accent);font-size:12px;font-weight:700;margin-bottom:6px;letter-spacing:.5px}
+.pub-step p{color:rgba(255,255,255,.75);font-size:12px;margin-bottom:8px;font-family:'Inter',sans-serif;line-height:1.6}
+.pub-step textarea{width:100%;background:#0d0d1a;color:#a8d8a8;border:1px solid #333;border-radius:6px;padding:12px;font-size:11px;font-family:'JetBrains Mono',monospace;line-height:1.6;resize:vertical;min-height:80px}
+.pub-step code{background:#0d0d1a;color:var(--accent);padding:2px 6px;border-radius:3px;font-size:11px}
+.pub-divider{border:none;border-top:1px solid #2a2a4a;margin:20px 0}
+.chrome{background:#2d2d2d;padding:8px 14px;display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:100}
+.dots{display:flex;gap:6px}.dot{width:11px;height:11px;border-radius:50%}
+.dot.r{background:#ff5f57}.dot.y{background:#febc2e}.dot.g{background:#28c840}
+.url{flex:1;background:#3d3d3d;border-radius:5px;padding:4px 10px;color:#aaa;font-size:11px;font-family:'JetBrains Mono',monospace}
+.badge{background:var(--accent);color:var(--navy);font-size:10px;font-weight:700;padding:3px 8px;border-radius:4px}
+.page{max-width:780px;margin:0 auto;background:#fff;min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,.12)}
+.hero{background:linear-gradient(135deg,var(--navy),var(--blue));padding:40px 40px 32px;color:#fff}
+.tag{display:inline-block;background:var(--accent);color:var(--navy);font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;padding:3px 9px;border-radius:3px;margin-bottom:14px}
+.hero h1{font-family:'Merriweather',serif;font-size:22px;line-height:1.4;margin-bottom:14px}
+.meta{display:flex;gap:10px;flex-wrap:wrap}
+.pill{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.88);font-size:11px;padding:4px 10px;border-radius:20px}
+</style>
+</head>
+<body>
+
+<!-- PUBLISHING GUIDE -->
+<details class="pub-guide" open>
+  <summary>PUBLISHING GUIDE: 4 steps to post this to WordPress</summary>
+  <div class="pub-guide-body">
+
+    <div class="pub-step">
+      <div class="pub-step-ttl">STEP 1 (ONE TIME ONLY): Add MathJax + Desmos to functions.php</div>
+      <p>Do this once. After that, skip to Step 2 for every future post.<br>
+         Go to: WordPress Admin → Appearance → Theme File Editor → functions.php<br>
+         Scroll to the bottom and paste the code below.</p>
+      <textarea readonly rows="10">
+// ── ACE AP CALCULUS: MathJax + Desmos ─────────────────────────────
+// Paste this at the bottom of functions.php (one time only).
+
+add_action('wp_head', function() {
+    echo '<script>MathJax = { tex: { inlineMath: [["$","$"]], displayMath: [["$$","$$"]] } };</script>';
+    echo '<script src="https://www.desmos.com/api/v1.7/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0fda6"></script>';
+}, 1);
+
+add_action('wp_enqueue_scripts', function() {
+    wp_enqueue_script('mathjax', 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js', [], null, false);
+});
+// ──────────────────────────────────────────────────────────────────</textarea>
+    </div>
+
+    <hr class="pub-divider">
+
+    <div class="pub-step">
+      <div class="pub-step-ttl">STEP 2: WordPress title field</div>
+      <p>In the WordPress editor, click the title field at the top and paste this exactly:</p>
+      <textarea readonly rows="2">Concavity and Inflection Points in AP Calculus: The Rate-of-Rate-of-Change Story Your Textbook Skips</textarea>
+    </div>
+
+    <hr class="pub-divider">
+
+    <div class="pub-step">
+      <div class="pub-step-ttl">STEP 3: WordPress Custom HTML block (the post content)</div>
+      <p>In the WordPress editor content area:<br>
+         1. Click the <code>+</code> button → search <code>Custom HTML</code> → add that block<br>
+         2. Open this file in VS Code or any text editor<br>
+         3. Find the comment that says: <code>▼▼▼ START: PASTE THIS INTO WORDPRESS CUSTOM HTML BLOCK ▼▼▼</code><br>
+         4. Select everything from that line down to: <code>▲▲▲ END: WORDPRESS CUSTOM HTML BLOCK ▲▲▲</code><br>
+         5. Paste into the Custom HTML block in WordPress<br><br>
+         That section contains the fonts link, all the CSS, all the post content, and the Desmos graph script.</p>
+    </div>
+
+    <hr class="pub-divider">
+
+    <div class="pub-step">
+      <div class="pub-step-ttl">STEP 4: SEO fields (in the WordPress sidebar)</div>
+      <p>If you use Yoast or Rank Math, fill these in the sidebar before publishing:</p>
+      <textarea readonly rows="5">
+SEO Title:       Concavity and Inflection Points in AP Calculus 2026 (FRQ + MCQ Guide)
+Meta Description: Concavity in AP Calculus is a tool, not a shape. Learn to use f''(x) to find inflection points, apply the SDT, and nail Riemann sum questions.
+Slug:            concavity-inflection-points-ap-calculus
+Focus Keyword:   concavity and inflection points ap calculus</textarea>
+    </div>
+
+  </div>
+</details>
+<!-- END PUBLISHING GUIDE -->
+
+<!-- PREVIEW CHROME BAR -->
+<div class="chrome">
+  <div class="dots">
+    <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
+  </div>
+  <div class="url">enginearu.com/ap-calculus-prep/unit-5-analytical-applications/concavity-inflection-points-ap-calculus/</div>
+  <div class="badge">PREVIEW</div>
+</div>
+
+<!-- PREVIEW HERO -->
+<div class="page">
+<div class="hero">
+  <div class="tag">AP Calculus AB · BC · Unit 5: Analytical Applications</div>
+  <h1>Concavity and Inflection Points in AP Calculus<br>The Rate-of-Rate-of-Change Story Your Textbook Skips</h1>
+  <div class="meta">
+    <span class="pill">16 min read</span>
+    <span class="pill">FRQ scoring rubrics included</span>
+    <span class="pill">SDT + Riemann sum connection</span>
+    <span class="pill">MCQ + FRQ both covered</span>
+  </div>
+</div>
+
+<!-- ===================================================================
+     ▼▼▼ START: PASTE THIS INTO WORDPRESS CUSTOM HTML BLOCK ▼▼▼
+     ===================================================================
+     Select from this line all the way down to the matching END marker.
+     Paste the entire selection into one Custom HTML block in WordPress.
+     =================================================================== -->
+
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+.ace-post{
+  --navy:#0f1e3c;--blue:#1a3a6b;--accent:#e8a020;--accent-light:#fef3dc;
+  --green:#1a7a4a;--green-light:#eaf7f0;--red:#c0392b;--red-light:#fdf2f1;
+  --purple:#7c3aed;--purple-light:#f3f0ff;
+  --gray:#f5f6f8;--border:#dde1e8;--text:#1a1a2e;--muted:#6b7280;
+  font-family:'Inter',sans-serif;font-size:14px;line-height:1.8;color:var(--text);
+  padding:32px 0;
+}
+.ace-post .toc{background:var(--gray);border-left:4px solid var(--navy);border-radius:0 8px 8px 0;padding:18px 20px;margin-bottom:36px}
+.ace-post .toc-ttl{font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.ace-post .toc ol{padding-left:18px}.ace-post .toc li{margin-bottom:6px}
+.ace-post .toc a{color:var(--blue);text-decoration:none;font-size:13px;font-weight:500}
+.ace-post .sec{margin-bottom:40px;padding:0 32px}
+.ace-post h2{font-family:'Merriweather',serif;font-size:18px;font-weight:700;color:var(--navy);margin-bottom:14px;padding-bottom:8px;border-bottom:2px solid var(--border)}
+.ace-post h3{font-size:14px;font-weight:700;color:var(--blue);margin:18px 0 8px}
+.ace-post p{margin-bottom:13px;font-size:14px}
+.ace-post .math-block{background:var(--gray);border-radius:8px;padding:16px 20px;margin:14px 0;text-align:center;overflow-x:auto;font-size:15px}
+.ace-post .step{display:flex;gap:14px;margin-bottom:18px;align-items:flex-start}
+.ace-post .snum{background:var(--navy);color:#fff;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;margin-top:2px}
+.ace-post .scontent{flex:1}
+.ace-post .slbl{font-weight:700;font-size:13px;color:var(--navy);margin-bottom:5px}
+.ace-post .scontent p{font-size:13px;margin-bottom:6px}
+.ace-post .rubric{background:var(--green-light);border-left:4px solid var(--green);border-radius:0 8px 8px 0;padding:14px 18px;margin:16px 0}
+.ace-post .rubric-ttl{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--green);margin-bottom:8px}
+.ace-post .rubric ul{padding-left:18px}.ace-post .rubric li{font-size:13px;margin-bottom:5px;color:#1a4a32}
+.ace-post .rubric-note{font-size:12px;color:#1a4a32;margin-top:10px;padding-top:10px;border-top:1px solid rgba(26,122,74,.2);font-weight:600}
+.ace-post .cta{background:linear-gradient(135deg,var(--navy),var(--blue));border-radius:12px;padding:24px 26px;margin:28px 0;color:#fff}
+.ace-post .cta h3{color:#fff;margin:0 0 8px;font-size:15px;font-family:'Merriweather',serif}
+.ace-post .cta p{color:rgba(255,255,255,.85);font-size:13px;margin-bottom:14px}
+.ace-post .btn{display:inline-block;background:var(--accent);color:var(--navy);font-weight:700;font-size:13px;padding:10px 20px;border-radius:6px;text-decoration:none}
+.ace-post .sub{font-size:11px;color:rgba(255,255,255,.6);margin-top:10px;font-style:italic}
+.ace-post .sea{background:var(--accent-light);border:2px solid var(--accent);border-radius:12px;padding:22px 26px;margin:20px 0}
+.ace-post .sea h3{color:var(--navy);font-size:14px;margin-bottom:8px;font-weight:700}
+.ace-post .sea p{font-size:13px;color:#5a4500;margin-bottom:12px}
+.ace-post .btn-w{display:inline-block;background:var(--navy);color:#fff;font-weight:700;font-size:13px;padding:10px 20px;border-radius:6px;text-decoration:none}
+.ace-post .mk{border-left:4px solid var(--red);border-radius:0 8px 8px 0;padding:14px 18px;background:var(--red-light);margin-bottom:16px}
+.ace-post .mk-n{font-weight:700;color:var(--red);font-size:13px;margin-bottom:5px}
+.ace-post .mk-w{font-size:12px;color:#7a2020;margin-bottom:6px;font-style:italic}
+.ace-post .mk-f{font-size:13px;color:var(--text)}
+.ace-post .mk-c{font-size:12px;color:#7a2020;margin-top:8px;padding-top:8px;border-top:1px solid rgba(192,57,43,.2);font-weight:600}
+.ace-post .prob{background:var(--gray);border-radius:8px;padding:16px 18px;margin-bottom:14px;border:1px solid var(--border)}
+.ace-post .plbl{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.ace-post .prob p{font-size:13px;margin-bottom:8px}
+.ace-post .answers{background:var(--navy);border-radius:8px;padding:18px 20px;margin-top:20px}
+.ace-post .ans-ttl{color:var(--accent);font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:12px}
+.ace-post .ans-item{font-size:13px;color:rgba(255,255,255,.9);margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid rgba(255,255,255,.1)}
+.ace-post .ans-item:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
+.ace-post .faq-list{border:1px solid var(--border);border-radius:8px;overflow:hidden;margin:24px 0}
+.ace-post .faq-item{border-bottom:1px solid var(--border);padding:0}
+.ace-post .faq-item:last-child{border-bottom:none}
+.ace-post .faq-item summary{padding:14px 16px;cursor:pointer;font-weight:600;color:var(--navy);font-size:14px;list-style:none;display:flex;align-items:center;gap:8px;user-select:none;background:#fff}
+.ace-post .faq-item summary::-webkit-details-marker{display:none}
+.ace-post .faq-item summary .faq-q-label{color:var(--accent);font-weight:700;flex-shrink:0}
+.ace-post .faq-item summary .faq-toggle{margin-left:auto;color:var(--accent);font-size:20px;font-weight:300;flex-shrink:0;line-height:1}
+.ace-post .faq-a{padding:4px 16px 14px;color:#4a5568;line-height:1.7}
+.ace-post .faq-a p{margin:0}
+.ace-post .qr{background:var(--navy);color:#fff;border-radius:10px;padding:24px 26px;margin:20px 0}
+.ace-post .qr-ttl{color:var(--accent);font-size:12px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:16px}
+.ace-post .qrf{background:rgba(255,255,255,.07);border-radius:6px;padding:12px 16px;margin-bottom:10px;text-align:center}
+.ace-post .qrf-lbl{font-size:11px;color:rgba(255,255,255,.5);margin-bottom:6px}
+.ace-post .qrb{margin-top:14px;list-style:none;padding-left:0}
+.ace-post .qrb li{font-size:12px;color:rgba(255,255,255,.85);margin-bottom:6px;padding-left:20px;position:relative}
+.ace-post .qrb li::before{content:"✓";color:#4ade80;position:absolute;left:0;font-weight:700}
+.ace-post .qrb .nv{color:#fca5a5!important}.ace-post .qrb .nv::before{content:"✗"!important;color:#fca5a5!important}
+.ace-post .one-liner{background:var(--accent-light);border:2px solid var(--accent);border-radius:8px;padding:16px 20px;margin:20px 0;font-size:15px;font-weight:700;color:var(--navy);text-align:center;font-family:'Merriweather',serif;font-style:italic}
+.ace-post .related-link{display:block;padding:12px 14px;background:var(--gray);border-radius:6px;border:1px solid var(--border);margin-bottom:8px;font-size:13px;color:var(--blue);text-decoration:none}
+.ace-post .related-link:hover{background:#e8edf5}
+.ace-post .related-draft{font-size:11px;color:var(--muted);margin-left:6px}
+.ace-post .desmos-wrap{border-radius:10px;overflow:hidden;margin:18px 0;border:1px solid var(--border)}
+.ace-post .desmos-label{background:var(--navy);color:#fff;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:8px 14px;display:flex;align-items:center;gap:6px}
+.ace-post .desmos-dot{width:8px;height:8px;border-radius:50%;background:var(--accent)}
+.ace-post .body-list{padding-left:20px;margin-bottom:12px;font-size:13px}
+.ace-post .body-list li{margin-bottom:5px}
+.ace-post hr{border:none;border-top:1px solid var(--border);margin:28px 0}
+.ace-post .sign-table{width:100%;border-collapse:collapse;font-size:13px;margin:14px 0}
+.ace-post .sign-table th{background:var(--navy);color:#fff;padding:8px 12px;font-size:11px;font-weight:700;letter-spacing:.5px;text-align:left}
+.ace-post .sign-table td{padding:8px 12px;border-bottom:1px solid var(--border)}
+.ace-post .sign-table tr:nth-child(even) td{background:var(--gray)}
+.ace-post .sign-pos{color:var(--green);font-weight:700}
+.ace-post .sign-neg{color:var(--red);font-weight:700}
+.ace-post .compare{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);border-radius:10px;overflow:hidden;margin:18px 0}
+.ace-post .compare-side{padding:16px 18px;background:#fff}
+.ace-post .compare-side.left{background:var(--gray)}
+.ace-post .compare-lbl{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px}
+.ace-post .compare-lbl.aroc{color:var(--muted)}
+.ace-post .compare-lbl.iroc{color:var(--blue)}
+.ace-post .compare-val{font-size:15px;font-weight:800;color:var(--navy);margin-bottom:4px;font-family:'Merriweather',serif}
+.ace-post .compare-sub{font-size:12px;color:var(--muted);line-height:1.5}
+.ace-post .note{background:var(--purple-light);border-left:3px solid var(--purple);border-radius:0 6px 6px 0;padding:10px 14px;margin:14px 0;font-size:12px;color:#4c1d95}
+.ace-post .riemann-table{width:100%;border-collapse:collapse;font-size:13px;margin:14px 0;border-radius:8px;overflow:hidden}
+.ace-post .riemann-table th{background:var(--navy);color:#fff;padding:10px 14px;font-size:11px;font-weight:700;letter-spacing:.5px;text-align:center}
+.ace-post .riemann-table td{padding:10px 14px;border-bottom:1px solid var(--border);text-align:center}
+.ace-post .riemann-table tr:nth-child(even) td{background:var(--gray)}
+.ace-post .riemann-over{color:var(--red);font-weight:700}
+.ace-post .riemann-under{color:var(--green);font-weight:700}
+.ace-post .sdt-box{background:#f0f4ff;border:2px solid var(--blue);border-radius:10px;padding:20px 22px;margin:20px 0}
+.ace-post .sdt-box-ttl{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--blue);margin-bottom:12px}
+.ace-post .sdt-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:10px}
+.ace-post .sdt-cell{background:#fff;border-radius:6px;padding:12px 14px;border:1px solid var(--border);text-align:center}
+.ace-post .sdt-cond{font-size:11px;font-weight:700;color:var(--blue);margin-bottom:4px}
+.ace-post .sdt-res{font-size:12px;color:var(--navy);font-weight:600}
+.ace-post .sdt-note{font-size:11px;color:var(--muted);margin-top:4px}
+@media(max-width:560px){
+  .ace-post .sdt-grid{grid-template-columns:1fr}
+  .ace-post .compare{grid-template-columns:1fr}
+  .ace-post .riemann-table td,.ace-post .riemann-table th{padding:8px 8px;font-size:12px}
+}
+</style>
+
+<div class="ace-post">
+  <div style="padding:0 32px">
+
+    <!-- TABLE OF CONTENTS -->
+    <div class="toc">
+      <div class="toc-ttl">Jump to what you need</div>
+      <ol>
+        <li><a href="#what-it-means">What Concavity Actually Means (Not the Bowl Shape)</a></li>
+        <li><a href="#aroc-iroc">The AROC/IROC Frame: Why f''(x) Is the Real Story</a></li>
+        <li><a href="#method">How to Find Concavity and Inflection Points: Step-by-Step</a></li>
+        <li><a href="#example-1">Worked Example 1: Full Concavity Analysis on f(x) = x&#8308; &minus; 4x&#179;</a></li>
+        <li><a href="#example-2">Worked Example 2: SDT + Riemann Sum Connection (FRQ Level)</a></li>
+        <li><a href="#mid-cta">Get the Free Review Sheet</a></li>
+        <li><a href="#mistakes">The 3 Mistakes That Cost AP Points</a></li>
+        <li><a href="#practice">Practice Problems</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="#quick-reference">Quick Reference Box</a></li>
+      </ol>
+    </div>
+
+  </div>
+
+  <!-- INTRO -->
+  <div class="sec" id="intro">
+    <!-- HOOK TYPE: uncomfortable-truth -->
+    <p>You know what a "smiley face" graph looks like. You know what a "frown" looks like. And if that is all you have, you are one wrong MCQ answer away from wondering how you missed something you definitely learned.</p>
+
+    <p>Concavity is not a shape. It is a statement about how fast the slope is changing. That distinction is the entire difference between a student who recognizes a concavity problem on sight and one who draws a bowl with their pencil and hopes for the best.</p>
+
+    <p>The AP exam does not ask you to identify shapes. It asks you to use concavity as a tool. Specifically: to apply the Second Derivative Test to classify critical points, to determine whether a Riemann sum overestimates or underestimates, and to locate inflection points accurately. Three different question types. All rooted in the same concept. Most students only ever learn the bowl version.</p>
+
+    <p>I see it constantly. Students score 80s and 90s on unit tests, then freeze on the MCQ because the graph looks slightly different from the practice packet. That is the gap concavity creates when you learn it by shape instead of by rate.</p>
+
+    <div class="one-liner">
+      <!-- SCREENSHOT-ABLE ONE-LINER -->
+      Concavity is not a shape you memorize &mdash; it is a rate of change you can measure and use.
+      <!-- END ONE-LINER -->
+    </div>
+  </div>
+
+  <!-- SECTION 1: WHAT IT MEANS -->
+  <div class="sec" id="what-it-means">
+    <h2>What Concavity Actually Means (Not the Bowl Shape)</h2>
+
+    <p>Every AP student has heard "concave up is a smiley face." That gets you through a quiz. It will not get you through the exam.</p>
+
+    <p>Here is the real definition. A function is <strong>concave up</strong> on an interval when $f''(x) > 0$ on that interval. That means the first derivative $f'(x)$ is increasing. The slope is going up. If you imagined walking along the curve from left to right, the ground is tilting upward.</p>
+
+    <p>A function is <strong>concave down</strong> when $f''(x) < 0$. The first derivative $f'(x)$ is decreasing. The slope is going down.</p>
+
+    <p>The bowl analogy is a consequence of this, not the definition. A curve where slope keeps increasing is going to look like the bottom of a bowl. A curve where slope keeps decreasing is going to look like a hill. The visual comes from the math, not the other way around.</p>
+
+    <div class="note">
+      <strong>My take:</strong> Learn the bowl to double-check your answer. Do not learn the bowl to find the answer.
+    </div>
+
+    <p>An <strong>inflection point</strong> is where the concavity changes. Not just where $f''(x) = 0$. Not just where $f''(x)$ does not exist. Those are candidates. An inflection point is confirmed only when $f''(x)$ changes sign at that $x$ value.</p>
+
+    <p>That one sentence is worth 3&ndash;4 MCQ points over the course of the exam. Write it down.</p>
+  </div>
+
+  <!-- SECTION 2: AROC/IROC -->
+  <div class="sec" id="aroc-iroc">
+    <h2>The AROC/IROC Frame: Why f''(x) Is the Real Story</h2>
+
+    <p>You already know this setup. The derivative $f'(x)$ gives you the instantaneous rate of change of $f(x)$. It is the slope of the tangent line at a single point.</p>
+
+    <p>Now apply that same logic one level up.</p>
+
+    <p>$f''(x)$ is the derivative of $f'(x)$. That means $f''(x)$ is the instantaneous rate of change of $f'(x)$. In plain terms: $f''(x)$ tells you how fast the slope is changing at any given moment.</p>
+
+    <div class="compare">
+      <div class="compare-side left">
+        <div class="compare-lbl aroc">AROC of slope</div>
+        <div class="compare-val">$$\frac{f'(b) - f'(a)}{b - a}$$</div>
+        <div class="compare-sub">Average rate at which slope changes over $[a, b]$</div>
+      </div>
+      <div class="compare-side">
+        <div class="compare-lbl iroc">IROC of slope = f''(x)</div>
+        <div class="compare-val">$$\lim_{h \to 0}\frac{f'(x+h)-f'(x)}{h}$$</div>
+        <div class="compare-sub">Instantaneous rate at which slope is changing at $x$</div>
+      </div>
+    </div>
+
+    <p>Why does this matter? Because it reframes what concavity means in terms you already know.</p>
+
+    <ul class="body-list">
+      <li><strong>Concave up:</strong> $f''(x) > 0$ means the IROC of slope is positive. Slope is growing. $f'(x)$ is increasing.</li>
+      <li><strong>Concave down:</strong> $f''(x) < 0$ means the IROC of slope is negative. Slope is shrinking. $f'(x)$ is decreasing.</li>
+    </ul>
+
+    <p>This is not just a conceptual note. It is directly tested on FRQ justifications. When the AP exam asks you to justify why a function is concave up on an interval, "the slope is increasing" is a scoring response. "It looks like a bowl" is not.</p>
+  </div>
+
+  <!-- SECTION 3: METHOD -->
+  <div class="sec" id="method">
+    <h2>How to Find Concavity and Inflection Points: Step-by-Step</h2>
+
+    <div class="step">
+      <div class="snum">1</div>
+      <div class="scontent">
+        <div class="slbl">Find $f''(x)$</div>
+        <p>Take the derivative of the derivative. If you have $f'(x)$ already, differentiate it. Pay attention to signs.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="snum">2</div>
+      <div class="scontent">
+        <div class="slbl">Find where $f''(x) = 0$ or is undefined</div>
+        <p>These are the only $x$ values where concavity can change. Call them candidates.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="snum">3</div>
+      <div class="scontent">
+        <div class="slbl">Build a sign chart for $f''(x)$</div>
+        <p>Pick test values in each interval. Plug into $f''(x)$. Positive means concave up. Negative means concave down.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="snum">4</div>
+      <div class="scontent">
+        <div class="slbl">Confirm inflection points with sign change</div>
+        <p>An inflection point exists at $x = c$ only if $f''(x)$ changes sign on either side of $c$. If the sign does not change, $c$ is not an inflection point, even if $f''(c) = 0$.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="snum">5</div>
+      <div class="scontent">
+        <div class="slbl">Apply the Second Derivative Test (when classifying critical points)</div>
+        <p>If $f'(c) = 0$, apply the SDT:</p>
+      </div>
+    </div>
+
+    <div class="sdt-box">
+      <div class="sdt-box-ttl">Second Derivative Test</div>
+      <div class="sdt-grid">
+        <div class="sdt-cell">
+          <div class="sdt-cond">$f'(c) = 0$ and $f''(c) > 0$</div>
+          <div class="sdt-res">Local minimum</div>
+        </div>
+        <div class="sdt-cell">
+          <div class="sdt-cond">$f'(c) = 0$ and $f''(c) < 0$</div>
+          <div class="sdt-res">Local maximum</div>
+        </div>
+        <div class="sdt-cell">
+          <div class="sdt-cond">$f'(c) = 0$ and $f''(c) = 0$</div>
+          <div class="sdt-res">Inconclusive</div>
+          <div class="sdt-note">Use First Derivative Test</div>
+        </div>
+      </div>
+      <p style="font-size:12px;color:var(--muted);margin:0">That last case is the one students skip. The AP exam gives you functions designed to test it.</p>
+    </div>
+  </div>
+
+  <!-- SECTION 4: WORKED EXAMPLE 1 -->
+  <div class="sec" id="example-1">
+    <h2>Worked Example 1: Full Concavity Analysis on $f(x) = x^4 - 4x^3$</h2>
+
+    <p>Let's work through $f(x) = x^4 - 4x^3$ completely. This function has both inflection points and a critical point where the Second Derivative Test fails. It is exactly the kind of function that shows up on free-response questions.</p>
+
+    <div class="step">
+      <div class="snum">1</div>
+      <div class="scontent">
+        <div class="slbl">Find $f'(x)$</div>
+        <div class="math-block">$$f'(x) = 4x^3 - 12x^2 = 4x^2(x - 3)$$</div>
+        <p>Critical points at $x = 0$ and $x = 3$.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="snum">2</div>
+      <div class="scontent">
+        <div class="slbl">Find $f''(x)$</div>
+        <div class="math-block">$$f''(x) = 12x^2 - 24x = 12x(x - 2)$$</div>
+        <p>$f''(x) = 0$ at $x = 0$ and $x = 2$. These are candidates for inflection points.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="snum">3</div>
+      <div class="scontent">
+        <div class="slbl">Sign chart for $f''(x)$</div>
+        <table class="sign-table">
+          <tr>
+            <th>Interval</th>
+            <th>Test value</th>
+            <th>$f''$ value</th>
+            <th>Concavity</th>
+          </tr>
+          <tr>
+            <td>$x &lt; 0$</td>
+            <td>$x = -1$</td>
+            <td class="sign-pos">$12(-1)(-3) = 36 > 0$</td>
+            <td>Concave up</td>
+          </tr>
+          <tr>
+            <td>$0 &lt; x &lt; 2$</td>
+            <td>$x = 1$</td>
+            <td class="sign-neg">$12(1)(-1) = -12 &lt; 0$</td>
+            <td>Concave down</td>
+          </tr>
+          <tr>
+            <td>$x &gt; 2$</td>
+            <td>$x = 3$</td>
+            <td class="sign-pos">$12(3)(1) = 36 > 0$</td>
+            <td>Concave up</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="snum">4</div>
+      <div class="scontent">
+        <div class="slbl">Confirm inflection points</div>
+        <p><strong>At $x = 0$:</strong> $f''$ changes sign from positive to negative. Sign change confirmed. Inflection point at $(0, 0)$.</p>
+        <p><strong>At $x = 2$:</strong> $f''$ changes sign from negative to positive. Sign change confirmed. Inflection point at $(2, 2^4 - 4(2)^3) = (2, 16 - 32) = (2, -16)$.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="snum">5</div>
+      <div class="scontent">
+        <div class="slbl">Apply SDT at the critical points</div>
+        <p><strong>At $x = 0$:</strong> $f'(0) = 0$ and $f''(0) = 0$. The SDT is inconclusive.</p>
+        <p>Back to the First Derivative Test. Look at $f'(x) = 4x^2(x-3)$ on either side of $x = 0$:</p>
+        <ul class="body-list">
+          <li>$x = -0.5$: $f'(-0.5) = 4(0.25)(-3.5) = -3.5 &lt; 0$</li>
+          <li>$x = 0.5$: $f'(0.5) = 4(0.25)(-2.5) = -2.5 &lt; 0$</li>
+        </ul>
+        <p>Same sign on both sides. No sign change. $x = 0$ is not a local extremum.</p>
+        <p><strong>At $x = 3$:</strong> $f'(3) = 0$ and $f''(3) = 12(3)(1) = 36 > 0$. Local minimum at $x = 3$. The SDT works here.</p>
+      </div>
+    </div>
+
+    <!-- Desmos Graph -->
+    <div class="desmos-wrap">
+      <div class="desmos-label">
+        <div class="desmos-dot"></div>
+        INTERACTIVE GRAPH: f(x) = x&#8308; &minus; 4x&#179; with f''(x) overlay
+      </div>
+      <div id="graph-ex1" style="width:100%;height:320px"></div>
+    </div>
+
+    <div class="rubric">
+      <div class="rubric-ttl">AP Scoring: Here is exactly how the AP exam scores this type of problem</div>
+      <ul>
+        <li><strong>Point 1</strong> -- Correct computation of $f''(x)$: show your algebra clearly. Do not skip differentiation steps.</li>
+        <li><strong>Point 2</strong> -- Inflection point identification: you must show the sign chart or equivalent evidence that $f''(x)$ changes sign. Writing "$f''(x) = 0$ at $x = 2$" alone does not earn the justification point.</li>
+        <li><strong>Point 3</strong> -- Classification at $x = 3$: state $f''(3) > 0$ and therefore local min. If SDT was inconclusive, the grader expects FDT work in its place.</li>
+      </ul>
+      <div class="rubric-note">Common partial credit trap: students earn Points 1 and 3 but lose Point 2 because they list inflection points without sign change evidence. One sentence with labeled test values is all you need.</div>
+    </div>
+  </div>
+
+  <!-- MID-POST CTA -->
+  <div style="padding:0 32px" id="mid-cta">
+    <div class="cta">
+      <h3>Get the Free AP Calculus Review Sheet</h3>
+      <p>Every Unit 5 topic in one place. Concavity, the SDT, inflection points, related rates, optimization. Free download, no login required.</p>
+      <a class="btn" href="https://enginearu.com/the-ultimate-ap-calculus-review-sheet/">Get the Free Review Sheet</a>
+      <div class="sub"><em>Parents: the review sheet covers every major topic from Units 1 through 8, organized by AP exam weight. Fastest way to see exactly what your student needs before the test.</em></div>
+    </div>
+  </div>
+
+  <!-- SECTION 5: WORKED EXAMPLE 2 -->
+  <div class="sec" id="example-2">
+    <h2>Worked Example 2: SDT, Inflection Points, and Riemann Sum Connection (FRQ Level)</h2>
+
+    <p>This is the version that shows up on the actual exam. It connects 3 ideas in one problem. I see this tested almost every year in some form.</p>
+
+    <div class="note" style="margin-bottom:16px">
+      <strong>Problem setup:</strong> Let $g(x) = x^3 - 6x^2 + 9x + 1$.<br><br>
+      (a) Find all intervals where $g$ is concave up and concave down.<br>
+      (b) Identify all inflection points. Justify.<br>
+      (c) A student approximates $\int_0^2 g(x)\,dx$ using a Midpoint Riemann sum with 2 equal subintervals. Is this an overestimate or underestimate? Justify.
+    </div>
+
+    <h3>Part (a): Concavity Intervals</h3>
+
+    <div class="math-block">$$g'(x) = 3x^2 - 12x + 9$$</div>
+    <div class="math-block">$$g''(x) = 6x - 12 = 6(x - 2)$$</div>
+
+    <p>$g''(x) = 0$ at $x = 2$.</p>
+
+    <table class="sign-table">
+      <tr>
+        <th>Interval</th>
+        <th>Test value</th>
+        <th>$g''$ value</th>
+        <th>Concavity</th>
+      </tr>
+      <tr>
+        <td>$x &lt; 2$</td>
+        <td>$x = 1$</td>
+        <td class="sign-neg">$6(1) - 12 = -6 &lt; 0$</td>
+        <td>Concave down on $(-\infty, 2)$</td>
+      </tr>
+      <tr>
+        <td>$x &gt; 2$</td>
+        <td>$x = 3$</td>
+        <td class="sign-pos">$6(3) - 12 = 6 > 0$</td>
+        <td>Concave up on $(2, \infty)$</td>
+      </tr>
+    </table>
+
+    <h3>Part (b): Inflection Point</h3>
+
+    <p>At $x = 2$, $g''$ changes sign from negative to positive. Inflection point confirmed.</p>
+    <div class="math-block">$$g(2) = 8 - 24 + 18 + 1 = 3$$</div>
+    <p>Inflection point at $(2, 3)$.</p>
+
+    <h3>Part (c): Midpoint Riemann Sum -- Overestimate or Underestimate?</h3>
+
+    <p>On $[0, 2]$, a Midpoint sum with 2 equal subintervals uses $x = 0.5$ and $x = 1.5$ as sample points (midpoints of $[0,1]$ and $[1,2]$).</p>
+
+    <div class="math-block">
+      $$g(0.5) = (0.5)^3 - 6(0.5)^2 + 9(0.5) + 1 = 0.125 - 1.5 + 4.5 + 1 = 4.125$$
+    </div>
+    <div class="math-block">
+      $$g(1.5) = (1.5)^3 - 6(1.5)^2 + 9(1.5) + 1 = 3.375 - 13.5 + 13.5 + 1 = 4.375$$
+    </div>
+    <div class="math-block">
+      $$M_2 = g(0.5)(1) + g(1.5)(1) = 4.125 + 4.375 = 8.5$$
+    </div>
+
+    <p>Now, is 8.5 an overestimate or underestimate?</p>
+
+    <p>On $[0, 2]$: $g''(x) = 6x - 12 &lt; 0$ for all $x &lt; 2$. The function is <strong>concave down</strong> on the entire interval $[0, 2]$.</p>
+
+    <table class="riemann-table">
+      <tr>
+        <th>Concavity</th>
+        <th>Trapezoidal Rule</th>
+        <th>Midpoint Rule</th>
+      </tr>
+      <tr>
+        <td><strong>Concave up</strong> ($f'' > 0$)</td>
+        <td class="riemann-over">Overestimates</td>
+        <td class="riemann-under">Underestimates</td>
+      </tr>
+      <tr>
+        <td><strong>Concave down</strong> ($f'' &lt; 0$)</td>
+        <td class="riemann-under">Underestimates</td>
+        <td class="riemann-over">Overestimates</td>
+      </tr>
+    </table>
+
+    <p>Since $g$ is concave down on $[0, 2]$, the Midpoint sum of 8.5 is an <strong>overestimate</strong>.</p>
+
+    <p>Why? On a concave down curve, the tangent line at any point lies above the curve. The Midpoint rectangle uses the function height at the center of each subinterval. That height corresponds to a point on the curve, but the curve is bending away from the rectangles. The rectangles stick up above the curve.</p>
+
+    <div class="rubric">
+      <div class="rubric-ttl">AP Scoring: Here is exactly what the AP exam is checking on this problem type</div>
+      <ul>
+        <li><strong>Part (a)</strong> -- You need $g''(x)$ computed correctly and a sign analysis with stated intervals in interval notation.</li>
+        <li><strong>Part (b)</strong> -- The key phrase: "g''(x) changes from negative to positive at x = 2, so there is an inflection point at (2, 3)." State both coordinates.</li>
+        <li><strong>Part (c)</strong> -- Cite concavity as justification: "Since $g$ is concave down on $[0,2]$, the Midpoint Riemann sum overestimates the integral." That sentence is the complete scoring justification. Showing arithmetic is not required for this point, but it demonstrates command of the method.</li>
+      </ul>
+      <div class="rubric-note">Partial credit note: many students earn Parts (a) and (b) but write "the sum is larger than the actual area" for Part (c) without citing concavity. That is not a scoring justification on its own.</div>
+    </div>
+  </div>
+
+  <!-- SECTION 6: 3 MISTAKES -->
+  <div class="sec" id="mistakes">
+    <h2>The 3 Mistakes That Cost AP Points</h2>
+
+    <div class="mk">
+      <div class="mk-n">Mistake 1: Calling f''(c) = 0 an inflection point without checking sign change</div>
+      <div class="mk-w">Why it happens: The procedure says "set f'' equal to zero," so students stop there.</div>
+      <div class="mk-f">Setting $f''(x) = 0$ gives candidates, not conclusions. You must verify the sign of $f''$ on both sides. If the sign does not change, there is no inflection point at that $x$ value.</div>
+      <div class="mk-c">Consequence: You list an inflection point that does not exist, lose the justification point, and possibly misclassify a nearby critical point. One gap, three point losses.</div>
+    </div>
+
+    <div class="mk">
+      <div class="mk-n">Mistake 2: Stopping at "f''(c) = 0, test inconclusive" without running the FDT</div>
+      <div class="mk-w">Why it happens: Students learn the SDT, get an inconclusive result, and consider the problem finished.</div>
+      <div class="mk-f">When $f''(c) = 0$, you get zero information from the SDT. You must follow up with the First Derivative Test. Examine the sign of $f'$ on each side of $x = c$. The AP exam designs problems like $f(x) = x^4 - 4x^3$ specifically to catch students who stop early.</div>
+      <div class="mk-c">Consequence: A student who writes "SDT inconclusive" and moves on earns zero on that scoring point. A student who runs the FDT earns the point.</div>
+    </div>
+
+    <div class="mk">
+      <div class="mk-n">Mistake 3: Flipping the Riemann sum rule for concavity</div>
+      <div class="mk-w">Why it happens: There are two methods (Trapezoidal and Midpoint) and two directions (over/under), and they go in opposite directions for each type of concavity.</div>
+      <div class="mk-f">I get this wrong too when I rush. The clean version: concave up means Trapezoidal overestimates and Midpoint underestimates. Concave down flips both. Write it on your formula sheet and keep the table above open during practice.</div>
+      <div class="mk-c">Name the feeling: this is the mistake that hits on the last MCQ of a section when you are tired. You know the connection exists but you flip the direction. Costs one question, which on this exam matters.</div>
+    </div>
+  </div>
+
+  <!-- SECTION 7: PRACTICE PROBLEMS -->
+  <div class="sec" id="practice">
+    <h2>Practice Problems</h2>
+
+    <p>Three problems. Work them before reading the answers.</p>
+
+    <div class="prob">
+      <div class="plbl">Problem 1</div>
+      <p>Let $h(x) = x^3 - 3x^2 - 9x + 5$.</p>
+      <p>Find all inflection points of $h$. Justify your answer.</p>
+    </div>
+
+    <div class="prob">
+      <div class="plbl">Problem 2</div>
+      <p>Let $f(x) = x^4 - 8x^2$.</p>
+      <p>(a) Find all intervals where $f$ is concave up and concave down.</p>
+      <p>(b) Use the Second Derivative Test to classify each critical point. If the SDT is inconclusive at a critical point, state that and use the FDT instead.</p>
+    </div>
+
+    <div class="prob">
+      <div class="plbl">Problem 3 (MCQ style)</div>
+      <p>The function $k$ is twice differentiable and $k''(x) > 0$ for all $x$ in $[1, 4]$. A student uses the Trapezoidal Rule with 3 equal subintervals to approximate $\int_1^4 k(x)\,dx$. Which of the following is true?</p>
+      <p>(A) The approximation is an overestimate.<br>
+         (B) The approximation is an underestimate.<br>
+         (C) The approximation equals the exact value.<br>
+         (D) The relationship cannot be determined.</p>
+    </div>
+
+    <div class="answers">
+      <div class="ans-ttl">Answers</div>
+
+      <div class="ans-item">
+        <strong>Problem 1:</strong>
+        $h''(x) = 6x - 6 = 6(x - 1)$. Zero at $x = 1$. Sign check: $h''(0) = -6 &lt; 0$, $h''(2) = 6 > 0$. Sign changes. Inflection point at $x = 1$.
+        $h(1) = 1 - 3 - 9 + 5 = -6$. Inflection point at $(1, -6)$.
+      </div>
+
+      <div class="ans-item">
+        <strong>Problem 2:</strong>
+        $f'(x) = 4x^3 - 16x = 4x(x-2)(x+2)$. Critical points: $x = -2, 0, 2$.
+        $f''(x) = 12x^2 - 16$. Zeros at $x = \pm\frac{2}{\sqrt{3}} \approx \pm 1.155$.
+        Concave up on $(-\infty, -1.155)$ and $(1.155, \infty)$. Concave down on $(-1.155, 1.155)$.
+        SDT: $f''(-2) = 32 > 0$ (local min). $f''(0) = -16 &lt; 0$ (local max). $f''(2) = 32 > 0$ (local min).
+      </div>
+
+      <div class="ans-item">
+        <strong>Problem 3: (A)</strong>
+        $k''(x) > 0$ on $[1, 4]$ means $k$ is concave up. The Trapezoidal Rule overestimates when the function is concave up.
+      </div>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <div class="sec" id="faq">
+    <h2>FAQ</h2>
+
+    <div class="faq-list">
+
+      <details class="faq-item">
+        <summary>
+          <span class="faq-q-label">Q</span>
+          Can a function have f''(c) = 0 without having an inflection point at x = c?
+          <span class="faq-toggle">+</span>
+        </summary>
+        <div class="faq-a">
+          <p>Yes. $f(x) = x^4$ is the classic example. $f''(x) = 12x^2$, so $f''(0) = 0$. But $f''(x) > 0$ on both sides of $x = 0$. No sign change. No inflection point. In my experience, the AP exam tests this exact scenario at least once per exam year, usually in MCQ Section I. Always check the sign of $f''$ on both sides before calling anything an inflection point.</p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>
+          <span class="faq-q-label">Q</span>
+          How do I justify an inflection point on the FRQ?
+          <span class="faq-toggle">+</span>
+        </summary>
+        <div class="faq-a">
+          <p>Two things. First, state that $f''(c) = 0$ (or does not exist). Second, show that $f''$ changes sign at $x = c$ by evaluating $f''$ on both sides. A sign chart with labeled test values is accepted. One sentence like "Since $f''$ changes from negative to positive at $x = 2$, there is an inflection point at $x = 2$" earns the justification point. You also need to state the coordinates of the inflection point, not just the $x$ value.</p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>
+          <span class="faq-q-label">Q</span>
+          When does the Second Derivative Test fail?
+          <span class="faq-toggle">+</span>
+        </summary>
+        <div class="faq-a">
+          <p>It fails when $f''(c) = 0$ at a critical point. At that point, you get no information from the SDT. Use the First Derivative Test instead: examine the sign of $f'$ on each side of $x = c$. If $f'$ changes from negative to positive, local min. If positive to negative, local max. If no sign change, neither. The function $f(x) = x^4 - 4x^3$ at $x = 0$ is the worked example of this in the post above.</p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>
+          <span class="faq-q-label">Q</span>
+          Does the Midpoint Rule always underestimate?
+          <span class="faq-toggle">+</span>
+        </summary>
+        <div class="faq-a">
+          <p>No. That is a very common misconception. The Midpoint Rule underestimates only when the function is concave up. It overestimates when the function is concave down. If concavity changes over the interval, you cannot make a general claim without more analysis. This distinction is tested directly on AP MCQ questions, usually with a function whose concavity is stated explicitly in the problem.</p>
+        </div>
+      </details>
+
+    </div>
+
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Can a function have f''(c) = 0 without having an inflection point at x = c?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. f(x) = x^4 is the classic example. f''(x) = 12x^2, so f''(0) = 0, but f''(x) is positive on both sides of x = 0. No sign change means no inflection point. The AP exam tests this scenario regularly, usually in the multiple choice section. Always check the sign of f'' on both sides before calling anything an inflection point."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I justify an inflection point on the FRQ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "State that f''(c) = 0 or is undefined, then show that f'' changes sign at x = c by evaluating f'' on both sides. A sign chart with labeled test values is accepted. One clear sentence confirming the sign change earns the justification point on the AP rubric. Also state the coordinates of the inflection point, not just the x value."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "When does the Second Derivative Test fail?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The Second Derivative Test fails when f''(c) = 0 at a critical point. The test gives no information in that case. Use the First Derivative Test instead: check whether f'(x) changes sign on either side of x = c to determine if the point is a local max, local min, or neither."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does the Midpoint Rule always underestimate?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. The Midpoint Rule underestimates only when the function is concave up on the interval. It overestimates when the function is concave down. If concavity changes over the interval, you cannot make a general claim without more analysis. This distinction is tested directly on AP MCQ questions."
+      }
+    }
+  ]
+}
+    </script>
+  </div>
+
+  <!-- QUICK REFERENCE BOX -->
+  <div style="padding:0 32px" id="quick-reference">
+    <div class="qr">
+      <div class="qr-ttl">Quick Reference: Concavity and Inflection Points</div>
+
+      <div class="qrf">
+        <div class="qrf-lbl">Concavity rule</div>
+        <p style="color:#fff;font-size:13px;margin:0">$f''(x) > 0$ on an interval <span style="color:var(--accent)">&#8594; concave up</span> (slope increasing)<br>$f''(x) &lt; 0$ on an interval <span style="color:var(--accent)">&#8594; concave down</span> (slope decreasing)</p>
+      </div>
+
+      <div class="qrf">
+        <div class="qrf-lbl">Inflection point confirmation</div>
+        <p style="color:#fff;font-size:13px;margin:0">$f''(c) = 0$ (or undefined) AND $f''$ changes sign at $x = c$</p>
+      </div>
+
+      <div class="qrf">
+        <div class="qrf-lbl">Second Derivative Test</div>
+        <p style="color:#fff;font-size:13px;margin:0">$f'(c) = 0$ and $f''(c) > 0$ &#8594; local min<br>$f'(c) = 0$ and $f''(c) &lt; 0$ &#8594; local max<br>$f'(c) = 0$ and $f''(c) = 0$ &#8594; inconclusive, use FDT</p>
+      </div>
+
+      <div class="qrf">
+        <div class="qrf-lbl">Riemann sums and concavity</div>
+        <p style="color:#fff;font-size:13px;margin:0">Concave up: Trap overestimates, Midpoint underestimates<br>Concave down: Trap underestimates, Midpoint overestimates</p>
+      </div>
+
+      <ul class="qrb">
+        <li>Inflection point requires sign change in $f''$, not just $f''(c) = 0$</li>
+        <li>$f''(x)$ = IROC of slope = rate of change of $f'(x)$</li>
+        <li>SDT inconclusive when $f''(c) = 0$ at a critical point</li>
+        <li>State both coordinates $(x, y)$ for every inflection point on the FRQ</li>
+        <li class="nv">Never call $f''(c) = 0$ an inflection point without a sign chart</li>
+        <li class="nv">Never stop at "SDT inconclusive" without running the FDT</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- RELATED POSTS -->
+  <div class="sec">
+    <h2>Related Posts</h2>
+    <a class="related-link" href="https://enginearu.com/ap-calculus-prep/what-is-a-derivative-ap-calculus/">What Is a Derivative in AP Calculus? &mdash; Post 01</a>
+    <a class="related-link" href="https://enginearu.com/ap-calculus-prep/unit-5-analytical-applications/mean-value-theorem-ap-calculus/">Mean Value Theorem in AP Calculus &mdash; Post 07</a>
+    <a class="related-link" href="https://enginearu.com/ap-calculus-prep/unit-5-analytical-applications/optimization-ap-calculus-problems/">Optimization Problems in AP Calculus &mdash; Post 12</a>
+    <a class="related-link" href="#">First and Second Derivative Test in AP Calculus <span class="related-draft">(Post 18 &mdash; coming soon)</span></a>
+  </div>
+
+  <!-- END CTA -->
+  <div style="padding:0 32px 40px">
+    <div class="sea">
+      <h3>Get the Free AP Calculus Review Sheet</h3>
+      <p>Every Unit 5 topic in one place. Concavity, inflection points, the SDT, optimization, and more. Free download. No login.</p>
+      <p>If concavity clicked today, the review sheet will reinforce it with every other topic that shows up on the exam.</p>
+      <a class="btn-w" href="https://enginearu.com/the-ultimate-ap-calculus-review-sheet/">Get the Free Review Sheet</a>
+      <p style="font-size:11px;color:#5a4500;margin-top:12px;font-style:italic"><em>Parents: this covers Units 1 through 8 organized by AP exam weight. It is the fastest orientation tool before a major test.</em></p>
+    </div>
+  </div>
+
+</div>
+<!-- END .ace-post -->
+
+<script>
+(function() {
+  // Desmos interactive graph for Worked Example 1
+  var elt = document.getElementById('graph-ex1');
+  if (elt && typeof Desmos !== 'undefined') {
+    var calc = Desmos.GraphingCalculator(elt, {
+      expressionKeyboard: false,
+      settingsMenu: false,
+      zoomButtons: true,
+      lockViewport: false
+    });
+    calc.setMathBounds({ left: -2, right: 5, bottom: -35, top: 10 });
+    calc.setExpressions([
+      { id: 'f', latex: 'f(x) = x^4 - 4x^3', color: '#0f1e3c', label: 'f(x) = x⁴ - 4x³' },
+      { id: 'fpp', latex: 'g(x) = 12x^2 - 24x', color: '#e8a020', lineStyle: Desmos.Styles.DASHED, label: "f''(x) = 12x² - 24x" },
+      { id: 'ip1', latex: '(0, 0)', color: '#e8a020', label: 'Inflection (0,0)', showLabel: true },
+      { id: 'ip2', latex: '(2, -16)', color: '#e8a020', label: 'Inflection (2,-16)', showLabel: true },
+      { id: 'lm', latex: '(3, -27)', color: '#1a7a4a', label: 'Local Min (3,-27)', showLabel: true }
+    ]);
+  }
+
+  // FAQ toggle labels
+  var items = document.querySelectorAll('.faq-item');
+  items.forEach(function(item) {
+    var toggle = item.querySelector('.faq-toggle');
+    if (!toggle) return;
+    item.addEventListener('toggle', function() {
+      toggle.textContent = item.open ? '-' : '+';
+    });
+  });
+})();
+</script>
+
+<!-- ===================================================================
+     ▲▲▲ END: WORDPRESS CUSTOM HTML BLOCK ▲▲▲
+     =================================================================== -->
+
+</div>
+<!-- END .page -->
+</body>
+</html>
